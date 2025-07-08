@@ -5,8 +5,8 @@
     flex-direction: column;
     width: 100vw;
     overflow-x: hidden;
-    height: 10000px;
     min-height: 100%;
+    background-color: #081328;
 }
 
 .outlet{

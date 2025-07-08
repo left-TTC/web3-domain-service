@@ -1,0 +1,26 @@
+
+
+.browserdomain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+}
+
+.browserDomainModule{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    background-color: rebeccapurple;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .browserdomain{
+        padding: 100px;
+        color: white;
+        font-size: 100px;
+    }
+}

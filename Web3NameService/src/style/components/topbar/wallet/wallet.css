@@ -1,0 +1,86 @@
+
+
+.wallet{
+    background-color: #313e43;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 2px solid #B4FC75;
+    padding: 0;
+    overflow: hidden;
+}
+
+.walletconnect{
+    background-color: #B4FC75;
+    width: 100%;
+}
+
+.wallet h1{
+    color: white;
+}
+
+.walletConnected{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.walletusericon{
+    background-image: url("/usr/usricon.png");
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    background-size: 200%;  
+}
+
+.walletarray{
+    border-radius: 50%;
+    background-color: #434C52;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(180deg);
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .wallet{
+        width: 220px;
+        height: 66%;
+        border-radius: 10px;
+    }
+
+    .walletusericon{
+        width: 24px;
+        height: 24px;
+    }
+
+    .walletConnected h1{
+        font-size: 17px;
+        font-weight: 400;
+    }
+
+    .walletconnect{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .walletconnect h1{
+        color: black;
+        font-size: 20px;
+        font-weight: 440;
+    }
+
+    .walletarray{
+        height: 20px;
+        width: 20px;
+    }
+
+    .arrayicon{
+        width: 16px;
+    }
+}

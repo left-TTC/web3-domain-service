@@ -1,9 +1,8 @@
-import { useTranslation } from "react-i18next";
 import Wallet from "./topbar/wallet/wallet";
 
 
-import "@/style/components/topbar.css"
-import { useState } from "react";
+import "@/style/components/topbar/topbar.css"
+import { useRef, useState } from "react";
 import WalletDropDownBox from "./topbar/wallet/walletDropDownBox";
 import WalletChooser from "./topbar/wallet/walletChoose";
 
@@ -11,19 +10,32 @@ import WalletChooser from "./topbar/wallet/walletChoose";
 
 export default function Topbar() {
 
-    const {t} = useTranslation();
 
     const [showWalletDrop, setShowWalletDrop] = useState(false);
     const [showWalletChooser, setShowWalletChooser] = useState(false);
+
+    const walletRef = useRef<HTMLButtonElement | null>(null);
     
     return(
         <div className="topbar">
             <div className="topbarwalletblcok">
-                <Wallet ifShowDropBox={showWalletDrop} setDropBox={setShowWalletDrop} setWalletChooser={setShowWalletChooser}/>
+                <Wallet 
+                    ifShowDropBox={showWalletDrop} 
+                    setDropBox={setShowWalletDrop} 
+                    setWalletChooser={setShowWalletChooser} 
+                    walletRef={walletRef}
+                />
                 {showWalletDrop &&
-                    <WalletDropDownBox />
-                }
+                    <WalletDropDownBox 
+                        walletRef={walletRef} 
+                        ifWalletDropDownShow={showWalletDrop} 
+                        setDropDownBox={setShowWalletDrop} 
+                        setWalletChoose={setShowWalletChooser}
+                    />                
+                }    
             </div>
+
+            {/* fixed components */}
             {showWalletChooser &&
                 <WalletChooser setChooserOpen={setShowWalletChooser}/>
             }

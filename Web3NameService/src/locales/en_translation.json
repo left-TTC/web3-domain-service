@@ -1,5 +1,8 @@
 
 
 {
-    "chooseWallet": "Please chooose a wallet frist"
+    "chooseWallet": "Please chooose a wallet frist",
+    "changeWallet": "Change Wallet",
+    "disconnect": "Disconnect",
+    "connect": "Connect Wallet"
 }

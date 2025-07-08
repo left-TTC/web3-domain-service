@@ -1,32 +1,35 @@
 
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 
+import array from "@/assets/array.svg"
 
-
-import "@/style/components/wallet/wallet.css"
+import "@/style/components/topbar/wallet/wallet.css"
 import { cutString } from "@/utils/functional/cutString";
+import { animate } from "animejs";
 
 export interface WalletProps{
     ifShowDropBox: boolean,
     setDropBox: React.Dispatch<React.SetStateAction<boolean>>,
     setWalletChooser: React.Dispatch<React.SetStateAction<boolean>>,
+    walletRef: React.RefObject<HTMLButtonElement | null>,
 }
 
-const Wallet: React.FC<WalletProps> = ({ifShowDropBox, setDropBox, setWalletChooser}) => {
+const Wallet: React.FC<WalletProps> = ({
+    ifShowDropBox, setDropBox, setWalletChooser, walletRef
+}) => {
 
     const {t} = useTranslation();
     
+    const arrayRef = useRef<HTMLDivElement | null> (null);
 
     //wallet's function
     const {
         //function to connect wallet`
         connect,
-        disconnect,
         connected,
-        connecting,
         publicKey,
         wallet,
     } = useWalletEnv();
@@ -39,9 +42,25 @@ const Wallet: React.FC<WalletProps> = ({ifShowDropBox, setDropBox, setWalletChoo
         }
     }, [connected]);
 
-    const walletClick = () => {
+    useEffect(() => {
+        const array = arrayRef.current;
+        if(array && ifShowDropBox){
+            animate(array, {
+                rotate: '180deg',
+                duration: 100,
+            })
+        }else if(array){
+            animate(array, {
+                rotate: '360deg',
+                duration: 100,
+            })
+        }
+    }, [ifShowDropBox])
+
+    const walletClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
         if(connected){
-            setDropBox(!ifShowDropBox);
+            setDropBox(prev => !prev);
         }else{
             if(!wallet){
                 setWalletChooser(true);
@@ -52,13 +71,21 @@ const Wallet: React.FC<WalletProps> = ({ifShowDropBox, setDropBox, setWalletChoo
     }
 
     return(
-        <button className="wallet" onClick={walletClick}>
+        <button className="wallet" onClick={walletClick} ref={walletRef}>
             {connected ?
                 (
-                    <h1>{walletAddress}</h1>
+                    <div className="walletConnected">
+                        <div className="walletusericon" />
+                        <h1>{walletAddress}</h1>
+                        <div className="walletarray" ref={arrayRef}>
+                            <img src={array} className="arrayicon"/>
+                        </div>
+                    </div>
                 ) :
                 (
-                    <h1>connect</h1>
+                    <div className="walletconnect">
+                        <h1>{t("connect")}</h1>
+                    </div>
                 )
             }      
         </button>

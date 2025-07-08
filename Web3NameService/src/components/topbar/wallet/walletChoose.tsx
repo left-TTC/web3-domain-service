@@ -2,7 +2,7 @@ import { useWallet } from "@solana/wallet-adapter-react"
 import { useTranslation } from "react-i18next";
 import { type WalletName } from '@solana/wallet-adapter-base';
 
-import "@/style/components/wallet/walletChoose.css"
+import "@/style/components/topbar/wallet/walletChoose.css"
 
 import exit from "@/assets/exit.svg"
 
