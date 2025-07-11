@@ -7,7 +7,7 @@ import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 import array from "@/assets/array.svg"
 
 import "@/style/components/topbar/wallet/wallet.css"
-import { cutString } from "@/utils/functional/cutString";
+import { cutString } from "@/utils/functional/common/cutString";
 import { animate } from "animejs";
 
 export interface WalletProps{

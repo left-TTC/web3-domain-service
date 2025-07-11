@@ -4,5 +4,13 @@
     "chooseWallet": "Please chooose a wallet frist",
     "changeWallet": "Change Wallet",
     "disconnect": "Disconnect",
-    "connect": "Connect Wallet"
+    "connect": "Connect Wallet",
+    "web3domain": "Web3 Domain In AnyWhere",
+    "permanent": "Get your permanent domain",
+    "startquery": "Start Web3 Domain Query",
+    "chooseprefer": "Choose a preferred root domain",
+    "queryname": "Then search for the desired domain name",
+    "active": "active",
+    "notyoulike": "Don't have the root domain you like?",
+    "clickcreate": "Click here to create your preferred root domain"
 }
