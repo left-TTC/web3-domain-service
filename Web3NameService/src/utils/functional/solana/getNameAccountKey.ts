@@ -7,8 +7,8 @@ import { Buffer } from "buffer";
 
 export function getNameAccountKey(
     hashed_name: Buffer,
-    nameClassKey: PublicKey | null,
-    nameParentKey: PublicKey | null,
+    nameClassKey: PublicKey | null = null,
+    nameParentKey: PublicKey | null = null,
 ): PublicKey {
     const seeds  = [hashed_name];
 

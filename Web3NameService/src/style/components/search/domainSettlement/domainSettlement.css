@@ -1,0 +1,60 @@
+
+.settlement{
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #081328;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.domainandpayment{
+    margin-top: 100px;
+    width: 1100px;
+}
+
+.settlementback{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    background-color: #081328;
+    opacity: 0.8;
+}
+
+.settlementback:hover{
+    opacity: 1;
+}
+
+.domainName{
+    width: 1100px;
+}
+
+.domainName h1{
+    margin: 0;
+    font-weight: 480;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .settlebackicon{
+        width: 30px;
+    }
+
+    .settlementback h1{
+        font-size: 32px;
+        margin: 0;
+        padding: 0;
+        color: #E6E6E6;
+        font-weight: 500;
+    }
+
+    .domainName h1{
+        font-size: 42px;
+        padding: 20px 0 10px 30px;
+        color: white;
+    }
+}
+

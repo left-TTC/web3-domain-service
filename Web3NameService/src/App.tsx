@@ -2,6 +2,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Layout from '@/pages/layout';
 import { Index } from '@/pages';
+import { Search } from './pages/search';
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
                     <Route index element={<Index />} />
                     <Route path='#' element={<Index />} />
                     <Route path='*' element={<Index />} />
+                    <Route path='/search' element={<Search />} />
                 </Route>
             </Routes>
         </Router>

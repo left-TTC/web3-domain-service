@@ -1,0 +1,35 @@
+
+
+
+
+.SearchPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.backIndex{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    top: 20%;
+    right: 5%;
+    background-color: #B4FC75;
+}
+
+.backIndex:hover{
+    opacity: 0.9;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .bakcicon{
+        width: 30px;
+    }
+
+    .backIndex h1{
+        font-size: 32px;
+        margin: 0;
+    }
+}

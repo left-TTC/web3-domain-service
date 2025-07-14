@@ -1,4 +1,4 @@
-import type { Connection, PublicKey } from "@solana/web3.js";
+import { Connection, PublicKey } from "@solana/web3.js";
 import { ReverseKeyState } from "../functional/common/reverseKeyState";
 import { getNameAccountKey } from "../functional/solana/getNameAccountKey";
 import { getHashedName } from "../functional/solana/getHashedName";
@@ -26,7 +26,7 @@ export async function getQueryDomainInfo(
     domainBlock: string[],
     rootDomainKey: PublicKey,
     connection: Connection
-): Promise<ReverseKeyState | null> {
+): Promise<[ReverseKeyState, PublicKey] | [null, PublicKey]> {
     const domainType = checkBlockTpye(domainBlock);
 
     switch(domainType){
@@ -34,18 +34,24 @@ export async function getQueryDomainInfo(
             const checkDomain = domainBlock[0];
             const domainNameAccountKey = 
                 getNameAccountKey(getHashedName(checkDomain), null, rootDomainKey);
+
+            console.log("domain:", checkDomain)
+            console.log("hashedName:", getHashedName(checkDomain))
+            console.log("rootOpt:", rootDomainKey.toBase58())
+            console.log("PDA:", domainNameAccountKey.toBase58());
             
             const accountInfo = await connection.getAccountInfo(domainNameAccountKey);
             if(accountInfo){
-                return new ReverseKeyState(accountInfo)
+                const para1 = new ReverseKeyState(accountInfo)
+                return [para1, domainNameAccountKey]
             }
             
-            return null;
+            return [null, domainNameAccountKey];
 
         case DomainBlockType.TWO:
-            return null;
+            return [null, PublicKey.default];
 
         default:
-            return null;
+            return [null, PublicKey.default];
     }
 }

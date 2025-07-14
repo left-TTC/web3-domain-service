@@ -16,12 +16,11 @@ import 'swiper/css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Mousewheel } from 'swiper/modules';
+import { useNavigate } from "react-router-dom";
 
 export interface BrowserDomainQueryProps{
     ifShowTheQueryPage: boolean,
-    setQueryPage: React.Dispatch<React.SetStateAction<boolean>>,
-    setQueryingDoamin: React.Dispatch<React.SetStateAction<string>>,
-    setShowQueryPage: React.Dispatch<React.SetStateAction<boolean>>,
+    setQueryPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
@@ -32,14 +31,17 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
 
     const browseDomainRef = useRef<HTMLDivElement | null> (null);
     const changeRootRef = useRef<HTMLDivElement | null> (null);
+    const inputRef = useRef<HTMLInputElement | null> (null);
+    const queryRef = useRef<HTMLButtonElement | null> (null);
 
     const [shouldAnimate, setShouldAnimate] = useState(false);
     const [queryDomainValue, setQueryDomainValue] = useState("");
     const [showChangeRoot, setShowChangeRoot] = useState(true);
+    const [ifInputFocus, setIfInputFocus] = useState(false);
 
     const {
-        rootDomains, rootDomainsPubKey, activeRootDomain,
-        setActiveRootDomain, setActiveRootDomainPubkey,
+        rootDomains, activeRootDomain,
+        setActiveRootDomain,
     } = useRootDomain();
 
     useEffect(() => {
@@ -47,6 +49,21 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
             setShouldAnimate(true)
         }
     }, [ifShowTheQueryPage])
+
+    useEffect(() => {
+        inputRef.current?.focus(); 
+    }, []);
+
+    useEffect(() => {
+        const handleQuery = (e: KeyboardEvent) => {
+            if(e.key === "Enter" && ifInputFocus){
+               queryRef.current?.click(); 
+            }
+        }
+
+        window.addEventListener("keydown", handleQuery);
+        return () => window.removeEventListener("keydown", handleQuery);
+    })
 
     useEffect(() => {
         const queryPage = browseDomainRef.current;
@@ -94,8 +111,6 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     }, [])
 
     const clickSetRoot = () => {
-        
-        console.log("now:", showChangeRoot)
 
         if(showChangeRoot){
             const changeRootcurrent = changeRootRef.current;
@@ -126,7 +141,6 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
 
     const clickChooseDomain = (rootDomain: string) => {
         setActiveRootDomain(rootDomain);
-        setActiveRootDomainPubkey(rootDomainsPubKey[rootDomains.indexOf(rootDomain)]);
 
         const changeRootcurrent = changeRootRef.current;
         if(!changeRootcurrent)return;
@@ -138,7 +152,21 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
                 setShowChangeRoot(!showChangeRoot)
             }
         })
-        
+    }
+
+    const navigate = useNavigate();
+
+    const clickQueryDomian = () => {
+        if(queryDomainValue === "") return;
+
+        const queryingDomain = queryDomainValue + "." + activeRootDomain;
+        console.log("input: ", queryingDomain)
+
+        navigate("/search", {
+            state: {
+                queryingDomain: queryingDomain,
+            }
+        })
     }
 
     return(
@@ -163,12 +191,14 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
                             value={queryDomainValue}
                             onChange={handDomainInput}
                             className="querypageinput"
+                            onFocus={() => setIfInputFocus(true)}
+                            ref={inputRef}
                         />
                         <div className="querypageenter">
                             <img src={enter} className="querypagenetericon" />
                             <h1>Enter</h1>
                         </div>
-                        <button className="querypagesubmitbutton">
+                        <button className="querypagesubmitbutton" ref={queryRef} onClick={() => clickQueryDomian()}>
                             <img src={query} className="querypagequericon" />
                         </button>
                     </div>

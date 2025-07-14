@@ -12,5 +12,13 @@
     "queryname": "Then search for the desired domain name",
     "active": "active",
     "notyoulike": "Don't have the root domain you like?",
-    "clickcreate": "Click here to create your preferred root domain"
+    "clickcreate": "Click here to create your preferred root domain",
+    "search": "Search Result",
+    "available": "Domain Available",
+    "unavailable": "Domain Unavailable",
+    "regitster": "Register",
+    "owner": "Owner:",
+    "NegotiatePurchase": "Negotiate Purchase",
+    "back": "Back",
+    "payment": "Payment Method"
 }
