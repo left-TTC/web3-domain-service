@@ -23,6 +23,10 @@ export const VAULT = new PublicKey(
     "2NFji3XWVs2tb8btmGgkunjA9AFTr5x3DaTbsrZ7abGh"
 )
 
+export const TOKEN_PROGRAM_ID = new PublicKey(
+    'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'
+);
+
 export const [CENTRAL_STATE_RECORDS] = PublicKey.findProgramAddressSync(
     [WEB3_RECORDS_ID.toBuffer()],
     WEB3_RECORDS_ID

@@ -4,6 +4,95 @@
  .payemenCryptotchooser{
     display: flex;
     flex-direction: row;
-    background-color: rebeccapurple;
     width: 1100px;
+    align-items: center;
+    gap: 20px;
  }
+
+ .payemenCryptotchooser h1{
+    color: white;
+    opacity: 0.7;
+    margin: 0;
+    padding: 20px;
+    font-weight: 400;
+ }
+
+ .paymentmethod{
+    display: flex;
+    flex-direction: row;
+    background-color: #081328;
+    align-items: center;
+    gap: 10px;
+ }
+
+ .paymentmethod h1{
+    margin: 0;
+    color: white;
+    padding: 0;
+ }
+
+ .paymentactive h1{
+    opacity: 1;
+ }
+
+ .warndot{
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    opacity: 0.7;
+ }
+
+ .warndotactive{
+    background-color: #B4FC75;
+    opacity: 1;
+ }
+
+ .paymentBlock{
+    display: flex;
+    flex-direction: row;
+    width: 1100px;
+    gap: 30px;
+ }
+
+ .payfintchoose{
+    background-color: #161F2F;
+    overflow: hidden;
+ }
+
+ .totalfees{
+    background-color: #161F2F;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+ }
+
+ /*#161F2F*/
+
+ /*common computer*/
+@media (min-width: 1024px){
+    .payemenCryptotchooser h1{
+        font-size: 25px;
+    }
+
+    .payfintchoose{
+        width: 640px;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .totalfees{
+        width: 430px;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .payfintchoose h1{
+        font-size: 25px;
+        margin: 0;
+        padding: 0;
+        margin-top: 20px;
+        color: white;
+    }
+    
+}

@@ -20,5 +20,15 @@
     "owner": "Owner:",
     "NegotiatePurchase": "Negotiate Purchase",
     "back": "Back",
-    "payment": "Payment Method"
+    "payment": "Payment Method:",
+    "settlementInfo": "Settlement Information",
+    "payfint": "Pay with:",
+    "domainprice": "Domain Price:",
+    "optionaldisc": "optional discount",
+    "enterinvitation": "Enter Referral Code",
+    "verify": "Verify",
+    "bill": "Settle bills",
+    "rent": "Rent Exemption:",
+    "total": "Total:",
+    "confirm": "Confirm"
 }
