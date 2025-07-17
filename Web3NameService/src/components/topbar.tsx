@@ -5,6 +5,7 @@ import "@/style/components/topbar/topbar.css"
 import { useRef, useState } from "react";
 import WalletDropDownBox from "./topbar/wallet/walletDropDownBox";
 import WalletChooser from "./topbar/wallet/walletChoose";
+import Navigation from "./topbar/navigation/navigation";
 
 
 
@@ -18,6 +19,7 @@ export default function Topbar() {
     
     return(
         <div className="topbar">
+            <Navigation />
             <div className="topbarwalletblcok">
                 <Wallet 
                     ifShowDropBox={showWalletDrop} 

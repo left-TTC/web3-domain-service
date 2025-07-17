@@ -17,11 +17,17 @@ export enum MainFint{
     USDT = "USDT",
 }
 
-export interface CryptoProps{
-
+export enum OrtherFint{
+    FWC = "FWC",
 }
 
-const Crypto: React.FC<CryptoProps> = () => {
+export interface CryptoProps{
+    openWaitingWallet: () => void,
+}
+
+const Crypto: React.FC<CryptoProps> = ({
+    openWaitingWallet
+}) => {
 
     const {t} = useTranslation()
     const {connection} = useConnection()
@@ -71,7 +77,6 @@ const Crypto: React.FC<CryptoProps> = () => {
     }, [isReferrerFocus])
 
     const [minRent, setMinRent] = useState(0)
-    
 
     return(
         <div className="paymentBlock">
@@ -129,7 +134,7 @@ const Crypto: React.FC<CryptoProps> = () => {
                         <h1>{t("total")}</h1>
                         <h2>20 SOL</h2>
                     </div>
-                    <button className="cryptoconfirmbutton">
+                    <button className="cryptoconfirmbutton" onClick={openWaitingWallet}>
                         <h1>{t("confirm")}</h1>
                     </button>
                 </div>

@@ -167,8 +167,11 @@
 }
 
 .cryptoconfirmbutton{
-    height: 80px;
+    height: 70px;
     background-color: #B4FC75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cryptoconfirmbutton:hover{
@@ -242,5 +245,6 @@
 
     .cryptoconfirmbutton h1{
         color: black;
+        padding: 0;
     }
 }

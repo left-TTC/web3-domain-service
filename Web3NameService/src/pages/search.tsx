@@ -77,7 +77,11 @@ export function Search() {
                 setDomainSettlement={setShowSaleDomain}
             />
             {showSaleDomain &&
-                <DomainSettlement domainName={queryingDomain} domainKey={queryingDomainKey} backToSearchResult={() =>setShowSaleDomain(false)}/>
+                <DomainSettlement 
+                    domainName={queryingDomain} 
+                    domainKey={queryingDomainKey} 
+                    backToSearchResult={() =>setShowSaleDomain(false)}
+                />
             }
         </div>
     )

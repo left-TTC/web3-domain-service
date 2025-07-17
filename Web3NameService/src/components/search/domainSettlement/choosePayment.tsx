@@ -1,9 +1,7 @@
 
 
 import "@/style/components/search/domainSettlement/choosePayment.css"
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import PaymentInterface from "./paymentInterface";
 
 export enum PaymentMethod{
     Crypto = "Crypto",
@@ -16,12 +14,12 @@ export interface ChoosePaymentProps{
 }
 
 const ChoosePayment: React.FC<ChoosePaymentProps> = ({
-    chooseMethod, activingMethod, 
+    chooseMethod, activingMethod
 }) => {
 
     const {t} = useTranslation();
 
-    const [showPayPage, setShowPayPage] = useState(false)
+    
 
     return(
         <div className="payemenCryptotchooser">
@@ -36,9 +34,6 @@ const ChoosePayment: React.FC<ChoosePaymentProps> = ({
                     <h1>{method}</h1>
                 </button>
             ))}
-            {showPayPage &&
-                <PaymentInterface />
-            }
         </div>
     )
 }

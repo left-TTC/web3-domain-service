@@ -7,7 +7,7 @@ import { getNameAccountKey } from "./getNameAccountKey";
 export function getReverseKey(
     reversingDomainKey: PublicKey,
     reverseClassKey: PublicKey,
-    parentKey: PublicKey | null,
+    parentKey: PublicKey | null = null,
 ): PublicKey {
 
     const hashedDomainKeyStr = getHashedName(reversingDomainKey.toBase58());

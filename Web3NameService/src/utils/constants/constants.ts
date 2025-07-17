@@ -4,7 +4,7 @@ import { PublicKey } from "@solana/web3.js";
 export const HASH_PREFIX = "WEB3 Name Service";
 
 export const WEB3_NAME_SERVICE_ID = new PublicKey(
-    "8YXaA8pzJ4xVPjYY8b5HkxmPWixwpZu7gVcj8EvHxRDC"
+    "DqynrcXcYhfJbUYQZZFq6A2Tx64cJQGwyufWJxLpnKsK"
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
@@ -12,7 +12,7 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "E8AHgynPE6GrUmMDPcYryfAD6akXqpiQ29ME2ZBNkDZ2"
+    "ESEodAFMvihH9x237DmsAb9zzAcTnWfUB6R1xB7w5XG3"
 );
 
 export const WEB3_AUCTION_ID = new PublicKey(
@@ -20,7 +20,7 @@ export const WEB3_AUCTION_ID = new PublicKey(
 );
 
 export const VAULT = new PublicKey(
-    "2NFji3XWVs2tb8btmGgkunjA9AFTr5x3DaTbsrZ7abGh"
+    "9qQuHLMAJEehtk47nKbY1cMAL1bVD7nQxno4SJRDth7"
 )
 
 export const TOKEN_PROGRAM_ID = new PublicKey(

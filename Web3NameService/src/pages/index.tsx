@@ -6,7 +6,7 @@ import "@/style/pages/index.css"
 import { useState } from "react"
 
 
-export function Index() {
+export default function Index() {
 
     const [showBrowserDomainQuery, setShowBrowserDomainQuery] = useState(false);
 

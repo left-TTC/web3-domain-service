@@ -1,8 +1,9 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Layout from '@/pages/layout';
-import { Index } from '@/pages';
 import { Search } from './pages/search';
+import Index from './pages';
+import Auction from './pages/auction';
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                     <Route path='#' element={<Index />} />
                     <Route path='*' element={<Index />} />
                     <Route path='/search' element={<Search />} />
+                    <Route path='/auction' element={<Auction />} />
                 </Route>
             </Routes>
         </Router>

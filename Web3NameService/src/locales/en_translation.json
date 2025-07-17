@@ -30,5 +30,10 @@
     "bill": "Settle bills",
     "rent": "Rent Exemption:",
     "total": "Total:",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "wait": "Just a moment please",
+    "walletconfirm": "Please confirm this transaction in your wallet",
+    "home": "Home",
+    "auction": "Marketplace",
+    "docus": "Docus"
 }
