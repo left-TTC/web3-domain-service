@@ -1,0 +1,48 @@
+
+.auctiondomainomit{
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive; 
+}
+
+.auctionomittitle{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    width: 75%;
+}
+
+.auctionomittitle h1{
+    color: #B4FC75;
+    margin: 0;
+    padding: 0;
+    line-height: 1.8;
+}
+
+.auctionomittitle h2{
+    color: white;
+    opacity: 0.9;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    line-height: 1.8;
+}
+
+
+@media (min-width: 1024px){
+    .auctiondomainomit{
+        width: 1200px;
+        height: 100px;
+    }
+
+    .auctionomittitle h1{
+        font-size: 20px;
+    }
+
+    .auctionomittitle h2{
+        font-size: 19px;
+    }
+}

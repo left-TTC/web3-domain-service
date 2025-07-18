@@ -226,4 +226,4 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
 }
 
 
-export default ContinueQuery;``
+export default ContinueQuery;

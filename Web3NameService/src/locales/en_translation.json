@@ -35,5 +35,14 @@
     "walletconfirm": "Please confirm this transaction in your wallet",
     "home": "Home",
     "auction": "Marketplace",
-    "docus": "Docus"
+    "docus": "Docus",
+    "quickbuy": "Quick Buy",
+    "add": "Add",
+    "redommend": "Domain Recommend",
+    "refresh": "Refresh",
+    "cart": "My Cart",
+    "seemore": "See more premium domain names",
+    "browser": "Browse",
+    "bought": "The domain name you want has been purchased by someone else?",
+    "tryauction": "Try our auction site to buy domains that have already been purchased"
 }
