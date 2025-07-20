@@ -1,14 +1,15 @@
 
 
+import "@/style/components/auction/rootDomainCreate.css"
+import { useTranslation } from "react-i18next"
 
-const RootDomainCreate = () => {
+export default function RootDomainCreate(){
 
+    const {t} = useTranslation()
 
     return(
-        <div className="rootdomaincreate">
-
+        <div className="RootDomainCreate">
+            
         </div>
     )
 }
-
-export default RootDomainCreate;

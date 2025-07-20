@@ -1,5 +1,5 @@
 import AuctioningDomainOmit from "@/components/auction/auctioningDomain/auctioningDomainOmit";
-import HighQualityDomainRecommendOmit from "@/components/auction/highQualityRecommend/highQualityRecommendOmit";
+import HighQualityDomainRecommendOmit from "@/components/auction/domainRecommend/highQualityRecommendOmit";
 import RootDomainCreateOmit from "@/components/auction/rootDomainCreate/rootDomainCreateOmit";
 
 import "@/style/pages/auction.css"

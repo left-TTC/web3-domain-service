@@ -1,1 +1,13 @@
 
+
+.RootDomainCreate{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/*common computer*/
+@media (min-width: 1024px){
+    
+}

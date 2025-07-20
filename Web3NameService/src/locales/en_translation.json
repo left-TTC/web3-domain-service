@@ -43,6 +43,11 @@
     "cart": "My Cart",
     "seemore": "See more premium domain names",
     "browser": "Browse",
-    "bought": "The domain name you want has been purchased by someone else?",
-    "tryauction": "Try our auction site to buy domains that have already been purchased"
+    "bought": "Hey bro, the domain name I want has been purchased",
+    "tryauction": "You can use our auction site to buy domain names owned by others.",
+    "messagename": "MoCheng Fan",
+    "sad": "It's so sad",
+    "auctionhouse": "Auction House",
+    "trynow": "Try Now",
+    "create": "Join Create"
 }

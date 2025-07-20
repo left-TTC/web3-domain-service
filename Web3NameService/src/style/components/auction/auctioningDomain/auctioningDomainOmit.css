@@ -1,6 +1,5 @@
 
 .auctiondomainomit{
-    padding: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -31,11 +30,88 @@
     line-height: 1.8;
 }
 
+.auctionphone{
+    width:650px;
+    height: 100%;
+    position: relative;
+}
+
+.phoneplace{
+    background-color: #0D1520;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 10px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.phoneBar{
+    height: 56px;
+    width: 100%;
+    box-shadow: 0 0.2px 0 0.2px rgb(159, 158, 158);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phoneBar h1{
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.messageBlcok{
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 40px);
+    padding: 10px 20px 20px 20px;
+    height: 100%;
+}
+
+.phoneinput{
+    bottom: 0;
+    height: 100px;
+    background-color: black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+
+.phoneinput:focus{
+    outline: none;
+}
+
+.phoneinputbar{
+    width: 50%;
+    height: 70%;
+    outline: none;
+    background-color: #1C2334;
+    border: none;
+    border-radius: 5px;
+}
+
+.sendbutton{
+    background-color: #B4FC75;
+    padding: 10px;
+}
+
+.sendbutton:active{
+    transform: translateY(2px) translateX(2px);
+}
+
+
+
 
 @media (min-width: 1024px){
     .auctiondomainomit{
-        width: 1200px;
-        height: 100px;
+        width: 1260px;
+        height: 360px;
     }
 
     .auctionomittitle h1{
@@ -44,5 +120,9 @@
 
     .auctionomittitle h2{
         font-size: 19px;
+    }
+
+    .phoneBar h1{
+        font-size: 17px;
     }
 }
