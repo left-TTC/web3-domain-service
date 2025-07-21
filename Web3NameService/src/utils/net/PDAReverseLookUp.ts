@@ -6,7 +6,7 @@ import { Buffer } from "buffer";
 
 import { CENTRAL_STATE_AUCTION, CENTRAL_STATE_REGISTER } from "../constants/constants";
 import { getReverseKey } from "../functional/solana/getReverseKey";
-import { ReverseKeyState } from "../functional/common/reverseKeyState";
+import { ReverseKeyState } from "../functional/common/class/reverseKeyState";
 
 export enum ReversingPDAType{
     RootDomain,

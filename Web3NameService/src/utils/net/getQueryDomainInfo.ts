@@ -1,5 +1,5 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { ReverseKeyState } from "../functional/common/reverseKeyState";
+import { ReverseKeyState } from "../functional/common/class/reverseKeyState";
 import { getNameAccountKey } from "../functional/solana/getNameAccountKey";
 import { getHashedName } from "../functional/solana/getHashedName";
 

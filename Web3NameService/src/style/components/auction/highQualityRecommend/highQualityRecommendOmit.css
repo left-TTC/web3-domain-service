@@ -19,7 +19,7 @@
     height: 40px;
     display: flex;
     flex-direction: row;
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Minecraftia', monospace;
 }
 
 .omitsetitle{
@@ -103,7 +103,7 @@
 }
 
 .showdomainOmit h1{
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Minecraftia', monospace;
     font-size: 26px;
     color: black;
     padding-bottom: 50px;
@@ -222,7 +222,7 @@
     width: calc(20% - 20px);
     padding: 10px;
     flex-direction: column;
-    font-family: 'Press Start 2P', cursive;;
+    font-family: 'Minecraftia', monospace;;
     gap: 30px;
 }
 

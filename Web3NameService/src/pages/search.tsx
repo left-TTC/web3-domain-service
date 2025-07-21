@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getQueryDomainInfo } from "@/utils/net/getQueryDomainInfo";
 import { useConnection } from "@solana/wallet-adapter-react";
-import type { ReverseKeyState } from "@/utils/functional/common/reverseKeyState";
+import type { ReverseKeyState } from "@/utils/functional/common/class/reverseKeyState";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 

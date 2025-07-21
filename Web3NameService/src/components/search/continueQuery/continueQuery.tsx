@@ -12,7 +12,7 @@ import loading from "@/assets/loading.svg"
 import { useEffect, useRef, useState } from "react";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { useNavigate } from "react-router-dom";
-import type { ReverseKeyState } from "@/utils/functional/common/reverseKeyState";
+import type { ReverseKeyState } from "@/utils/functional/common/class/reverseKeyState";
 import { animate } from "animejs";
 import { cutString } from "@/utils/functional/common/cutString";
 

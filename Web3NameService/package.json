@@ -15,6 +15,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.39",
     "@solana/wallet-adapter-wallets": "^0.19.37",
     "@solana/web3.js": "^1.98.2",
+    "@types/pixi.js": "^5.0.0",
     "Buffer": "^0.0.0",
     "animejs": "^4.0.2",
     "buffer": "^6.0.3",
@@ -22,6 +23,7 @@
     "i18next-browser-languagedetector": "^8.2.0",
     "jotai": "^2.12.5",
     "js-sha256": "^0.11.1",
+    "pixi.js": "^8.11.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-i18next": "^15.6.0",
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@rollup/plugin-inject": "^5.0.5",
     "@types/node": "^24.0.10",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
