@@ -49,5 +49,8 @@
     "sad": "It's so sad",
     "auctionhouse": "Auction House",
     "trynow": "Try Now",
-    "create": "Join Create"
+    "create": "Join Create",
+    "rootdomain": "Root Domain:",
+    "sponsor": "Sponsor:",
+    "fuel": "Fuel"
 }
