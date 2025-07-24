@@ -4,12 +4,12 @@
 import "@/style/components/search/domainSettlement/paymentMethod/crypto.css"
 import { useTranslation } from "react-i18next";
 
-import Solana from "@/assets/solana.svg"
-import USDC from "@/assets/usdc.svg"
-import USDT from "@/assets/usdt.svg"
+
 import { useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
 import { useConnection } from "@solana/wallet-adapter-react";
+import FintChooser from "@/components/common/fintChooser";
+import SettleBills from "@/components/common/settleBills";
 
 export enum MainFint{
     SOL = "SOL",
@@ -32,16 +32,7 @@ const Crypto: React.FC<CryptoProps> = ({
     const {t} = useTranslation()
     const {connection} = useConnection()
 
-    const returnMainFint = (fintType: MainFint) => {
-        switch(fintType){
-            case MainFint.SOL:
-                return Solana;
-            case MainFint.USDC:
-                return USDC;
-            case MainFint.USDT:
-                return USDT;
-        }
-    }
+    
 
     const [referrerValue, setReferrerValue] = useState("");
     const [isReferrerFocus, setIsReferrerFocus] = useState(false)
@@ -83,18 +74,7 @@ const Crypto: React.FC<CryptoProps> = ({
             <div className="payfintchoose cryptopayfint">
                 <h1>{t("settlementInfo")}</h1>
                 <h2>{t("payfint")}</h2>
-                <div className="fintChooser">
-                    {Object.values(MainFint).map(mainFint => (
-                        <button 
-                            key={mainFint} 
-                            className={`fintChoose ${mainFint===activeFint ? 'fintActive':''}`}
-                            onClick={() => setActiveFint(mainFint)}
-                        >
-                            <img src={returnMainFint(mainFint)} className="finticon" />
-                            <h1>{mainFint}</h1>
-                        </button>
-                    ))}
-                </div>
+                <FintChooser activeFint={activeFint} setActiveFint={setActiveFint}/>
                 <div className="priceBlock">
                     <h1>{t("domainprice")}</h1>
                     <h2>20 SOL</h2>
@@ -116,29 +96,8 @@ const Crypto: React.FC<CryptoProps> = ({
                     </button>
                 </div>
             </div>
-            <div className="totalfees cryptofee">
-                <h1>{t("bill")}</h1>
-                <div className="registerfee">
-                    <div className="registerrule">
-                        <h1>{t("domainprice")}</h1>
-                    </div>
-                    <h1>20 SOL</h1>
-                </div>
-                <div className="rentfee">
-                    <h1>{t("rent")}</h1>
-                    <h2>1.98001</h2>
-                </div>
-                <div className="cryptodiliver"/>
-                <div className="cryptoconfirm">
-                    <div className="cryptototal">
-                        <h1>{t("total")}</h1>
-                        <h2>20 SOL</h2>
-                    </div>
-                    <button className="cryptoconfirmbutton" onClick={openWaitingWallet}>
-                        <h1>{t("confirm")}</h1>
-                    </button>
-                </div>
-            </div>
+            
+            <SettleBills confirmFunction={openWaitingWallet} />
         </div>
     )
 }

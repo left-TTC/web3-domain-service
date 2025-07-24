@@ -1,0 +1,49 @@
+
+
+
+.fintChooser{
+    display: flex;
+    flex-direction: row;
+}
+
+.fintChoose{
+    display: flex;
+    flex-direction: row;
+    padding: 8px 15px;
+    background-color: #2A3446;
+    gap: 10px;
+    align-items: center;
+    border: 2px solid #434C52;
+}
+
+.fintChoose h2{
+    padding: 0;
+    margin: 0;
+    color: white;
+    opacity: 0.8;
+}
+
+.fintActive{
+    border-color: #B4FC75;
+}
+
+.fintActive h2{
+    opacity: 1;
+    color: #B4FC75;
+}
+
+@media (min-width: 1024px){
+    .fintChooser{
+        gap: 12px;
+    }
+
+    .fintChoose h2{
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .finticon{
+        width: 20px;
+    }
+}
+

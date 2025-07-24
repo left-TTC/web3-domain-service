@@ -1,10 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-
-
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   line-height: 1.5;
   font-weight: 200;
 
@@ -78,10 +76,10 @@ button {
         linear-gradient(
             to bottom right,
             rgba(255, 255, 255, 0.7) 0%,
-            rgba(255, 255, 255, 0.7) 25%,
+            rgba(255, 255, 255, 0.7) 47%,
             transparent 25%,
             transparent 54%,
-            rgba(150, 150, 150, 0.6) 54%
+            rgba(150, 150, 150, 0.6) 50%
         ) 4;
 
     image-rendering: pixelated;

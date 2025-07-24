@@ -13,7 +13,7 @@ import exit from "@/assets/exit.svg"
 import { useTranslation } from "react-i18next";
 import { animate } from "animejs";
 import type { PublicKey } from "@solana/web3.js";
-import { registerWeb3Domain } from "@/utils/net/registerWeb3Domain";
+import { registerWeb3Domain } from "@/utils/net/mainFunction/registerWeb3Domain";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";

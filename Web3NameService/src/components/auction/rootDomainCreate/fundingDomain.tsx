@@ -12,6 +12,7 @@ import { Numberu64 } from "@/utils/functional/common/number/number64";
 
 import { useState } from "react";
 import RootDomainInfo from "./children/rootDomainInfo";
+import AddFuel from "./addFuel/addFuel";
 
 const FundingDomain = () => {
 
@@ -35,21 +36,31 @@ const FundingDomain = () => {
 
     const c = [a ,b, a, a, b];
 
-    return(
-        <div className="fundingdomain">
-            <div className="creatingName">
-                <h2>destination: </h2>
-                <h1>{activeCreatingRoot?.creatingName}</h1>
-            </div>
-            {activeCreatingRoot &&
+    const rootDomainContent = (
+        activeCreatingRoot ? (
+            <div className="fundingdomain">
+                <div className="creatingName">
+                    <h2>destination: </h2>
+                    <h1>{activeCreatingRoot?.creatingName}</h1>
+                </div>
                 <div className="rootDomaininfo">
                     <div className="travleprocess">
                         <RollStar ifAddedFuel={ifAddFuelSuccess}/>
                         <StarTrails nowStorageLamports={activeCreatingRoot?.fundState.toNumber()}/>
                     </div>
-                    <RootDomainInfo creatingAccounts={c} setActiveDomain={setActiveCreatingRoot}/>
+                    <RootDomainInfo creatingAccounts={c} setActiveDomain={setActiveCreatingRoot} activeDomain={activeCreatingRoot}/>
                 </div>
-            }
+            </div>
+        ):(
+            <div className="fundingdomain">
+                
+            </div>
+        )
+    )
+
+    return(
+        <div>
+            {rootDomainContent}
         </div>
     )
 }

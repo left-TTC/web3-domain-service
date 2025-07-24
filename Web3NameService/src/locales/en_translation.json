@@ -52,5 +52,10 @@
     "create": "Join Create",
     "rootdomain": "Root Domain:",
     "sponsor": "Sponsor:",
-    "fuel": "Fuel"
+    "fuel": "Fuel",
+    "launchnew": "Launch a new root domain",
+    "launch": "Launch",
+    "addingfor": "You are Adding Fuel For",
+    "selectquantity": "Select the Quantity to Add",
+    "custom": "Custom"
 }

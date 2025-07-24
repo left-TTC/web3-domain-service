@@ -17,12 +17,13 @@ import AddFuel from "../addFuel/addFuel";
 
 export interface RootDomainInfoProps {
     creatingAccounts: FundingAccountState[],
-    setActiveDomain: React.Dispatch<React.SetStateAction<FundingAccountState | null>>
+    setActiveDomain: React.Dispatch<React.SetStateAction<FundingAccountState | null>>,
+    activeDomain: FundingAccountState,
 }
 
 
 const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
-    creatingAccounts, setActiveDomain
+    creatingAccounts, setActiveDomain, activeDomain
 }) => {
 
     const {t}= useTranslation()
@@ -35,7 +36,11 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
         setActiveDomain(currentDomain);
     };
 
-
+    const openAddFuelModal = () => {
+        console.log("add moduel: ", ifShowAddFuel)
+        setIfShowAddFuel(true)
+    }
+ 
     return(
         <div className="rootdomaininfo">
             <div className="contentblock">
@@ -69,7 +74,7 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
                                     <h2>{creatingAccout.fundState.toNumber()}/{CREATE_ROOT_FEE}</h2>
                                 </div>
                                 <div className="addFuelbutton">
-                                    <button className="addfuel pixel">
+                                    <button className="addfuel pixel" onClick={() => openAddFuelModal()}>
                                         <h1>{t("add")} {t("fuel")}</h1>
                                     </button>
                                 </div>
@@ -79,7 +84,7 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
                 </Swiper>
             </div>
             {ifShowAddFuel &&
-                <AddFuel />
+                <AddFuel addingRootInfo={activeDomain} closeAddFuelPage={() => setIfShowAddFuel(false)}/>
             }
         </div>
     )
