@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
 import { useConnection } from "@solana/wallet-adapter-react";
-import FintChooser from "@/components/common/fintChooser";
-import SettleBills from "@/components/common/settleBills";
+import FintChooser from "@/components/common/transaction/fintChooser";
+import SettleBills from "@/components/common/transaction/settleBills";
 
 export enum MainFint{
     SOL = "SOL",

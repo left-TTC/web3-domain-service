@@ -1,5 +1,5 @@
 import { animate } from "animejs";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentRef } from "react";
 
 import "@/style/components/index/browserDomain/browserDomainQuery.css"
 import { useTranslation } from "react-i18next";
@@ -7,16 +7,11 @@ import { useTranslation } from "react-i18next";
 import exit from "@/assets/exit.svg"
 import query from "@/assets/query.svg"
 import enter from "@/assets/enter.svg"
-import add from "@/assets/add.svg"
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
-import { Swiper, SwiperSlide } from 'swiper/react';
 
-// // ✅ 导入 Swiper 所需样式
-import 'swiper/css';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Mousewheel } from 'swiper/modules';
+
 import { useNavigate } from "react-router-dom";
+import ChangeAndGoRoot, { type ChangeAndGoRootHandle } from "./changeAndGoRoot/changeAndGoRoot";
 
 export interface BrowserDomainQueryProps{
     ifShowTheQueryPage: boolean,
@@ -30,7 +25,7 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     const {t} = useTranslation();
 
     const browseDomainRef = useRef<HTMLDivElement | null> (null);
-    const changeRootRef = useRef<HTMLDivElement | null> (null);
+    const compRef = useRef<ChangeAndGoRootHandle>(null);
     const inputRef = useRef<HTMLInputElement | null> (null);
     const queryRef = useRef<HTMLButtonElement | null> (null);
 
@@ -39,10 +34,7 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     const [showChangeRoot, setShowChangeRoot] = useState(true);
     const [ifInputFocus, setIfInputFocus] = useState(false);
 
-    const {
-        rootDomains, activeRootDomain,
-        setActiveRootDomain,
-    } = useRootDomain();
+    const { activeRootDomain } = useRootDomain();
 
     useEffect(() => {
         if(ifShowTheQueryPage){
@@ -79,6 +71,7 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
         }
     }, [shouldAnimate])
 
+
     const clickExitQueryPage = () => {
         const queryPage = browseDomainRef.current
 
@@ -98,62 +91,6 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
         setQueryDomainValue(e.target.value)
     }
 
-    useEffect(() => {
-        const changeRootcurrent = changeRootRef.current;
-        if(!changeRootcurrent)return
-
-        setTimeout(() => {
-            animate(changeRootcurrent, {
-                duration: 500,
-                opacity: [0, 1]
-            }) 
-        }, 500)
-    }, [])
-
-    const clickSetRoot = () => {
-
-        if(showChangeRoot){
-            const changeRootcurrent = changeRootRef.current;
-            if(!changeRootcurrent) return;
-
-            animate(changeRootcurrent, {
-                duration: 300,
-                opacity: [1, 0],
-                onComplete: ()=>{
-                    setShowChangeRoot(!showChangeRoot)
-                }
-            })
-        }else{
-            setShowChangeRoot(true)
-
-            setTimeout(() => {
-                const changeRootcurrent = changeRootRef.current;
-
-                if(!changeRootcurrent) return;
-                animate(changeRootcurrent, {
-                    opacity: [0, 1],
-                    duration: 300,
-                })
-            }, 10)
-            
-        }
-    }
-
-    const clickChooseDomain = (rootDomain: string) => {
-        setActiveRootDomain(rootDomain);
-
-        const changeRootcurrent = changeRootRef.current;
-        if(!changeRootcurrent)return;
-        
-        animate(changeRootcurrent, {
-            opacity: [1, 0],
-            duration: 300,
-            onComplete: () => {
-                setShowChangeRoot(!showChangeRoot)
-            }
-        })
-    }
-
     const navigate = useNavigate();
 
     const clickQueryDomian = () => {
@@ -167,6 +104,34 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
                 queryingDomain: queryingDomain,
             }
         })
+    }
+
+    const clickSetRoot = () => {
+
+        if(showChangeRoot){
+            const changeRootcurrent = compRef.current;
+            if(!changeRootcurrent) return;
+
+            animate(changeRootcurrent, {
+                duration: 300,
+                opacity: [1, 0],
+                onComplete: ()=>{
+                    setShowChangeRoot(!showChangeRoot)
+                }
+            })
+        }else{
+            setShowChangeRoot(true)
+
+            setTimeout(() => {
+                const changeRootcurrent = compRef.current;
+
+                if(!changeRootcurrent) return;
+                animate(changeRootcurrent, {
+                    opacity: [0, 1],
+                    duration: 300,
+                })
+            }, 10) 
+        }
     }
 
     return(
@@ -199,7 +164,7 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
                             <h1>Enter</h1>
                         </div>
                         <button className="querypagesubmitbutton" ref={queryRef} onClick={() => clickQueryDomian()}>
-                            <img src={query} className="querypagequericon" />
+                            <img src={query} className="querypagequericon2" />
                         </button>
                     </div>
 
@@ -211,57 +176,12 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
                             </div>
                         </button>
                     </div>
-
-                    
                 </div>
             
             </div>
 
             {showChangeRoot &&
-                <div className="ChangeDrop" ref={changeRootRef}>
-                    <div className="changedropgotoaution">
-                        <div className="gotocutiontitle">
-                            <h1>{t("notyoulike")}</h1>
-                            <h2>{t("clickcreate")}</h2>
-                        </div>
-                        <button className="gotoauctionbutton">
-                            <img src={add} className="gotoauctionadd" />
-                        </button>
-                    </div>
-                    <div className="changerootcontent">
-                        {(rootDomains.length >= 3) ?    
-                            (<Swiper
-                                modules={[Mousewheel]}
-                                direction="vertical"
-                                slidesPerView={3}
-                                centeredSlides={true}
-                                spaceBetween={10}
-                                mousewheel={true} 
-                                className="allroot"
-                                loop={true} 
-                            >
-                                {
-                                    rootDomains.map((rootdomain, index) => (
-                                        <SwiperSlide key={index}>
-                                            <button className="rootchooseshowbutton">
-                                                {rootdomain}
-                                            </button>
-                                        </SwiperSlide>
-                                    ))
-                                }
-                            </Swiper>) : 
-                            (<div className="allrootless">
-                                {
-                                    rootDomains.map((rootdomain, index) => (
-                                        <button key={index} className="rootchooseshowbutton common" onClick={() => clickChooseDomain(rootdomain)}>
-                                            {rootdomain}
-                                        </button>
-                                    ))
-                                }
-                            </div>)
-                        }
-                    </div>
-                </div>
+                <ChangeAndGoRoot ref={compRef} setShowChangeRoot={setShowChangeRoot} showChangeRoot={showChangeRoot}/>
             }
                 
         </div>

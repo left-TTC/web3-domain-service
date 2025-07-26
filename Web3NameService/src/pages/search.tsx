@@ -15,6 +15,7 @@ import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import back from "@/assets/back.svg"
 import DomainSettlement from "@/components/search/domainSettlement/domainSettlement";
 import { PublicKey } from "@solana/web3.js";
+import Back from "@/components/common/functional/back";
 
 export function Search() {
 
@@ -65,10 +66,7 @@ export function Search() {
 
     return(
         <div className="SearchPage">
-            <button className="backIndex" onClick={() => backToIndex()}>
-                <img src={back} className="bakcicon"/>
-                <h1>{t("back")}</h1>
-            </button>
+            <Back backFun={() => backToIndex()} />
             <ContinueQuery 
                 queryingDomain={queryingDomain} 
                 queryingDomainInfo={queryDomainInfo}

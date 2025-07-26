@@ -1,9 +1,10 @@
-import { MainFint } from "../search/domainSettlement/paymentMethod/crypto";
+
 import Solana from "@/assets/solana.svg"
 import USDC from "@/assets/usdc.svg"
 import USDT from "@/assets/usdt.svg"
+import { MainFint } from "@/components/search/domainSettlement/paymentMethod/crypto"
 
-import "@/style/components/commonStyle/fintChooser.css"
+import "@/style/components/commonStyle/transaction/fintChooser.css"
 
 export interface FintChooserProps {
     activeFint: MainFint,

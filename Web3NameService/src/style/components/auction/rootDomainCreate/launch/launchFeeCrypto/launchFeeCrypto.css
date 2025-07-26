@@ -1,0 +1,44 @@
+
+.launchctypto{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 320px;
+    width: 100%;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+
+.launchfeeway{
+    width: 60%;
+    background-color: #161F2F;
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+}
+
+.launchfeeway h1{
+    margin: 0;
+    padding: 0;
+    color: white;
+    opacity: 0.4;
+    font-weight: 200;
+}
+
+.attention{
+    margin: 0;
+    margin-top: 20px;
+    opacity: 0.4;
+}
+
+@media (min-width: 1024px){
+    .launchfeeway h1{
+        font-size: 18px;
+    }
+
+    .attention{
+        font-size: 18px;
+    }
+}
+

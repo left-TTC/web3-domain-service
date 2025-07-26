@@ -1,0 +1,175 @@
+
+
+
+.showdomainOmit{
+    background: linear-gradient(
+        90deg,
+        #9945FF 0%,     /* 紫色 */
+        #14F195 50%,    /* 绿色 */
+        #00FFFF 100%    /* 青蓝色 */
+    );
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.showdomainOmit h1{
+    font-family: 'Minecraftia', monospace;
+    
+    color: black;
+    padding-bottom: 50px;
+}
+
+.startcontentomit{
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    background-color: #434C52;
+    border-radius: 0;
+    padding: 0;
+    top: 20px;
+    right: 5%;
+    box-shadow: 
+        0 0 0 4px #2D363D, /* 外层阴影作为像素边框 */
+        inset 0 0 0 2px rgba(90, 106, 127, 0.5);
+}
+
+.startcontentomit:active{
+    transform: translateY(2px) translateX(2px); 
+}
+
+.star{
+    width: 30px;
+}
+
+.buyoraddtocart{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    bottom: 10px;
+    align-items: center;
+}
+
+.addtocart{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1C2334;
+    width: 75%;
+    height: 45px;
+    padding: 10px;
+    margin: 0;
+    box-shadow: 
+        0 0 0 4px #2D363D, /* 外层阴影作为像素边框 */
+        inset 0 0 0 2px rgba(90, 106, 127, 0.5);
+}
+
+.quickBuy {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.85); /* 偏白半透明背景 */
+    padding: 10px;
+    border-radius: 2px;
+    gap: 10px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3); /* 像素风阴影 */
+}
+
+
+.quickBuy:active{
+    transform: translateY(2px) translateX(2px); 
+}
+
+.showdomainOmit:hover .showOnhover{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.quickBuy h1{
+    padding: 0;
+    margin: 0;
+}
+
+.addtocartbutton{
+    height: 40px;
+    width: 100px;
+    border-radius: 3px;
+    background-color: #B4FC75;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.addtocartbutton:active{
+    transform: translateY(2px) translateX(2px);
+}
+
+.addtocartbutton h1{
+    margin: 0;
+    padding: 0;
+}
+
+.cartpriceshow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.cartpriceshow h1{
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .showdomainOmit{
+        width: 300px;
+        height: 280px;
+    }
+
+    .showdomainOmit h1{
+        font-size: 26px;
+    }
+
+    .quickbuylight{
+        width: 20px;
+    }
+
+    .quickBuy{
+        margin-bottom: 15px;
+        width: 180px;
+        height: 30px;
+        border-radius: 4px;
+    }
+
+    .quickBuy h1{
+        font-size: 12px;
+    }
+
+    .quickbuycart{
+        height: 29px;
+    }
+
+    .addtocart{
+        border-radius: 3px;
+    }
+
+    .addtocartbutton h1{
+        font-size: 16px;
+    }
+
+    .priceCoin{
+        width: 20px;
+    }
+
+    .cartpriceshow h1{
+        font-size: 17px;
+    }
+}

@@ -1,5 +1,5 @@
-import FintChooser from "@/components/common/fintChooser";
-import SettleBills from "@/components/common/settleBills";
+import FintChooser from "@/components/common/transaction/fintChooser";
+import SettleBills from "@/components/common/transaction/settleBills";
 import { MainFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 
 import "@/style/components/auction/rootDomainCreate/addFuel/pay/addFuelCrypto.css"

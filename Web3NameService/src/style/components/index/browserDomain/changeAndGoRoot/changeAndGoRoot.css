@@ -1,0 +1,143 @@
+
+
+.ChangeDrop{
+    position: fixed;
+    background-color: #1C2334;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    right: 0;
+    top: 72%;
+    border-radius: 15px;
+    border: 2px solid #434C52; 
+    padding: 20px;
+}
+
+.changedropgotoaution{
+    background-color: #000000;
+    width: 63%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+    gap: 30px;
+}
+
+.gotocutiontitle{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.gotoauctionbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #B4FC75;
+    margin-right: 40px;
+}
+
+.gotoauctionbutton:hover{
+    opacity: 0.8;
+}
+
+.changerootcontent{
+    background-color: #000000;
+    width: 33%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.allroot{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%);
+}
+
+.rootchooseshowbutton{
+    width: 160px;
+    height: 50px;
+    color: #000000;
+    background: linear-gradient(
+        90deg,
+        #9945FF 0%,     /* 紫色 */
+        #14F195 50%,    /* 绿色 */
+        #00FFFF 100%    /* 青蓝色 */
+    );
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 4px #000;
+}
+
+.rootchooseshowbutton:hover{
+    opacity: 0.8;
+}
+
+
+.allrootless{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.gotocutiontitle h1{
+    color: white;
+}
+
+.gotocutiontitle h2 {
+    font-family: 'Minecraftia', monospace;
+    color: #B4FC75;
+}
+
+.gotoauctionbutton:active{
+    transform: translateY(2px) translateX(2px); 
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .ChangeDrop{
+        height: 220px;
+        width: 45%;
+    }
+
+    .gotocutiontitle h1{
+        font-size: 26px;
+    }
+
+    .gotocutiontitle h2{
+        font-size: 14px;
+        margin: 2px;
+        
+    }
+
+    .gotoauctionbutton{
+        width: 120px;
+        height: 100px;
+    }
+
+    .gotoauctionadd{
+        width: 80px;
+    }
+
+    .rootchooseshowbutton{
+        font-size:24px;
+        color: #FFFFFF;
+        text-shadow: 0 0 8px #14F195;
+        border-radius: 12px;
+    }  
+}

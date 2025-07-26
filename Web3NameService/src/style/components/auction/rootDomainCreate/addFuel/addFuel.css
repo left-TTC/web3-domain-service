@@ -21,27 +21,6 @@
     position: relative;
 }
 
-.backtoaddfuel{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    background-color: #081328;
-    position: absolute;
-    left: 0;
-    align-items: center;
-}
-
-.backtoaddfuel:hover{
-    opacity: 0.7;
-}
-
-.backtoaddfuel h1{
-    color: white;
-    margin: 0;
-    font-weight: 400;
-    opacity: 0.8;
-}
-
 .addfueltitle{
     width: 100%;
     margin-left: 20px;
@@ -79,14 +58,6 @@
 @media (min-width: 1024px){
     .addfuelpay{
         width: 900px;
-    }
-
-    .backfuelimg{
-        width: 30px;
-    }
-
-    .backtoaddfuel h1{
-        font-size: 26px;
     }
 
     .addfueltitle h1{

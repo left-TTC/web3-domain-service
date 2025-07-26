@@ -9,6 +9,7 @@ import ChoosePayment, { PaymentMethod } from "./choosePayment"
 import { useEffect, useState } from "react"
 import Crypto, { MainFint, OrtherFint } from "./paymentMethod/crypto"
 import PaymentInterface from "./paymentInterface"
+import Back from "@/components/common/functional/back"
 
 export interface DomainSettlementProps{
     domainName: string,
@@ -39,10 +40,7 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
     return(
         <div className="settlement">
             <div className="domainandpayment">
-                <button className="settlementback" onClick={backToSearchResult}>
-                    <img src={back} className="settlebackicon" />
-                    <h1>{t("back")}</h1>
-                </button>
+                <Back backFun={backToSearchResult} />
             </div>
             <div className="domainName">
                 <h1>{domainName}</h1>
