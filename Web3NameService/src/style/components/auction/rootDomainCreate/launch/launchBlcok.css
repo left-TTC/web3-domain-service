@@ -16,7 +16,7 @@
 .launchcontent{
     background-color: #161F2F;
     border-radius: 15px;
-    padding: 10px;
+    padding: 40px;
     display: flex;
     flex-direction: row;
 }

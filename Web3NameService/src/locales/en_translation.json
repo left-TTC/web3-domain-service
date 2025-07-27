@@ -60,5 +60,7 @@
     "custom": "Custom",
     "customroot": "Customize a root domain",
     "attention": "Attention",
-    "ihelpyou": "You can send me the domain name now and I will help you check it"
+    "ihelpyou": "You can send me the domain name now and I will help you check it",
+    "serachDomain": "Serach Domain",
+    "mydomain": "My Domain"
 }

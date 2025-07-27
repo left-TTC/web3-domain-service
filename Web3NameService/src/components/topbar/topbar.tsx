@@ -1,15 +1,20 @@
-import Wallet from "./topbar/wallet/wallet";
+import Wallet from "./wallet/wallet";
 
 
 import "@/style/components/topbar/topbar.css"
 import { useRef, useState } from "react";
-import WalletDropDownBox from "./topbar/wallet/walletDropDownBox";
-import WalletChooser from "./topbar/wallet/walletChoose";
-import Navigation from "./topbar/navigation/navigation";
+import WalletDropDownBox from "./wallet/walletDropDownBox";
+import WalletChooser from "./wallet/walletChoose";
+import Navigation from "./navigation/navigation";
+import MyDomain from "./usr/myDomain";
 
+export interface TopbarProps {
+    openDomainQueryPage: () => void
+}
 
-
-export default function Topbar() {
+const Topbar: React.FC<TopbarProps> = ({
+    openDomainQueryPage
+}) => {
 
 
     const [showWalletDrop, setShowWalletDrop] = useState(false);
@@ -19,8 +24,11 @@ export default function Topbar() {
     
     return(
         <div className="topbar">
-            <Navigation />
+            <Navigation openDomainQueryPage={openDomainQueryPage}/>
+            
             <div className="topbarwalletblcok">
+                <MyDomain />
+                <div className="topbarline" />
                 <Wallet 
                     ifShowDropBox={showWalletDrop} 
                     setDropBox={setShowWalletDrop} 
@@ -44,3 +52,5 @@ export default function Topbar() {
         </div>
     )
 }
+
+export default Topbar;

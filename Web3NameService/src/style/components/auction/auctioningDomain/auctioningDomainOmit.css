@@ -4,10 +4,12 @@
     flex-direction: row;
     align-items: center;
     font-family: 'Minecraftia', monospace; 
+    margin-top: 360px;
+    justify-content: center;
 }
 
 .auctionomittitle{
-    display: flex;
+    display: flex;                                                                                                                                  
     flex-direction: column;
     text-align: left;
 
@@ -31,10 +33,44 @@
 }
 
 
+.gotoauctionomit{
+    gap: 30px;
+    padding: 20px;
+    margin-left: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gotoauctionomit h1{
+    margin: 0;
+    padding: 20px 10px;
+    color: white;
+}
+
+.gotoauctionomitbutton{
+    background-color: #B4FC75;
+    width: 220px;
+    padding: 0;
+    height: 60px;
+}
+
+.gotoauctionomitbutton h1{
+    background-color: #B4FC75;
+    padding: 0;
+    margin: 0;
+    color: black;
+}
+
+.gotoauctionomitbutton:active{
+    transform: translateY(2px) translateX(2px);
+}
+
+
 @media (min-width: 1024px){
     .auctiondomainomit{
-        width: 1800px;
-        background-color: rebeccapurple;
+        width: 1200px;
+        gap: 30px;
     }
 
     .auctionomittitle h1{
@@ -47,5 +83,13 @@
 
     .phoneBar h1{
         font-size: 17px;
+    }
+
+    .gotoauctionomit h1{
+        font-size: 37px;
+    }
+    
+    .gotoauctionomitbutton h1{
+        font-size: 20px;
     }
 }

@@ -24,6 +24,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+    background-color: #0D1520;
 }
 
 .phoneBar h1{
@@ -69,17 +71,22 @@
     padding: 10px;
 }
 
+
 .sendbutton:active{
     transform: translateY(2px) translateX(2px);
 }
 
 @media (min-width: 1024px){
     .auctionphone{
-        width: 420px;
-        height: 500px;
+        width: 600px;
+        height: 380px;
     }
 
     .phoneBar h1{
         font-size: 18px;
+    }
+
+    .sendbutton{
+        width: 120px;
     }
 }

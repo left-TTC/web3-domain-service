@@ -26,6 +26,11 @@
 }
 
 @media (min-width: 1024px){
+
+    .rootdomaincreateomit{
+        margin-top: 200px;
+    }
+
     .rootdomaincreateomit h1{
         font-size: 40px;
     }

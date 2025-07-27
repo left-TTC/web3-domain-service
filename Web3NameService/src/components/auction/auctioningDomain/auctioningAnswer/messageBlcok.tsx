@@ -1,5 +1,5 @@
 
-import "@/style/components/auction/auctioningDomain/messageBlock.css"
+import "@/style/components/auction/auctioningDomain/auctioningAnswer/messageBlock.css"
 
 import computerIcon from "@/../public/background/head/dog.png"
 

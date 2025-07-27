@@ -5,23 +5,29 @@ import BrowserDomainQuery from "@/components/index/browseDomain/browserDomainQue
 import "@/style/pages/index.css"
 import { useState } from "react"
 
+export interface IndexProps {
+    ifShowDomain: boolean
+    setDomainQuery: React.Dispatch<React.SetStateAction<boolean>>,
+}
 
-export default function Index() {
+const Index: React.FC<IndexProps> = ({
+    setDomainQuery, ifShowDomain
+}) => {
 
-    const [showBrowserDomainQuery, setShowBrowserDomainQuery] = useState(false);
-
-
+    
     return(
         <div className="index">
-            <BrowserDomain setQueryPage={setShowBrowserDomainQuery}/>
+            <BrowserDomain setQueryPage={setDomainQuery}/>
 
             {/* fixed content */}
-            {showBrowserDomainQuery &&
+            {ifShowDomain &&
                 <BrowserDomainQuery 
-                    ifShowTheQueryPage={showBrowserDomainQuery} 
-                    setQueryPage={setShowBrowserDomainQuery} 
+                    ifShowTheQueryPage={ifShowDomain} 
+                    setQueryPage={setDomainQuery} 
                 />
             }
         </div>
     )
 }
+
+export default Index;

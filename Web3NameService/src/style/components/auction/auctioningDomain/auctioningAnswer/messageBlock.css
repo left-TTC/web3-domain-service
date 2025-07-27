@@ -17,7 +17,7 @@
 }
 
 .usrmessage{
-    width: 70%;
+    width: 80%;
     background-color: #B4FC75;
     padding: 5px;
     border-radius: 5px;
@@ -40,35 +40,7 @@
     justify-content: left;
 }
 
-.gotoauction{
-    gap: 30px;
-    padding: 20px;
-    margin-left: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-.gotoauction h1{
-    margin: 0;
-    padding: 20px 10px;
-    color: white;
-    background-color: rebeccapurple;
-}
-
-.gotoauctionbutton{
-    background-color: #B4FC75;
-    width: 300px;
-    padding: 0;
-    height: 80px;
-}
-
-.gotoauctionbutton h1{
-    background-color: #B4FC75;
-    padding: 0;
-    margin: 0;
-    color: black;
-}
 
 @media (min-width: 1024px){
     .usrmessage h1{
@@ -76,14 +48,8 @@
     }
 
     .messageblock{
-        margin-top: 12px;
+        margin-top: 10px;
     }
 
-    .gotoauction h1{
-        font-size: 37px;
-    }
     
-    .gotoauctionbutton h1{
-        font-size: 25px;
-    }
 }
