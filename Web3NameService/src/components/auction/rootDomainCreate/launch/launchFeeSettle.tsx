@@ -6,6 +6,9 @@ import "@/style/components/auction/rootDomainCreate/launch/launchFeeSettle.css"
 import type React from "react";
 import { useState } from "react";
 import LaunchFeeCrypto from "./launchFeeCrypto/launchFeeCrypto";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import { launchRootDomain } from "@/utils/net/mainFunction/rootDomain/launchRootDomain";
+import { useConnection } from "@solana/wallet-adapter-react";
 
 
 export interface LaunchFeeSettleProps {
@@ -19,6 +22,42 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
 
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
 
+    const {
+        publicKey: wallet, signTransaction
+    } = useWalletEnv();
+
+    const {connection} = useConnection()
+
+    const tryToCreateRootDomain = async(rootDomain: string) => {
+        if(!wallet || !signTransaction)return;
+
+        try{
+            const createRootTransaction = launchRootDomain(
+                rootDomain, wallet
+            )
+
+            const latestBlockhash = await connection.getLatestBlockhash();
+                createRootTransaction.recentBlockhash = latestBlockhash.blockhash;
+                createRootTransaction.feePayer = wallet;
+
+            const signedLaunchTransaction = await signTransaction(createRootTransaction)
+
+            const signature = await connection.sendRawTransaction(signedLaunchTransaction.serialize())
+
+            await connection.confirmTransaction(
+            {
+                signature,
+                ...latestBlockhash,
+            },
+            'finalized' // or 'confirmed' if你不要求太严格
+            );
+            
+            console.log("transaction ok: ", signature)
+        }catch(err){
+            console.log("transaction err:", err)
+        }
+    }
+
     return(
         <div className="launchfee">
             <div className="launchfeepay">
@@ -27,7 +66,7 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
                     <h1>{wantCreateName}</h1>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
-                <LaunchFeeCrypto />
+                <LaunchFeeCrypto confirmToCreate={() => tryToCreateRootDomain(wantCreateName)}/>
             </div>
         </div>
     )

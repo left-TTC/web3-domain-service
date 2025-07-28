@@ -85,3 +85,11 @@ button {
     image-rendering: pixelated;
     backdrop-filter: blur(2px);
 }
+
+
+@media (-moz-platform: linux) and (min-resolution: 120dpi) {
+  
+    body {
+        transform: scale(1.9);
+    }
+}

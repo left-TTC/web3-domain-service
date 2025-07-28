@@ -1,13 +1,18 @@
 
 
 export enum RegisterInstruction{
-    CreateReverse = 12,
     Create,
-    _Claim,
-    _EndAuction,
+    CreateReverse,
     Delete,
-    CreateWithNft,
-    _CloseAuctionAccount,
-    CreateSplit,
-    CreateSplitV2,
+}
+
+
+export enum AuctionInstruction {
+    CreateRoot,
+
+    DonateRoot,
+
+    CreateAuction,
+
+    DeleteAuction,
 }

@@ -1,8 +1,9 @@
 import { Transaction, type PublicKey } from "@solana/web3.js";
-import { createDomainInstruction } from "../../functional/instructions/createDomainInstruction";
+
 import { getReverseKey } from "../../functional/solana/getReverseKey";
 import { CENTRAL_STATE_REGISTER } from "../../constants/constants";
 import { Numberu32 } from "../../functional/common/number/number32";
+import { createDomainInstruction } from "@/utils/functional/instructions/createInstruction/createDomainInstruction";
 
 
 
@@ -16,6 +17,7 @@ export function registerWeb3Domain(
     space: number,
     referrerKey: PublicKey | null = null,
 ): Transaction {
+    console.log("domainName:", domainName)
 
     const reverseupKey = getReverseKey(domainNameKey, CENTRAL_STATE_REGISTER);
 

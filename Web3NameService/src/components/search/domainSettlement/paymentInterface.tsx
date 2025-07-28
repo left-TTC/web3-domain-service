@@ -17,6 +17,7 @@ import { registerWeb3Domain } from "@/utils/net/mainFunction/registerWeb3Domain"
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
+import { cutDomain } from "@/utils/functional/common/cutDomain";
 
 export interface PaymentInterfaceProps{
     useFint: MainFint | OrtherFint | null,
@@ -79,9 +80,10 @@ const PaymentInterface: React.FC<PaymentInterfaceProps> = ({
                 if(!activeRootDomain || !creatingDomainKey || !feePayer || !signTransaction) return
 
                 try{
+                    const name = cutDomain(creatingDomainName)[0]
                     const thisRegisterTransaction = registerWeb3Domain(
                         getNameAccountKey(getHashedName(activeRootDomain)), creatingDomainKey,
-                        feePayer, feePayer, feePayer, creatingDomainName, 1024
+                        feePayer, feePayer, feePayer, name, 1024
                     )
 
                     const { blockhash } = await connection.getLatestBlockhash();

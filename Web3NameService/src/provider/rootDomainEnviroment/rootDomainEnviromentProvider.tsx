@@ -64,6 +64,7 @@ export function RootDomainEnviromentProvider({ children }: { children: ReactNode
             );
 
             const resolvedDomains = (await Promise.all(rootDomainsData)).filter(Boolean) as string[];
+            console.log("roots: ", resolvedDomains)
             setRootDomains(resolvedDomains);
 
             const activeIndex = resolvedDomains.findIndex(d => d === activeRootDomain);

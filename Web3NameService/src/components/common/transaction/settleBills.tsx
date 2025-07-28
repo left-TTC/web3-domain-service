@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import "@/style/components/commonStyle/transaction/settleBills.css"
 
 export interface SettleBillsProps {
-    confirmFunction?: () => void;
+    confirmFunction: () => void;
 }
 
 

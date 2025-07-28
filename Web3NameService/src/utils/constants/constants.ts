@@ -16,11 +16,11 @@ export const WEB3_REGISTER_ID = new PublicKey(
 );
 
 export const WEB3_AUCTION_ID = new PublicKey(
-    "9qQuHLMAJEehtk47nKbY1cMAL1bVD7nQxno4SJRDth7"
+    "A4dBgeBQ1wWjUNnjfJRs3mgKu7913d1zKZjer6yAtxmN"
 );
 
 export const VAULT = new PublicKey(
-    "9qQuHLMAJEehtk47nKbY1cMAL1bVD7nQxno4SJRDth7"
+    "A4dBgeBQ1wWjUNnjfJRs3mgKu7913d1zKZjer6yAtxmN"
 )
 
 export const TOKEN_PROGRAM_ID = new PublicKey(

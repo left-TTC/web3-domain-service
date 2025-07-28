@@ -7,11 +7,11 @@ import "@/style/components/auction/rootDomainCreate/launch/launchFeeCrypto/launc
 import SettleBills from "@/components/common/transaction/settleBills";
 
 export interface LaunchFeeCryptoProps {
-
+    confirmToCreate: () => void;
 }
 
 const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
-
+    confirmToCreate
 }) => {
 
     const [chooseFint, setChooseFint] = useState<MainFint>(MainFint.SOL)
@@ -27,7 +27,7 @@ const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
                     <h1></h1>
                 </div>
             </div>
-            <SettleBills />
+            <SettleBills confirmFunction={confirmToCreate}/>
         </div>
     )
 }
