@@ -9,18 +9,17 @@
     position: relative;
 }
 
-.backIndex{
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    top: 20%;
-    right: 5%;
-    background-color: #B4FC75;
+.backtoLastPage{
+    top: 120px;
 }
 
-.backIndex:hover{
-    opacity: 0.9;
+.searchPageContent{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
 }
+
 
 /*common computer*/
 @media (min-width: 1024px){
@@ -31,5 +30,9 @@
     .backIndex h1{
         font-size: 32px;
         margin: 0;
+    }
+
+    .searchPageContent{
+        width: 1100px;
     }
 }

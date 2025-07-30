@@ -96,7 +96,7 @@ const ChangeAndGoRoot = forwardRef<ChangeAndGoRootHandle, ChangeAndGoRootProps>(
                         {
                             rootDomains.map((rootdomain, index) => (
                                 <SwiperSlide key={index}>
-                                    <button className="rootchooseshowbutton">
+                                    <button className="rootchooseshowbutton pixel">
                                         {rootdomain}
                                     </button>
                                 </SwiperSlide>
@@ -106,7 +106,7 @@ const ChangeAndGoRoot = forwardRef<ChangeAndGoRootHandle, ChangeAndGoRootProps>(
                     (<div className="allrootless">
                         {
                             rootDomains.map((rootdomain, index) => (
-                                <button key={index} className="rootchooseshowbutton common" onClick={() => clickChooseDomain(rootdomain)}>
+                                <button key={index} className="rootchooseshowbutton common pixel" onClick={() => clickChooseDomain(rootdomain)}>
                                     {rootdomain}
                                 </button>
                             ))

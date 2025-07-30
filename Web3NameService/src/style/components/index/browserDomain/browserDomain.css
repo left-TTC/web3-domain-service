@@ -6,7 +6,17 @@
     justify-content: center;
     align-self: center;
     width: 100%;
-    padding-top: 320px;
+    padding-top:450px;
+    position: fixed;
+    z-index: 1;
+}
+
+.browserdomainhide{
+    display: none;
+}
+
+.browserdomainnohide{
+    display: flex;
 }
 
 .browserDomainTitle{
@@ -14,7 +24,7 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .browserDomainTitle h1{
@@ -59,8 +69,6 @@
     opacity: 0.8;
 }
 
-
-
 .querypageword{
     width: 100%;
     display: flex;
@@ -70,8 +78,11 @@
     gap: 10px;
 }
 
-
-
+.domainusrshowwelcome h1{
+    font-family: 'Minecraftia', monospace;
+    margin: 0;
+    color: #B4FC75;
+}
 
 /*common computer*/
 @media (min-width: 1024px){
@@ -81,26 +92,25 @@
     }
 
     .browserDomainTitle h1{
-        font-size: 70px;
+        font-size: 80px;
         margin: 0;
         font-weight: 600;
     }
 
     .browserDomainTitle h2{
-        font-size: 28px;
-        
+        font-size: 26px;
     }
 
     .browserdomainminibox{
-        margin-top: 60px;
+        margin-top: 70px;
         border-radius: 8px;
         height: 50px;
         padding: 10px 10px 10px 30px;
-        width: 600px;
+        width: 630px;
     }
 
     .browserdomainminibox h1{
-        font-size: 20px;
+        font-size: 23px;
         font-weight: 400;
         color: #434C52;
     }
@@ -115,5 +125,8 @@
         width: 40px;
     }
 
+    .domainusrshowwelcome h1{
+        font-size: 47px;
+    }
     
 }

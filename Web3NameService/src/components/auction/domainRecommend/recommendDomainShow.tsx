@@ -9,7 +9,7 @@ import coin from "@/assets/coin.svg"
 import star from "@/assets/starok.svg"
 import { useTranslation } from "react-i18next";
 
-import "@/style/components/commonStyle/show/recommendDomainShow.css"
+import "@/style/components/auction/domainRecommend/recommendDomainShow.css"
 
 export interface RecommendDomainShowProps {
     showDomain: string

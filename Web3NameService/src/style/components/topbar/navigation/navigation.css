@@ -8,7 +8,7 @@
     align-items: center;
     gap: 5px;
     background-color: black;
-    left: 20%;
+    left: 25%;
 }
 
 
@@ -20,6 +20,10 @@
     gap: 10px;
     padding: 0 10px;
     height: 50px;
+}
+
+.navigateobjectblock{
+    position: relative;
 }
 
 .navigatebutton h1{

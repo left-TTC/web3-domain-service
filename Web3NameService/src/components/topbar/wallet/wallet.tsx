@@ -9,6 +9,7 @@ import array from "@/assets/array.svg"
 import "@/style/components/topbar/wallet/wallet.css"
 import { cutString } from "@/utils/functional/common/cutString";
 import { animate } from "animejs";
+import WalletDropDownBox from "./walletDropDownBox";
 
 export interface WalletProps{
     ifShowDropBox: boolean,
@@ -71,24 +72,34 @@ const Wallet: React.FC<WalletProps> = ({
     }
 
     return(
-        <button className="wallet" onClick={walletClick} ref={walletRef}>
-            {connected ?
-                (
-                    <div className="walletConnected">
-                        <div className="walletusericon" />
-                        <h1>{walletAddress}</h1>
-                        <div className="walletarray" ref={arrayRef}>
-                            <img src={array} className="arrayicon"/>
+        <div className="walletpackage">
+            <button className="wallet" onClick={walletClick} ref={walletRef}>
+                {connected ?
+                    (
+                        <div className="walletConnected">
+                            <div className="walletusericon" />
+                            <h1>{walletAddress}</h1>
+                            <div className="walletarray" ref={arrayRef}>
+                                <img src={array} className="arrayicon"/>
+                            </div>
                         </div>
-                    </div>
-                ) :
-                (
-                    <div className="walletconnect">
-                        <h1>{t("connect")}</h1>
-                    </div>
-                )
-            }      
-        </button>
+                    ) :
+                    (
+                        <div className="walletconnect">
+                            <h1>{t("connect")}</h1>
+                        </div>
+                    )
+                }      
+            </button>
+            {ifShowDropBox &&
+                <WalletDropDownBox
+                    walletRef={walletRef} 
+                    ifWalletDropDownShow={ifShowDropBox} 
+                    setDropDownBox={setDropBox} 
+                    setWalletChoose={setWalletChooser}
+                />                
+            } 
+        </div>
     )
 }
 

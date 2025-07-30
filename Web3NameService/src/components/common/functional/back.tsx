@@ -16,8 +16,8 @@ const Back: React.FC<BackProps> = ({
     const {t} = useTranslation()
 
     return(
-        <button className="backtoaddfuel" onClick={backFun}>
-            <img src={back} className="backfuelimg" />
+        <button className="backtoLastPage" onClick={backFun}>
+            <img src={back} className="backtoLastPageimg" />
             <h1>{t("back")}</h1>
         </button>
     )

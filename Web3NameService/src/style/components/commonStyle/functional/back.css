@@ -1,7 +1,7 @@
 
 
 
-.backtoaddfuel{
+.backtoLastPage{
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -11,11 +11,11 @@
     align-items: center;
 }
 
-.backtoaddfuel:hover{
+.backtoLastPage:hover{
     opacity: 0.7;
 }
 
-.backtoaddfuel h1{
+.backtoLastPage h1{
     color: white;
     margin: 0;
     font-weight: 400;
@@ -24,11 +24,11 @@
 
 
 @media (min-width: 1024px){
-    .backtoaddfuel h1{
+    .backtoLastPage h1{
         font-size: 26px;
     }
 
-    .backfuelimg{
+    .backtoLastPageimg{
         width: 30px;
     }
 }

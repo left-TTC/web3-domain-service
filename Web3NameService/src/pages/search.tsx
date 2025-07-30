@@ -12,7 +12,6 @@ import type { ReverseKeyState } from "@/utils/functional/common/class/reverseKey
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 
-import back from "@/assets/back.svg"
 import DomainSettlement from "@/components/search/domainSettlement/domainSettlement";
 import { PublicKey } from "@solana/web3.js";
 import Back from "@/components/common/functional/back";
@@ -20,7 +19,7 @@ import Back from "@/components/common/functional/back";
 export function Search() {
 
     const location = useLocation();
-    const {t} = useTranslation();
+
     const {connection} = useConnection();
     const navigate = useNavigate();
 
@@ -66,14 +65,16 @@ export function Search() {
 
     return(
         <div className="SearchPage">
-            <Back backFun={() => backToIndex()} />
-            <ContinueQuery 
-                queryingDomain={queryingDomain} 
-                queryingDomainInfo={queryDomainInfo}
-                ifCouldBuy={ifCounldBuy}
-                ifDomainInfoLoaded={isDomainInfoLoaded}
-                setDomainSettlement={setShowSaleDomain}
-            />
+            <div className="searchPageContent">
+                <Back backFun={() => backToIndex()} />
+                <ContinueQuery 
+                    queryingDomain={queryingDomain} 
+                    queryingDomainInfo={queryDomainInfo}
+                    ifCouldBuy={ifCounldBuy}
+                    ifDomainInfoLoaded={isDomainInfoLoaded}
+                    setDomainSettlement={setShowSaleDomain}
+                />
+            </div>
             {showSaleDomain &&
                 <DomainSettlement 
                     domainName={queryingDomain} 

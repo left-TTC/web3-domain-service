@@ -1,0 +1,21 @@
+
+
+.sortbl{
+    display: flex;
+    align-items: center;
+    background-color: #161A39;
+    border: 1px solid #434C52;
+    border-radius: 10px;
+    width: 60px;
+    justify-content: center;
+}
+.sortbl:hover{
+    opacity: 0.85;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .sortimg{
+        width: 20px;
+    }
+}

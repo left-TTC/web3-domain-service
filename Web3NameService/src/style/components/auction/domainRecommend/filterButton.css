@@ -1,0 +1,35 @@
+
+
+.filterbl{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #161A39;
+    border-radius: 10px;
+    border: 1px solid #434C52;
+}
+.filterbl h1{
+    color: white;
+    font-weight: 500;
+    margin: 0;
+}
+.filterbl:hover{
+    opacity: 0.85;
+}
+
+
+/*common computer*/
+@media (min-width: 1024px){
+    .filterbl{
+        width: 120px;
+    }
+    .filterimg{
+        width: 20px;
+    }
+    .filterbl h1{
+        font-size: 19px;
+    }
+}

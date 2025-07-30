@@ -1,5 +1,5 @@
 import { animate } from "animejs";
-import { useEffect, useRef, useState, type ComponentRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import "@/style/components/index/browserDomain/browserDomainQuery.css"
 import { useTranslation } from "react-i18next";

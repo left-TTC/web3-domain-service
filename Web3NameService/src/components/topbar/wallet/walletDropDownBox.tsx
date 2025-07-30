@@ -75,12 +75,12 @@ const WalletDropDownBox: React.FC<walletDropDownBoxProps> = ({walletRef, ifWalle
 
     useEffect(() => {
         const handClickOutside = (event: MouseEvent) => {
-        const target = event.target as Node;
+            const target = event.target as Node;
 
             if(walletRef && walletRef.current){
                 if (ifWalletDropDownShow && walletDropRef.current && !walletDropRef.current.contains(target) &&
                     !walletRef.current.contains(target)
-                ) {
+                ){
                     setDropDownBox(false);
                 }
             }

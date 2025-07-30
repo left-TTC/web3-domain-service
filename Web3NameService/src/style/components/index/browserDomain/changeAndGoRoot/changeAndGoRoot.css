@@ -77,11 +77,11 @@
         #14F195 50%,    /* 绿色 */
         #00FFFF 100%    /* 青蓝色 */
     );
-    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 0 4px #000;
+    border-radius: 5px;
 }
 
 .rootchooseshowbutton:hover{
@@ -112,15 +112,15 @@
 @media (min-width: 1024px){
     .ChangeDrop{
         height: 220px;
-        width: 45%;
+        width: 1000px;
     }
 
     .gotocutiontitle h1{
-        font-size: 26px;
+        font-size: 27px;
     }
 
     .gotocutiontitle h2{
-        font-size: 14px;
+        font-size: 17px;
         margin: 2px;
         
     }
@@ -138,6 +138,5 @@
         font-size:24px;
         color: #FFFFFF;
         text-shadow: 0 0 8px #14F195;
-        border-radius: 12px;
     }  
 }

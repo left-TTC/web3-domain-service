@@ -11,7 +11,8 @@ import auctionGreen from "@/assets/auctionGreen.png"
 import searchGreen from "@/assets/searchpixelGreen.svg"
 import search from "@/assets/pixelSearch.svg"
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import MarketplaceDropDown from "./marketPlaceDropdown";
 
 export enum NavigationLists{
     Home = "Home",
@@ -32,6 +33,9 @@ const Navigation: React.FC<NavigationProps> = ({
 
     const [hoveredId, setHoveredId] = useState<string | null>(null)
     const [ifSearchbarHover, setIfSearchbarHover] = useState(false)
+    const [showMarketType, setShowMarketType] = useState(false)
+
+    const [marketDropAnimate, setMarketDropAnimate] = useState(false)
 
     const returnNavigateName = (navigateObject: NavigationLists) => {
         switch(navigateObject){
@@ -50,7 +54,11 @@ const Navigation: React.FC<NavigationProps> = ({
                 navigate('/');
                 break;
             case NavigationLists.Auction:
-                navigate('/auction');
+                if(!showMarketType){
+                    setShowMarketType(true)
+                }else{
+                    setMarketDropAnimate(true)
+                }
                 break
             case NavigationLists.Docus:
                 return t("docus");
@@ -91,27 +99,41 @@ const Navigation: React.FC<NavigationProps> = ({
         openDomainQueryPage();
     }
 
+    const marketRef = useRef<HTMLButtonElement | null>(null)
+
     return(
         <div className="navigation">
             {Object.values(NavigationLists).map(navigateObject => (
-                <button 
-                    className={`navigatebutton ${hoveredId === navigateObject? 'greenword' : ''} `}
-                    key={navigateObject}
-                    onClick={() => navigateTo(navigateObject)}
-                    onMouseEnter={() => setHoveredId(navigateObject)}
-                    onMouseLeave={() => setHoveredId(null)}
-                >
-                    {(hoveredId === navigateObject)? 
-                    (
-                        <img src={returnImg(navigateObject, true)} className="topbarhomeicon" />
-                    ):
-                    (
-                        <img src={returnImg(navigateObject, false)} className="topbarhomeicon" />
-                    )}
-                    <h1>{returnNavigateName(navigateObject)}</h1>
-                </button>
+                <div className="navigateobjectblock" key={navigateObject}>
+                    <button 
+                        className={`navigatebutton ${hoveredId === navigateObject? 'greenword' : ''} `}
+                        key={navigateObject}
+                        onClick={() => navigateTo(navigateObject)}
+                        onMouseEnter={() => setHoveredId(navigateObject)}
+                        onMouseLeave={() => setHoveredId(null)}
+                        ref={navigateObject===NavigationLists.Auction ? marketRef : null}
+                    >
+                        {(hoveredId === navigateObject)? 
+                        (
+                            <img src={returnImg(navigateObject, true)} className="topbarhomeicon" />
+                        ):
+                        (
+                            <img src={returnImg(navigateObject, false)} className="topbarhomeicon" />
+                        )}
+                        <h1>{returnNavigateName(navigateObject)}</h1>
+                    </button>
+                    {navigateObject===NavigationLists.Auction && showMarketType &&
+                        <MarketplaceDropDown 
+                            ifAnimateDown={marketDropAnimate} 
+                            closeMarketDrop={() => setShowMarketType(false)}
+                            setAnimate={setMarketDropAnimate}
+                            marketButtonRef={marketRef}
+                        />
+                    }
+                </div>
             ))}
             <div className="topbarline" />
+
             <button 
                 className={`opensearchomit ${ifSearchbarHover? 'greenwordsearch' : ''} `} 
                 onMouseEnter={() => setIfSearchbarHover(true)} 
