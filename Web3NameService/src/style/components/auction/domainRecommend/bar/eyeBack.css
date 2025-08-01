@@ -1,0 +1,29 @@
+
+
+.eyeback{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+}
+
+.eyebackicon{
+    display: flex;
+    align-items: center;
+}
+
+.eyeline{
+    width: 1px;
+    height: 100%;
+    background-color: white;
+    opacity: 0.8;
+    margin: 0 10px;
+    filter: blur(1px);
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .eyebackicon {
+        width: 270px;
+    }
+}

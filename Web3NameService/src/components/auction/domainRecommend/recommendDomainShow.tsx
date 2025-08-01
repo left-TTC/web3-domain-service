@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 
 import light from "@/assets/lighting.svg"
 import nostart from "@/assets/starwhite.svg"
-import cart from "@/assets/shop.svg"
+import cart from "@/assets/cart.svg"
 import coin from "@/assets/coin.svg"
 import star from "@/assets/starok.svg"
 import { useTranslation } from "react-i18next";

@@ -2,7 +2,7 @@
 
 import sort from "@/assets/sort.svg"
 
-import "@/style/components/auction/domainRecommend/sortButton.css"
+import "@/style/components/auction/domainRecommend/bar/sortButton.css"
 
 const SortButton = () => {
 

@@ -1,0 +1,90 @@
+
+
+.checkingroot{
+    height: 100%;
+    position: relative;
+}
+
+.checkingrootcontent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    background-color: #434C52;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.checkingrootcontent h1{
+    color: white;
+    font-family: 'Minecraftia', monospace;
+    padding: 0;
+}
+
+.checkingrootgo{
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 5px;
+}
+
+.changerootdrop{
+    position: absolute;
+    width: 100%;
+    background-color: #161A39;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 2px solid #747476;
+    overflow-y: auto;
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    transform: scale(0.9);
+    opacity: 0;
+    z-index: 1;
+}
+
+.chooseRootDomaininchecking{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: #434C52;
+}
+
+.chooseRootDomaininchecking h1{
+    margin: 0;
+    padding: 0;
+    font-family: 'Minecraftia', monospace;
+    color: white;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .checkingroot{
+        width: 150px;
+    }
+
+    .checkingrootgo{
+        width: 20px;
+    }
+    
+    .checkingrootcontent h1{
+        font-size: 16px;
+    }
+
+    .changerootdrop{
+        height: 150px;
+    }
+
+    .chooseRootDomaininchecking h1{
+        font-size: 16px;
+    }
+}

@@ -1,206 +1,112 @@
 
-
-
-
-.rootdomaininfo{
-    width: 50%;
-    height: 90%;
-    position: relative;
-}
-
-.contentblock{
-    width: 90%;
-    height: 75%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    color: #fff;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.rootcreateswider{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-}
-
-.createrootswiper{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.domaincard{
-    width: 70%;
-    height: 80%;
+.rootinfobl{
+    background-color: #1C2334;
     padding: 10px;
-    background: #1C2334;
-    color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
+    border-radius: 20px;
+    border: 2px solid #434C52;
 }
 
-.rootdomainname{
+.rootdomainword{
+    font-family: 'Minecraftia', monospace;
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    gap: 20px;
-    padding: 20px;
     justify-content: space-between;
+    padding: 10px 20px;
 }
-
-.rootdomainname h1{
+.rootdomainword h1{
+    color: white;
     margin: 0;
-    padding: 0;
 }
-
-.rootdomainname h2{
-    margin: 0;
-    padding: 0;
+.rootdomainword h2{
     color: #B4FC75;
-    font-weight: 500;
-}
-
-.contributer{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    padding: 0px 20px;
-    position: relative;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.contributer h1{
-    padding: 0;
-    margin: 0;
-}
-
-.contributer h2{
-    padding: 0;
     margin: 0;
 }
 
 .sponerhead{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-    width: 60%;
-    padding: 5px;
-    background-color: rebeccapurple;
-    border-radius: 20px;
+    background-color: #434C52;
 }
-
-.sponerhead:hover{
-    opacity: 0.9;
-}
-
 .sponerhead h1{
-    color: white;
-}
-
-.headblock{
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.usrdefault{
-    width: 30px;
-}
-
-.fuelblock{
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 40px;
-    padding: 20px;
-    font-family: 'Minecraftia', monospace;
-    justify-content: space-between;
-}
-
-.fuelblock h1{
-    margin: 0;
-    padding: 0;
-}
-
-.fuelblock h2{
-    margin: 0;
-    padding: 0;
     color: #B4FC75;
+    margin: 0;
+}
+.sponerhead:hover{
+    opacity: 0.8;
 }
 
 .addFuelbutton{
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: center;
+    margin-top: 15px;
 }
-
 .addfuel{
-    font-family: 'Minecraftia', monospace;
+    height: 50px;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #B4FC75;
-    border-radius: 5px;
 }
-
-.addfuel:active{
-    transform: translateY(2px) translateX(2px); 
-}
-
 .addfuel h1{
-    padding: 0;
-    margin: 0;
+    font-family: 'Minecraftia', monospace;
+    color: black;
+}
+.addfuel:active{
+    transform: translateX(2px) translateY(2px);
+}
+
+.rootchecking{
+    background-color: #1C2334;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.rootchecking::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200px;
+    height: 500px;
+    width: 200px;
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.12) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    filter: blur(8px); /* 模糊边缘，增强真实感 */
+    animation: shimmer-sweep 1.5s infinite ease-in-out;
+}
+
+@keyframes shimmer-sweep {
+    0% {
+        left: -200px;
+    }
+    100% {
+        left: 100%;
+    }
 }
 
 /*common computer*/
 @media (min-width: 1024px){
-    .rootdomainname h1{
-        font-size: 15px;
-        font-family: 'Minecraftia', monospace;
+    .rootinfobl{
+        width: 500px;
+        height: 240px;
     }
 
-    .rootdomainname h2{
-        font-size: 24px;
-    }
-
-    .contributer h1{
-        font-size: 15px;
-        font-family: 'Minecraftia', monospace;
-    }
-
-    .sponerhead h1{
-        font-weight: 500;
-        font-size: 18px;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-
-    .fuelblock h1{
-        font-size: 15px;
-    }
-
-    .fuelblock h2{
-        margin: 0;
-        padding: 0;
+    .rootdomainword h1{
         font-size: 18px;
     }
-    
+    .rootdomainword h2{
+        font-size: 22px;
+    }
+
     .addfuel h1{
-        font-size: 16px;
+        font-size: 20px;
     }
 }

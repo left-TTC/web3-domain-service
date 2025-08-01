@@ -50,7 +50,7 @@
     "auctionhouse": "Auction House",
     "trynow": "Try Now",
     "create": "Join Create",
-    "rootdomain": "Root Domain:",
+    "rootdomain": "Name:",
     "sponsor": "Sponsor:",
     "fuel": "Fuel",
     "launchnew": "Launch a new root domain",
@@ -72,5 +72,10 @@
     "findcreate": "You can create a new root domain like .web3 here",
     "domainrecommend": "Premium Domain Recommendation:",
     "seziefuture": "Seize the Web3 Traffic Entrance",
-    "filter": "Filter"
+    "filter": "Filter",
+    "rootdomainfac": "Root Domain Factory",
+    "lanunchnew": "Launch Your Preferred Root Domain",
+    "arecreating": "You are Checking:",
+    "checklogs": "Check Logbook",
+    "nogoodproject": "Don't see a project you want to support?"
 }

@@ -1,0 +1,31 @@
+
+
+.refreshbutton{
+    display: flex;
+    height: 100%;
+    background-color: #161A39;
+    font-family: 'Minecraftia', monospace;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.refreshbutton:hover{
+    background-color: #434C52;
+}
+
+.refreshbutton h1{
+    color: white;
+}
+/*common computer*/
+@media (min-width: 1024px){
+    .refreshbuicon{
+        height: 20px;
+    }
+
+    .refreshbutton h1{
+        font-size: 14px;
+    }
+}

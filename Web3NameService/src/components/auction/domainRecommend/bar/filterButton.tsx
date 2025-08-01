@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next"
 
 import filter from "@/assets/filter.svg"
 
-import "@/style/components/auction/domainRecommend/filterButton.css"
+import "@/style/components/auction/domainRecommend/bar/filterButton.css"
 
 const FilterButton = () => {
 

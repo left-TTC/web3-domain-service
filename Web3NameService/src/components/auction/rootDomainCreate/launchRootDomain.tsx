@@ -18,7 +18,7 @@ const LaunchRootDomain = () => {
     return(
         <div className="launchroot">
             <div className="launchanimation">
-
+                <h1>{t("nogoodproject")}</h1>
             </div>
             <div className="launchnewdomain">
                 <h1>{t("launchnew")}</h1>

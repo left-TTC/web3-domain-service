@@ -1,0 +1,35 @@
+
+.sailship{
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+    gap: 30px;
+}
+
+.shipbl{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.changeshipBl{
+    
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .sailship{
+        width: 1100px;
+        height: 360px;
+    }
+
+    .shipbl{
+        width: 640px;
+        height: 100%;
+    }
+
+    .changeshipBl{
+        height: 100%;
+        width: 430px;
+    }
+}

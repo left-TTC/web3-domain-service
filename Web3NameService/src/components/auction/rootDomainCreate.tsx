@@ -2,8 +2,10 @@
 
 import "@/style/components/auction/rootDomainCreate.css"
 import { useTranslation } from "react-i18next"
-import FundingDomain from "./rootDomainCreate/fundingDomain"
 import LaunchRootDomain from "./rootDomainCreate/launchRootDomain"
+
+import factory from "@/assets/factory.svg"
+import SailingShip from "./rootDomainCreate/sailingShip"
 
 export default function RootDomainCreate(){
 
@@ -11,8 +13,17 @@ export default function RootDomainCreate(){
 
     return(
         <div className="RootDomainCreate">
-            <FundingDomain /> 
-            <LaunchRootDomain />
-        </div>
+            <div className="rootdomaincreatecontent">
+                <div className="rootfactorytitle">
+                    <h1>{t("rootdomainfac")}</h1>
+                    <img src={factory} className="factoryicon" />
+                </div>
+                <div className="subrootfactorytitle">
+                    <h1>{t("lanunchnew")}</h1>
+                </div>
+                <SailingShip />
+                <LaunchRootDomain />
+            </div>
+        </div>  
     )
 }

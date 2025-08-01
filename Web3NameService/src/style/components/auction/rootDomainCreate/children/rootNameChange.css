@@ -1,0 +1,70 @@
+
+.rootnamechange{
+    height: 100%;
+}
+
+.sailtitle{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.sailtitle h1{
+    color: white;
+    font-family: 'Minecraftia', monospace;
+}
+
+.rootcreateswider{
+    width: 90%;
+}
+
+.swipercontent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    gap: 30px;
+}
+.creatingaccountswiper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.creatingaccountswiper h1{
+    color: white;
+    font-weight: 560;
+}
+
+.checklogs{
+    width: 60%;
+    background-color: #B4FC75;
+    padding: 20px 0;
+}
+.checklogs h1{
+    margin: 0;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: white; /* 你想要的颜色 */
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .sailtitle h1{
+        font-size: 23px;
+    }
+    
+    .rootcreateswider{
+        height: 80px;
+    }
+
+    .creatingaccountswiper h1{
+        font-size: 38px;
+    }
+
+    .checklogs h1{
+        font-size: 22px;
+    }
+}
