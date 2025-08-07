@@ -28,7 +28,13 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
     const [fuelQuantity, setFuelQuantity] = useState<number | null>(null)
 
     const addFuel = async() => {
-        if(!fuelQuantity || !wallet || !signTransaction) return;
+        if(!fuelQuantity || !wallet || !signTransaction) {
+            console.log(fuelQuantity);
+            console.log(wallet?.toBase58());
+            console.log(signTransaction);
+            console.log("something fail");
+            return   
+        }
 
         try{
             const addFuelTransaction = addFuelForRoot(

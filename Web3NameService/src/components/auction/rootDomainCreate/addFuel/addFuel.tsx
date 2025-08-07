@@ -26,8 +26,10 @@ const AddFuel: React.FC<AddFuelProps> = ({
 
     return(
         <div className="addfuelpage">
+            <div className="addfuelbackbl">
+                <Back backFun={closeAddFuelPage} className="addfuelback"/>
+            </div>
             <div className="addfuelpay">
-                <Back backFun={closeAddFuelPage} />
                 <div className="addfueltitle">
                     <h1>{t("addingfor")}:</h1>
                     <h2>{addingRootInfo.creatingName}</h2>

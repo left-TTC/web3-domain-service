@@ -9,8 +9,6 @@ import { Navigation } from "swiper/modules";
 import { useTranslation } from "react-i18next";
 import { cutString } from "@/utils/functional/common/cutString";
 
-
-import usrdefault from "@/../public/usr/usrdefault.png"
 import { CREATE_ROOT_FEE } from "@/utils/constants/constants";
 import { useState } from "react";
 import AddFuel from "../addFuel/addFuel";
@@ -34,8 +32,6 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
         console.log("add moduel: ", ifShowAddFuel)
         setIfShowAddFuel(true)
     }
-
-
  
     return(
         <div className="rootdomaininfo">
@@ -64,6 +60,9 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
             ): (
                 <div className="rootinfobl rootchecking"/>
             )}
+            {ifShowAddFuel &&
+                <AddFuel addingRootInfo={activeDomain!} closeAddFuelPage={() => setIfShowAddFuel(false)}/>
+            }
         </div>
     )
 }

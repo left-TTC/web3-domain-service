@@ -18,7 +18,6 @@ const SailingShip = () => {
     useEffect(() => {
         const getAllCreatingRootDomains = async() => {
             const allRoots = await findCreatingRoot(connection)
-            console.log(allRoots[0].creatingName)
             setSailingRootDomains(allRoots);
         }
 
@@ -47,7 +46,11 @@ const SailingShip = () => {
                 />
             </div>
             <div className="changeshipBl">
-                <RootNameChange creatingAccounts={sailingRootDomains}/>
+                <RootNameChange 
+                    creatingAccounts={sailingRootDomains} 
+                    setActiveRoot={setActiveCreatingRoot}
+                    setLoadingState={() => setActiveLoaded(false)}    
+                />
             </div>
         </div>
     )

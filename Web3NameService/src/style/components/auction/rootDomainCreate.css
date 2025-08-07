@@ -5,7 +5,7 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
-    margin-top: 160px;
+    margin-top: 220px;
 }
 
 .rootfactorytitle{
@@ -29,6 +29,46 @@
     margin-top: 30px;
 }
 
+.lanunchdomainor{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Minecraftia', monospace;
+    color: white;
+    margin: 40px 0;
+}
+
+.sailt{
+    margin-top: 160px;
+    width: 100%;
+    text-align: center;
+    color: #B4FC75;
+    font-family: 'Minecraftia', monospace;
+}
+
+.launcht{
+    width: 100%;
+    text-align: center;
+    color: #B4FC75;
+    font-family: 'Minecraftia', monospace;
+    margin-top: 50px;
+}
+
+.rootdomaincreatecontent{
+    z-index: 1;
+}
+
+.rootcreateround{
+    background: radial-gradient(
+        circle,
+        rgba(0, 240, 255, 0.6) 0%,      /* 亮蓝（#00F0FF） */
+        rgba(153, 69, 255, 0.4) 60%,    /* Solana 紫（#9945FF） */
+        rgba(153, 69, 255, 0) 100%      /* 渐隐 */
+    );
+    opacity: 0.25;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
     .RootDomainCreate{
@@ -48,5 +88,16 @@
 
     .subrootfactorytitle h1{
         font-size: 24px;
+    }
+
+    .lanunchdomainor h1{
+        font-size: 60px;
+    }
+
+    .sailt h1{
+        font-size: 30px;
+    }
+    .launcht h1{
+        font-size: 30px;
     }
 }

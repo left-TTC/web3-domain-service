@@ -10,7 +10,8 @@
     top: 0;
     left: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .addfuelpay{
@@ -48,28 +49,38 @@
     width: 100%;
     padding: 0;
     margin: 0;
+    margin-top: 20px;
 }
 
 .payemenCryptotchooser h1{
     margin: 0;
 }
 
+.addfuelbackbl{
+    position: relative;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
     .addfuelpay{
-        width: 900px;
+        width: 1100px;
+    }
+
+    .addfuelbackbl{
+        width: 1100px;
+        padding-bottom: 50px;
     }
 
     .addfueltitle h1{
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .addfueltitle h2{
-        font-size: 34px;
+        font-size: 42px;
     }
 
     .payemenCryptotchooser h1{
-        font-size: 15px;
+        font-size: 21px;
         margin: 0;
         padding: 0;
     }

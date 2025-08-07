@@ -7,16 +7,17 @@ import back from "@/assets/backwhite.svg"
 
 export interface BackProps {
     backFun: () => void,
+    className?: string,
 }
 
 const Back: React.FC<BackProps> = ({
-    backFun
+    backFun, className
 }) => {
 
     const {t} = useTranslation()
 
     return(
-        <button className="backtoLastPage" onClick={backFun}>
+        <button className={`backtoLastPage ${className}`} onClick={backFun}>
             <img src={back} className="backtoLastPageimg" />
             <h1>{t("back")}</h1>
         </button>

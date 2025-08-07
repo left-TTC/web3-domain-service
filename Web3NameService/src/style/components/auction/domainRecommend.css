@@ -72,23 +72,7 @@
     margin-top: 25px;
 }
 
-.recommendbc{
-    position: fixed;
-    width: 3000px;
-    height: 2000px;
-    background: radial-gradient(
-        circle,
-        rgba(173, 216, 255, 0.6) 0%,    /* 浅蓝 */
-        rgba(200, 160, 255, 0.3) 60%,   /* 淡紫 */
-        rgba(200, 160, 255, 0) 100%     /* 渐隐 */
-    );
-    border-radius: 50%;
-    left: -4 0%;
-    top: -40%;
-    filter: blur(90px);
-    z-index: 0;
-    opacity: 0.6;
-}
+
 
 /*common computer*/
 @media (min-width: 1024px){

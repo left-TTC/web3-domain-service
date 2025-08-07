@@ -53,7 +53,7 @@
     "rootdomain": "Name:",
     "sponsor": "Sponsor:",
     "fuel": "Fuel",
-    "launchnew": "Launch a new root domain",
+    "launchnew": "Launch a New Root Domain",
     "launch": "Launch",
     "addingfor": "You are Adding Fuel For",
     "selectquantity": "Select the Quantity to Add",
@@ -75,7 +75,8 @@
     "filter": "Filter",
     "rootdomainfac": "Root Domain Factory",
     "lanunchnew": "Launch Your Preferred Root Domain",
-    "arecreating": "You are Checking:",
+    "arecreating": "Checking:",
     "checklogs": "Check Logbook",
-    "nogoodproject": "Don't see a project you want to support?"
+    "nogoodproject": "Don't see a project you want to support?",
+    "supportnow": "Support Existing Projects"
 }

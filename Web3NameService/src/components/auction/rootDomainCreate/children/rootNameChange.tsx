@@ -7,18 +7,28 @@ import 'swiper/css/navigation';
 
 import "@/style/components/auction/rootDomainCreate/children/rootNameChange.css"
 import type { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, type SwiperClass } from 'swiper/react';
 import { Navigation } from "swiper/modules";
 
 export interface RootNameChangeProps {
-    creatingAccounts: FundingAccountState[]
+    creatingAccounts: FundingAccountState[],
+    setActiveRoot: React.Dispatch<React.SetStateAction<FundingAccountState | null>>,
+    setLoadingState: () => void,
 }
 
 const RootNameChange: React.FC<RootNameChangeProps> = ({
-    creatingAccounts
+    creatingAccounts, setActiveRoot, setLoadingState
 }) => {
 
     const {t} = useTranslation()
+
+    const handleSwiderChange = (swiper: SwiperClass) => {
+        const currentIndex = swiper.realIndex;
+        const currentItem = creatingAccounts[currentIndex];
+
+        setActiveRoot(currentItem);
+        setLoadingState();
+    }
 
     return(
         <div className="rootnamechange">
@@ -33,6 +43,7 @@ const RootNameChange: React.FC<RootNameChangeProps> = ({
                     navigation
                     loop={true}
                     className="rootcreateswider"
+                    onSlideChange={handleSwiderChange}
                 >
                     {creatingAccounts.map((creatingAccounts, index) => (
                         <SwiperSlide key={index} className="creatingaccountswiper">

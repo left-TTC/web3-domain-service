@@ -1,6 +1,7 @@
 import { Connection } from "@solana/web3.js"
 import { FundingAccountState } from "../functional/common/class/fundingAccountState"
 import { getCreatingRootAccounts } from "../functional/solana/getCreatingRootAccounts"
+import { CREATE_ROOT_FEE } from "../constants/constants";
 
 
 
@@ -14,7 +15,10 @@ export async function findCreatingRoot(
     let states: FundingAccountState[] = [];
     for(const info of await connection.getMultipleAccountsInfo(accounts)){
         if(info){
-            states.push(new FundingAccountState(info))
+            const newItem = new FundingAccountState(info);
+            if(newItem.fundState.toNumber() < CREATE_ROOT_FEE){
+                states.push(newItem)
+            }
         }
     }
 

@@ -19,8 +19,6 @@ const ChoosePayment: React.FC<ChoosePaymentProps> = ({
 
     const {t} = useTranslation();
 
-    
-
     return(
         <div className="payemenCryptotchooser">
             <h1>{t("payment")}</h1>

@@ -14,6 +14,7 @@ import RecommendDomainShow from "./domainRecommend/recommendDomainShow"
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider"
 import CheckingRootDomain from "./domainRecommend/bar/checkingRootDomain"
 import DomainGeneratingShow from "./domainRecommend/domainGeneratingShow"
+import LargeRound from "../common/show/largeRound"
 
 export default function DomainRecommend(){
 
@@ -52,7 +53,7 @@ export default function DomainRecommend(){
 
     return(
         <div className="Recommendpage">
-            <div className="recommendbc" />
+            <LargeRound />
             <div className="recommendpagecontent">
                 <div className="recommendpagetitle">
                     <h1>{t("domainrecommend")}</h1>
