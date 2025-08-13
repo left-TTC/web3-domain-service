@@ -24,9 +24,22 @@
 }
 
 .mydomainsbl{
-    width: 100%;
+    width: calc(100% - 30px);
     background-color: rebeccapurple;
     display: grid;
+    min-height: 800px;
+    padding: 30px;
+}
+
+.mydomainblno{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mydomainblno h1{
+    color: white;
+    font-size: 30px;
 }
 
 /*common computer*/

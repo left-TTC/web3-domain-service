@@ -84,5 +84,6 @@
     "recorded": "Recorded",
     "norecored": "No Recorded",
     "byletters": "By Letters",
-    "byvalue": "By Value"
+    "byvalue": "By Value",
+    "nodomain": "No domains found"
 }

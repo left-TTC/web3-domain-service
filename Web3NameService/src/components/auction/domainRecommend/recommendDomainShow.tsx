@@ -30,7 +30,7 @@ const RecommendDomainShow: React.FC<RecommendDomainShowProps> = ({
 
     const walletAddress = wallet?.toBase58() || ""
 
-    const [starDomains, setStarDomains] = useAtom(addressStringListAtom(walletAddress));
+    const [starDomains, setStarDomains] = useAtom<string[]>(addressStringListAtom(walletAddress));
 
     const ifDomainStar = (domain: string) => {
         if(starDomains.includes(domain))return true
