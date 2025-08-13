@@ -1,0 +1,24 @@
+
+.domainsort{
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.sortdomainsortbl{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+
+
+/*common computer*/
+@media (min-width: 1024px){
+
+}
+

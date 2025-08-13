@@ -1,0 +1,37 @@
+
+
+.usrdomain{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.mydomintitle{
+    width: 100%;
+}
+.mydomintitle h1{
+    font-weight: 600;
+    color: white;
+}
+
+.linedomain{
+    width: 100%;
+    margin: 0px 0;
+    height: 1px;
+    background-color: white;
+    opacity: 0.6;
+}
+
+.mydomainsbl{
+    width: 100%;
+    background-color: rebeccapurple;
+    display: grid;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .mydomintitle h1{
+        font-size: 22px;
+    }
+}

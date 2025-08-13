@@ -1,38 +1,37 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import inject from '@rollup/plugin-inject';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    inject({
+      Buffer: ['buffer', 'Buffer'],
+      process: 'process',
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      buffer: 'buffer',
+      process: 'process/browser',
     },
   },
   define: {
-    'process.env': {}, // Optional: Only if you use process.env in your code
-    global: {}, // Required for some libraries that expect 'global' to exist
+    'process.env': {}, // For using process.env safely in browser
+    global: {},         // For some libraries expecting global object
   },
   build: {
     commonjsOptions: {
-      transformMixedEsModules: true, // Required if you have mixed ES/CJS dependencies
+      transformMixedEsModules: true,
     },
   },
   optimizeDeps: {
     esbuildOptions: {
-      // Node.js global to browser globalThis
       define: {
         global: 'globalThis',
       },
-      // Enable esbuild polyfill plugins
-      plugins: [
-        {
-          name: 'fix-node-globals-polyfill',
-          setup(build) {
-            build.onResolve({ filter: /_virtual-process-polyfill_\.js/ }, ({ path }) => ({ path }));
-          },
-        },
-      ],
     },
   },
 });

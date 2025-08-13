@@ -29,7 +29,6 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
     const [ifShowAddFuel, setIfShowAddFuel] = useState(false)
 
     const openAddFuelModal = () => {
-        console.log("add moduel: ", ifShowAddFuel)
         setIfShowAddFuel(true)
     }
  

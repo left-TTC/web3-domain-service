@@ -1,0 +1,84 @@
+
+.allmydomainbl{
+    position: relative;
+    height: 100%;
+}
+
+.allmydomain{
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #081328;
+    border: 1px solid #434C52;
+    opacity: 0.9;
+    justify-content: space-between;
+}
+.allmydomain h1{
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    color: white;
+}
+
+.arrayicon{
+    transform: rotate(180deg);
+}
+
+.mydomainfilterbl{
+    position: absolute;
+    width: 100%;
+    background-color: #1C2334;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;   
+    flex-direction: column;
+    padding: 6px 0;
+    border-radius: 10px;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.mydomaintypebu{
+    width: 96%;
+    height: 40px;
+    margin-top: 3px;
+    background-color: #1C2334;
+    display: flex;
+    text-align: left;
+    align-items: center;
+}
+.mydomaintypebu:hover{
+    background-color:#2B2F3C;
+}
+.mydomainactive{
+    background-color:#2B2F3C;
+}
+.mydomaintypebu h1{
+    color: white;
+    font-weight: 470;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .allmydomain h1{
+        font-size: 15px;
+    }
+
+    .arrayicon{
+        width: 20px;
+    }
+
+    .allmydomainbl{
+        width: 200px;
+    }
+
+    .mydomaintypebu h1{
+        font-size: 15px;
+    }
+}
+
+

@@ -7,6 +7,7 @@ import AuctionDomain from './components/auction/auctionDomianSale';
 import DomainRecommend from './components/auction/domainRecommend';
 import RootDomainCreate from './components/auction/rootDomainCreate';
 import { useState } from 'react';
+import { User } from './pages/usr';
 
 function App() { 
       
@@ -20,6 +21,7 @@ function App() {
                     <Route path='#' element={<Index ifShowDomain={showBrowserDomainQuery} setDomainQuery={setShowBrowserDomainQuery}/>} />
                     <Route path='*' element={<Index ifShowDomain={showBrowserDomainQuery} setDomainQuery={setShowBrowserDomainQuery}/>} />
                     <Route path='/search' element={<Search />} />
+                    <Route path='/usr' element={<User openDomainQueryPage={() => setShowBrowserDomainQuery(true)} />} />
 
                     {/** Auction Page */}
                     <Route path='/auction/recommend' element={<DomainRecommend />} />

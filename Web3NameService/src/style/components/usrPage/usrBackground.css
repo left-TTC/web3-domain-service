@@ -1,0 +1,61 @@
+
+
+.usrback{
+    width: 100vw;
+    background-color: #B4FC75;  
+    background-color: #062548;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.havenotdomainusr{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+.havenotdomainusr h1{
+    color: white;
+    font-weight: 300;
+}
+
+
+.getfristbu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    background-color: #B4FC75;
+    width: 80%;
+}
+.getfristbu h1{
+    color: black;
+    margin: 0;
+    font-weight: 500;
+}
+.getfristbu:hover{
+    opacity: 0.8;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    .usrback{
+        height: 300px;
+    }
+
+    .havenotdomainusr h1{
+        font-size: 36px;
+    }
+
+    .usrsearchdomain{
+        width: 40px;
+    }
+
+    .getfristbu h1{
+        font-size: 20px;
+    }
+}

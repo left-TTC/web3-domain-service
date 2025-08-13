@@ -78,5 +78,11 @@
     "arecreating": "Checking:",
     "checklogs": "Check Logbook",
     "nogoodproject": "Don't see a project you want to support?",
-    "supportnow": "Support Existing Projects"
+    "supportnow": "Support Existing Projects",
+    "getfrist": "Get your Frist Domain",
+    "all": "All",
+    "recorded": "Recorded",
+    "norecored": "No Recorded",
+    "byletters": "By Letters",
+    "byvalue": "By Value"
 }

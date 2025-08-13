@@ -35,8 +35,8 @@ const AmountChooser: React.FC<AmountChooserProps> = ({
         <div className="fuelChooser">
             <h1>{t("selectquantity")}:</h1>
             <div className="amountChoose">
-                {num.map((quantity) => (
-                    <button className={`quantitybu ${wilAddFuel === quantity ? "quantitybuactive" : ""}`} onClick={() => click(quantity)}>
+                {num.map((quantity, index) => (
+                    <button key={index} className={`quantitybu ${wilAddFuel === quantity ? "quantitybuactive" : ""}`} onClick={() => click(quantity)}>
                         <h1>{quantity}</h1>
                     </button>
                 ))}

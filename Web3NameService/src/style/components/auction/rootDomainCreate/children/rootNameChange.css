@@ -24,7 +24,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80%;
+    height: 60%;
     gap: 30px;
 }
 .creatingaccountswiper{
@@ -41,6 +41,7 @@
     width: 60%;
     background-color: #B4FC75;
     padding: 20px 0;
+    color: black;
 }
 .checklogs h1{
     margin: 0;

@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 
 import "@/style/pages/search.css"
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getQueryDomainInfo } from "@/utils/net/getQueryDomainInfo";
