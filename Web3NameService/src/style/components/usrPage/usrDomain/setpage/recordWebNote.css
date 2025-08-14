@@ -1,0 +1,63 @@
+
+
+.recordwebnote{
+    width: 100%;
+    height: 30px;
+    background-color: #1C2334;
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    /* box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5); */
+}
+
+.reacordNote{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1C2334;
+    width: 150px;
+    padding: 10px 0;
+}
+.reacordNote h1{
+    font-weight: 450;
+    color: white;
+}
+
+.recordnotecon{
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+.recordnotecon:hover{
+    background-color: black;
+}
+
+.acitiverecordnote{
+    background-color: #B4FC75;
+}
+.acitiverecordnote h1{
+    color: black;
+}
+.acitiverecordnote:hover{
+    background-color: #B4FC75;
+}
+
+.recordnoteexit:hover{
+    cursor: pointer;
+}
+
+
+/*common computer*/
+@media (min-width: 1024px){
+    .reacordNote h1{
+        font-size: 16px;
+    }
+
+    .recordnoteexit{
+        width: 13px;
+    }
+}

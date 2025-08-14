@@ -25,9 +25,7 @@ export async function getAllRootDomain(
             },
         },
     ];
-
-    console.log("central state register: ", CENTRAL_STATE_REGISTER.toBase58())
-
+    
     const accounts = await connetion.getProgramAccounts(WEB3_NAME_SERVICE_ID, {
         filters,
         dataSlice: { offset: 0, length: 0},

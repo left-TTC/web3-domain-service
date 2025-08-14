@@ -46,16 +46,14 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
         fetchUsrDomains()
     }, [wallet, activeRootDomain])
 
-    const [sortStyle, setSortStyle] = useState<SortStyle>(SortStyle.One)
+    const [sortStyle, setSortStyle] = useState<SortStyle>(SortStyle.Two)
 
     useEffect(() => {
         const length = usrDomains.length;
-        if (length <= 5) {
-            setSortStyle(SortStyle.One);
-        } else if (length > 10) {
-            setSortStyle(SortStyle.Three);
-        } else {
+        if (length <= 10) {
             setSortStyle(SortStyle.Two);
+        } else{
+            setSortStyle(SortStyle.Three);
         }
     }, [usrDomains]);
 
@@ -76,11 +74,10 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
                 {(usrDomains.length === 0)? 
                     <div className="mydomainblno">
                         <h1>{t("nodomain")}</h1>
-                    </div> :
+                    </div> 
+                    :
                     <div className={`mydomainblco ${
-                        sortStyle === SortStyle.One
-                            ? "onelineone"
-                            : sortStyle === SortStyle.Two
+                        sortStyle === SortStyle.Two
                             ? "onelinetwo"
                             : "onlinethree"
                     }`}>

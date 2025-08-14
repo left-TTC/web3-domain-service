@@ -41,7 +41,7 @@ const Wallet: React.FC<WalletProps> = ({
         if(publicKey){
             setWalletAddress(cutString(publicKey.toBase58(), 5, 5));
         }
-    }, [connected]);
+    }, [publicKey]);
 
     useEffect(() => {
         const array = arrayRef.current;
@@ -60,13 +60,16 @@ const Wallet: React.FC<WalletProps> = ({
 
     const walletClick = (e: React.MouseEvent) => {
         e.stopPropagation();
+        console.log("clinck:", connected)
         if(connected){
             setDropBox(prev => !prev);
         }else{
             if(!wallet){
+                console.log("wallet choose")
                 setWalletChooser(true);
                 return;
             }
+            console.log("connect")
             connect()
         }
     }

@@ -1,10 +1,6 @@
 
 
-import { Buffer } from 'buffer';
-window.Buffer = Buffer;
-
-import process from 'process';
-window.process = process;
+import "@/polyfills.ts"
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'

@@ -47,7 +47,6 @@ export async function getUsrDomains(
         for(const data of reverseDatas){
             if(data){
                 const state = new ReverseKeyState(data)
-                console.log("data", state.storagedData)
                 domains.push(state.storagedData);
             }
         }

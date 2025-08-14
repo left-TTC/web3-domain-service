@@ -1,36 +1,30 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
-import inject from '@rollup/plugin-inject';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    inject({
-      Buffer: ['buffer', 'Buffer'],
-      process: 'process',
-    }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      buffer: 'buffer',
-      process: 'process/browser',
+      "@": path.resolve(__dirname, "./src"),
+      buffer: "buffer",
+      process: "process/browser",
     },
   },
   define: {
-    'process.env': {}, // For using process.env safely in browser
-    global: {},         // For some libraries expecting global object
-  },
-  build: {
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+    global: "globalThis", // 让 CJS 代码里的 global 可用
+    "process.env": {},
   },
   optimizeDeps: {
+    include: [
+      "buffer",
+      "process",
+      "@solana/spl-token",
+      "@solana/web3.js"
+    ],
     esbuildOptions: {
       define: {
-        global: 'globalThis',
+        global: "globalThis",
       },
     },
   },

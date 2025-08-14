@@ -1,8 +1,10 @@
 
 import "@/style/components/usrPage/usrDomain/domainBlock.css"
+import { useEffect, useState } from "react"
+import WholeLine from "./block/wholeLine"
+import DomainSetPage from "./domainSetPage"
 
-export enum SortStyle {
-    One, 
+export enum SortStyle { 
     Two,
     Three,
 }
@@ -16,12 +18,29 @@ const DomainBlock: React.FC<DomainBlockProps> = ({
     domainName, sortStyle
 }) => {
 
+    const [blockStyle, setBlockStyle] = useState<React.ReactNode | null>(null)
+
+    const [domainFunctionSet, setDomainFunctionSet] = useState(false)
+
+    useEffect(() => {
+        switch(sortStyle){
+            case SortStyle.Two:
+                setBlockStyle(<WholeLine domainName={domainName} openSetPage={() => setDomainFunctionSet(true)}/>)
+                break
+        }
+    }, [sortStyle])
 
     return(
         <div className="domainbl">
-            <div className="nameAndFunction">
-                <h1>{domainName}</h1>
-            </div>
+            {blockStyle}
+            {domainFunctionSet &&
+                <DomainSetPage 
+                    domainName={domainName}
+                    ifIPFS={false}
+                    ifImg={false}
+                    closeTheSetPage={() => setDomainFunctionSet(false)}
+                />
+            }
         </div>
     )
 }

@@ -85,5 +85,8 @@
     "norecored": "No Recorded",
     "byletters": "By Letters",
     "byvalue": "By Value",
-    "nodomain": "No domains found"
+    "nodomain": "No domains found",
+    "manage": "Manage",
+    "cid": "Input Your Website IPFS Cid",
+    "createrecord": "Create Record"
 }
