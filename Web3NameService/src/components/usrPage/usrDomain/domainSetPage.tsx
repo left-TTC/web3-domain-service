@@ -54,6 +54,7 @@ const DomainSetPage: React.FC<DomainSetPageProps> = ({
                             <IpfsRecordCreate 
                                 ipfsInput={setInputIpfsCid}
                                 inputIpfs={inputIpfsCid}
+                                ifIPFS={ifIPFS}
                             />
                         )}
                     </div>

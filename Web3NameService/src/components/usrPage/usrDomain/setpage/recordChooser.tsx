@@ -3,6 +3,7 @@ import "@/style/components/usrPage/usrDomain/setpage/recordChooser.css"
 export enum RecordType{
     IPFS = "IPFS",
     IMG = "IMG",
+    AUCTION = "AUCTION"
 }
 
 export interface RecordChooserProps {

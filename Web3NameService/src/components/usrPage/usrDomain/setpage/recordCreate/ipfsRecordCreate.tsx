@@ -5,10 +5,11 @@ import "@/style/components/usrPage/usrDomain/setpage/recordCreate/ipfsRecordCrea
 export interface IpfsRecordCreateProps{
     inputIpfs: string,
     ipfsInput: React.Dispatch<React.SetStateAction<string>>,
+    ifIPFS: boolean
 }
 
 const IpfsRecordCreate: React.FC<IpfsRecordCreateProps> = ({
-    inputIpfs, ipfsInput
+    inputIpfs, ipfsInput, ifIPFS
 }) => {
 
     const {t} = useTranslation()
@@ -21,14 +22,16 @@ const IpfsRecordCreate: React.FC<IpfsRecordCreateProps> = ({
     return(
         <div className="createipfsrecord">
             <div className="recordinputbl">
-                <h1>{t("cid")}:</h1>
-                <input
-                    type="text"
-                    value={inputIpfs}
-                    onChange={handDomainInput}
-                    placeholder={t("enter_cid")} 
-                    className="ipfs-input"
-                />
+                <h1>{ifIPFS? "update":t("cid")}:</h1>
+                <div className="ipfsinputbl">
+                    <input
+                        type="text"
+                        value={inputIpfs}
+                        onChange={handDomainInput}
+                        placeholder={t("Enter Cid")} 
+                        className="ipfsinput"
+                    />
+                </div>
             </div>
             <button className="confirmcreaterecordbu pixel">
                 <h1>{t("createrecord")}</h1>

@@ -57,7 +57,7 @@ const BrowserDomain: React.FC<BrowserDomainProps> = ({setQueryPage}) => {
                 <div className="browserdomainminibox" onClick={() => setQueryPage(true)}>
                     <h1>{t("startquery")}</h1>
                     <button className="browerdomainQueryBox">
-                        <img src={query} className="browserdomainquericon" />
+                        <img src={query} className="queryagainsubmitbu" />
                     </button>
                 </div>
             </div>

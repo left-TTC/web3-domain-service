@@ -128,5 +128,9 @@
     .domainusrshowwelcome h1{
         font-size: 47px;
     }
+
+    .queryagainsubmitbu{
+        width: 40px;
+    }
     
 }

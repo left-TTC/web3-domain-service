@@ -88,5 +88,7 @@
     "nodomain": "No domains found",
     "manage": "Manage",
     "cid": "Input Your Website IPFS Cid",
-    "createrecord": "Create Record"
+    "createrecord": "Create Record",
+    "resale": "Domain Resale",
+    "getother": "Get others' premium domain"
 }
