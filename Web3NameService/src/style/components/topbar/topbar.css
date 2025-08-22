@@ -2,13 +2,13 @@
 
 .topbar{
     position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #000000;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    justify-content: center;
+    top: 0;
+    background-color: #000000;
+    width: 100%;
     z-index: 1000;
+    height: 70px;
 }
 
 .topbarwalletblcok{
@@ -16,18 +16,40 @@
     display: flex;
     align-items: center;
     position: absolute;
-    right: 27%;
+    right: 30px;
     display: flex;
     flex-direction: row;
 }
 
+.topbarmedia{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+}
+
+
+
 /*common computer*/
 @media (min-width: 1024px){
+    
+}
+
+@media (width > 1400px){
+    .topbarmedia{
+        width: 1400px;
+    }
+}
+
+@media (width < 640px){
+    .topbarwalletblcok{
+        right: 5px;
+    }
     .topbar{
-        height: 70px;
+        height: 60px;
     }
 
-    .topbarwalletblcok{
-        
-    }
+    
 }

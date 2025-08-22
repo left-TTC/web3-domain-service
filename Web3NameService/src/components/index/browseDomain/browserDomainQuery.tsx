@@ -134,6 +134,18 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
         }
     }
 
+    useEffect(() => {
+    if (showChangeRoot) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "auto";
+    }
+
+    return () => {
+        document.body.style.overflow = "auto"; 
+    };
+    }, [showChangeRoot]);
+
     return(
         <div className="queryPage" ref={browseDomainRef}>
             <div className="queryblock">

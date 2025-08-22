@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 
 import array from "@/assets/array.svg"
+import connectWallet from "@/assets/connectwallet.svg"
 
 import "@/style/components/topbar/wallet/wallet.css"
 import { cutString } from "@/utils/functional/common/cutString";
@@ -90,6 +91,7 @@ const Wallet: React.FC<WalletProps> = ({
                     (
                         <div className="walletconnect">
                             <h1>{t("connect")}</h1>
+                            <img src={connectWallet} className="walletconnectimg" /> 
                         </div>
                     )
                 }      

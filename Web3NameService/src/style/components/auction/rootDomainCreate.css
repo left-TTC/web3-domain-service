@@ -16,10 +16,10 @@
     align-items: center;
     width: 100%;
 }
-
 .rootfactorytitle h1{
     color: white;
     margin: 0;
+    font-size: 66px;
 }
 
 .subrootfactorytitle{
@@ -27,6 +27,9 @@
     font-family: 'Minecraftia', monospace;
     color: #B4FC75;
     margin-top: 30px;
+}
+.subrootfactorytitle h1 {
+    font-size: 24px;
 }
 
 .lanunchdomainor{
@@ -38,6 +41,9 @@
     color: white;
     margin: 40px 0;
 }
+.lanunchdomainor h1{
+    font-size: 60px;
+}
 
 .sailt{
     margin-top: 160px;
@@ -45,6 +51,9 @@
     text-align: center;
     color: #B4FC75;
     font-family: 'Minecraftia', monospace;
+}
+.sailt h1{
+    font-size: 30px;
 }
 
 .launcht{
@@ -54,9 +63,13 @@
     font-family: 'Minecraftia', monospace;
     margin-top: 50px;
 }
+.launcht h1{
+    font-size: 30px;
+}
 
 .rootdomaincreatecontent{
     z-index: 1;
+    width: 1024px;
 }
 
 .rootcreateround{
@@ -69,35 +82,12 @@
     opacity: 0.25;
 }
 
+.factoryicon{
+    width: 70px;
+}
+
+
 /*common computer*/
 @media (min-width: 1024px){
-    .RootDomainCreate{
-        
-    }
 
-    .rootdomaincreatecontent{
-        width: 1100px;
-    }
-
-    .rootfactorytitle h1{
-        font-size: 66px;
-    }
-    .factoryicon{
-        width: 70px;
-    }
-
-    .subrootfactorytitle h1{
-        font-size: 24px;
-    }
-
-    .lanunchdomainor h1{
-        font-size: 60px;
-    }
-
-    .sailt h1{
-        font-size: 30px;
-    }
-    .launcht h1{
-        font-size: 30px;
-    }
 }

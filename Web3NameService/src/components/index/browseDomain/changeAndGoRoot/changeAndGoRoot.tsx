@@ -70,6 +70,8 @@ const ChangeAndGoRoot = forwardRef<ChangeAndGoRootHandle, ChangeAndGoRootProps>(
         })
     }
 
+    // const testSwider = ["1", "2", "3", "4"]
+
     return(
         <div className="ChangeDrop" ref={changeRootRef}>
             <div className="changedropgotoaution">

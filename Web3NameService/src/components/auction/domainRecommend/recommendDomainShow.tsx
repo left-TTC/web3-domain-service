@@ -52,7 +52,9 @@ const RecommendDomainShow: React.FC<RecommendDomainShowProps> = ({
             <button className="startcontentomit" onClick={() => handleStarClick(showDomain)}>
                 <img src={ifDomainStar(showDomain)? star : nostart} className="star" />
             </button>
-            <h1>{showDomain}</h1>
+            <div className="domiannamebl">
+                <h1>{showDomain}</h1>
+            </div>
             <div className="buyoraddtocart">
                 <button className="quickBuy showOnhover pixel">
                     <img src={light} className="quickbuylight" />

@@ -12,6 +12,7 @@
 .recommendpagecontent{
     margin-top: 200px;
     z-index: 1;
+    width: 1024px;
 }
 
 .recommendpagetitle{
@@ -22,6 +23,7 @@
 .recommendpagetitle h1{
     margin: 0;
     color: white;
+    font-size: 50px;
 }
 .recommendpagetitle h2{
     margin: 0;
@@ -30,6 +32,7 @@
     font-weight: 500;
     font-family: 'Minecraftia', monospace;
     color: #B4FC75;
+    font-size: 28px;
 }
 
 .recommendpagebar{
@@ -38,6 +41,7 @@
     flex-direction: row;
     margin-top: 50px;
     justify-content: space-between;
+    height: 50px;
 }
 
 .recommendbarleft{
@@ -73,25 +77,67 @@
 }
 
 
-
 /*common computer*/
 @media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
     .recommendpagecontent{
-        width: 1100px;
-    }
-
-    .recommendpagebar{
-        height: 50px;
+        width: 96%;
     }
 
     .recommendpagetitle h1{
-        font-size: 50px;
+        font-size: 35px;
+    }
+
+    .recommendbarleft{
+        gap: 8px;
+    }
+    
+    .recommendright{
+        width: 70%;
+        justify-content: space-between;
+        overflow: hidden;
+    }
+
+    .recommendDomains{
+        width: 96%;
+        overflow: hidden;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (width < 740px){
+    .recommendDomains{
+        width: 96%;
+        overflow: hidden;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media (width < 640px){
+    .recommendpagecontent{
+        margin-top: 120px;
+    }
+
+    .recommendpagetitle h1{
+        font-size: 20px;
     }
     .recommendpagetitle h2{
-        font-size: 28px;
+        font-size: 14px;
     }
 
-    
+    .recommendpagebar{
+        margin-top: 20px;
+        height: 40px;
+    }
 
-    
+    .recommendbarleft{
+        gap: 3px;
+    }
+
+    .recommendright{
+        gap: 4px;
+    }
+    .recommendright{
+        width: 60%;
+    }
 }

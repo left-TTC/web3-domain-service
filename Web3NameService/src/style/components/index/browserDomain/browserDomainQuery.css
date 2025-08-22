@@ -14,7 +14,8 @@
 
 .queryblock{
     position: absolute;
-    width: 56%;
+    height: 400px;
+    width: 1024px;
     transform: translate(-50%, -50%);
     top: 42%;
     left: 50%;
@@ -34,18 +35,20 @@
 .querypagetitle{
     display: flex;
     flex-direction: column;
-
 }
-
 .querypagetitle h1{
     margin: 0;
     color: white;
+    font-size: 32px;
+    font-weight: 600;
 }
-
 .querypagetitle h2{
     margin: 0;
     color: #B4FC75;
     font-family: 'Minecraftia', monospace;
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 10px;
 }
 
 .querypageexit{
@@ -54,8 +57,9 @@
     align-items: center;
     justify-content: center;
     background-color: #081328;
+    width: 60px;
+    height: 60px;
 }
-
 .querypageexit:hover{
     background-color: #000000;
 }
@@ -67,6 +71,8 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
+    height: 100px;
+    gap: 30px;
 }
 
 .querypagequery{
@@ -79,6 +85,9 @@
     flex-direction: row;
     border-radius: 8px;
     align-items: center;
+    height: 60px;
+    padding: 10px 20px;
+    gap: 10px;
 }
 
 .querypagesubmitbutton{
@@ -86,8 +95,9 @@
     align-content: center;
     justify-content: center;
     background-color: #B4FC75;
+    width: 80px;
+    height: 50px;
 }
-
 .querypagesubmitbutton:hover{
     opacity: 0.8;
 }
@@ -99,7 +109,6 @@
     justify-content: center;
     margin-left: 3%;
 }
-
 .querypageenter h1{
     color: white;
 }
@@ -108,14 +117,16 @@
     background-color: #000000;
     border: none;
     color: white;
+    height: 60px;
+    width: 80%;
+    font-size: 20px;
+    font-weight: 400;
 }
-
 .querypageinput:active,
 .querypageinput:focus{
     border: none;
     outline: none;
 }
-
 .querypageinput::placeholder{
     color: #888888;;
 }
@@ -131,7 +142,6 @@
     justify-content: center;
     background-color: #B4FC75;
 }
-
 .querpagerootshow:hover{
     opacity: 0.8;
 }
@@ -141,6 +151,8 @@
     align-items: center;
     justify-content: center;
     padding: 10px;
+    height: 60px;
+    width: 200px;
 }
 
 .querypageword{
@@ -148,95 +160,107 @@
     flex-direction: row;
 }
 
+.querypageexiticon{
+    width: 30px;
+}
+
+.querypagequericon2{
+    width: 40px;
+}
+.querypagenetericon{
+    width: 40px;
+}
+
+.querypageenter h1{
+    font-size: 20px;
+}
+
+.querpagerootshow{
+    height: 100%;
+    width: 100%;
+}
+
+.querypageword h1{
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.querypageword h2{
+    font-size: 23px;
+    font-weight: 600;
+    color: #000000;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
-    .queryblock{
-        height: 400px;
-        width: 1000px;
-    }
     
-    .titleandexit{
-        width: 1000px;
-    }
-
-    .querypagetitle h1{
-        font-size: 32px;
-        font-weight: 600;
-    }
-
-    .querypagetitle h2{
-        font-size: 18px;
-        font-weight: 400;
-        margin-top: 10px;
-    }
-
-    .querypagecontent{
-        width: 1000px;
-        height: 100px;
-        display: flex;
-        flex-direction: row;
-        gap: 30px;
-    }
-
-    .querypagequery{
-        height: 60px;
-        padding: 10px 20px;
-        gap: 10px;
-    }
-
-    .querypageexiticon{
-        width: 30px;
+}
+@media (width < 1024px){
+    .queryblock{
+        width: 96%;
     }
 
     .querypageexit{
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
+    }
+    .querypageexiticon{
+        width: 20px;
     }
 
+    .querypagecontent{
+        width: 100%;
+    }
+}
+
+@media (width < 640px){
+    .queryblock{
+        top: 50%;
+    }
+
+    .querypagetitle h1{
+        font-size: 18px;
+    }
+    .querypagetitle h2{
+        font-size: 12px;
+    }
+
+    .querypageexiticon{
+        width: 16px;
+    }
+
+    .querypagecontent{
+        gap: 5px;
+    }
+
+    .querypagequery{
+        height: 40px;
+        padding: 5px 10px;
+    }
     .querypageinput{
-        height: 60px;
-        width: 80%;
-        font-size: 20px;
-        font-weight: 400;
+        font-size: 16px;
+        height: 25px;
+        padding: 5px 0px;
+        transform: scale(0.875);
+        transform-origin: left center;
     }
-
+    .querypageenter{
+        display: none;
+    }
     .querypagesubmitbutton{
-        width: 80px;
-        height: 50px;
+        width: 30px;
+        height: 100%;
     }
-
     .querypagequericon2{
-        width: 40px;
-    }
-
-    .querypagenetericon{
-        width: 40px;
+        width: 20px;
     }
 
     .querypagechangeroot{
-        height: 60px;
-        width: 200px;
+        width: 20%;
+        height: 40px;
     }
-
-    .querypageenter h1{
-        font-size: 20px;
-    }
-
-    .querpagerootshow{
-        height: 100%;
-        width: 100%;
-    }
-
-
     .querypageword h1{
-        font-size: 16px;
-        font-weight: 500;
-        color: #000000;
-    }
-
-    .querypageword h2{
-        font-size: 23px;
-        font-weight: 600;
-        color: #000000;
+        display: none;
     }
 }

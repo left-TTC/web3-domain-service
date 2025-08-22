@@ -14,6 +14,9 @@
     border-radius: 15px;
     border: 2px solid #434C52; 
     padding: 20px;
+    height: 220px;
+    width: 1024px;
+    overflow: hidden;
 }
 
 .changedropgotoaution{
@@ -37,12 +40,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 120px;
+    height: 100px;
     background-color: #B4FC75;
     margin-right: 40px;
 }
-
 .gotoauctionbutton:hover{
     opacity: 0.8;
+}
+.gotoauctionbutton:active{
+    transform: translateY(2px) translateX(2px); 
+}
+
+.gotoauctionadd{
+    width: 80px;
 }
 
 .changerootcontent{
@@ -66,6 +77,12 @@
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 60%, transparent 100%);
 }
+.aa{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .rootchooseshowbutton{
     width: 160px;
@@ -82,61 +99,90 @@
     justify-content: center;
     box-shadow: 0 0 0 4px #000;
     border-radius: 5px;
+    font-size:24px;
+    color: #FFFFFF;
+    text-shadow: 0 0 8px #14F195;
 }
-
 .rootchooseshowbutton:hover{
     opacity: 0.8;
 }
-
 
 .allrootless{
     display: flex;
     flex-direction: column;
     gap: 30px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .gotocutiontitle h1{
     color: white;
+    font-size: 27px;
 }
-
 .gotocutiontitle h2 {
     font-family: 'Minecraftia', monospace;
     color: #B4FC75;
+    font-size: 17px;
+    margin: 2px;
 }
 
-.gotoauctionbutton:active{
-    transform: translateY(2px) translateX(2px); 
-}
+
 
 /*common computer*/
 @media (min-width: 1024px){
+}
+
+@media (width < 1024px){
     .ChangeDrop{
-        height: 220px;
-        width: 1000px;
+        width: calc(96% - 40px);
     }
 
     .gotocutiontitle h1{
-        font-size: 27px;
+        font-size: 21px;
     }
-
-    .gotocutiontitle h2{
-        font-size: 17px;
-        margin: 2px;
-        
+    .gotocutiontitle h2 {
+        font-size: 14px;
     }
 
     .gotoauctionbutton{
-        width: 120px;
-        height: 100px;
+        width: 100px;
+        height: 80px;
+    }
+    .gotoauctionadd{
+        width: 60px;
+    }
+}
+
+@media (width < 640px){
+    .changedropgotoaution{
+        flex-direction: column;
+        justify-content: center;
     }
 
+    .gotocutiontitle h1{
+        font-size: 17px;
+    }
+    .gotocutiontitle h2 {
+        font-size: 11px;
+    }
+
+    .gotoauctionbutton{
+        width: 160px;
+        height: 50px;
+        margin-right: 0;
+    }
     .gotoauctionadd{
-        width: 80px;
+        width: 60px;
+    }
+
+    .allrootless{
+        gap: 10px;
     }
 
     .rootchooseshowbutton{
-        font-size:24px;
-        color: #FFFFFF;
-        text-shadow: 0 0 8px #14F195;
-    }  
+        width: 90%;
+        height: 30px;
+        font-size: 14px;
+    }
 }

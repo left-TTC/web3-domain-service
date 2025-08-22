@@ -84,53 +84,96 @@
     color: #B4FC75;
 }
 
+.browserdomain{
+    color: white;
+    font-size: 100px;
+}
+
+.browserDomainTitle h1{
+    font-size: 80px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.browserDomainTitle h2{
+    font-size: 26px;
+}
+
+.browserdomainminibox{
+    margin-top: 70px;
+    border-radius: 8px;
+    height: 50px;
+    padding: 10px 10px 10px 30px;
+    width: 630px;
+}
+
+.browserdomainminibox h1{
+    font-size: 23px;
+    font-weight: 400;
+    color: #434C52;
+}
+
+.browerdomainQueryBox{
+    height: 50px;
+    border-radius: 5px;
+}
+
+.browserdomainquericon{
+    width: 40px;
+}
+
+.domainusrshowwelcome h1{
+    font-size: 47px;
+}
+
+.queryagainsubmitbu{
+    width: 40px;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
-    .browserdomain{
-        color: white;
-        font-size: 100px;
-    }
+     
+}
 
+@media (width < 1024px){
     .browserDomainTitle h1{
-        font-size: 80px;
-        margin: 0;
-        font-weight: 600;
+        font-size: 46px;
     }
-
     .browserDomainTitle h2{
-        font-size: 26px;
+        font-size: 21px;
     }
 
     .browserdomainminibox{
-        margin-top: 70px;
-        border-radius: 8px;
-        height: 50px;
-        padding: 10px 10px 10px 30px;
-        width: 630px;
+        margin-top: 30px;
+    }
+}
+
+@media (width < 640px){
+    .browserdomain{
+        padding-top: 200px;
     }
 
-    .browserdomainminibox h1{
-        font-size: 23px;
-        font-weight: 400;
-        color: #434C52;
+    .browserDomainTitle h1{
+        font-size: 32px;
+        line-height: 1.3
     }
-
-    .browerdomainQueryBox{
-        min-width: 80px;
-        height: 50px;
-        border-radius: 5px;
-    }
-
-    .browserdomainquericon{
-        width: 40px;
-    }
-
-    .domainusrshowwelcome h1{
-        font-size: 47px;
-    }
-
-    .queryagainsubmitbu{
-        width: 40px;
+    .browserDomainTitle h2{
+        font-size: 18px;
     }
     
+
+    .browserdomainminibox{
+        height: 20px;
+        border: 1px solid #434C52;
+    }
+    .browserdomainminibox h1{
+        font-size: 15px;
+    }
+    .browerdomainQueryBox{
+        height: 30px;
+        width: 40px;
+    }
+    .queryagainsubmitbu{
+        width: 25px;
+    }
 }

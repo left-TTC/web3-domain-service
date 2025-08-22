@@ -3,6 +3,7 @@
 .checkingroot{
     height: 100%;
     position: relative;
+    width: 150px;
 }
 
 .checkingrootcontent{
@@ -18,17 +19,18 @@
     text-align: left;
     padding-left: 10px;
 }
-
 .checkingrootcontent h1{
     color: white;
     font-family: 'Minecraftia', monospace;
     padding: 0;
+    font-size: 16px;
 }
 
 .checkingrootgo{
     transform: rotate(-90deg);
     position: absolute;
     right: 5px;
+    width: 20px;
 }
 
 .changerootdrop{
@@ -47,6 +49,7 @@
     transform: scale(0.9);
     opacity: 0;
     z-index: 1;
+    height: 150px;
 }
 
 .chooseRootDomaininchecking{
@@ -58,33 +61,28 @@
     border-radius: 5px;
     background-color: #434C52;
 }
-
 .chooseRootDomaininchecking h1{
     margin: 0;
     padding: 0;
     font-family: 'Minecraftia', monospace;
     color: white;
+    font-size: 16px;
 }
 
 /*common computer*/
 @media (min-width: 1024px){
-    .checkingroot{
-        width: 150px;
-    }
 
-    .checkingrootgo{
-        width: 20px;
+}
+@media (width < 640px){
+    .checkingrootcontent{
+        width: 80px;
     }
     
+    .checkingrootgo{
+        display: none;
+    }
+
     .checkingrootcontent h1{
-        font-size: 16px;
-    }
-
-    .changerootdrop{
-        height: 150px;
-    }
-
-    .chooseRootDomaininchecking h1{
-        font-size: 16px;
+        font-size: 14px;
     }
 }

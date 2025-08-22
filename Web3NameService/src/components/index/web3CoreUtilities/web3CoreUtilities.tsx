@@ -18,7 +18,24 @@ const Web3CoreUtilities = () => {
     const lastYRef1 = useRef<number | null>(null);
     const lastYRef2 = useRef<number | null>(null);
 
+    const [showAnimation, setShowAnimation] = useState(true)
     const [ifAllComponentsLoaded, setIfAllComponentsLoaded] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth;
+            if (width <= 1024) {
+            setShowAnimation(false);
+            } else {
+            setShowAnimation(true);
+            }
+        };
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     useEffect(() => {
         if(web3CoreUtilitiesTitle.current && lineoneRef.current && linetwoRef.current){
@@ -27,8 +44,7 @@ const Web3CoreUtilities = () => {
     }, [web3CoreUtilitiesTitle.current, lineoneRef.current, linetwoRef.current])
 
     useEffect(() => {
-        if(ifAllComponentsLoaded){
-            console.log("load")
+        if(ifAllComponentsLoaded && showAnimation){
             const web3CoreUtilitiesTitleUp = () => {
                 if(!web3CoreUtilitiesTitle.current) return
                 animate(web3CoreUtilitiesTitle.current, {

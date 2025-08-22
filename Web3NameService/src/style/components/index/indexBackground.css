@@ -8,3 +8,9 @@
     width: 100%;
     top: 100px;
 }
+
+@media (width < 640px){
+    .indexbg{
+        top: -360px;
+    }
+}

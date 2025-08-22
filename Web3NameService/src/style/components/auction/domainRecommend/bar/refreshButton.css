@@ -11,21 +11,30 @@
     border-radius: 3px;
     padding: 3px;
 }
-
 .refreshbutton:hover{
     background-color: #434C52;
 }
-
 .refreshbutton h1{
     color: white;
+    font-size: 14px;
+}
+
+.refreshbuicon{
+    height: 20px;
 }
 /*common computer*/
 @media (min-width: 1024px){
-    .refreshbuicon{
-        height: 20px;
+
+}
+@media (width < 1024px){
+    
+}
+@media (width < 860px){
+    .refreshbutton h1{
+        display: none;
     }
 
-    .refreshbutton h1{
-        font-size: 14px;
+    .refreshbuicon{
+        height: 16px;
     }
 }

@@ -29,13 +29,21 @@
     line-height: 1.4;
 }
 
+.attentionbumore{
+    width: 16px;
+}
+
+.attentionShowdetail h1{
+    font-size: 13px;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
-    .attentionbumore{
-        width: 16px;
-    }
+    
+}
 
+@media (width < 640px){
     .attentionShowdetail h1{
-        font-size: 13px;
+        font-size: 11px;
     }
 }

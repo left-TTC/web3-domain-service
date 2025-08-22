@@ -11,7 +11,7 @@ import auctionGreen from "@/assets/auctionGreen.png"
 import searchGreen from "@/assets/searchpixelGreen.svg"
 import search from "@/assets/pixelSearch.svg"
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import MarketplaceDropDown from "./marketPlaceDropdown";
 
 export enum NavigationLists{
@@ -132,7 +132,7 @@ const Navigation: React.FC<NavigationProps> = ({
                     }
                 </div>
             ))}
-            <div className="topbarline" />
+            <div className="topbarlinenavi" />
 
             <button 
                 className={`opensearchomit ${ifSearchbarHover? 'greenwordsearch' : ''} `} 

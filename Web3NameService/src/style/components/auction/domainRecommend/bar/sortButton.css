@@ -13,9 +13,19 @@
     opacity: 0.85;
 }
 
+.sortimg{
+    width: 20px;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+
+}
+@media (width < 640px){
     .sortimg{
-        width: 20px;
+        width: 16px;
     }
 }

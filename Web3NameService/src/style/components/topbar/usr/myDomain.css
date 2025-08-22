@@ -20,13 +20,27 @@
     color: #B4FC75;
 }
 
+.myDomainicon{
+    width: 25px;
+}
+
+.topbarmydomain h1{
+    font-size: 14px;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
-    .myDomainicon{
-        width: 25px;
-    }
+    
+}
 
+@media (width < 1100px){
     .topbarmydomain h1{
-        font-size: 14px;
+        display: none;
+    }
+}
+
+@media (width < 640px){
+    .topbarmydomain{
+        padding: 10px 0 10px 10px;
     }
 }
