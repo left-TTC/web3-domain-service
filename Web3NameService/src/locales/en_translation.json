@@ -1,7 +1,7 @@
 
 
 {
-    "chooseWallet": "Please chooose a wallet frist",
+    "chooseWallet": "Connect a wallet on Solana to continue",
     "changeWallet": "Change Wallet",
     "disconnect": "Disconnect",
     "connect": "Connect Wallet",
@@ -90,5 +90,7 @@
     "cid": "Input Your Website IPFS Cid",
     "createrecord": "Create Record",
     "resale": "Domain Resale",
-    "getother": "Get others' premium domain"
+    "getother": "Get others' premium domain",
+    "moreop": "More Options",
+    "lessop": "Less Options"
 }

@@ -11,21 +11,28 @@
     flex-direction: column;
     position: relative;
     align-items: center;
+    width: 1024px
+}
+
+.bakcicon{
+    width: 30px;
+}
+
+.backIndex h1{
+    font-size: 32px;
+    margin: 0;
 }
 
 /*common computer*/
 @media (min-width: 1024px){
-    .bakcicon{
-        width: 30px;
-    }
 
-    .backIndex h1{
-        font-size: 32px;
-        margin: 0;
-    }
-
+}
+@media (width < 1024px){
     .usrpagecon{
-        width: 1200px;
+        width: 96%;
     }
+}
+@media (width < 640px){
+
 }
 

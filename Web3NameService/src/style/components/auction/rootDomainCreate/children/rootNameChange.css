@@ -13,10 +13,12 @@
 .sailtitle h1{
     color: white;
     font-family: 'Minecraftia', monospace;
+    font-size: 23px;
 }
 
 .rootcreateswider{
     width: 90%;
+    height: 80px;
 }
 
 .swipercontent{
@@ -35,6 +37,7 @@
 .creatingaccountswiper h1{
     color: white;
     font-weight: 560;
+    font-size: 38px;
 }
 
 .checklogs{
@@ -42,9 +45,13 @@
     background-color: #B4FC75;
     padding: 20px 0;
     color: black;
+    border-radius: 5px;
 }
 .checklogs h1{
     margin: 0;
+    font-size: 22px;
+    color: black;
+    font-weight: 400;
 }
 
 .swiper-button-prev,
@@ -54,19 +61,24 @@
 
 /*common computer*/
 @media (min-width: 1024px){
+
+}
+@media (width < 1024px){
+    .checklogs h1{
+        margin: 0;
+        font-size: 16px;
+        color: black;
+        font-weight: 400;
+    }
+
     .sailtitle h1{
-        font-size: 23px;
+        font-size: 19px;
     }
     
-    .rootcreateswider{
-        height: 80px;
-    }
-
     .creatingaccountswiper h1{
-        font-size: 38px;
+        font-size: 18px;
     }
+}
+@media (width < 640px){
 
-    .checklogs h1{
-        font-size: 22px;
-    }
 }

@@ -2,34 +2,50 @@
 .sailship{
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 20px;
     align-items: center;
+    width: calc(100% - 40px);
+    height: 320px;
+    padding: 20px;
+    justify-content: space-between;
 }
 
 .shipbl{ 
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 64%;
+    height: 320px;
 }
 
 .changeshipBl{
-    
+    height: 100%;
+    width: calc(40% - 20px);
 }
 
 /*common computer*/
 @media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    
+}
+@media (width < 640px){
     .sailship{
-        width: 1100px;
-        height: 390px;
+        flex-direction: column;
     }
-
+    
     .shipbl{
-        width: 640px;
-        height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
     }
 
     .changeshipBl{
-        height: 100%;
-        width: 430px;
+        display: none;
     }
 }

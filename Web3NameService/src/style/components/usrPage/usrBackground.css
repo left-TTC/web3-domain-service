@@ -8,6 +8,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 50px;
+    height: 300px;
 }
 
 .havenotdomainusr{
@@ -19,8 +20,8 @@
 .havenotdomainusr h1{
     color: white;
     font-weight: 300;
+    font-size: 36px;
 }
-
 
 .getfristbu{
     display: flex;
@@ -30,32 +31,49 @@
     gap: 10px;
     justify-content: center;
     background-color: #B4FC75;
-    width: 80%;
+    width: 300px;
 }
 .getfristbu h1{
     color: black;
     margin: 0;
     font-weight: 500;
+    font-size: 20px;
 }
 .getfristbu:hover{
     opacity: 0.8;
 }
 
+.usrsearchdomain{
+    width: 40px;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
-    .usrback{
-        height: 300px;
-    }
 
+}
+@media (width < 1024px){
+
+}
+@media (width < 640px){
+    .havenotdomainusr{
+        gap: 5px;
+    }
     .havenotdomainusr h1{
-        font-size: 36px;
-    }
-
-    .usrsearchdomain{
-        width: 40px;
-    }
-
-    .getfristbu h1{
         font-size: 20px;
+    }
+
+    .getfristbu{
+        width: 190px;
+        justify-content: space-between;
+    }
+    .getfristbu h1{
+        font-size: 16px;
+    }
+    .usrsearchdomain{
+        width: 20px;
+    }
+
+    .usrback{
+        height: 160px;
     }
 }

@@ -66,11 +66,9 @@ const Wallet: React.FC<WalletProps> = ({
             setDropBox(prev => !prev);
         }else{
             if(!wallet){
-                console.log("wallet choose")
                 setWalletChooser(true);
                 return;
             }
-            console.log("connect")
             connect()
         }
     }

@@ -8,24 +8,14 @@
     margin-top: 100px;
     margin-bottom: 200px;
     align-items: center;
+    width: 1024px;
 }
-
 
 .launchnewdomain{
     width: 100%;
     display: flex;
     justify-content: center;
     font-family: 'Minecraftia', monospace;
-    gap: 50px;
-    align-items: baseline;
-}
-
-.launchnewdomain h1{
-    color: white;
-    margin: 0;
-    margin-top: 30px;
-    text-align: center;
-    width: 50%;
 }
 
 .launchnewbu{
@@ -36,28 +26,39 @@
     justify-content: center;
     padding: 10px;
 }
-
 .launchnewbu:active{
     transform: translateY(2px) translateX(2px); 
 }
-
 .launchnewbu h1 {
     color: black;
     margin: 0;
     padding: 10px;
+    font-size: 23px;
 }
 
 /*common computer*/
 @media (min-width: 1024px){
+
+}
+@media (width < 1024px){
     .launchroot{
-        width: 1100px;
+        width: 96%;
     }
 
-    .launchnewdomain h1{
-        font-size: 38px;
+    .launchnewbu{
+        width: 60%;
+    }
+}
+@media (width < 640px){
+    .launchroot{
+        margin-top: 0;
+        margin-bottom: 100px;
     }
 
-    .launchnewbu h1 {
-        font-size: 23px;
+    .launchnewbu{
+        width: 80%;
+    }
+    .launchnewbu h1{
+        font-size: 15px;
     }
 }

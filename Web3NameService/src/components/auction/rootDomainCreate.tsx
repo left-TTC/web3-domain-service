@@ -23,10 +23,12 @@ export default function RootDomainCreate(){
                 <div className="subrootfactorytitle">
                     <h1>{t("lanunchnew")}</h1>
                 </div>
-                <div className="sailt">
-                    <h1>{t("supportnow")}</h1>
+                <div className="supportbl">
+                    <div className="sailt">
+                        <h1>{t("supportnow")}</h1>
+                    </div>
+                    <SailingShip />
                 </div>
-                <SailingShip />
                 <div className="lanunchdomainor">
                     <h1>or</h1>
                 </div>

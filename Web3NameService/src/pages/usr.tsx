@@ -12,8 +12,6 @@ export function User({
     openDomainQueryPage: () => void;
 }) {
 
-    const navigate = useNavigate();
-
     const [domainNumber, setDomainNumber] = useState(0)
 
     return(

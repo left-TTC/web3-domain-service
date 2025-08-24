@@ -1,5 +1,4 @@
 
-
 .walletchooser{
     position: fixed;
     top: 0;
@@ -12,17 +11,13 @@
     z-index: 1000;
 }
 
-.walletchooser h1{
-    color: white;
-}
-
 .walletchoosebackgroud{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(44, 43, 43, 0.2);
+    background: rgba(44, 43, 43, 0.6);
     backdrop-filter: blur(10px); /* 模糊强度 */
     -webkit-backdrop-filter: blur(10px);
 }
@@ -31,29 +26,29 @@
     position: relative;
     width: 480px;
     max-height: 700px;
-    min-height: 200px   ;
-    max-width: 86%;
-    padding: 24px;
+    min-height: 240px;
+    padding: 20px;
     border-radius: 16px;
-    box-shadow: 0px 0px 25px yellowgreen;
     background-color: #10141F;
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 1000px;
 }
 
 .walletchoosetop{
     display: flex;
     flex-direction: row;
-    min-height:120px;
     justify-content: center;
+    width: 80%;
 }
-
 .walletchoosetop h1{
-    font-size: 26px;
-    margin-top: 30px;
+    font-size: 21px;
+    margin-top: 50px;
+    font-weight: 360;
+    color: white;
+    text-align: center;
 }
-
 
 .walletchooseclosebutton{
     position: absolute;
@@ -65,12 +60,18 @@
     justify-content: center;
     border: none;
     background-color: #1A1F2E;
+    width: 35px;
+    height: 35px;
+    right: 10%;
 }
-
 .walletchooseclosebutton:focus,
 .walletchooseclosebutton:active{
     border: none;
     outline: none;
+}
+
+.exiticon{
+    width: 16px;
 }
 
 .walletchoosebutton{
@@ -78,40 +79,107 @@
     display: flex;
     flex-direction: row;
     outline: none;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     background-color: white;
+    margin-bottom: 13px;
+    height: 50px;
+    gap: 30px;
+}
+.walletchoosebutton h1{
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
+}
+.walletchoosebutton h2{
+    font-weight: 400;
+    text-align: right;
+    font-size: 18px;
+}
+.walletchoosebutton:hover{
+    opacity: 0.9;
+}
+
+.walletchoosebl{
+    margin-top: 10px;
+    width: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    overflow: hidden;
+}
+.walletchoosebl::-webkit-scrollbar {
+    width: 6px;
+}
+
+.walletchoosebuleft{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+
+.optionalwallet{
+    width: 80%;
+    position: relative;
+    text-align: right;
+    height: 30px;
+    background-color: #10141F;
+}
+
+.optionalwalletbu{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    position: absolute;
+    right: 0;
+    background-color: #10141F;
+}
+.optionalwalletbu h1{
+    font-size: 14px;
+    margin: 0;
+    color: white;
+}
+
+.optionalarray{
+    width: 12px;
 }
 
 /*common computer*/
 @media (min-width: 1024px){
-    .walletchooseclosebutton{
-        width: 40px;
-        height: 40px;
-        right: 10%;
-    }
 
+}
+@media (width < 1024px){
+
+}
+@media (width < 640px){
     .walletchoosecotent{
-        max-height: 1000px;
+        width: 90%;
+        padding: 5px;
     }
 
     .walletchoosetop h1{
-        font-size: 26px;
-        margin-top: 50px;
+        font-size: 15px;
+    }
+
+    .walletchooseclosebutton{
+        right: 4%;
     }
 
     .walletchoosebutton{
-        margin-bottom: 20px;
-        height: 50px;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        margin-top: 4px;
+        height: 40px;
     }
-
     .walletchoosebutton h1{
-        font-size: 20px;
-        color: black;
+        font-size: 14px;
     }
 
+    .walletchoosebl{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
 }
 
-.exiticon{
-    width: 20px;
-}

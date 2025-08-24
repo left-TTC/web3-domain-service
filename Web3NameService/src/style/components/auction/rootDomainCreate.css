@@ -14,7 +14,6 @@
     width: 100%;
     gap: 20px;
     align-items: center;
-    width: 100%;
 }
 .rootfactorytitle h1{
     color: white;
@@ -46,14 +45,13 @@
 }
 
 .sailt{
-    margin-top: 160px;
     width: 100%;
     text-align: center;
     color: #B4FC75;
     font-family: 'Minecraftia', monospace;
 }
 .sailt h1{
-    font-size: 30px;
+    font-size: 26px;
 }
 
 .launcht{
@@ -86,8 +84,79 @@
     width: 70px;
 }
 
+.supportbl{
+    width: 100%;
+    background-color: #1C2334;
+    border-radius: 30px;
+    border: 2px solid #434C52;
+    margin-top: 120px;
+}
 
 /*common computer*/
 @media (min-width: 1024px){
 
+}
+@media (width < 1024px){
+    .rootdomaincreatecontent{
+        width: 96%;
+    }
+
+    .rootfactorytitle h1{
+        font-size: 38px;
+    }
+    .factoryicon{
+        width: 40px;
+    }
+
+    .subrootfactorytitle h1{
+        font-size: 20px;
+    }
+}
+@media (width < 640px){
+    .RootDomainCreate{
+        margin-top: 100px;
+    }
+
+    .rootfactorytitle{
+        gap: 5px;
+    }
+    .rootfactorytitle h1{
+        font-size: 29px;
+    }
+    .factoryicon{
+        width: 30px;
+    }
+
+    .subrootfactorytitle{
+        margin-top: 15px;
+    }
+    .subrootfactorytitle h1{
+        font-size: 14px;
+    }
+
+    .supportbl{
+        margin-top: 60px;
+        height: 300px;
+        border: none;
+    }
+    .sailt{
+        padding-top: 10px;
+    }
+    .sailt h1{
+        font-size: 14px;
+    }
+
+    .lanunchdomainor{
+        margin-top: 30px;
+    }
+    .lanunchdomainor h1{
+        font-size: 29px;
+    }
+
+    .launcht{
+        margin-top: 30px;
+    }
+    .launcht h1{
+        font-size: 19px;
+    }
 }

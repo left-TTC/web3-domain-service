@@ -1,11 +1,9 @@
 
 import "@/style/components/auction/rootDomainCreate/children/rootDomainInfo.css"
 import type { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Navigation } from "swiper/modules";
 import { useTranslation } from "react-i18next";
 import { cutString } from "@/utils/functional/common/cutString";
 

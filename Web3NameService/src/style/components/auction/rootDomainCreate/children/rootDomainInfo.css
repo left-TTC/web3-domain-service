@@ -1,9 +1,14 @@
-
+.rootdomaininfo{
+    width: 100%;
+}
 .rootinfobl{
     background-color: #1C2334;
     padding: 10px;
     border-radius: 20px;
     border: 2px solid #434C52;
+    width: 90%;
+    margin-left: 5%;
+    height: 240px;
 }
 
 .rootdomainword{
@@ -17,10 +22,12 @@
 .rootdomainword h1{
     color: white;
     margin: 0;
+    font-size: 18px;
 }
 .rootdomainword h2{
     color: #B4FC75;
     margin: 0;
+    font-size: 22px;
 }
 
 .sponerhead{
@@ -52,6 +59,7 @@
 .addfuel h1{
     font-family: 'Minecraftia', monospace;
     color: black;
+    font-size: 20px;
 }
 .addfuel:active{
     transform: translateX(2px) translateY(2px);
@@ -94,19 +102,34 @@
 
 /*common computer*/
 @media (min-width: 1024px){
-    .rootinfobl{
-        width: 520px;
-        height: 240px;
-    }
 
+}
+@media (width < 1024px){
     .rootdomainword h1{
-        font-size: 18px;
+        font-size: 15px;
     }
     .rootdomainword h2{
-        font-size: 22px;
+        font-size: 15px;
     }
 
-    .addfuel h1{
-        font-size: 20px;
+    .addfuel{
+        width: 80%;
+    }
+    .addfuel h1 {
+        font-size: 12px;
+    }
+}
+@media (width < 640px){
+    .rootinfobl{
+        margin: 0;
+        width: calc(100% - 20px);
+        height: 190px;
+    }
+    
+    .rootdomainword{
+        padding: 5px 20px 
+    }
+    .rootdomainword h1{
+        font-size: 12px;
     }
 }

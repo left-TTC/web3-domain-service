@@ -13,6 +13,7 @@
 .mydomintitle h1{
     font-weight: 600;
     color: white;
+    font-size: 22px;
 }
 
 .linedomain{
@@ -58,7 +59,13 @@
 
 /*common computer*/
 @media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+
+}
+@media (width < 640px){
     .mydomintitle h1{
-        font-size: 22px;
+        font-size: 20px;
     }
 }
