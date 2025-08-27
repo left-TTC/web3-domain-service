@@ -12,6 +12,7 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 
 import { useNavigate } from "react-router-dom";
 import ChangeAndGoRoot, { type ChangeAndGoRootHandle } from "./changeAndGoRoot/changeAndGoRoot";
+import { ifDomainLegal } from "@/utils/functional/domain/ifDomainLegal";
 
 export interface BrowserDomainQueryProps{
     ifShowTheQueryPage: boolean,
@@ -96,14 +97,18 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     const clickQueryDomian = () => {
         if(queryDomainValue === "") return;
 
-        const queryingDomain = queryDomainValue + "." + activeRootDomain;
-        console.log("input: ", queryingDomain)
+        if(ifDomainLegal(queryDomainValue)){
+            const queryingDomain = queryDomainValue + "." + activeRootDomain;
 
-        navigate("/search", {
-            state: {
-                queryingDomain: queryingDomain,
-            }
-        })
+            navigate("/search", {
+                state: {
+                    queryingDomain: queryingDomain,
+                }
+            })
+        }else{
+            //need add component
+            console.log("inllegal domain")
+        }
     }
 
     const clickSetRoot = () => {

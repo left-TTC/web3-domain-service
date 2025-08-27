@@ -1,6 +1,5 @@
 import FintChooser from "@/components/common/transaction/fintChooser";
-import SettleBills from "@/components/common/transaction/settleBills";
-import { MainFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainFint, OtherFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 
 import "@/style/components/auction/rootDomainCreate/addFuel/pay/addFuelCrypto.css"
 import { useState } from "react";
@@ -13,6 +12,7 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { TransactionState, useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { showcCheckBalanceToast } from "@/utils/functional/show/checkBalanceToast";
 import { handleTransactionError } from "@/utils/functional/error/transactionError";
+import SettleBills from "@/components/common/transaction/settleBills";
 
 export interface AddFuelCryptoProps {
     addingAccountState: FundingAccountState
@@ -28,7 +28,7 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
     const {publicKey: wallet, signTransaction} = useWalletEnv();
     const {connection} = useConnection()
 
-    const [chooseFint, setChooseFint] = useState<MainFint>(MainFint.SOL)
+    const [chooseFint, setChooseFint] = useState<MainFint | OtherFint>(MainFint.SOL)
     const [fuelQuantity, setFuelQuantity] = useState<number | null>(null)
 
     const addFuel = async() => {
@@ -57,7 +57,7 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
                     signature,
                     ...latestBlockhash,
                 },
-                'finalized' // or 'confirmed' if你不要求太严格
+                'finalized' 
             );
 
             console.log("transaction ok: ", signature)
@@ -71,8 +71,15 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
         <div className="addfuelcrypro">
             <div className="addFuelfintaandprice">
                 <h1>{t("payfint")}</h1>
-                <FintChooser activeFint={chooseFint} setActiveFint={setChooseFint}/>
-                <AmountChooser nowFuel={addingAccountState.fundState.toNumber()} setFuelQuantity={setFuelQuantity} wilAddFuel={fuelQuantity}/>
+                <FintChooser 
+                    activeFint={chooseFint} 
+                    setActiveFint={setChooseFint}
+                />
+                <AmountChooser 
+                    nowFuel={addingAccountState.fundState.toNumber()} 
+                    setFuelQuantity={setFuelQuantity} 
+                    wilAddFuel={fuelQuantity}
+                />
             </div>
             <SettleBills confirmFunction={() => addFuel()}/>
         </div>

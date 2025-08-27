@@ -7,9 +7,8 @@ import { useTranslation } from "react-i18next";
 
 import { useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
-import { useConnection } from "@solana/wallet-adapter-react";
 import FintChooser from "@/components/common/transaction/fintChooser";
-import SettleBills from "@/components/common/transaction/settleBills";
+import CreateDomainSettleBills from "@/components/common/transaction/createDomainSettleBills";
 
 export enum MainFint{
     SOL = "SOL",
@@ -17,27 +16,35 @@ export enum MainFint{
     USDT = "USDT",
 }
 
-export enum OrtherFint{
+export enum OtherFint{
     FWC = "FWC",
 }
 
 export interface CryptoProps{
     openWaitingWallet: () => void,
+    domainPriceMap: Map<MainFint | OtherFint, number> | null,
+    setUseFint: React.Dispatch<React.SetStateAction<MainFint | OtherFint | null>>,
+    rentExemption: number
 }
 
 const Crypto: React.FC<CryptoProps> = ({
-    openWaitingWallet
+    openWaitingWallet, domainPriceMap, setUseFint, rentExemption
 }) => {
 
-    const {t} = useTranslation()
-    const {connection} = useConnection()
+    useEffect(() => {
+        console.log(domainPriceMap)
+    }, [domainPriceMap])
 
-    
+    const {t} = useTranslation()
 
     const [referrerValue, setReferrerValue] = useState("");
     const [isReferrerFocus, setIsReferrerFocus] = useState(false)
 
-    const [activeFint, setActiveFint] = useState<MainFint>(MainFint.SOL)
+    const [activeFint, setActiveFint] = useState<MainFint | OtherFint>(MainFint.SOL)
+    const setWillUseFint = (fint: MainFint | OtherFint) => {
+        setActiveFint(fint)
+        setUseFint(fint)
+    }
 
     const handReferrer = (e: React.ChangeEvent<HTMLInputElement>) => {
         setReferrerValue(e.target.value)
@@ -67,17 +74,33 @@ const Crypto: React.FC<CryptoProps> = ({
         }
     }, [isReferrerFocus])
 
-    const [minRent, setMinRent] = useState(0)
+    const [domainPriceShow, setDomainPriceShow] = useState("")
+
+    useEffect(() => {
+        if(!domainPriceMap)return setDomainPriceShow(t("loading"))
+        switch(activeFint){
+            case MainFint.SOL:
+                setDomainPriceShow(domainPriceMap.get(activeFint)?.toFixed(4) + " SOL")
+                break
+            case MainFint.USDC:
+                setDomainPriceShow(domainPriceMap.get(activeFint) + " USDC")
+                break
+            case MainFint.USDT:
+                setDomainPriceShow(domainPriceMap.get(activeFint) + " USDT")
+                break
+        }
+    }, [activeFint, domainPriceMap])
+        
 
     return(
         <div className="paymentBlock">
             <div className="payfintchoose cryptopayfint">
                 <h1>{t("settlementInfo")}</h1>
                 <h2>{t("payfint")}</h2>
-                <FintChooser activeFint={activeFint} setActiveFint={setActiveFint}/>
+                <FintChooser activeFint={activeFint} setActiveFint={setWillUseFint}/>
                 <div className="priceBlock">
                     <h1>{t("domainprice")}</h1>
-                    <h2>20 SOL</h2>
+                    <h2>{domainPriceShow}</h2>
                 </div>
                 
                 <div className="cryptodiliver"/>
@@ -97,7 +120,11 @@ const Crypto: React.FC<CryptoProps> = ({
                 </div>
             </div>
             
-            <SettleBills confirmFunction={openWaitingWallet} />
+            <CreateDomainSettleBills 
+                confirmFunction={openWaitingWallet} 
+                domainPrice={domainPriceShow}
+                rentExemption={rentExemption}
+            />
         </div>
     )
 }

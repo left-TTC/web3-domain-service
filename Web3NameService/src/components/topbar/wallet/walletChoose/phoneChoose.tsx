@@ -75,10 +75,10 @@ const PhoneChoose: React.FC<PhoneChooseProps> = ({
                     <h1>{wallet.name}</h1>
                 </button>
             ))}
-            {showPhoneMore && availablePhoneWalletsLast.map((ortherWallet, index) => (
+            {showPhoneMore && availablePhoneWalletsLast.map((otherWallet, index) => (
                 <button className="walletchoosebutton" key={index} >
-                    <img src={ortherWallet.icon} width={32} alt="" />
-                    <h1>{ortherWallet.name}</h1>
+                    <img src={otherWallet.icon} width={32} alt="" />
+                    <h1>{otherWallet.name}</h1>
                 </button>
             ))
             }

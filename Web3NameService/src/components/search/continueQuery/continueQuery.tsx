@@ -11,10 +11,11 @@ export interface ContinueQueryProps{
     ifCouldBuy: boolean,
     ifDomainInfoLoaded: boolean,
     setDomainSettlement: React.Dispatch<React.SetStateAction<boolean>>,
+    domainUsdc: number
 }
 
 const ContinueQuery: React.FC<ContinueQueryProps> = ({
-    queryingDomain, ifCouldBuy, queryingDomainInfo, ifDomainInfoLoaded, setDomainSettlement
+    queryingDomain, ifCouldBuy, queryingDomainInfo, ifDomainInfoLoaded, setDomainSettlement, domainUsdc
 }) => {
 
     return (
@@ -24,6 +25,7 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
                 queryingDomain={queryingDomain}
                 ifCouldBuy={ifCouldBuy}
                 ifDomainInfoLoaded={ifDomainInfoLoaded}
+                domainPriceUsdc={domainUsdc}
             /> 
             
             <div className="diliver"/>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import "@/style/components/auction/rootDomainCreate/launch/launchFeeCrypto/launchFeeCrypto.css"
-import SettleBills from "@/components/common/transaction/settleBills";
+import SettleBills from "@/components/common/transaction/createDomainSettleBills";
 
 export interface LaunchFeeCryptoProps {
     confirmToCreate: () => void;

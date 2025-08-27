@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 
 export enum PaymentMethod{
     Crypto = "Crypto",
-    a =  "a",
 }
 
 export interface ChoosePaymentProps{

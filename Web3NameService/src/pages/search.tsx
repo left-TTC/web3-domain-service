@@ -14,6 +14,7 @@ import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import DomainSettlement from "@/components/search/domainSettlement/domainSettlement";
 import { PublicKey } from "@solana/web3.js";
 import Back from "@/components/common/functional/back";
+import { getDomainUSDPrice } from "@/utils/functional/domain/getDomainUSDPrice";
 
 export function Search() {
 
@@ -29,6 +30,7 @@ export function Search() {
     const [queryDomainInfo, setQueryDomainInfo] = useState<ReverseKeyState | null>(null)
     const [queryingDomainKey, setQueryingDomainKey] = useState<PublicKey | null> (null)
     const [isDomainInfoLoaded, setIsDomainInfoLoaded] = useState(false)
+    const [domainUsdc, setDomainUsdc] = useState(0)
 
     const [showSaleDomain, setShowSaleDomain] = useState(false)
 
@@ -37,6 +39,13 @@ export function Search() {
         setIsDomainInfoLoaded(false)
         setDomainBlock(cutDomain(queryingDomain));
     } ,[queryingDomain])
+
+    useEffect(() => {
+        if(domainBlock){
+            console.log(domainBlock[0])
+            setDomainUsdc(getDomainUSDPrice(domainBlock[0]))
+        }
+    }, [domainBlock])
 
     useEffect(() => {
         const fetchDomainInfo = async() => {
@@ -72,6 +81,7 @@ export function Search() {
                     ifCouldBuy={ifCounldBuy}
                     ifDomainInfoLoaded={isDomainInfoLoaded}
                     setDomainSettlement={setShowSaleDomain}
+                    domainUsdc={domainUsdc}
                 />
             </div>
             {showSaleDomain &&
@@ -79,6 +89,7 @@ export function Search() {
                     domainName={queryingDomain} 
                     domainKey={queryingDomainKey} 
                     backToSearchResult={() =>setShowSaleDomain(false)}
+                    domainPriceUsd={domainUsdc}
                 />
             }
         </div>

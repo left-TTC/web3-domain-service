@@ -1,3 +1,4 @@
+import { MainFint, OtherFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { PublicKey } from "@solana/web3.js";
 
 
@@ -12,16 +13,20 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "ESEodAFMvihH9x237DmsAb9zzAcTnWfUB6R1xB7w5XG3"
+    "8Uf9neUyY6C7aJPBCJLcnski8Pv5dFSA6LBgFvsBgAnY"
 );
 
 export const WEB3_AUCTION_ID = new PublicKey(
     "A4dBgeBQ1wWjUNnjfJRs3mgKu7913d1zKZjer6yAtxmN"
 );
 
+export const VAULT_OWNER = new PublicKey(
+    "DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx"
+)
+
 export const VAULT = new PublicKey(
     "A4dBgeBQ1wWjUNnjfJRs3mgKu7913d1zKZjer6yAtxmN"
-)
+) 
 
 export const TOKEN_PROGRAM_ID = new PublicKey(
     'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'
@@ -43,3 +48,16 @@ export const [CENTRAL_STATE_REGISTER] = PublicKey.findProgramAddressSync(
 );
 
 export const CREATE_ROOT_FEE = 10000;
+
+export function getFintVault(fintType: MainFint | OtherFint): PublicKey{
+    switch(fintType){
+        case MainFint.USDC:
+            return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
+        case MainFint.USDT:
+            return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
+        case OtherFint.FWC:
+            return new PublicKey("BpMWoz2RUY6tRW7vebKyPyEgihX8hJuvZFh82f3UCM9T")
+        default:
+            return new PublicKey("DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx")
+    }
+}

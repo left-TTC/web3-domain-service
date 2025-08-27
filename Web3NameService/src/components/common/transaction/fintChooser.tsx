@@ -2,13 +2,13 @@
 import Solana from "@/assets/solana.svg"
 import USDC from "@/assets/usdc.svg"
 import USDT from "@/assets/usdt.svg"
-import { MainFint } from "@/components/search/domainSettlement/paymentMethod/crypto"
+import { MainFint, OtherFint } from "@/components/search/domainSettlement/paymentMethod/crypto"
 
 import "@/style/components/commonStyle/transaction/fintChooser.css"
 
 export interface FintChooserProps {
-    activeFint: MainFint,
-    setActiveFint: React.Dispatch<React.SetStateAction<MainFint>>,
+    activeFint: MainFint | OtherFint,
+    setActiveFint: (fint: MainFint | OtherFint) => void,
 }
 
 

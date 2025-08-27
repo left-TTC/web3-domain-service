@@ -15,10 +15,11 @@ export interface DomainShowAndQueryAgainProps {
     queryingDomain: string,
     ifDomainInfoLoaded: boolean,
     ifCouldBuy: boolean,
+    domainPriceUsdc: number
 }
 
 const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
-    ifDomainInfoLoaded, ifCouldBuy, queryingDomain
+    ifDomainInfoLoaded, ifCouldBuy, queryingDomain, domainPriceUsdc
 }) => {
 
     const {t} = useTranslation()
@@ -30,7 +31,6 @@ const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
         if(queryAgainDomain === "") return;
 
         const queryingDomain = queryAgainDomain + "." + activeRootDomain;
-        console.log("input: ", queryingDomain)
 
         navigate("/search", {
             state: {
@@ -130,7 +130,7 @@ const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
                         <div className="domainnameandprice">
                             <h1>{queryingDomain}</h1>
                             <div className="showPrice">
-
+                                <h1>${domainPriceUsdc}</h1>
                             </div>
                         </div>
                         <div className="domainlabel">

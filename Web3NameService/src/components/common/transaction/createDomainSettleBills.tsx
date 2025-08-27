@@ -2,16 +2,33 @@ import { useTranslation } from "react-i18next";
 
 import "@/style/components/commonStyle/transaction/settleBills.css"
 
-export interface SettleBillsProps {
+export interface CreateDomainSettleBillsProps {
     confirmFunction: () => void;
+    rentExemption: number;
+    domainPrice: string
 }
 
 
-const SettleBills: React.FC<SettleBillsProps> = ({
-    confirmFunction,
+const CreateDomainSettleBills: React.FC<CreateDomainSettleBillsProps> = ({
+    confirmFunction, rentExemption, domainPrice
 }) => {
 
     const {t} = useTranslation()
+
+    const calculateTotal = () => {
+        if(rentExemption === 0 || domainPrice === "Loading"){
+            return "Loading"
+        }
+        if(domainPrice.includes("SOL")){
+            const match = domainPrice.match(/[\d.]+/);
+            if(match){
+                const totalfees = parseFloat(match[0]) + rentExemption
+                return totalfees + " SOL"
+            }else{
+                return "Error"
+            }
+        }
+    }
 
     return(
         <div className="totalfees">
@@ -20,17 +37,17 @@ const SettleBills: React.FC<SettleBillsProps> = ({
                 <div className="registerrule">
                     <h1>{t("domainprice")}</h1>
                 </div>
-                <h1>1</h1>
+                <h1>{domainPrice}</h1>
             </div>
             <div className="rentfee">
                 <h1>{t("rent")}</h1>
-                <h2>2 SOL</h2>
+                <h2>{rentExemption} SOL</h2>
             </div>
             <div className="cryptodiliver"/>
             <div className="cryptoconfirm">
                 <div className="cryptototal">
                     <h1>{t("total")}</h1>
-                    <h2>2</h2>
+                    <h2>{calculateTotal()}</h2>
                 </div>
                 <button className="cryptoconfirmbutton" onClick={confirmFunction}>
                     <h1>{t("confirm")}</h1>
@@ -42,4 +59,4 @@ const SettleBills: React.FC<SettleBillsProps> = ({
 }
 
 
-export default SettleBills;
+export default CreateDomainSettleBills;

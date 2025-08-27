@@ -1,7 +1,7 @@
 
 
 import "@/style/components/search/domainSettlement/paymentInterface.css"
-import type { MainFint, OrtherFint } from "./paymentMethod/crypto";
+import type { MainFint, OtherFint } from "./paymentMethod/crypto";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useEffect, useRef, useState } from "react";
 import { useConnection } from "@solana/wallet-adapter-react";
@@ -11,30 +11,32 @@ import rotate from "@/../public/background/rotate.png"
 import exit from "@/assets/exit.svg"
 
 import { useTranslation } from "react-i18next";
-import { animate } from "animejs";
 import type { PublicKey } from "@solana/web3.js";
 import { registerWeb3Domain } from "@/utils/net/mainFunction/registerWeb3Domain";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
+import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 
 export interface PaymentInterfaceProps{
-    useFint: MainFint | OrtherFint | null,
-    thisDomainPrice: number | null,
+    useFint: MainFint | OtherFint | null,
     cancleTransaction: () => void,
     creatingDomainName: string,
-    creatingDomainKey: PublicKey | null,
+    creatingDomainKey: PublicKey | null
+    domainPriceMap: Map<MainFint | OtherFint, number> | null,
+    rentFee: number
 }
 
 const PaymentInterface: React.FC<PaymentInterfaceProps> = ({
-    useFint, thisDomainPrice, cancleTransaction, creatingDomainKey, creatingDomainName
+    useFint, cancleTransaction, creatingDomainKey, creatingDomainName, domainPriceMap, rentFee
 }) => {
 
     const {t} = useTranslation()
     const {publicKey: feePayer, signTransaction} = useWalletEnv()
     const {connection} = useConnection()
     const {activeRootDomain} = useRootDomain()
+    const solanaToast = useSolanaToast()
 
     const [walletBlance, setWalletBalance] = useState<number | null>(null)
     const [ifBalanceEnough, setIfBalanceEnough] = useState(false)
@@ -42,7 +44,6 @@ const PaymentInterface: React.FC<PaymentInterfaceProps> = ({
     const [ifCheckingBalnace, setIfCheckingBalnace] = useState(true)
 
     const [haveTransactionOk, setHaveTransactionOk] = useState(false)
-    const [ifTransactionOk, setIfTransactionOk] = useState<boolean | null>(null)
 
     useEffect(() => {
         const fetchDomainBalance = async() => {
@@ -57,17 +58,6 @@ const PaymentInterface: React.FC<PaymentInterfaceProps> = ({
 
         fetchDomainBalance()
     }, [feePayer])
-
-    useEffect(() => {
-        if(walletBlance === null || !thisDomainPrice)return;
-
-        if(thisDomainPrice > walletBlance){
-            setIfBalanceEnough(false)
-            return
-        }
-
-        setIfBalanceEnough(true)
-    }, [walletBlance])
 
     const loadingBalanceRef = useRef<HTMLImageElement | null>(null);
 
