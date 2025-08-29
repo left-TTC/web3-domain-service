@@ -1,7 +1,9 @@
 
 
+//readt to delete
+
 import "@/style/components/search/domainSettlement/paymentInterface.css"
-import type { MainFint, OtherFint } from "./paymentMethod/crypto";
+import type { MainMint, OtherMint } from "./paymentMethod/crypto";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useEffect, useRef, useState } from "react";
 import { useConnection } from "@solana/wallet-adapter-react";
@@ -20,21 +22,20 @@ import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 
 export interface PaymentInterfaceProps{
-    useFint: MainFint | OtherFint | null,
+    useMint: MainMint | OtherMint | null,
     cancleTransaction: () => void,
     creatingDomainName: string,
     creatingDomainKey: PublicKey | null
-    domainPriceMap: Map<MainFint | OtherFint, number> | null,
+    domainPriceMap: Map<MainMint | OtherMint, number> | null,
     rentFee: number
 }
 
 const PaymentInterface: React.FC<PaymentInterfaceProps> = ({
-    useFint, cancleTransaction, creatingDomainKey, creatingDomainName, domainPriceMap, rentFee
+    useMint, cancleTransaction, creatingDomainKey, creatingDomainName, domainPriceMap, rentFee
 }) => {
 
     const {t} = useTranslation()
-    const {publicKey: feePayer, signTransaction} = useWalletEnv()
-    const {connection} = useConnection()
+    
     const {activeRootDomain} = useRootDomain()
     const solanaToast = useSolanaToast()
 
@@ -45,21 +46,10 @@ const PaymentInterface: React.FC<PaymentInterfaceProps> = ({
 
     const [haveTransactionOk, setHaveTransactionOk] = useState(false)
 
-    useEffect(() => {
-        const fetchDomainBalance = async() => {
-            if(!feePayer)return
-
-            const balance = await connection.getBalance(feePayer);
-            setWalletBalance(walletBlance)
-            
-            setWalletBalance(balance)
-            setIfCheckingBalnace(false)
-        }
-
-        fetchDomainBalance()
-    }, [feePayer])
-
     const loadingBalanceRef = useRef<HTMLImageElement | null>(null);
+
+    const {publicKey: feePayer, signTransaction} = useWalletEnv()
+    const {connection} = useConnection()
 
     useEffect(() => {
         const sendTransaction = async() => {

@@ -1,7 +1,7 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
 import type { Connection, PublicKey } from "@solana/web3.js";
 import { checkAccountBalance} from "../common/net/checkAccountBalance";
-import { MainFint, OtherFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 
 
 
@@ -10,22 +10,31 @@ export async function showcCheckBalanceToast(
     walletKey: PublicKey,
     connection: Connection, 
     targetAmount: number,
-    mintType: MainFint | OtherFint = MainFint.SOL,
-): Promise<number>{
+    mintType: MainMint | OtherMint = MainMint.SOL,
+): Promise<[number, boolean]>{
     const id = transactionToastTool.show(TransactionState.CheckingBalance);
 
     const balance = await checkAccountBalance(
         connection, walletKey, mintType
     ) 
 
-    console.log("account's balance: ", balance)
-
-    if((balance * 1e9) > targetAmount){
-        transactionToastTool.update(id, TransactionState.Pending);
+    if(balance.length === 1 && mintType != MainMint.SOL){
+        if(balance[0] >= targetAmount){
+            transactionToastTool.update(id, TransactionState.Pending)
+        }else{
+            transactionToastTool.update(id, TransactionState.NoEnoughBalance)
+            return[id, false]
+        }
     }else{
-        transactionToastTool.update(id, TransactionState.NoEnoughBalance);
+        //all the necessary sol should be warped to WSol
+        if((balance[0] + balance[1]) > targetAmount){
+            transactionToastTool.update(id, TransactionState.Pending)
+        }else{
+            transactionToastTool.update(id, TransactionState.NoEnoughBalance)
+            return[id, false]
+        }
     }
 
     //provide modification interface
-    return id;
+    return [id, true];
 }

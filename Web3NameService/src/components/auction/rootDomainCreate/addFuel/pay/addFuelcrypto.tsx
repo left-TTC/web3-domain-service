@@ -1,5 +1,5 @@
-import FintChooser from "@/components/common/transaction/fintChooser";
-import { MainFint, OtherFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import MintChooser from "@/components/common/transaction/mintChooser";
+import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 
 import "@/style/components/auction/rootDomainCreate/addFuel/pay/addFuelCrypto.css"
 import { useState } from "react";
@@ -28,7 +28,7 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
     const {publicKey: wallet, signTransaction} = useWalletEnv();
     const {connection} = useConnection()
 
-    const [chooseFint, setChooseFint] = useState<MainFint | OtherFint>(MainFint.SOL)
+    const [chooseMint, setChooseMint] = useState<MainMint | OtherMint>(MainMint.SOL)
     const [fuelQuantity, setFuelQuantity] = useState<number | null>(null)
 
     const addFuel = async() => {
@@ -69,11 +69,11 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
 
     return(
         <div className="addfuelcrypro">
-            <div className="addFuelfintaandprice">
-                <h1>{t("payfint")}</h1>
-                <FintChooser 
-                    activeFint={chooseFint} 
-                    setActiveFint={setChooseFint}
+            <div className="addFuelmintaandprice">
+                <h1>{t("paymint")}</h1>
+                <MintChooser 
+                    activeMint={chooseMint} 
+                    setActiveMint={setChooseMint}
                 />
                 <AmountChooser 
                     nowFuel={addingAccountState.fundState.toNumber()} 

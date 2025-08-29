@@ -1,4 +1,4 @@
-import { MainFint, OtherFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { getAccount, getAssociatedTokenAddress } from "@solana/spl-token";
 import { Connection, PublicKey } from "@solana/web3.js";
 
@@ -7,7 +7,7 @@ import { Connection, PublicKey } from "@solana/web3.js";
 
 
 export async function checkMintAccountBalance(
-    mintType: MainFint | OtherFint = MainFint.SOL,
+    mintType: MainMint | OtherMint = MainMint.SOL,
     connection: Connection,
     accountKey: PublicKey,
 ): Promise<number> {
@@ -31,16 +31,16 @@ export async function checkMintAccountBalance(
     }  
 }
 
-export function getMintPublickey(mintType: MainFint | OtherFint): PublicKey{
+export function getMintPublickey(mintType: MainMint | OtherMint): PublicKey{
     switch(mintType){
-        case MainFint.SOL:
+        case MainMint.SOL:
             //return wsol
             return new PublicKey("So11111111111111111111111111111111111111112")
-        case MainFint.USDC:
+        case MainMint.USDC:
             return new PublicKey("4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU")
-        case MainFint.USDT:
+        case MainMint.USDT:
             return new PublicKey("Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB")
-        case OtherFint.FWC:
+        case OtherMint.FWC:
             return new PublicKey("FLEYqPkSSUoZXywYaKoN7eRPDFWDM6THLz2kuW9zKwHE")
     }
 }

@@ -1,4 +1,4 @@
-import { MainFint, OtherFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import type { Connection } from "@solana/web3.js";
 import { getDomainUSDPrice } from "./getDomainUSDPrice";
 import { 
@@ -11,12 +11,12 @@ import {
 export async function getDomainPrice(
     domainPriceUsd: number,
     connection: Connection,
-): Promise<Map<MainFint | OtherFint, number>> {
+): Promise<Map<MainMint | OtherMint, number>> {
 
-    const result = new Map<MainFint | OtherFint, number>();
+    const result = new Map<MainMint | OtherMint, number>();
 
-    result.set(MainFint.USDC, domainPriceUsd);
-    result.set(MainFint.USDT, domainPriceUsd);
+    result.set(MainMint.USDC, domainPriceUsd);
+    result.set(MainMint.USDT, domainPriceUsd);
 
     const cluster: PythCluster = "devnet";
     const pythProgramKey = getPythProgramKeyForCluster(cluster);
@@ -24,11 +24,11 @@ export async function getDomainPrice(
 
     const data = await pythClient.getData();
 
-    const wantedMap: Record<string, MainFint | OtherFint> = {
-        "Crypto.SOL/USD": MainFint.SOL,
+    const wantedMap: Record<string, MainMint | OtherMint> = {
+        "Crypto.SOL/USD": MainMint.SOL,
     };
 
-    for (const [sym, fint] of Object.entries(wantedMap)) {
+    for (const [sym, mint] of Object.entries(wantedMap)) {
         let priceObj = data.productPrice.get(sym);
 
         if (!priceObj) {
@@ -53,7 +53,7 @@ export async function getDomainPrice(
             if (typeof tokenPrice === "number" && tokenPrice > 0) {
                 const domainPriceInToken = domainPriceUsd / tokenPrice;
                 if (isFinite(domainPriceInToken)) {
-                    result.set(fint, domainPriceInToken);
+                    result.set(mint, domainPriceInToken);
                 }
             } else {
                 console.warn(`⚠️ Invalid price for ${sym}:`, tokenPrice);

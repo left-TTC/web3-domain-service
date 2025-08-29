@@ -72,6 +72,14 @@ const GetToastComponent: React.FC<GetToastComponentProps> = ({
                 )
                 setAnimateComponent(TransactionState.NoConnect)
                 break;
+            case TransactionState.Error:
+                setToastContent(
+                    <div className="fixedtoastcontent">
+                        <h1>Error happened</h1>
+                    </div>
+                )
+                setAnimateComponent(TransactionState.Error)
+                break;
                 
         }
     }, [toastType])

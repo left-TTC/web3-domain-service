@@ -7,28 +7,28 @@ import { useTranslation } from "react-i18next";
 
 import { useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
-import FintChooser from "@/components/common/transaction/fintChooser";
+import MintChooser from "@/components/common/transaction/mintChooser";
 import CreateDomainSettleBills from "@/components/common/transaction/createDomainSettleBills";
 
-export enum MainFint{
+export enum MainMint{
     SOL = "SOL",
     USDC = "USDC",
     USDT = "USDT",
 }
 
-export enum OtherFint{
+export enum OtherMint{
     FWC = "FWC",
 }
 
 export interface CryptoProps{
     openWaitingWallet: () => void,
-    domainPriceMap: Map<MainFint | OtherFint, number> | null,
-    setUseFint: React.Dispatch<React.SetStateAction<MainFint | OtherFint | null>>,
+    domainPriceMap: Map<MainMint | OtherMint, number> | null,
+    setUseMint: React.Dispatch<React.SetStateAction<MainMint | OtherMint>>,
     rentExemption: number
 }
 
 const Crypto: React.FC<CryptoProps> = ({
-    openWaitingWallet, domainPriceMap, setUseFint, rentExemption
+    openWaitingWallet, domainPriceMap, setUseMint, rentExemption
 }) => {
 
     useEffect(() => {
@@ -40,10 +40,10 @@ const Crypto: React.FC<CryptoProps> = ({
     const [referrerValue, setReferrerValue] = useState("");
     const [isReferrerFocus, setIsReferrerFocus] = useState(false)
 
-    const [activeFint, setActiveFint] = useState<MainFint | OtherFint>(MainFint.SOL)
-    const setWillUseFint = (fint: MainFint | OtherFint) => {
-        setActiveFint(fint)
-        setUseFint(fint)
+    const [activeMint, setActiveMint] = useState<MainMint | OtherMint>(MainMint.SOL)
+    const setWillUseMint = (mint: MainMint | OtherMint) => {
+        setActiveMint(mint)
+        setUseMint(mint)
     }
 
     const handReferrer = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,26 +78,26 @@ const Crypto: React.FC<CryptoProps> = ({
 
     useEffect(() => {
         if(!domainPriceMap)return setDomainPriceShow(t("loading"))
-        switch(activeFint){
-            case MainFint.SOL:
-                setDomainPriceShow(domainPriceMap.get(activeFint)?.toFixed(4) + " SOL")
+        switch(activeMint){
+            case MainMint.SOL:
+                setDomainPriceShow(domainPriceMap.get(activeMint)?.toFixed(4) + " SOL")
                 break
-            case MainFint.USDC:
-                setDomainPriceShow(domainPriceMap.get(activeFint) + " USDC")
+            case MainMint.USDC:
+                setDomainPriceShow(domainPriceMap.get(activeMint) + " USDC")
                 break
-            case MainFint.USDT:
-                setDomainPriceShow(domainPriceMap.get(activeFint) + " USDT")
+            case MainMint.USDT:
+                setDomainPriceShow(domainPriceMap.get(activeMint) + " USDT")
                 break
         }
-    }, [activeFint, domainPriceMap])
+    }, [activeMint, domainPriceMap])
         
 
     return(
         <div className="paymentBlock">
-            <div className="payfintchoose cryptopayfint">
+            <div className="paymintchoose cryptopaymint">
                 <h1>{t("settlementInfo")}</h1>
-                <h2>{t("payfint")}</h2>
-                <FintChooser activeFint={activeFint} setActiveFint={setWillUseFint}/>
+                <h2>{t("paymint")}</h2>
+                <MintChooser activeMint={activeMint} setActiveMint={setWillUseMint}/>
                 <div className="priceBlock">
                     <h1>{t("domainprice")}</h1>
                     <h2>{domainPriceShow}</h2>

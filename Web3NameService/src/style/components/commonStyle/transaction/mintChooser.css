@@ -1,12 +1,12 @@
 
 
 
-.fintChooser{
+.mintChooser{
     display: flex;
     flex-direction: row;
 }
 
-.fintChoose{
+.mintChoose{
     display: flex;
     flex-direction: row;
     padding: 8px 15px;
@@ -16,33 +16,33 @@
     border: 2px solid #434C52;
 }
 
-.fintChoose h2{
+.mintChoose h2{
     padding: 0;
     margin: 0;
     color: white;
     opacity: 0.8;
 }
 
-.fintActive{
+.mintActive{
     border-color: #B4FC75;
 }
 
-.fintActive h2{
+.mintActive h2{
     opacity: 1;
     color: #B4FC75;
 }
 
 @media (min-width: 1024px){
-    .fintChooser{
+    .mintChooser{
         gap: 12px;
     }
 
-    .fintChoose h2{
+    .mintChoose h2{
         font-size: 13px;
         font-weight: 400;
     }
 
-    .finticon{
+    .minticon{
         width: 20px;
     }
 }

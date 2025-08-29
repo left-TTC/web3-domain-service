@@ -55,7 +55,7 @@
     gap: 30px;
  }
 
- .payfintchoose{
+ .paymintchoose{
     background-color: #161F2F;
     overflow: hidden;
  }
@@ -75,7 +75,7 @@
         font-size: 25px;
     }
 
-    .payfintchoose{
+    .paymintchoose{
         width: 640px;
         border-radius: 10px;
         padding: 20px;
@@ -87,7 +87,7 @@
         padding: 20px;
     }
 
-    .payfintchoose h1{
+    .paymintchoose h1{
         font-size: 25px;
         margin: 0;
         padding: 0;

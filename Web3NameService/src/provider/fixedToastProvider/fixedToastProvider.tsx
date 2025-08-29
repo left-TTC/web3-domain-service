@@ -10,6 +10,7 @@ export enum TransactionState {
     CheckingBalance,
     NoEnoughBalance,
     NoConnect,
+    Error
 }
 
 export interface SolanaToastMessage {

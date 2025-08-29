@@ -1,5 +1,5 @@
-import FintChooser from "@/components/common/transaction/fintChooser";
-import { MainFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import MintChooser from "@/components/common/transaction/mintChooser";
+import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -14,14 +14,14 @@ const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
     confirmToCreate
 }) => {
 
-    const [chooseFint, setChooseFint] = useState<MainFint>(MainFint.SOL)
+    const [chooseMint, setChooseMint] = useState<MainMint | OtherMint>(MainMint.SOL)
     const {t} = useTranslation()
 
     return(
         <div className="launchctypto">
             <div className="launchfeeway">
-                <h1>{t("payfint")}</h1>
-                <FintChooser activeFint={chooseFint} setActiveFint={setChooseFint} />
+                <h1>{t("paymint")}</h1>
+                <MintChooser activeMint={chooseMint} setActiveMint={setChooseMint} />
                 <h4 className="attention">{t("attention")}:</h4>
                 <div className="attentionblock">
                     <h1></h1>

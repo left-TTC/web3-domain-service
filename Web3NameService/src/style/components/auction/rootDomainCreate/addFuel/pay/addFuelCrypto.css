@@ -11,7 +11,7 @@
     margin-top: 20px;
 }
 
-.addFuelfintaandprice{
+.addFuelmintaandprice{
     width: 60%;
     background-color: #161F2F;
     border-radius: 20px;
@@ -22,12 +22,12 @@
     width: 32%;
 }
 
-.addFuelfintaandprice{
+.addFuelmintaandprice{
     display: flex;
     flex-direction: column;
 }
 
-.addFuelfintaandprice h1{
+.addFuelmintaandprice h1{
     margin: 0;
     padding: 0;
     color: white;
@@ -35,12 +35,12 @@
     font-weight: 200;
 }
 
-.fintChooser{
+.mintChooser{
     margin-top: 10px;
 }
 
 @media (min-width: 1024px){
-    .addFuelfintaandprice h1{
+    .addFuelmintaandprice h1{
         font-size: 18px;
     }
 }

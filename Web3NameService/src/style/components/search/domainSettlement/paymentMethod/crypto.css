@@ -1,5 +1,5 @@
 
-.payfintchoose h2{
+.paymintchoose h2{
     color: white;
     opacity: 0.4;
     font-weight: 300;
@@ -24,7 +24,7 @@
     opacity: 1;
 }
 
-.payfintchoose h3{
+.paymintchoose h3{
     color: white;
     margin-top: 25px;
 }  
@@ -87,11 +87,11 @@
         font-size: 25px;
     }
 
-    .payfintchoose{
+    .paymintchoose{
         height: 400px;
     }
 
-    .payfintchoose h2{
+    .paymintchoose h2{
         font-size: 21px;
         margin-top: 20px;
     }
@@ -101,7 +101,7 @@
         margin-top: 30px;
     }
 
-    .payfintchoose h3{
+    .paymintchoose h3{
         font-size: 25px;
     }
 

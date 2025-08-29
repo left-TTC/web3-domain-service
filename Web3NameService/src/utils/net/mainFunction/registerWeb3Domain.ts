@@ -10,11 +10,14 @@ import { createDomainInstruction } from "@/utils/functional/instructions/createI
 export function registerWeb3Domain(
     rootDomainKey: PublicKey,
     domainNameKey: PublicKey,
-    feePayer: PublicKey,
     buyerKey: PublicKey,
     domainOwnerKey: PublicKey,
+    feePayerKey: PublicKey,
+    buyerTokenSource: PublicKey,
+    vault: PublicKey,
+
     domainName: string,
-    space: number,
+    space: number = 0,
     referrerKey: PublicKey | null = null,
 ): Transaction {
     console.log("domainName:", domainName)
@@ -27,12 +30,21 @@ export function registerWeb3Domain(
     console.log("domainNameKey: ", domainNameKey.toBase58())
     console.log("rootDomainKey: ", rootDomainKey.toBase58())
     console.log("CENTRAL_STATE_REGISTER: ", CENTRAL_STATE_REGISTER.toBase58())
-    console.log("feePayer: ", feePayer.toBase58())
+    console.log("feePayer: ", feePayerKey.toBase58())
 
     const transactionInstruction = createDomainInstruction(
-        rootDomainKey, domainNameKey, reverseupKey,
-        CENTRAL_STATE_REGISTER, feePayer, domainOwnerKey,
-        buyerKey, referrerKey, domainName, Space
+        rootDomainKey,
+        domainNameKey,
+        reverseupKey,
+        CENTRAL_STATE_REGISTER,
+        buyerKey,
+        domainOwnerKey,
+        feePayerKey,
+        buyerTokenSource,
+        vault,
+        referrerKey,
+        domainName,
+        Space
     )
 
     return new Transaction().add(transactionInstruction);

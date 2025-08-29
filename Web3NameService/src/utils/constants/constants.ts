@@ -1,4 +1,5 @@
-import { MainFint, OtherFint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { getPythProgramKeyForCluster } from "@pythnetwork/client";
 import { PublicKey } from "@solana/web3.js";
 
 
@@ -49,15 +50,19 @@ export const [CENTRAL_STATE_REGISTER] = PublicKey.findProgramAddressSync(
 
 export const CREATE_ROOT_FEE = 10000;
 
-export function getFintVault(fintType: MainFint | OtherFint): PublicKey{
-    switch(fintType){
-        case MainFint.USDC:
+export function getMintVault(mintType: MainMint | OtherMint): PublicKey{
+    switch(mintType){
+        case MainMint.USDC:
             return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
-        case MainFint.USDT:
+        case MainMint.USDT:
             return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
-        case OtherFint.FWC:
+        case OtherMint.FWC:
             return new PublicKey("BpMWoz2RUY6tRW7vebKyPyEgihX8hJuvZFh82f3UCM9T")
         default:
             return new PublicKey("DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx")
     }
+}
+
+export function returnPythFeedAccount(): PublicKey {
+    return getPythProgramKeyForCluster("devnet")
 }
