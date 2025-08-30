@@ -61,8 +61,9 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
     return(
         <div className="launchfee">
             <div className="launchfeepay">
-                <Back backFun={backToChooseRoot} />
+                <Back backFun={backToChooseRoot} className="launchrootback"/>
                 <div className="launchfeetitle">
+                    <h2>Creating:</h2>
                     <h1>{wantCreateName}</h1>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />

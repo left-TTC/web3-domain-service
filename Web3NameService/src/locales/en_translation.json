@@ -93,5 +93,6 @@
     "getother": "Get others' premium domain",
     "moreop": "More Options",
     "lessop": "Less Options",
-    "loading": "Loading"
+    "loading": "Loading",
+    "rootattention": "The initiator needs to pay a deposit of 80usdc, which will be returned after the root domain is created."
 }

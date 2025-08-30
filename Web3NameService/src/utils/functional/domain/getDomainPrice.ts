@@ -1,8 +1,6 @@
 import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import type { Connection } from "@solana/web3.js";
-import { getDomainUSDPrice } from "./getDomainUSDPrice";
 import { 
-    PythConnection, 
     PythHttpClient, 
     getPythProgramKeyForCluster, 
     type PythCluster 

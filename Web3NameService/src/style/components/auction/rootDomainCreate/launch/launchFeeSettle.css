@@ -18,6 +18,7 @@
     align-items: center;
     margin-top: 100px;
     position: relative;
+    width: 1024px;
 }
 
 .launchfeetitle{
@@ -25,23 +26,29 @@
     margin-left: 20px;
     text-align: left;
     margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 20px;
+    color: white;
 }
-
 .launchfeetitle h1{
     margin: 0;
-    color: white;
     font-weight: 600;
-    margin-left: 30px;
+    font-size: 38px;
+}
+.launchfeetitle h2{
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.launchrootback{
+    top: 0px;
+    left: -20px;
 }
 
 @media (min-width: 1024px){
-    .launchfeepay{
-        width: 900px;
-    }
-
-    .launchfeetitle h1{
-        font-size: 38px;
-    }
+    
 }
 
 

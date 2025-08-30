@@ -9,7 +9,6 @@
     margin-top: 20px;
 }
 
-
 .launchfeeway{
     width: 60%;
     background-color: #161F2F;
@@ -17,28 +16,33 @@
     padding: 40px;
     color: white;
 }
-
 .launchfeeway h1{
     margin: 0;
     padding: 0;
-    color: white;
     opacity: 0.4;
     font-weight: 200;
+    font-size: 18px;
 }
 
 .attention{
     margin: 0;
-    margin-top: 20px;
+    margin-top: 40px;
     opacity: 0.4;
+    font-size: 18px;
+}
+
+.attentionblock{
+    margin-top: 10px;
+    width: calc(100% - 30px);
+    background-color: #434C52;
+    height: 50px;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
 }
 
 @media (min-width: 1024px){
-    .launchfeeway h1{
-        font-size: 18px;
-    }
-
-    .attention{
-        font-size: 18px;
-    }
+    
 }
 

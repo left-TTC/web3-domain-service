@@ -27,7 +27,6 @@ const LaunchBlock: React.FC<LaunchBlockProps> = ({
     useEffect(() => {
         const clickOutsideInput = (e: MouseEvent) => {
             if (content.current && !content.current.contains(e.target as Node)) {
-                // console.log(closeRootCreate)
                 closeRootCreate()
             }
         }
