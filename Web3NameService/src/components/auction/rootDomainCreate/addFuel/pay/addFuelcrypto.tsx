@@ -7,23 +7,22 @@ import { useTranslation } from "react-i18next";
 import AmountChooser from "../tool/amountChooser";
 import type { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import { addFuelForRoot } from "@/utils/net/mainFunction/rootDomain/addFuelForRoot";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { TransactionState, useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
-import { showcCheckBalanceToast } from "@/utils/functional/show/checkBalanceToast";
-import { handleTransactionError } from "@/utils/functional/error/transactionError";
-import SettleBills from "@/components/common/transaction/settleBills";
+import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
+import AddFuelSettleBills from "@/components/common/transaction/addFuelSettleBills";
+import { tryToAddFuel } from "../functionalComponents/tryToAddFuel";
 
 export interface AddFuelCryptoProps {
-    addingAccountState: FundingAccountState
+    addingAccountState: FundingAccountState,
+    creatingRootName: string
 }
 
 const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
-    addingAccountState
+    addingAccountState, creatingRootName
 }) => {
 
     const {t} = useTranslation()
-    const toast = useSolanaToast();
+    const solanaToast = useSolanaToast();
 
     const {publicKey: wallet, signTransaction} = useWalletEnv();
     const {connection} = useConnection()
@@ -31,40 +30,16 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
     const [chooseMint, setChooseMint] = useState<MainMint | OtherMint>(MainMint.SOL)
     const [fuelQuantity, setFuelQuantity] = useState<number | null>(null)
 
-    const addFuel = async() => {
-        if(!fuelQuantity )return
-        if(!wallet || !signTransaction)return toast.show(TransactionState.NoConnect)
-
-        const transactionToastId = await showcCheckBalanceToast(
-            toast, wallet, connection, fuelQuantity
+    const confirmAddFuelTransaction = () => {
+        tryToAddFuel(
+            connection,
+            signTransaction,
+            wallet,
+            solanaToast,
+            fuelQuantity,
+            chooseMint,
+            creatingRootName
         )
-
-        try{
-            const addFuelTransaction = addFuelForRoot(
-                wallet, addingAccountState.creatingName, fuelQuantity
-            )
-
-            const latestBlockhash = await connection.getLatestBlockhash();
-                addFuelTransaction.recentBlockhash = latestBlockhash.blockhash;
-                addFuelTransaction.feePayer = wallet;
-
-            const signedLaunchTransaction = await signTransaction(addFuelTransaction)
-
-            const signature = await connection.sendRawTransaction(signedLaunchTransaction.serialize())
-
-            await connection.confirmTransaction(
-                {
-                    signature,
-                    ...latestBlockhash,
-                },
-                'finalized' 
-            );
-
-            console.log("transaction ok: ", signature)
-            toast.update(transactionToastId, TransactionState.Success)
-        }catch(err){
-            handleTransactionError(String(err), toast, transactionToastId)
-        }
     }
 
     return(
@@ -81,7 +56,11 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
                     wilAddFuel={fuelQuantity}
                 />
             </div>
-            <SettleBills confirmFunction={() => addFuel()}/>
+            <AddFuelSettleBills 
+                useMint={chooseMint}
+                fuelQuantity={fuelQuantity}
+                confirmTransaction={confirmAddFuelTransaction}
+            />
         </div>
     )
 }

@@ -18,7 +18,7 @@ const AmountChooser: React.FC<AmountChooserProps> = ({
 
     const {t} = useTranslation();
 
-    const num = [1000, 2000, 5000, 10000];
+    const num = [10000, 20000, 50000, 100000];
     num.push(CREATE_ROOT_FEE - nowFuel);
 
     const click = (quantity: number) => {
@@ -31,13 +31,17 @@ const AmountChooser: React.FC<AmountChooserProps> = ({
         setCustomNum(e.target.value)
     }
 
+    const getUSD = (usdLamports: number) => {
+        return "$" + (usdLamports / 1e6).toFixed(2) 
+    }
+
     return(
         <div className="fuelChooser">
             <h1>{t("selectquantity")}:</h1>
             <div className="amountChoose">
                 {num.map((quantity, index) => (
                     <button key={index} className={`quantitybu ${wilAddFuel === quantity ? "quantitybuactive" : ""}`} onClick={() => click(quantity)}>
-                        <h1>{quantity}</h1>
+                        <h1>{quantity} ({getUSD(quantity)})</h1>
                     </button>
                 ))}
 

@@ -22,41 +22,41 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
 
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
 
-    const {
-        publicKey: wallet, signTransaction
-    } = useWalletEnv();
+    // const {
+    //     publicKey: wallet, signTransaction
+    // } = useWalletEnv();
 
-    const {connection} = useConnection()
+    // const {connection} = useConnection()
 
-    const tryToCreateRootDomain = async(rootDomain: string) => {
-        if(!wallet || !signTransaction)return;
+    // const tryToCreateRootDomain = async(rootDomain: string) => {
+    //     if(!wallet || !signTransaction)return;
 
-        try{
-            const createRootTransaction = launchRootDomain(
-                rootDomain, wallet
-            )
+    //     try{
+    //         const createRootTransaction = launchRootDomain(
+    //             rootDomain, wallet
+    //         )
 
-            const latestBlockhash = await connection.getLatestBlockhash();
-                createRootTransaction.recentBlockhash = latestBlockhash.blockhash;
-                createRootTransaction.feePayer = wallet;
+    //         const latestBlockhash = await connection.getLatestBlockhash();
+    //             createRootTransaction.recentBlockhash = latestBlockhash.blockhash;
+    //             createRootTransaction.feePayer = wallet;
 
-            const signedLaunchTransaction = await signTransaction(createRootTransaction)
+    //         const signedLaunchTransaction = await signTransaction(createRootTransaction)
 
-            const signature = await connection.sendRawTransaction(signedLaunchTransaction.serialize())
+    //         const signature = await connection.sendRawTransaction(signedLaunchTransaction.serialize())
 
-            await connection.confirmTransaction(
-            {
-                signature,
-                ...latestBlockhash,
-            },
-            'finalized' // or 'confirmed' if你不要求太严格
-            );
+    //         await connection.confirmTransaction(
+    //         {
+    //             signature,
+    //             ...latestBlockhash,
+    //         },
+    //         'finalized'
+    //         );
             
-            console.log("transaction ok: ", signature)
-        }catch(err){
-            console.log("transaction err:", err)
-        }
-    }
+    //         console.log("transaction ok: ", signature)
+    //     }catch(err){
+    //         console.log("transaction err:", err)
+    //     }
+    // }
 
     return(
         <div className="launchfee">
@@ -67,7 +67,9 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
                     <h1>{wantCreateName}</h1>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
-                <LaunchFeeCrypto confirmToCreate={() => tryToCreateRootDomain(wantCreateName)}/>
+                <LaunchFeeCrypto 
+                    creatingRootName={wantCreateName}
+                />
             </div>
         </div>
     )

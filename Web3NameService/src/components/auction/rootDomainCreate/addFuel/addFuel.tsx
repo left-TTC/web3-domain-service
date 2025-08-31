@@ -34,8 +34,14 @@ const AddFuel: React.FC<AddFuelProps> = ({
                     <h1>{t("addingfor")}:</h1>
                     <h2>{addingRootInfo.creatingName}</h2>
                 </div>
-                <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod}/>
-                <AddFuelCrypto addingAccountState={addingRootInfo}/>
+                <ChoosePayment 
+                    chooseMethod={setPayMethod} 
+                    activingMethod={payMethod}
+                />
+                <AddFuelCrypto 
+                    addingAccountState={addingRootInfo}
+                    creatingRootName={addingRootInfo.creatingName}    
+                />
             </div>
         </div>
     )

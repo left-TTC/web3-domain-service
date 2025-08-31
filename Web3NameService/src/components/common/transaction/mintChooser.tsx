@@ -9,11 +9,13 @@ import "@/style/components/commonStyle/transaction/mintChooser.css"
 export interface MintChooserProps {
     activeMint: MainMint | OtherMint,
     setActiveMint: (mint: MainMint | OtherMint) => void,
+    ifLoadOtherFint?: boolean,
+    ignoreMainFint?: MainMint[]
 }
 
 
 const MintChooser: React.FC<MintChooserProps> = ({
-    activeMint, setActiveMint
+    activeMint, setActiveMint, ifLoadOtherFint, ignoreMainFint
 }) => {
 
     const returnMainMint = (mintType: MainMint) => {
@@ -27,9 +29,16 @@ const MintChooser: React.FC<MintChooserProps> = ({
         }
     }
 
+    const getUseableMint = () => {
+        const mainFints = Object.values(MainMint)
+        if (!ignoreMainFint) return mainFints;
+
+        return mainFints.filter(mint => !ignoreMainFint.includes(mint));
+    }
+
     return(
         <div className="mintChooser">
-            {Object.values(MainMint).map(mainMint => (
+            {getUseableMint().map(mainMint => (
                 <button 
                     key={mainMint} 
                     className={`mintChoose ${mainMint===activeMint ? 'mintActive':''}`}

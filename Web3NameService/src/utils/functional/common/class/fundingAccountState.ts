@@ -2,11 +2,12 @@ import { PublicKey, type AccountInfo } from "@solana/web3.js";
 import { Numberu64 } from "../number/number64";
 
 const MIN_LENGTH = 41;
+export const FIXED_SIZE = 40
 
 export class FundingAccountState {
-    rootSponsor: PublicKey;
-    fundState: Numberu64;
-    creatingName: string;
+    rootSponsor: PublicKey; //32
+    fundState: Numberu64;   //8
+    creatingName: string;   
 
     constructor(accountInfo: AccountInfo<Buffer<ArrayBufferLike>>){
         const accountData = accountInfo.data;

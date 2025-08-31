@@ -61,6 +61,10 @@ export async function sendCreateDomainTransaction(
                 const createDomainTransactionId = await showcCheckBalanceToast(
                     solanaToast, walletKey, connection, target, useMint
                 )
+                if(!createDomainTransactionId[1]) {
+                    setConfirmTransaction(false)
+                    return
+                }
 
                 try{
                     const domainAndRoot = cutDomain(domainName)

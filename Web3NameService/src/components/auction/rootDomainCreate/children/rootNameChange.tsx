@@ -25,7 +25,7 @@ const RootNameChange: React.FC<RootNameChangeProps> = ({
     const handleSwiderChange = (swiper: SwiperClass) => {
         const currentIndex = swiper.realIndex;
         const currentItem = creatingAccounts[currentIndex];
-
+        console.log("change active: ", currentItem)
         setActiveRoot(currentItem);
         setLoadingState();
     }
@@ -41,7 +41,7 @@ const RootNameChange: React.FC<RootNameChangeProps> = ({
                     spaceBetween={20}
                     slidesPerView={1}
                     navigation
-                    loop={true}
+                    loop={(creatingAccounts.length > 3)? true:false}
                     className="rootcreateswider"
                     onSlideChange={handleSwiderChange}
                 >

@@ -40,7 +40,6 @@ const SailingShip = () => {
         <div className="sailship">
             <div className="shipbl">
                 <RootDomainInfo 
-                    setActiveDomain={setActiveCreatingRoot}
                     activeDomain={activeCreatingRoot}
                     ifActiveRootLoaded={activeLoaded}
                 />

@@ -48,7 +48,7 @@ export const [CENTRAL_STATE_REGISTER] = PublicKey.findProgramAddressSync(
     WEB3_REGISTER_ID
 );
 
-export const CREATE_ROOT_FEE = 500000;
+export const CREATE_ROOT_FEE = 50000000;
 
 export function getMintVault(mintType: MainMint | OtherMint): PublicKey{
     switch(mintType){

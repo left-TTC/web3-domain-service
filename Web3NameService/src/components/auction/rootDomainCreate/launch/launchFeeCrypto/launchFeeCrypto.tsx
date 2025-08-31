@@ -12,23 +12,23 @@ import { useConnection } from "@solana/wallet-adapter-react";
 
 
 export interface LaunchFeeCryptoProps {
-    confirmToCreate: () => void;
+    creatingRootName: string;
 }
 
 const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
-    confirmToCreate
+    creatingRootName
 }) => {
 
     const [chooseMint, setChooseMint] = useState<MainMint | OtherMint>(MainMint.SOL)
     const {t} = useTranslation()
     const {connection} = useConnection()
 
-    const [loadingBills, setLoadingBills] = useState(false)
+    
     const [priceMap, setPriceMap] = useState<Map<MainMint | OtherMint, number> | null>(null)
 
     useEffect(() => {
         const fetchRootNowFee = async() => {
-            const tokenPrice = await getDomainPrice(CREATE_ROOT_FEE, connection)
+            const tokenPrice = await getDomainPrice(CREATE_ROOT_FEE / 1e6, connection)
             setPriceMap(tokenPrice)
         }
         fetchRootNowFee()
@@ -38,13 +38,21 @@ const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
         <div className="launchctypto">
             <div className="launchfeeway">
                 <h1>{t("paymint")}</h1>
-                <MintChooser activeMint={chooseMint} setActiveMint={setChooseMint} />
+                <MintChooser 
+                    activeMint={chooseMint} 
+                    setActiveMint={setChooseMint} 
+                    ignoreMainFint={[MainMint.USDC, MainMint.USDT]}
+                />
+                <div className="launchctyptoline" />
                 <h4 className="attention">{t("attention")}:</h4>
                 <div className="attentionblock">
                     <h1>{t("rootattention")}</h1>
                 </div>
             </div>
-            <CreateRootSettleBills confirmFunction={confirmToCreate}/>
+            <CreateRootSettleBills 
+                priceMap={priceMap}
+                creatingRootName={creatingRootName}
+            />
         </div>
     )
 }
