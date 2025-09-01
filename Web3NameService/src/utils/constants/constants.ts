@@ -52,6 +52,8 @@ export const CREATE_ROOT_FEE = 50000000;
 
 export function getMintVault(mintType: MainMint | OtherMint): PublicKey{
     switch(mintType){
+        case MainMint.SOL:
+            return new PublicKey("HM92LvSe6gwrLeXfJ1koV5pVmZgC6NE5L9hC1yQTMb2q")
         case MainMint.USDC:
             return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
         case MainMint.USDT:

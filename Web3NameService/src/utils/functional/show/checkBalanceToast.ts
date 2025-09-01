@@ -19,15 +19,18 @@ export async function showcCheckBalanceToast(
     ) 
 
     if(balance.length === 1 && mintType != MainMint.SOL){
-        if(balance[0] >= targetAmount){
+        if(balance[0] * 1e6 >= targetAmount){
             transactionToastTool.update(id, TransactionState.Pending)
         }else{
             transactionToastTool.update(id, TransactionState.NoEnoughBalance)
             return[id, false]
-        }
+        } 
     }else{
+        console.log("is sol")
         //all the necessary sol should be warped to WSol
-        if((balance[0] + balance[1]) > targetAmount){
+        console.log("balance:", balance)
+        console.log("targetAmount:", targetAmount)
+        if((balance[0] + balance[1])* 1e9 > targetAmount){
             transactionToastTool.update(id, TransactionState.Pending)
         }else{
             transactionToastTool.update(id, TransactionState.NoEnoughBalance)

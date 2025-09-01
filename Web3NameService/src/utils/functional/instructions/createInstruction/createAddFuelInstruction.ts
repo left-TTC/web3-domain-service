@@ -2,7 +2,7 @@ import { SystemProgram, SYSVAR_RENT_PUBKEY, TransactionInstruction, type PublicK
 import { AuctionInstruction } from "../instruction";
 import { Numberu32 } from "../../common/number/number32";
 import { Numberu64 } from "../../common/number/number64";
-import { CENTRAL_STATE_AUCTION, CENTRAL_STATE_REGISTER, returnPythFeedAccount, VAULT, WEB3_AUCTION_ID, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
+import { WEB3_AUCTION_ID, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 
 
@@ -31,6 +31,7 @@ export function createAddFuelInstruction(
     // 13. creat fee saver 
     createRootFeeSaver: PublicKey,
     // 14. pyth feed account => constant
+    pythFeedAccount: PublicKey,
     
     fuelQuantity: number,
     addRootName: string
@@ -63,7 +64,7 @@ export function createAddFuelInstruction(
 
         { pubkey: SYSVAR_RENT_PUBKEY, isSigner: false, isWritable: false },
         { pubkey: createRootFeeSaver, isSigner: false, isWritable: true },
-        { pubkey: returnPythFeedAccount(), isSigner: false, isWritable: false },
+        { pubkey: pythFeedAccount, isSigner: false, isWritable: false },
     ];
 
     return new TransactionInstruction({

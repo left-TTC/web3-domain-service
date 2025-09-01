@@ -22,25 +22,11 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
 }) => {
 
     const {t} = useTranslation()
-    const solanaToast = useSolanaToast();
-
-    const {publicKey: wallet, signTransaction} = useWalletEnv();
-    const {connection} = useConnection()
 
     const [chooseMint, setChooseMint] = useState<MainMint | OtherMint>(MainMint.SOL)
     const [fuelQuantity, setFuelQuantity] = useState<number | null>(null)
 
-    const confirmAddFuelTransaction = () => {
-        tryToAddFuel(
-            connection,
-            signTransaction,
-            wallet,
-            solanaToast,
-            fuelQuantity,
-            chooseMint,
-            creatingRootName
-        )
-    }
+    
 
     return(
         <div className="addfuelcrypro">
@@ -59,7 +45,7 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
             <AddFuelSettleBills 
                 useMint={chooseMint}
                 fuelQuantity={fuelQuantity}
-                confirmTransaction={confirmAddFuelTransaction}
+                creatingRootName={creatingRootName}
             />
         </div>
     )

@@ -12,10 +12,12 @@ export function addFuelForRoot(
     vault: PublicKey,
     feePayer: PublicKey,
     buyerTokenSource: PublicKey,
+    pythFeedAccount: PublicKey,
 
+    continueTransaction: Transaction,
     rootDomain: string,
     fuelQuantity: number,
-): Transaction{
+){
     const rootStateAccountKey = getAuctionRecordKey(
         getHashedName(rootDomain)
     )
@@ -29,6 +31,11 @@ export function addFuelForRoot(
         getHashedName(rootNameAccountKey.toBase58()), CENTRAL_STATE_AUCTION
     )
 
+    console.log("rootStateAccountKey", rootStateAccountKey.toBase58())
+    console.log("createFeeSaverAccount", createFeeSaverAccount.toBase58())
+    console.log("rootNameAccountKey", rootNameAccountKey.toBase58())
+    console.log("rootNameReverseAccountKey", rootNameReverseAccountKey.toBase58())
+
     const addFuelTransactionInstruction = createAddFuelInstruction(
         vault,
         feePayer,
@@ -39,9 +46,10 @@ export function addFuelForRoot(
         rootNameAccountKey,
         rootNameReverseAccountKey,
         createFeeSaverAccount,
+        pythFeedAccount,
         fuelQuantity,
         rootDomain
     )
 
-    return new Transaction().add(addFuelTransactionInstruction)
+    continueTransaction.add(addFuelTransactionInstruction)
 }

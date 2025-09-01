@@ -1,4 +1,4 @@
-import { TransactionState, useSolanaToast, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { handleTransactionError } from "@/utils/functional/error/transactionError";
 import { showCheckBalanceToastOnlySol } from "@/utils/functional/show/checkBalanceToast";
 import { launchRootDomain } from "@/utils/net/mainFunction/rootDomain/launchRootDomain";    
