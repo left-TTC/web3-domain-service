@@ -28,7 +28,7 @@ const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
 
     useEffect(() => {
         const fetchRootNowFee = async() => {
-            const tokenPrice = await getDomainPrice(CREATE_ROOT_FEE / 1e6, connection)
+            const tokenPrice = await getDomainPrice(1, connection)
             setPriceMap(tokenPrice)
         }
         fetchRootNowFee()

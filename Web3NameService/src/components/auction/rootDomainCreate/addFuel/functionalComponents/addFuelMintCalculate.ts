@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export function useCalculateMint(
     usingMint: MainMint | OtherMint,
-    fuelCostUsd: number | null
+    fuelCostUsd: number | null, //this is the lamports
 ){
 
     const { connection } = useConnection()
@@ -44,7 +44,7 @@ export function useCalculateMint(
             setIfCalculating(true)
             //unit price
             const price = fuelPriceMap.get(usingMint)
-            if(price) setFuelCost(price * fuelCostUsd)
+            if(price) setFuelCost(price * fuelCostUsd * 1e3)
             setIfCalculating(false)
         }
     }, [usingMint, fuelCostUsd])

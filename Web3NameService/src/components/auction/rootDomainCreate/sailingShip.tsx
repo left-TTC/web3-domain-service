@@ -18,6 +18,7 @@ const SailingShip = () => {
     useEffect(() => {
         const getAllCreatingRootDomains = async() => {
             const allRoots = await findCreatingRoot(connection)
+            console.log
             setSailingRootDomains(allRoots);
         }
 

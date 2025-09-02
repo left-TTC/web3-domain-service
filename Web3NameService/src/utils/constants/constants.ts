@@ -14,20 +14,16 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "8Uf9neUyY6C7aJPBCJLcnski8Pv5dFSA6LBgFvsBgAnY"
+    "Hyk2fr7w4Tyf19jKFUCW35aDBkCkcBbadEU12RDdbDKx"
 );
 
 export const WEB3_AUCTION_ID = new PublicKey(
-    "A4dBgeBQ1wWjUNnjfJRs3mgKu7913d1zKZjer6yAtxmN"
+    "7o1pWHkCzGzQz63pUWTzMYBirNF95ShfiPBeYYXU3nEc"
 );
 
 export const VAULT_OWNER = new PublicKey(
     "DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx"
 )
-
-export const VAULT = new PublicKey(
-    "A4dBgeBQ1wWjUNnjfJRs3mgKu7913d1zKZjer6yAtxmN"
-) 
 
 export const TOKEN_PROGRAM_ID = new PublicKey(
     'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'
@@ -49,6 +45,7 @@ export const [CENTRAL_STATE_REGISTER] = PublicKey.findProgramAddressSync(
 );
 
 export const CREATE_ROOT_FEE = 50000000;
+export const CREATE_FEE_TARGET = 10000000;
 
 export function getMintVault(mintType: MainMint | OtherMint): PublicKey{
     switch(mintType){

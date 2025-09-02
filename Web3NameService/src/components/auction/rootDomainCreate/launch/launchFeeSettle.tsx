@@ -22,42 +22,6 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
 
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
 
-    // const {
-    //     publicKey: wallet, signTransaction
-    // } = useWalletEnv();
-
-    // const {connection} = useConnection()
-
-    // const tryToCreateRootDomain = async(rootDomain: string) => {
-    //     if(!wallet || !signTransaction)return;
-
-    //     try{
-    //         const createRootTransaction = launchRootDomain(
-    //             rootDomain, wallet
-    //         )
-
-    //         const latestBlockhash = await connection.getLatestBlockhash();
-    //             createRootTransaction.recentBlockhash = latestBlockhash.blockhash;
-    //             createRootTransaction.feePayer = wallet;
-
-    //         const signedLaunchTransaction = await signTransaction(createRootTransaction)
-
-    //         const signature = await connection.sendRawTransaction(signedLaunchTransaction.serialize())
-
-    //         await connection.confirmTransaction(
-    //         {
-    //             signature,
-    //             ...latestBlockhash,
-    //         },
-    //         'finalized'
-    //         );
-            
-    //         console.log("transaction ok: ", signature)
-    //     }catch(err){
-    //         console.log("transaction err:", err)
-    //     }
-    // }
-
     return(
         <div className="launchfee">
             <div className="launchfeepay">

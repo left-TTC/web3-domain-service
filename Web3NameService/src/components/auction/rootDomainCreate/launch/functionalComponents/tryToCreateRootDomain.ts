@@ -42,6 +42,7 @@ export async function tryToCreateRootDomain(
         if(String(transaction).includes("success")){
             solanaToast.show(TransactionState.Success)
         }
+        console.log("transaction success: ", transaction)
     }catch(err){
         handleTransactionError(String(err), solanaToast, createRootStateTransactionId[0])
     }

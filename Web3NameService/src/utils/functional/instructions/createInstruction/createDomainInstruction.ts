@@ -1,5 +1,5 @@
 import { PublicKey, TransactionInstruction, SystemProgram, SYSVAR_RENT_PUBKEY } from "@solana/web3.js";
-import { returnPythFeedAccount, TOKEN_PROGRAM_ID, VAULT, WEB3_NAME_SERVICE_ID, WEB3_REGISTER_ID } from "@/utils/constants/constants";
+import { returnPythFeedAccount, TOKEN_PROGRAM_ID, WEB3_NAME_SERVICE_ID, WEB3_REGISTER_ID } from "@/utils/constants/constants";
 import { Numberu32 } from "../../common/number/number32";
 import { RegisterInstruction } from "../instruction";
 

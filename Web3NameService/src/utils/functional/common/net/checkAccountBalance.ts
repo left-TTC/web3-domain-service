@@ -14,7 +14,7 @@ export async function checkAccountBalance(
     if (mintType === MainMint.SOL) {
         const lamports = await connection.getBalance(accountKey);
         const WSOLTokens = await checkMintAccountBalance(mintType, connection, accountKey)
-        return [lamports / 1e9, WSOLTokens / 1e9]; 
+        return [lamports / 1e9, WSOLTokens]; 
     }
 
     return [await checkMintAccountBalance(mintType, connection, accountKey)] 

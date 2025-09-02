@@ -7,7 +7,7 @@ import 'swiper/css/navigation';
 import { useTranslation } from "react-i18next";
 import { cutString } from "@/utils/functional/common/cutString";
 
-import { CREATE_ROOT_FEE } from "@/utils/constants/constants";
+import { CREATE_FEE_TARGET } from "@/utils/constants/constants";
 import { useEffect, useState } from "react";
 import AddFuel from "../addFuel/addFuel";
 
@@ -32,8 +32,8 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
     const [fundingState, setFundingState] = useState("")
     useEffect(() => {
         if(activeDomain){
-            const percent = activeDomain.fundState.toNumber() / CREATE_ROOT_FEE
-            setFundingState(percent + " %")
+            const percent = activeDomain.fundState.toNumber() / CREATE_FEE_TARGET
+            setFundingState(percent*100 + " %")
         }
     }, [activeDomain])
  

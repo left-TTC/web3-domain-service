@@ -16,6 +16,7 @@ export async function checkIfCreateWSOLAccount(
     
     const tokenAccountInfo = await connection.getAccountInfo(WSOLTokenAccount)
     if(!tokenAccountInfo){
+        console.log("create wsol account")
         //need create
         const createWSOLAccountTransactionInstruction = createAssociatedTokenAccountInstruction(
             payer,
@@ -29,6 +30,7 @@ export async function checkIfCreateWSOLAccount(
 
     //transfer N SOL to W SOL
     if(transferNum > 0){
+        console.log("transfer wsol")
         const transferNumber = Math.floor(transferNum)
         continueTransaction.add(
             SystemProgram.transfer({

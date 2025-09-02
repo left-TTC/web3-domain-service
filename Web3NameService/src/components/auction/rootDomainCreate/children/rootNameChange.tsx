@@ -25,7 +25,7 @@ const RootNameChange: React.FC<RootNameChangeProps> = ({
     const handleSwiderChange = (swiper: SwiperClass) => {
         const currentIndex = swiper.realIndex;
         const currentItem = creatingAccounts[currentIndex];
-        console.log("change active: ", currentItem)
+        console.log("change active: ", currentItem.fundState)
         setActiveRoot(currentItem);
         setLoadingState();
     }

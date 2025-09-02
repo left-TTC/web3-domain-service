@@ -21,7 +21,6 @@ const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
 }) => {
 
     const {t} = useTranslation()
-
     const { fuelCost, ifCalculating } = useCalculateMint( useMint, fuelQuantity )
 
     const [costShow, setCostShow] = useState("")
@@ -29,7 +28,7 @@ const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
         if(fuelCost === 0) return
         switch(useMint){
             case MainMint.SOL: setCostShow((fuelCost / 1e9).toFixed(6) + " SOL"); break
-            case MainMint.USDC: setCostShow((fuelCost / 1e6).toFixed(4) + " USDC"); break
+            case MainMint.USDC: setCostShow((fuelCost / 1e9).toFixed(4) + " USDC"); break
         }
     }, [fuelCost, useMint])
 

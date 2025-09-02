@@ -53,8 +53,8 @@ const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
             const extractRentExemption = extractNumber(rentExemption)
             
             if(extractRentExemption){
-                setCreateStateFee(extractRentExemption + priceMap.get(MainMint.SOL)!)
-                setCreateARootStateFee((priceMap.get(MainMint.SOL)! + extractRentExemption).toFixed(4) + " SOL")
+                setCreateStateFee(extractRentExemption + 0.05)
+                setCreateARootStateFee((0.05 + extractRentExemption).toFixed(4) + " SOL")
             }
         }
     }, [priceMap, rentExemption])
@@ -85,7 +85,7 @@ const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
                     <h1>{t("deposit")}:</h1>
                 </div>
                 <h1>{!loadingBills? 
-                    `${priceMap?.get(MainMint.SOL)?.toFixed(4)} SOL (~$${priceMap?.get(MainMint.USDC)})`:
+                    `${0.05} SOL (~$${priceMap?.get(MainMint.USDC)})`:
                     "Loading"
                     }
                 </h1>

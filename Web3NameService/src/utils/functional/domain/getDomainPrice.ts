@@ -22,27 +22,6 @@ export async function getDomainPrice(
 
     const data = await pythClient.getData();
 
-    const wantedSymbols = ["Crypto.SOL/USD", "Crypto.USDT/USD", "Crypto.USDC/USD"];
-
-    for (const [symbol, priceObj] of data.productPrice.entries()) {
-        if (!wantedSymbols.includes(symbol)) continue;
-
-        const tokenPrice =
-            typeof priceObj.price === "number"
-                ? priceObj.price
-                : priceObj.aggregate?.price;
-
-        const productKey = priceObj.productAccountKey.toBase58();
-        const feedKey = priceObj.nextPriceAccountKey
-            ? priceObj.nextPriceAccountKey.toBase58()
-            : "⚠️ null";
-
-        console.log(`🔎 Pyth feed: ${symbol}`);
-        console.log(`   price = ${tokenPrice}`);
-        console.log(`   productAccountKey = ${productKey}`);
-        console.log(`   nextPriceAccountKey (feed) = ${feedKey}`);
-    }
-
     const wantedMap: Record<string, MainMint | OtherMint> = {
         "Crypto.SOL/USD": MainMint.SOL,
     };

@@ -2,7 +2,7 @@
 
 
 import "@/style/components/auction/rootDomainCreate/addFuel/tool/amountChooser.css"
-import { CREATE_ROOT_FEE } from "@/utils/constants/constants";
+import { CREATE_FEE_TARGET} from "@/utils/constants/constants";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -18,8 +18,8 @@ const AmountChooser: React.FC<AmountChooserProps> = ({
 
     const {t} = useTranslation();
 
-    const num = [10000, 20000, 50000, 100000];
-    num.push(CREATE_ROOT_FEE - nowFuel);
+    const num = [1000000, 2000000, 5000000, 6000000];
+    num.push(CREATE_FEE_TARGET - nowFuel);
 
     const click = (quantity: number) => {
         setFuelQuantity(quantity)

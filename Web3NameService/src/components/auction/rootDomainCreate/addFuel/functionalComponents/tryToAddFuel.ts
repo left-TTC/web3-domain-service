@@ -4,7 +4,7 @@ import { getMintVault } from "@/utils/constants/constants";
 import { checkAccountBalance } from "@/utils/functional/common/net/checkAccountBalance";
 import { checkIfCreateWSOLAccount } from "@/utils/functional/common/net/checkIfCreateWSOLAccount";
 import { getMintPublickey } from "@/utils/functional/common/net/checkMintAccountBalance";
-import { getPythFeedAccount, returnPythAccount } from "@/utils/functional/common/net/getPythFeedAccount";
+import { returnPythAccount } from "@/utils/functional/common/net/getPythFeedAccount";
 import { getUsrMintSourceAccount } from "@/utils/functional/common/net/getUsrMintSourceAccount";
 import { handleTransactionError } from "@/utils/functional/error/transactionError";
 import { showcCheckBalanceToast } from "@/utils/functional/show/checkBalanceToast";
@@ -51,8 +51,8 @@ export async function tryToAddFuel(
                 connection, wallet, useMint
             )
 
-            const transferNum = tokenQuantity - WSOLQuantity[1]
-
+            console.log(WSOLQuantity[1] * 1e9)
+            const transferNum = tokenQuantity - (WSOLQuantity[1] * 1e9)
             console.log("transferNum:", transferNum)
             console.log("tokenQuantity:", tokenQuantity)
             console.log("WSOLQuantity:", WSOLQuantity)
@@ -70,27 +70,55 @@ export async function tryToAddFuel(
         const vault = getMintVault(useMint)
         const pythFeedAccountKey = returnPythAccount(useMint)
 
-        console.log("useMint", useMint, "feed:", pythFeedAccountKey?.toBase58())
+        const showError = () => {
+            solanaToast.show(TransactionState.Error)
+        }
 
         addFuelForRoot(
             vault,
             wallet,
             buyerTokenSource,
             pythFeedAccountKey,
+
+            showError,
+            connection,
             tryToAddFuelTransaction,
             creatingRootName,
             fuelQuantity,
         )
 
-        const { blockhash } = await connection.getLatestBlockhash()
+        const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
         tryToAddFuelTransaction.recentBlockhash = blockhash
         tryToAddFuelTransaction.feePayer = wallet
 
         const signedTransaction = await signTransaction(tryToAddFuelTransaction)
-        const transaction = await connection.sendRawTransaction(signedTransaction.serialize())
+        const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
+            skipPreflight: false,
+        })
 
-        console.log(transaction)
-        if(String(transaction).includes("success")){
+        const txResult = await connection.confirmTransaction(
+            {
+                signature: transaction,
+                blockhash,
+                lastValidBlockHeight,
+            },
+            "confirmed"
+        );
+
+        console.log("Tx signature:", transaction);
+        console.log("Tx confirm result:", txResult);
+
+        const txInfo = await connection.getTransaction(transaction, {
+            commitment: "confirmed",
+            maxSupportedTransactionVersion: 0,
+        });
+
+        if (txInfo) {
+            console.log("=== Transaction Logs ===");
+            console.log(txInfo.meta?.logMessages);
+        }
+
+        if(String(txResult).includes("success")){
             solanaToast.show(TransactionState.Success)
         }
     }catch(err){

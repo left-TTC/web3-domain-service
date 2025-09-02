@@ -1,7 +1,7 @@
 import { SystemProgram, SYSVAR_RENT_PUBKEY, TransactionInstruction, type PublicKey } from "@solana/web3.js";
 import { AuctionInstruction } from "../instruction";
 import { Numberu32 } from "../../common/number/number32";
-import { VAULT, WEB3_AUCTION_ID } from "@/utils/constants/constants";
+import { WEB3_AUCTION_ID } from "@/utils/constants/constants";
 
 
 
