@@ -15,8 +15,11 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 import CheckingRootDomain from "./domainRecommend/bar/checkingRootDomain"
 import DomainGeneratingShow from "./domainRecommend/domainGeneratingShow"
 import LargeRound from "../common/show/largeRound"
+import { startWithTop } from "../index/browseDomain/functionalComponents/startWithTop"
 
 export default function DomainRecommend(){
+
+    startWithTop()
 
     const {t} = useTranslation()
     const {activeRootDomain} = useRootDomain()

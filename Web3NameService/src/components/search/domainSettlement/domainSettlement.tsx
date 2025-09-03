@@ -9,7 +9,8 @@ import { getDomainPrice } from "@/utils/functional/domain/getDomainPrice"
 import { useConnection } from "@solana/wallet-adapter-react"
 import { cutDomain } from "@/utils/functional/common/cutDomain"
 import { checkRentExemption } from "@/utils/net/otherFunction/checkRentExemption"
-import { sendCreateDomainTransaction } from "./functionComponents/sendDomainCreateTransaction"
+import { sendCreateDomainTransaction } from "./functionComponents/transaction/sendDomainCreateTransaction"
+import { PublicKey } from "@solana/web3.js"
 
 export interface DomainSettlementProps{
     domainName: string,
@@ -46,18 +47,10 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
         fetchDomainRent()
     },[domainName])
 
-  
-    const [confirmTransaction, setComfirmTransaction] = useState(false)
-    sendCreateDomainTransaction(
-        confirmTransaction, 
-        setComfirmTransaction,
-        cryptoMint,
-        domainPriceMap,
-        domainName,
-    )
-
+    const [referrerKey, setReferrerKey] = useState<PublicKey | null>(null)
 
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.Crypto);
+    const [domainOwner, setDomainOwner] = useState<PublicKey | null>(null)
     let payBlock;
     switch(paymentMethod){
         case PaymentMethod.Crypto:
@@ -66,9 +59,24 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
                             domainPriceMap={domainPriceMap}
                             setUseMint={setCryptoMint}
                             rentExemption={rentExemption}
+                            domainOwenr={domainOwner}
+                            setDomainOwner={setDomainOwner}
+                            referrerKey={referrerKey}
+                            setReferrerKey={setReferrerKey}
                         />
             break;
     }
+
+  
+    const [confirmTransaction, setComfirmTransaction] = useState(false)
+    sendCreateDomainTransaction(
+        confirmTransaction, 
+        setComfirmTransaction,
+        cryptoMint,
+        domainPriceMap,
+        domainName,
+        domainOwner,
+    )
 
 
     return(

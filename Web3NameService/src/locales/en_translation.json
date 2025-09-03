@@ -97,5 +97,8 @@
     "rootattention": "The initiator needs to pay a deposit of 0.5usdc, which will be returned after the root domain is created. the root domain's rent will sub from the deposit, so please be casual",
     "deposit": "Deposit",
     "rootex": "Account Exemption",
-    "Fund": "Fund"
+    "Fund": "Fund",
+    "buyfor": "Buy for",
+    "enterdomainowner": "Enter owner's Key",
+    "check": "Check"
 }

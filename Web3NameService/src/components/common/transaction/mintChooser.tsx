@@ -5,6 +5,7 @@ import USDT from "@/assets/usdt.svg"
 import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto"
 
 import "@/style/components/commonStyle/transaction/mintChooser.css"
+import { useTranslation } from "react-i18next"
 
 export interface MintChooserProps {
     activeMint: MainMint | OtherMint,
@@ -17,6 +18,8 @@ export interface MintChooserProps {
 const MintChooser: React.FC<MintChooserProps> = ({
     activeMint, setActiveMint, ifLoadOtherFint, ignoreMainFint
 }) => {
+
+    const {t} = useTranslation()
 
     const returnMainMint = (mintType: MainMint) => {
         switch(mintType){
@@ -37,17 +40,22 @@ const MintChooser: React.FC<MintChooserProps> = ({
     }
 
     return(
-        <div className="mintChooser">
-            {getUseableMint().map(mainMint => (
-                <button 
-                    key={mainMint} 
-                    className={`mintChoose ${mainMint===activeMint ? 'mintActive':''}`}
-                    onClick={() => setActiveMint(mainMint)}
-                >
-                    <img src={returnMainMint(mainMint)} className="minticon" />
-                    <h2>{mainMint}</h2>
-                </button>
-            ))}
+        <div className="mintChooseBl">
+            <div className="mintchoosetl">
+                <h3>{t("paymint")}</h3>
+            </div>
+            <div className="mintChooser">
+                {getUseableMint().map(mainMint => (
+                    <button 
+                        key={mainMint} 
+                        className={`mintChoose ${mainMint===activeMint ? 'mintActive':''}`}
+                        onClick={() => setActiveMint(mainMint)}
+                    >
+                        <img src={returnMainMint(mainMint)} className="minticon" />
+                        <h2>{mainMint}</h2>
+                    </button>
+                ))}
+            </div>
         </div>
     )
 }

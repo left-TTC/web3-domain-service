@@ -9,7 +9,7 @@ import type { FundingAccountState } from "@/utils/functional/common/class/fundin
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
-import AddFuelSettleBills from "@/components/common/transaction/addFuelSettleBills";
+import AddFuelSettleBills from "@/components/common/transaction/settlebills/addFuelSettleBills";
 import { tryToAddFuel } from "../functionalComponents/tryToAddFuel";
 
 export interface AddFuelCryptoProps {

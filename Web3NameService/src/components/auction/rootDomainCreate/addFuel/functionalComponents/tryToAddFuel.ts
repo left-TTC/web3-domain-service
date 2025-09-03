@@ -74,7 +74,7 @@ export async function tryToAddFuel(
             solanaToast.show(TransactionState.Error)
         }
 
-        addFuelForRoot(
+        await addFuelForRoot(
             vault,
             wallet,
             buyerTokenSource,

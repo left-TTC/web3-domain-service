@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import query from "@/assets/query.svg"
 import { useEffect, useRef, useState } from "react"
 import { animate } from "animejs"
+import { lockYScroll } from "@/utils/functional/show/page/lockYScorll"
 
 export interface BrowserDomainProps{
     setQueryPage: React.Dispatch<React.SetStateAction<boolean>>
@@ -47,6 +48,11 @@ const BrowserDomain: React.FC<BrowserDomainProps> = ({setQueryPage}) => {
         return () => window.removeEventListener("scroll", animateScroll);
     }, [])
 
+    const openSearchDomain = () => {
+        lockYScroll()
+        setQueryPage(true)
+    }
+
     return(
         <div className={`browserdomain ${ifHideBrowserDomain? "browserdomainhide" : "browserdomainnohide"}`} ref={browserBlock}>
             <div className="browserDomainTitle">
@@ -54,7 +60,7 @@ const BrowserDomain: React.FC<BrowserDomainProps> = ({setQueryPage}) => {
                 <h2>{t("permanent")}</h2>
             </div>
             <div className="browserDomainModule">
-                <div className="browserdomainminibox" onClick={() => setQueryPage(true)}>
+                <div className="browserdomainminibox" onClick={() => openSearchDomain()}>
                     <h1>{t("startquery")}</h1>
                     <button className="browerdomainQueryBox">
                         <img src={query} className="queryagainsubmitbu" />

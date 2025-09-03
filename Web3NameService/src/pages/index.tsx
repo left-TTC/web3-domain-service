@@ -1,5 +1,4 @@
 
-
 import BrowserDomain from "@/components/index/browseDomain/browseDomain"
 import BrowserDomainQuery from "@/components/index/browseDomain/browserDomainQuery"
 import DomainUsrShow from "@/components/index/domainUsr/domainUsrShow"

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
-import "@/style/components/commonStyle/transaction/settleBills.css"
-import "@/style/components/commonStyle/transaction/createRootSettleBills.css"
+import "@/style/components/commonStyle/transaction//settleBills/settleBills.css"
+import "@/style/components/commonStyle/transaction//settleBills/createRootSettleBills.css"
 
 import { MainMint, type OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { useEffect, useState } from "react";

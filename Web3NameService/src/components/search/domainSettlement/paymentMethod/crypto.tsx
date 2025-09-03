@@ -8,14 +8,16 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
 import MintChooser from "@/components/common/transaction/mintChooser";
-import CreateDomainSettleBills from "@/components/common/transaction/createDomainSettleBills";
+import CreateDomainSettleBills from "@/components/common/transaction/settlebills/createDomainSettleBills";
+import type { PublicKey } from "@solana/web3.js";
+import OwnerWriter from "@/components/common/transaction/ownerWriter";
+import ReferrerVerify from "@/components/common/transaction/referrerVerify";
 
 export enum MainMint{
     SOL = "SOL",
     USDC = "USDC",
     USDT = "USDT",
 }
-
 export enum OtherMint{
     FWC = "FWC",
 }
@@ -24,11 +26,16 @@ export interface CryptoProps{
     openWaitingWallet: () => void,
     domainPriceMap: Map<MainMint | OtherMint, number> | null,
     setUseMint: React.Dispatch<React.SetStateAction<MainMint | OtherMint>>,
-    rentExemption: number
+    rentExemption: number,
+    domainOwenr: PublicKey | null,
+    setDomainOwner: React.Dispatch<React.SetStateAction<PublicKey | null>>,
+    referrerKey: PublicKey | null,
+    setReferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>,
 }
 
 const Crypto: React.FC<CryptoProps> = ({
-    openWaitingWallet, domainPriceMap, setUseMint, rentExemption
+    openWaitingWallet, domainPriceMap, setUseMint, rentExemption,
+    domainOwenr, setDomainOwner, referrerKey, setReferrerKey
 }) => {
 
     useEffect(() => {
@@ -37,45 +44,13 @@ const Crypto: React.FC<CryptoProps> = ({
 
     const {t} = useTranslation()
 
-    const [referrerValue, setReferrerValue] = useState("");
-    const [isReferrerFocus, setIsReferrerFocus] = useState(false)
-
     const [activeMint, setActiveMint] = useState<MainMint | OtherMint>(MainMint.SOL)
     const setWillUseMint = (mint: MainMint | OtherMint) => {
         setActiveMint(mint)
         setUseMint(mint)
     }
 
-    const handReferrer = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setReferrerValue(e.target.value)
-    }
-
-    const refereerRef = useRef<HTMLDivElement | null>(null)
-    useEffect(() => {
-        if(isReferrerFocus){
-            const refereerBlock = refereerRef.current
-            if(refereerBlock){
-                animate(refereerBlock, {
-                    filter: 'blur(0)',
-                    opacity: [0.4, 1],
-                    duration: 500
-                })
-            }
-        }else{
-            const refereerBlock = refereerRef.current
-            if(referrerValue) return;
-            if(refereerBlock){
-                animate(refereerBlock, {
-                    filter: 'blur(0.4px)',
-                    opacity: [1, 0.4],
-                    duration: 500
-                })
-            }
-        }
-    }, [isReferrerFocus])
-
     const [domainPriceShow, setDomainPriceShow] = useState("")
-
     useEffect(() => {
         if(!domainPriceMap)return setDomainPriceShow(t("loading"))
         switch(activeMint){
@@ -95,30 +70,31 @@ const Crypto: React.FC<CryptoProps> = ({
     return(
         <div className="paymentBlock">
             <div className="paymintchoose cryptopaymint">
-                <h1>{t("settlementInfo")}</h1>
-                <h2>{t("paymint")}</h2>
-                <MintChooser activeMint={activeMint} setActiveMint={setWillUseMint}/>
+                <div className="settlewirdbl">
+                    <h3>{t("settlementInfo")}</h3>
+                </div>
+                
+                <MintChooser 
+                    activeMint={activeMint} 
+                    setActiveMint={setWillUseMint}
+                />
+                <OwnerWriter 
+                    setDomainOwner={setDomainOwner}
+                />
+
                 <div className="priceBlock">
-                    <h1>{t("domainprice")}</h1>
+                    <h3>{t("domainprice")}</h3>
                     <h2>{domainPriceShow}</h2>
                 </div>
                 
                 <div className="cryptodiliver"/>
                 
                 <h3>{t("optionaldisc")}</h3>
-                <div className={`referrer`} ref={refereerRef} onFocus={() => setIsReferrerFocus(true)} onBlur={() => setIsReferrerFocus(false)}>
-                    <input  
-                        type="text"
-                        placeholder={t("enterinvitation")}
-                        value={referrerValue}
-                        onChange={handReferrer}
-                        className={`referrerinput ${isReferrerFocus ? 'referrerinputfocus' : ''}`}
-                    />
-                    <button className={`referrerverify ${isReferrerFocus ? 'referrerverifyfocus' : ''}`}>
-                        <h1>{t("verify")}</h1>
-                    </button>
-                </div>
+                <ReferrerVerify 
+                    setReferrerKey={setReferrerKey}
+                />
             </div>
+            
             
             <CreateDomainSettleBills 
                 confirmFunction={openWaitingWallet} 

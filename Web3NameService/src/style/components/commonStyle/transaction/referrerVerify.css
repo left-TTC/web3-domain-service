@@ -1,0 +1,52 @@
+
+
+
+.referrer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.4;
+    filter: blur(0.5px);
+}
+
+.referrerverify{
+    background-color: #2A3446;
+    display: flex;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
+.verifyword{
+    color: #737982;
+    font-weight: 60o;
+    font-size: 20px;
+    margin: 0;
+}
+.referrerverify:hover{
+    opacity: 0.8;
+}
+
+.referrerverifyfocus{
+    background-color: #B4FC75;
+}
+.referrerverifyfocus h2{
+    color: black;
+}
+
+.referrerinput{
+    width: 70%;
+    margin-left: 15px;
+    height: 40px;
+    padding: 5px 0 5px 20px;
+    outline: none;
+    background-color: black;
+    border: 2px solid #434C52;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+}
+.referrerinputfocus{
+    border-color: #B4FC75;
+}

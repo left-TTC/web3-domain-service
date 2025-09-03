@@ -1,9 +1,15 @@
 
-
+.mintChooseBl{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 10px;
+}
 
 .mintChooser{
     display: flex;
     flex-direction: row;
+    gap: 12px;
 }
 
 .mintChoose{
@@ -15,35 +21,38 @@
     align-items: center;
     border: 2px solid #434C52;
 }
-
 .mintChoose h2{
     padding: 0;
     margin: 0;
     color: white;
     opacity: 0.8;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.mintchoosetl h3{
+    color: #737982;
+    margin-top: 13px;
+    font-weight: 300;
+    font-size: 17px;
+    margin: 0;
 }
 
 .mintActive{
     border-color: #B4FC75;
 }
-
 .mintActive h2{
     opacity: 1;
     color: #B4FC75;
 }
 
+.minticon{
+    width: 20px;
+}
+
 @media (min-width: 1024px){
-    .mintChooser{
-        gap: 12px;
-    }
 
-    .mintChoose h2{
-        font-size: 13px;
-        font-weight: 400;
-    }
 
-    .minticon{
-        width: 20px;
-    }
+    
 }
 

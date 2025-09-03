@@ -13,6 +13,9 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 import { useNavigate } from "react-router-dom";
 import ChangeAndGoRoot, { type ChangeAndGoRootHandle } from "./changeAndGoRoot/changeAndGoRoot";
 import { ifDomainLegal } from "@/utils/functional/domain/ifDomainLegal";
+import { useClinkQueryDomain } from "./functionalComponents/clinkQueryDomain";
+import { useClinkSetRoot } from "./functionalComponents/clinkSetRoot";
+import { unlockYScroll } from "@/utils/functional/show/page/lockYScorll";
 
 export interface BrowserDomainQueryProps{
     ifShowTheQueryPage: boolean,
@@ -24,6 +27,7 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     ifShowTheQueryPage, setQueryPage
 }) => {
     const {t} = useTranslation();
+    const navigate = useNavigate();
 
     const browseDomainRef = useRef<HTMLDivElement | null> (null);
     const compRef = useRef<ChangeAndGoRootHandle>(null);
@@ -75,81 +79,28 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
 
     const clickExitQueryPage = () => {
         const queryPage = browseDomainRef.current
-
         if(queryPage){
             animate(queryPage, {
                 opacity: [1, 0],
                 scale: [1, 0.9],
                 duration: 100,
                 onComplete: () => {
+                    unlockYScroll()
                     setQueryPage(false)
                 }
             })
         }
     }
 
+
     const handDomainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setQueryDomainValue(e.target.value)
     }
 
-    const navigate = useNavigate();
 
-    const clickQueryDomian = () => {
-        if(queryDomainValue === "") return;
+    const { ClinkQuery } = useClinkQueryDomain(queryDomainValue, activeRootDomain)
 
-        if(ifDomainLegal(queryDomainValue)){
-            const queryingDomain = queryDomainValue + "." + activeRootDomain;
-
-            navigate("/search", {
-                state: {
-                    queryingDomain: queryingDomain,
-                }
-            })
-        }else{
-            //need add component
-            console.log("inllegal domain")
-        }
-    }
-
-    const clickSetRoot = () => {
-
-        if(showChangeRoot){
-            const changeRootcurrent = compRef.current;
-            if(!changeRootcurrent) return;
-
-            animate(changeRootcurrent, {
-                duration: 300,
-                opacity: [1, 0],
-                onComplete: ()=>{
-                    setShowChangeRoot(!showChangeRoot)
-                }
-            })
-        }else{
-            setShowChangeRoot(true)
-
-            setTimeout(() => {
-                const changeRootcurrent = compRef.current;
-
-                if(!changeRootcurrent) return;
-                animate(changeRootcurrent, {
-                    opacity: [0, 1],
-                    duration: 300,
-                })
-            }, 10) 
-        }
-    }
-
-    useEffect(() => {
-    if (showChangeRoot) {
-        document.body.style.overflow = "hidden";
-    } else {
-        document.body.style.overflow = "auto";
-    }
-
-    return () => {
-        document.body.style.overflow = "auto"; 
-    };
-    }, [showChangeRoot]);
+    const { ClinkSetRoot } = useClinkSetRoot(showChangeRoot, compRef, setShowChangeRoot)
 
     return(
         <div className="queryPage" ref={browseDomainRef}>
@@ -180,13 +131,13 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
                             <img src={enter} className="querypagenetericon" />
                             <h1>Enter</h1>
                         </div>
-                        <button className="querypagesubmitbutton" ref={queryRef} onClick={() => clickQueryDomian()}>
+                        <button className="querypagesubmitbutton" ref={queryRef} onClick={() => ClinkQuery()}>
                             <img src={query} className="querypagequericon2" />
                         </button>
                     </div>
 
                     <div className="querypagechangeroot">
-                        <button className="querpagerootshow" onClick={() => clickSetRoot()}>
+                        <button className="querpagerootshow" onClick={() => ClinkSetRoot()}>
                             <div className="querypageword">
                                 <h1>{t("active")}:</h1>
                                 <h2>{activeRootDomain}</h2>

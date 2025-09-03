@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import "@/style/components/auction/rootDomainCreate/launch/launchFeeCrypto/launchFeeCrypto.css"
-import CreateRootSettleBills from "@/components/common/transaction/createRootSettleBills";
+import CreateRootSettleBills from "@/components/common/transaction/settlebills/createRootSettleBills";
 import { getDomainPrice } from "@/utils/functional/domain/getDomainPrice";
 import { CREATE_ROOT_FEE } from "@/utils/constants/constants";
 import { useConnection } from "@solana/wallet-adapter-react";

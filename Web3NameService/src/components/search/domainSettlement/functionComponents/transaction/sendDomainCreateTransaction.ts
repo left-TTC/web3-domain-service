@@ -3,7 +3,6 @@ import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 import { showcCheckBalanceToast } from "@/utils/functional/show/checkBalanceToast"
 import { useConnection } from "@solana/wallet-adapter-react"
 import { useEffect } from "react"
-import { MainMint, type OtherMint } from "../paymentMethod/crypto"
 import { handleTransactionError } from "@/utils/functional/error/transactionError"
 import { cutDomain } from "@/utils/functional/common/cutDomain"
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey"
@@ -13,6 +12,7 @@ import { registerWeb3Domain } from "@/utils/net/mainFunction/registerWeb3Domain"
 import type { PublicKey } from "@solana/web3.js"
 import { getUsrMintSourceAccount } from "@/utils/functional/common/net/getUsrMintSourceAccount"
 import { getMintVault } from "@/utils/constants/constants"
+import type { MainMint, OtherMint } from "../../paymentMethod/crypto"
 
 
 
@@ -25,7 +25,6 @@ export async function sendCreateDomainTransaction(
 
     //test
     domainOwner: PublicKey | null = null,
-    feePayer: PublicKey | null = null,
 ){
     const {connection} = useConnection()
     const {publicKey: walletKey, signTransaction} = useWalletEnv()
