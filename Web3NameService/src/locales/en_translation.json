@@ -94,7 +94,7 @@
     "moreop": "More Options",
     "lessop": "Less Options",
     "loading": "Loading",
-    "rootattention": "The initiator needs to pay a deposit of 0.5usdc, which will be returned after the root domain is created. the root domain's rent will sub from the deposit, so please be casual",
+    "rootattention": "The initiator needs to pay a deposit of 5USD, the root domain's rent will sub from the deposit, so please be casual",
     "deposit": "Deposit",
     "rootex": "Account Exemption",
     "Fund": "Fund",

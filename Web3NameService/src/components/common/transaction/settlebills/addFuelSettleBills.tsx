@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import "@/style/components/commonStyle/transaction//settleBills/settleBills.css"
-import { MainMint, type OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { useEffect, useState } from "react";
 import { useCalculateMint } from "@/components/auction/rootDomainCreate/addFuel/functionalComponents/addFuelMintCalculate";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
@@ -10,7 +10,7 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { tryToAddFuel } from "@/components/auction/rootDomainCreate/addFuel/functionalComponents/tryToAddFuel";
 
 export interface SettleBillsProps {
-    useMint: MainMint | OtherMint,
+    useMint: MainMint,
     fuelQuantity: number | null,
     creatingRootName: string,
 }
@@ -28,7 +28,6 @@ const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
         if(fuelCost === 0) return
         switch(useMint){
             case MainMint.SOL: setCostShow((fuelCost / 1e9).toFixed(6) + " SOL"); break
-            case MainMint.USDC: setCostShow((fuelCost / 1e9).toFixed(4) + " USDC"); break
         }
     }, [fuelCost, useMint])
 

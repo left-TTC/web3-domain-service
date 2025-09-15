@@ -1,11 +1,11 @@
-import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { getPythProgramKeyForCluster, PythHttpClient, type PythCluster } from "@pythnetwork/client";
 import { PublicKey, type Connection } from "@solana/web3.js";
 
 
 export async function getPythFeedAccount(
     connection: Connection,
-    mint: MainMint | OtherMint
+    mint: MainMint
 ): Promise<PublicKey | null> {
     const cluster: PythCluster = "devnet"; // 或 "mainnet-beta"
     const pythProgramKey = getPythProgramKeyForCluster(cluster);
@@ -13,11 +13,10 @@ export async function getPythFeedAccount(
 
     const data = await pythClient.getData();
 
-    const wantedMap: Record<MainMint | OtherMint, string> = {
+    const wantedMap: Record<MainMint, string> = {
         [MainMint.SOL]: "Crypto.SOL/USD",
         [MainMint.USDC]: "Crypto.USDC/USD",
         [MainMint.USDT]: "Crypto.USDT/USD",
-        [OtherMint.FWC]: "Crypto.FWC/USD"
     };
 
     const targetSym = wantedMap[mint];
@@ -38,7 +37,7 @@ export async function getPythFeedAccount(
 
 
 export function returnPythAccount(
-    useMint: MainMint | OtherMint
+    useMint: MainMint
 ): PublicKey {
     switch(useMint){
         case MainMint.SOL:

@@ -6,9 +6,6 @@ import "@/style/components/auction/rootDomainCreate/launch/launchFeeSettle.css"
 import type React from "react";
 import { useState } from "react";
 import LaunchFeeCrypto from "./launchFeeCrypto/launchFeeCrypto";
-import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import { launchRootDomain } from "@/utils/net/mainFunction/rootDomain/launchRootDomain";
-import { useConnection } from "@solana/wallet-adapter-react";
 
 
 export interface LaunchFeeSettleProps {

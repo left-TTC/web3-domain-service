@@ -1,4 +1,4 @@
-import { MainMint, type OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint} from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { getDomainPrice } from "@/utils/functional/domain/getDomainPrice";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useEffect, useState } from "react";
@@ -7,14 +7,14 @@ import { useEffect, useState } from "react";
 
 
 export function useCalculateMint(
-    usingMint: MainMint | OtherMint,
+    usingMint: MainMint,
     fuelCostUsd: number | null, //this is the lamports
 ){
 
     const { connection } = useConnection()
 
     const [ifCalculating, setIfCalculating] = useState(true)
-    const [fuelPriceMap, setFuelPriceMap] = useState<Map<MainMint | OtherMint, number> | null>(null)
+    const [fuelPriceMap, setFuelPriceMap] = useState<Map<MainMint, number> | null>(null)
 
 
     const [canCalculate, setCanCalculate] = useState(false)

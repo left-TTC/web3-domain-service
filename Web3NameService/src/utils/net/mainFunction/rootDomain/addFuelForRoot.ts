@@ -1,5 +1,5 @@
-import { CENTRAL_STATE_AUCTION, CENTRAL_STATE_REGISTER, CREATE_FEE_TARGET, CREATE_ROOT_FEE, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
-import { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
+import { CENTRAL_STATE_AUCTION, CENTRAL_STATE_REGISTER, CREATE_ROOT_TARGET, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
+import { RootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import { nameRecordStateLength } from "@/utils/functional/common/class/nameRecordState";
 import { createAddFuelInstruction } from "@/utils/functional/instructions/createInstruction/createAddFuelInstruction";
 import { getAuctionRecordKey } from "@/utils/functional/solana/getAuctionRecordKey";
@@ -48,8 +48,8 @@ export async function addFuelForRoot(
     ])
 
     if(!accountInfos[0]) {showError(); return}
-    const stateData = new FundingAccountState(accountInfos[0])
-    if((stateData.fundState.toNumber() + fuelQuantity) > CREATE_FEE_TARGET){
+    const stateData = new RootStateAccount(accountInfos[0])
+    if((stateData.fundState.toNumber() + fuelQuantity) > CREATE_ROOT_TARGET){
         const createRootNameAccountTransaction = SystemProgram.createAccount({
             fromPubkey: createFeeSaverAccount,
             newAccountPubkey: rootNameAccountKey,

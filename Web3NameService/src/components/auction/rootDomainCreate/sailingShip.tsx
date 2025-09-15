@@ -1,6 +1,6 @@
 
 import "@/style/components/auction/rootDomainCreate/sailShip.css"
-import type { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
+import type { RootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import { useEffect, useState } from "react";
 import RootDomainInfo from "./children/rootDomainInfo";
 import { findCreatingRoot } from "@/utils/net/findCreatingRoot";
@@ -11,14 +11,13 @@ const SailingShip = () => {
 
     const {connection} = useConnection();
 
-    const [sailingRootDomains, setSailingRootDomains] = useState<FundingAccountState[]> ([])
-    const [activeCreatingRoot, setActiveCreatingRoot] = useState<FundingAccountState | null>(null)
+    const [sailingRootDomains, setSailingRootDomains] = useState<RootStateAccount[]> ([])
+    const [activeCreatingRoot, setActiveCreatingRoot] = useState<RootStateAccount | null>(null)
     const [activeLoaded, setActiveLoaded] = useState(false)
 
     useEffect(() => {
         const getAllCreatingRootDomains = async() => {
             const allRoots = await findCreatingRoot(connection)
-            console.log
             setSailingRootDomains(allRoots);
         }
 

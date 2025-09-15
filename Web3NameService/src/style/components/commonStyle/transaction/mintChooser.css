@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 0;
-    margin-top: 10px;
+    margin-top: -10px;
 }
 
 .mintChooser{
@@ -32,7 +32,6 @@
 
 .mintchoosetl h3{
     color: #737982;
-    margin-top: 13px;
     font-weight: 300;
     font-size: 17px;
     margin: 0;

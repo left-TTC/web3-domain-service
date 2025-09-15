@@ -3,7 +3,7 @@ import { Numberu64 } from "../number/number64";
 
 const MIN_LENGTH = 72;
 
-export class FundingAccountState {
+export class RootStateAccount {
     rootSponsor: PublicKey; //32
     fundState: Numberu64;   //8
     creatingName: string;   

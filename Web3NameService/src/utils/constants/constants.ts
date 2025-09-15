@@ -1,4 +1,4 @@
-import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { getPythProgramKeyForCluster } from "@pythnetwork/client";
 import { PublicKey } from "@solana/web3.js";
 
@@ -14,7 +14,7 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "Hyk2fr7w4Tyf19jKFUCW35aDBkCkcBbadEU12RDdbDKx"
+    "64Qy6UEMwuK1nqkrkW3H1qX9fMmJEoxdE1zwruKfvbyG"
 );
 
 export const WEB3_AUCTION_ID = new PublicKey(
@@ -44,10 +44,11 @@ export const [CENTRAL_STATE_REGISTER] = PublicKey.findProgramAddressSync(
     WEB3_REGISTER_ID
 );
 
-export const CREATE_ROOT_FEE = 50000000;
-export const CREATE_FEE_TARGET = 10000000;
+// usd
+export const ADVANCED_STORAGE = 5000000;
+export const CREATE_ROOT_TARGET = 20000000;
 
-export function getMintVault(mintType: MainMint | OtherMint): PublicKey{
+export function getMintVault(mintType: MainMint): PublicKey{
     switch(mintType){
         case MainMint.SOL:
             return new PublicKey("HM92LvSe6gwrLeXfJ1koV5pVmZgC6NE5L9hC1yQTMb2q")
@@ -55,10 +56,6 @@ export function getMintVault(mintType: MainMint | OtherMint): PublicKey{
             return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
         case MainMint.USDT:
             return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
-        case OtherMint.FWC:
-            return new PublicKey("BpMWoz2RUY6tRW7vebKyPyEgihX8hJuvZFh82f3UCM9T")
-        default:
-            return new PublicKey("DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx")
     }
 }
 

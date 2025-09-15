@@ -5,13 +5,13 @@ import { useState } from "react";
 
 
 import { useTranslation } from "react-i18next";
-import type { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
+import type { RootStateAccount } from "@/utils/functional/common/class/RootStateAccount";
 import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettlement/choosePayment";
 import AddFuelCrypto from "./pay/addFuelcrypto";
 import Back from "@/components/common/functional/back";
 
 export interface AddFuelProps {
-    addingRootInfo: FundingAccountState,
+    addingRootInfo: RootStateAccount,
     closeAddFuelPage: () => void,
 }
 

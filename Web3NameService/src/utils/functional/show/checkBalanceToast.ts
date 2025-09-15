@@ -1,7 +1,7 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
 import type { Connection, PublicKey } from "@solana/web3.js";
 import { checkAccountBalance} from "../common/net/checkAccountBalance";
-import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 
 
 
@@ -10,7 +10,7 @@ export async function showcCheckBalanceToast(
     walletKey: PublicKey,
     connection: Connection, 
     targetAmount: number,
-    mintType: MainMint | OtherMint = MainMint.SOL,
+    mintType: MainMint = MainMint.SOL,
 ): Promise<[number, boolean]>{
     const id = transactionToastTool.show(TransactionState.CheckingBalance);
 

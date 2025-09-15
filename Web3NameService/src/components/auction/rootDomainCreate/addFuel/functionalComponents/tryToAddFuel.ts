@@ -1,4 +1,4 @@
-import { MainMint, type OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { getMintVault } from "@/utils/constants/constants";
 import { checkAccountBalance } from "@/utils/functional/common/net/checkAccountBalance";
@@ -20,7 +20,7 @@ export async function tryToAddFuel(
     solanaToast: SolanaToastContextType,
     //usd
     fuelQuantity: number | null,
-    useMint: MainMint | OtherMint,
+    useMint: MainMint,
     creatingRootName: string,
     tokenQuantity: number
     // need a common toast

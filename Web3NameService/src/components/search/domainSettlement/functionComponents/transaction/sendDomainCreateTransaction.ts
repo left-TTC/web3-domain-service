@@ -12,15 +12,15 @@ import { registerWeb3Domain } from "@/utils/net/mainFunction/registerWeb3Domain"
 import type { PublicKey } from "@solana/web3.js"
 import { getUsrMintSourceAccount } from "@/utils/functional/common/net/getUsrMintSourceAccount"
 import { getMintVault } from "@/utils/constants/constants"
-import type { MainMint, OtherMint } from "../../paymentMethod/crypto"
+import type { MainMint } from "../../paymentMethod/crypto"
 
 
 
 export async function sendCreateDomainTransaction(
     confirmTransaction: boolean,
     setConfirmTransaction: React.Dispatch<React.SetStateAction<boolean>>,
-    useMint: MainMint | OtherMint | null,
-    domainPriceMap: Map<MainMint | OtherMint, number> | null,
+    useMint: MainMint | null,
+    domainPriceMap: Map<MainMint, number> | null,
     domainName: string,
 
     //test

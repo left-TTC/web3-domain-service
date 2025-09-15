@@ -26,31 +26,33 @@
 
 .attention{
     margin: 0;
-    margin-top: 40px;
+    margin-top: 15px;
     opacity: 0.4;
     font-size: 18px;
 }
 
 .attentionblock{
-    margin-top: 0px;
+    margin-top: 5px;
     width: calc(100% - 30px);
     background-color: #434C52;
     height: 50px;
-    padding: 15px;
+    padding: 25px 15px;
     border-radius: 10px;
     display: flex;
     align-items: center;
 }
 .attentionblock h1{
     font-weight: 460;
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 1.5;
+
 }
 
 .launchctyptoline{
     width: 94%;
     height: 2px;
     background-color: white;
-    margin-top: 30px;
+    margin-top: 20px;
     filter: blur(1px);
 }
 

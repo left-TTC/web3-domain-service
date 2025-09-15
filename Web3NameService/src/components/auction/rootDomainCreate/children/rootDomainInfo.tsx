@@ -1,18 +1,18 @@
 
 import "@/style/components/auction/rootDomainCreate/children/rootDomainInfo.css"
-import type { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
+import type { RootStateAccount } from "@/utils/functional/common/class/RootStateAccount";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { useTranslation } from "react-i18next";
 import { cutString } from "@/utils/functional/common/cutString";
 
-import { CREATE_FEE_TARGET } from "@/utils/constants/constants";
+import { CREATE_ROOT_TARGET } from "@/utils/constants/constants";
 import { useEffect, useState } from "react";
 import AddFuel from "../addFuel/addFuel";
 
 export interface RootDomainInfoProps {
-    activeDomain: FundingAccountState | null,
+    activeDomain: RootStateAccount | null,
     ifActiveRootLoaded: boolean
 }
 
@@ -32,7 +32,7 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
     const [fundingState, setFundingState] = useState("")
     useEffect(() => {
         if(activeDomain){
-            const percent = activeDomain.fundState.toNumber() / CREATE_FEE_TARGET
+            const percent = activeDomain.fundState.toNumber() / CREATE_ROOT_TARGET
             setFundingState(percent*100 + " %")
         }
     }, [activeDomain])

@@ -1,22 +1,19 @@
 
 import Solana from "@/assets/solana.svg"
-import USDC from "@/assets/usdc.svg"
-import USDT from "@/assets/usdt.svg"
-import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto"
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto"
 
 import "@/style/components/commonStyle/transaction/mintChooser.css"
+import { getNowUsableMint } from "@/utils/functional/common/mint/getNowUsableMint"
 import { useTranslation } from "react-i18next"
 
 export interface MintChooserProps {
-    activeMint: MainMint | OtherMint,
-    setActiveMint: (mint: MainMint | OtherMint) => void,
-    ifLoadOtherFint?: boolean,
-    ignoreMainFint?: MainMint[]
+    activeMint: MainMint,
+    setActiveMint: (mint: MainMint) => void,
 }
 
 
 const MintChooser: React.FC<MintChooserProps> = ({
-    activeMint, setActiveMint, ifLoadOtherFint, ignoreMainFint
+    activeMint, setActiveMint
 }) => {
 
     const {t} = useTranslation()
@@ -25,19 +22,10 @@ const MintChooser: React.FC<MintChooserProps> = ({
         switch(mintType){
             case MainMint.SOL:
                 return Solana;
-            case MainMint.USDC:
-                return USDC;
-            case MainMint.USDT:
-                return USDT;
         }
     }
 
-    const getUseableMint = () => {
-        const mainFints = Object.values(MainMint)
-        if (!ignoreMainFint) return mainFints;
-
-        return mainFints.filter(mint => !ignoreMainFint.includes(mint));
-    }
+    const availableMint = getNowUsableMint();
 
     return(
         <div className="mintChooseBl">
@@ -45,7 +33,7 @@ const MintChooser: React.FC<MintChooserProps> = ({
                 <h3>{t("paymint")}</h3>
             </div>
             <div className="mintChooser">
-                {getUseableMint().map(mainMint => (
+                {availableMint.map(mainMint => (
                     <button 
                         key={mainMint} 
                         className={`mintChoose ${mainMint===activeMint ? 'mintActive':''}`}

@@ -1,4 +1,4 @@
-import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import type { Connection } from "@solana/web3.js";
 import { 
     PythHttpClient, 
@@ -9,9 +9,9 @@ import {
 export async function getDomainPrice(
     domainPriceUsd: number,
     connection: Connection,
-): Promise<Map<MainMint | OtherMint, number>> {
+): Promise<Map<MainMint, number>> {
 
-    const result = new Map<MainMint | OtherMint, number>();
+    const result = new Map<MainMint, number>();
 
     result.set(MainMint.USDC, domainPriceUsd);
     result.set(MainMint.USDT, domainPriceUsd);
@@ -22,7 +22,7 @@ export async function getDomainPrice(
 
     const data = await pythClient.getData();
 
-    const wantedMap: Record<string, MainMint | OtherMint> = {
+    const wantedMap: Record<string, MainMint> = {
         "Crypto.SOL/USD": MainMint.SOL,
     };
 

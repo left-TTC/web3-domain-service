@@ -1,11 +1,11 @@
 import MintChooser from "@/components/common/transaction/mintChooser";
-import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 
 import "@/style/components/auction/rootDomainCreate/addFuel/pay/addFuelCrypto.css"
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AmountChooser from "../tool/amountChooser";
-import type { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
+import type { RootStateAccount } from "@/utils/functional/common/class/RootStateAccount";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
@@ -13,7 +13,7 @@ import AddFuelSettleBills from "@/components/common/transaction/settlebills/addF
 import { tryToAddFuel } from "../functionalComponents/tryToAddFuel";
 
 export interface AddFuelCryptoProps {
-    addingAccountState: FundingAccountState,
+    addingAccountState: RootStateAccount,
     creatingRootName: string
 }
 
@@ -23,7 +23,7 @@ const AddFuelCrypto: React.FC<AddFuelCryptoProps> = ({
 
     const {t} = useTranslation()
 
-    const [chooseMint, setChooseMint] = useState<MainMint | OtherMint>(MainMint.SOL)
+    const [chooseMint, setChooseMint] = useState<MainMint>(MainMint.SOL)
     const [fuelQuantity, setFuelQuantity] = useState<number | null>(null)
 
     

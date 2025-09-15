@@ -5,8 +5,7 @@ import "@/style/components/search/domainSettlement/paymentMethod/crypto.css"
 import { useTranslation } from "react-i18next";
 
 
-import { useEffect, useRef, useState } from "react";
-import { animate } from "animejs";
+import { useEffect, useState } from "react";
 import MintChooser from "@/components/common/transaction/mintChooser";
 import CreateDomainSettleBills from "@/components/common/transaction/settlebills/createDomainSettleBills";
 import type { PublicKey } from "@solana/web3.js";
@@ -18,14 +17,11 @@ export enum MainMint{
     USDC = "USDC",
     USDT = "USDT",
 }
-export enum OtherMint{
-    FWC = "FWC",
-}
 
 export interface CryptoProps{
     openWaitingWallet: () => void,
-    domainPriceMap: Map<MainMint | OtherMint, number> | null,
-    setUseMint: React.Dispatch<React.SetStateAction<MainMint | OtherMint>>,
+    domainPriceMap: Map<MainMint, number> | null,
+    setUseMint: React.Dispatch<React.SetStateAction<MainMint>>,
     rentExemption: number,
     domainOwenr: PublicKey | null,
     setDomainOwner: React.Dispatch<React.SetStateAction<PublicKey | null>>,
@@ -44,8 +40,8 @@ const Crypto: React.FC<CryptoProps> = ({
 
     const {t} = useTranslation()
 
-    const [activeMint, setActiveMint] = useState<MainMint | OtherMint>(MainMint.SOL)
-    const setWillUseMint = (mint: MainMint | OtherMint) => {
+    const [activeMint, setActiveMint] = useState<MainMint>(MainMint.SOL)
+    const setWillUseMint = (mint: MainMint) => {
         setActiveMint(mint)
         setUseMint(mint)
     }
@@ -56,12 +52,6 @@ const Crypto: React.FC<CryptoProps> = ({
         switch(activeMint){
             case MainMint.SOL:
                 setDomainPriceShow(domainPriceMap.get(activeMint)?.toFixed(4) + " SOL")
-                break
-            case MainMint.USDC:
-                setDomainPriceShow(domainPriceMap.get(activeMint) + " USDC")
-                break
-            case MainMint.USDT:
-                setDomainPriceShow(domainPriceMap.get(activeMint) + " USDT")
                 break
         }
     }, [activeMint, domainPriceMap])

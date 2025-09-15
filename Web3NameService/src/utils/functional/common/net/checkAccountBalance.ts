@@ -1,5 +1,5 @@
 import { PublicKey, type Connection } from "@solana/web3.js";
-import { MainMint, OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { checkMintAccountBalance } from "./checkMintAccountBalance";
 
 //devnet
@@ -7,7 +7,7 @@ import { checkMintAccountBalance } from "./checkMintAccountBalance";
 export async function checkAccountBalance(
     connection: Connection,
     accountKey: PublicKey,
-    mintType: MainMint | OtherMint = MainMint.SOL
+    mintType: MainMint = MainMint.SOL
 ): Promise<number[]> {
     //when check sol, we will check wsol and origin sol
 

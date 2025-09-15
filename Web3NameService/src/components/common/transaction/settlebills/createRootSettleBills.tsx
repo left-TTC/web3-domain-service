@@ -3,9 +3,8 @@ import { useTranslation } from "react-i18next";
 import "@/style/components/commonStyle/transaction//settleBills/settleBills.css"
 import "@/style/components/commonStyle/transaction//settleBills/createRootSettleBills.css"
 
-import { MainMint, type OtherMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { useEffect, useState } from "react";
-import { checkRentExemption } from "@/utils/net/otherFunction/checkRentExemption";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { extractNumber } from "@/utils/functional/common/number/extractNumber";
 import { tryToCreateRootDomain } from "@/components/auction/rootDomainCreate/launch/functionalComponents/tryToCreateRootDomain";
@@ -13,7 +12,7 @@ import { TransactionState, useSolanaToast } from "@/provider/fixedToastProvider/
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 
 export interface SettleBillsProps {
-    priceMap: Map<MainMint | OtherMint, number> | null,
+    priceMap: Map<MainMint, number> | null,
     creatingRootName: string,
 }
 
@@ -26,47 +25,22 @@ const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
     const {connection} = useConnection()
 
     const [loadingBills, setLoadingBills] = useState(true)
+    const [solPrice, setSolPrice] = useState(0)
     useEffect(() => {
-        if(!priceMap) return
+        if(!priceMap || !priceMap.get(MainMint.SOL)) return
         console.log(priceMap)
         setLoadingBills(false)
+        setSolPrice(priceMap.get(MainMint.SOL)!);
     }, [priceMap])
-
-    const [rentExemption, setRentExemption] = useState("Calculating")
-    useEffect(() => {
-        const getRootStateRentExemption = async() => {
-            if(creatingRootName){
-                setRentExemption(await checkRentExemption(connection, creatingRootName) + " SOL")
-            }
-        }
-        getRootStateRentExemption()
-    }, [creatingRootName])
-
-    const [createARootSateFee, setCreateARootStateFee] = useState("Calculating")
-    const [creteRootStateFee, setCreateStateFee] = useState(0)
-    useEffect(() => {
-        if(priceMap && rentExemption != "Calculating"){
-            if(!priceMap.get(MainMint.SOL)){
-                setCreateARootStateFee("Error")
-                return
-            }
-            const extractRentExemption = extractNumber(rentExemption)
-            
-            if(extractRentExemption){
-                setCreateStateFee(extractRentExemption + 0.05)
-                setCreateARootStateFee((0.05 + extractRentExemption).toFixed(4) + " SOL")
-            }
-        }
-    }, [priceMap, rentExemption])
-
 
     const solanaToast = useSolanaToast()
     const { publicKey, signTransaction } = useWalletEnv()
+
     const createRootState = async() => {
-        if(creteRootStateFee > 0){
+        if(solPrice > 0){
             await tryToCreateRootDomain(
                 creatingRootName,
-                creteRootStateFee,
+                solPrice,
                 solanaToast,
                 connection,
                 signTransaction,
@@ -85,20 +59,16 @@ const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
                     <h1>{t("deposit")}:</h1>
                 </div>
                 <h1>{!loadingBills? 
-                    `${0.05} SOL (~$${priceMap?.get(MainMint.USDC)})`:
+                    `$5 (~ ${solPrice.toFixed(4)} SOL)`:
                     "Loading"
                     }
                 </h1>
-            </div>
-            <div className="rentfee">
-                <h1>{t("rootex")}:</h1>
-                <h2>{rentExemption}</h2>
             </div>
             <div className="cryptodiliver"/>
             <div className="cryptoconfirm">
                 <div className="cryptototal">
                     <h1>{t("total")}</h1>
-                    <h2>{createARootSateFee}</h2>
+                    <h2>{solPrice.toFixed(4)} SOL</h2>
                 </div>
                 <button className="cryptoconfirmbutton" onClick={() => createRootState()}>
                     <h1>{t("confirm")}</h1>

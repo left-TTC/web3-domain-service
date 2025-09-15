@@ -3,7 +3,7 @@ import "@/style/components/search/domainSettlement/domainSettlement.css"
 
 import ChoosePayment, { PaymentMethod } from "./choosePayment"
 import { useEffect, useState } from "react"
-import Crypto, { MainMint, OtherMint } from "./paymentMethod/crypto"
+import Crypto, { MainMint } from "./paymentMethod/crypto"
 import Back from "@/components/common/functional/back"
 import { getDomainPrice } from "@/utils/functional/domain/getDomainPrice"
 import { useConnection } from "@solana/wallet-adapter-react"
@@ -22,11 +22,11 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
     domainName, backToSearchResult, domainPriceUsd
 }) => {
 
-    const [cryptoMint, setCryptoMint] = useState<MainMint | OtherMint > (MainMint.SOL)
+    const [cryptoMint, setCryptoMint] = useState<MainMint > (MainMint.SOL)
     const {connection} = useConnection()
 
 
-    const [domainPriceMap, setDomainPriceMap] = useState<Map<MainMint | OtherMint, number> | null>(null)
+    const [domainPriceMap, setDomainPriceMap] = useState<Map<MainMint, number> | null>(null)
     useEffect(() => {
         const fetchPythPrice = async () => {
             const domainPythMap = await getDomainPrice(domainPriceUsd, connection)

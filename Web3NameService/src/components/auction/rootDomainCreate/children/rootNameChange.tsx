@@ -6,13 +6,13 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import "@/style/components/auction/rootDomainCreate/children/rootNameChange.css"
-import type { FundingAccountState } from "@/utils/functional/common/class/fundingAccountState";
+import type { RootStateAccount } from "@/utils/functional/common/class/RootStateAccount";
 import { Swiper, SwiperSlide, type SwiperClass } from 'swiper/react';
 import { Navigation } from "swiper/modules";
 
 export interface RootNameChangeProps {
-    creatingAccounts: FundingAccountState[],
-    setActiveRoot: React.Dispatch<React.SetStateAction<FundingAccountState | null>>,
+    creatingAccounts: RootStateAccount[],
+    setActiveRoot: React.Dispatch<React.SetStateAction<RootStateAccount | null>>,
     setLoadingState: () => void,
 }
 
