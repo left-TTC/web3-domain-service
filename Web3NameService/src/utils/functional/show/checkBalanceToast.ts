@@ -62,3 +62,23 @@ export async function showCheckBalanceToastOnlySol(
         return [id, false]
     }
 }
+
+export async function showCheckSolBalance(
+    transactionToastTool: SolanaToastContextType,
+    walletKey: PublicKey,
+    connection: Connection, 
+    targetAmount: number,
+): Promise<[number, boolean]> {
+
+    const id = transactionToastTool.show(TransactionState.CheckingBalance);
+
+    const balance = await connection.getBalance(walletKey)
+    console.log(balance)
+    if(balance > targetAmount){
+        transactionToastTool.update(id, TransactionState.Pending)
+        return [id, true]
+    }else{
+        transactionToastTool.update(id, TransactionState.NoEnoughBalance)
+        return [id, false]
+    }
+}

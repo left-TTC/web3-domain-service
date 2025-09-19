@@ -1,6 +1,6 @@
 import { CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
 import { getAllRootDomain } from "@/utils/net/getAllRootDomain";
-import { PDAReverseLookUp, ReversingPDAType } from "@/utils/net/PDAReverseLookUp";
+import { PDAReverseLookUp } from "@/utils/net/PDAReverseLookUp";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useAtom } from "jotai";
@@ -60,8 +60,10 @@ export function RootDomainEnviromentProvider({ children }: { children: ReactNode
         try {
             const thisRootDomainsPubkey = await getAllRootDomain(connection);
 
+            console.log(thisRootDomainsPubkey[0].toBase58())
+
             const rootDomainsData = thisRootDomainsPubkey.map(pubkey =>
-                PDAReverseLookUp(connection, pubkey, ReversingPDAType.RootDomain)
+                PDAReverseLookUp(connection, pubkey)
             );
 
             console.log("regitser central: ", CENTRAL_STATE_REGISTER.toBase58())

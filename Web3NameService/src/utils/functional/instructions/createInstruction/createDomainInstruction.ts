@@ -1,5 +1,5 @@
 import { PublicKey, TransactionInstruction, SystemProgram, SYSVAR_RENT_PUBKEY } from "@solana/web3.js";
-import { returnPythFeedAccount, TOKEN_PROGRAM_ID, WEB3_NAME_SERVICE_ID, WEB3_REGISTER_ID } from "@/utils/constants/constants";
+import {  TOKEN_PROGRAM_ID, WEB3_NAME_SERVICE_ID, WEB3_REGISTER_ID } from "@/utils/constants/constants";
 import { Numberu32 } from "../../common/number/number32";
 import { RegisterInstruction } from "../instruction";
 
@@ -58,7 +58,7 @@ export function createDomainInstruction(
         { pubkey: feePayerAccount, isSigner: true, isWritable: true },
         { pubkey: buyerTokenSource, isSigner: false, isWritable: true },
 
-        { pubkey: returnPythFeedAccount(), isSigner: false, isWritable: false },
+        // { pubkey: returnPythFeedAccount(), isSigner: false, isWritable: false },
         { pubkey: vault, isSigner: false, isWritable: true },
         { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
         { pubkey: SYSVAR_RENT_PUBKEY, isSigner: false, isWritable: false },

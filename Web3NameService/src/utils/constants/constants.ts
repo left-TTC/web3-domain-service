@@ -1,12 +1,12 @@
 import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
-import { getPythProgramKeyForCluster } from "@pythnetwork/client";
 import { PublicKey } from "@solana/web3.js";
+import { getHashedName } from "../functional/solana/getHashedName";
 
 
 export const HASH_PREFIX = "WEB3 Name Service";
 
 export const WEB3_NAME_SERVICE_ID = new PublicKey(
-    "DqynrcXcYhfJbUYQZZFq6A2Tx64cJQGwyufWJxLpnKsK"
+    "29CkJByNom4XprPhyntVis1jqjDzHHx43do4oYeDDQRL"
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
@@ -21,7 +21,7 @@ export const WEB3_AUCTION_ID = new PublicKey(
     "7o1pWHkCzGzQz63pUWTzMYBirNF95ShfiPBeYYXU3nEc"
 );
 
-export const VAULT_OWNER = new PublicKey(
+export const ADMIN = new PublicKey(
     "DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx"
 )
 
@@ -48,6 +48,8 @@ export const [CENTRAL_STATE_REGISTER] = PublicKey.findProgramAddressSync(
 export const ADVANCED_STORAGE = 5000000;
 export const CREATE_ROOT_TARGET = 20000000;
 
+export const VAULT_ADMIN = 500000000; //lamports
+
 export function getMintVault(mintType: MainMint): PublicKey{
     switch(mintType){
         case MainMint.SOL:
@@ -59,6 +61,15 @@ export function getMintVault(mintType: MainMint): PublicKey{
     }
 }
 
-export function returnPythFeedAccount(): PublicKey {
-    return getPythProgramKeyForCluster("devnet")
+export function returnProjectVault(): PublicKey {
+    const seeds = [getHashedName("vault")];
+    seeds.push(CENTRAL_STATE_REGISTER.toBuffer());
+    seeds.push(CENTRAL_STATE_REGISTER.toBuffer());
+
+    const [vaultKey, _] = PublicKey.findProgramAddressSync(
+        seeds,
+        WEB3_REGISTER_ID,
+    )
+
+    return vaultKey;
 }

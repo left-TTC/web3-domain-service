@@ -1,0 +1,80 @@
+
+.adminbl{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.startpjbl{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+}
+.startpjbl h1{
+    font-size: 98px;
+    color: white;
+}
+
+.startProject{
+    width: 300px;
+    height: 80px;
+    background-color: #B4FC75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.startProject h1{
+    padding: 0;
+    margin: 0;
+    font-size: 30px;
+    font-family: 'Minecraftia', monospace;
+    color: black;
+}
+.startProject:active{
+    transform: translateY(2px) translateX(2px);
+}
+
+.vaultinfo{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 300px;
+}
+
+.vaultbalance{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 50px;
+    color: white;
+}
+.vaultbalance h1{
+    font-size: 25px;
+}
+.vaultbalance h2{
+    font-size: 50px;
+}
+
+.vaultopratrion{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.transfer{
+    width: 160px;
+    background-color: #B4FC75;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.transfer h1{
+    font-size: 18px;
+    padding: 0;
+    color: black;
+    margin: 0;
+    font-weight: 500;
+}

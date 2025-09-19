@@ -1,8 +1,8 @@
 import { CENTRAL_STATE_AUCTION, CENTRAL_STATE_REGISTER, CREATE_ROOT_TARGET, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
 import { RootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
-import { nameRecordStateLength } from "@/utils/functional/common/class/nameRecordState";
+import { NAME_RECORD_LENGTH } from "@/utils/functional/common/class/nameRecordState";
 import { createAddFuelInstruction } from "@/utils/functional/instructions/createInstruction/createAddFuelInstruction";
-import { getAuctionRecordKey } from "@/utils/functional/solana/getAuctionRecordKey";
+import { getRootStateKey } from "@/utils/functional/solana/getRootStateKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { Connection, SystemProgram, Transaction, type PublicKey } from "@solana/web3.js";
@@ -22,10 +22,10 @@ export async function addFuelForRoot(
     rootDomain: string,
     fuelQuantity: number,
 ){
-    const rootStateAccountKey = getAuctionRecordKey(
+    const rootStateAccountKey = getRootStateKey(
         getHashedName(rootDomain)
     )
-    const createFeeSaverAccount = getAuctionRecordKey(
+    const createFeeSaverAccount = getRootStateKey(
         getHashedName(rootDomain), CENTRAL_STATE_AUCTION, CENTRAL_STATE_AUCTION
     );
     const rootNameAccountKey = getNameAccountKey(
@@ -53,11 +53,11 @@ export async function addFuelForRoot(
         const createRootNameAccountTransaction = SystemProgram.createAccount({
             fromPubkey: createFeeSaverAccount,
             newAccountPubkey: rootNameAccountKey,
-            lamports: await connection.getMinimumBalanceForRentExemption(nameRecordStateLength),
-            space: nameRecordStateLength,
+            lamports: await connection.getMinimumBalanceForRentExemption(NAME_RECORD_LENGTH),
+            space: NAME_RECORD_LENGTH,
             programId: WEB3_NAME_SERVICE_ID,
         })
-        const reverseLength = nameRecordStateLength + rootDomain.length
+        const reverseLength = NAME_RECORD_LENGTH + rootDomain.length
         const createRootNameReverseAccountTransaction = SystemProgram.createAccount({
             fromPubkey: createFeeSaverAccount,
             newAccountPubkey: rootNameReverseAccountKey,

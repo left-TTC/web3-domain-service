@@ -4,7 +4,7 @@ import { getMintVault } from "@/utils/constants/constants";
 import { checkAccountBalance } from "@/utils/functional/common/net/checkAccountBalance";
 import { checkIfCreateWSOLAccount } from "@/utils/functional/common/net/checkIfCreateWSOLAccount";
 import { getMintPublickey } from "@/utils/functional/common/net/checkMintAccountBalance";
-import { returnPythAccount } from "@/utils/functional/common/net/getPythFeedAccount";
+import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
 import { getUsrMintSourceAccount } from "@/utils/functional/common/net/getUsrMintSourceAccount";
 import { handleTransactionError } from "@/utils/functional/error/transactionError";
 import { showcCheckBalanceToast } from "@/utils/functional/show/checkBalanceToast";
@@ -24,7 +24,7 @@ export async function tryToAddFuel(
     creatingRootName: string,
     tokenQuantity: number
     // need a common toast
-) {
+): Promise<void> {
     if(!fuelQuantity || tokenQuantity === 0){
         solanaToast.show(TransactionState.Error)
         return
@@ -68,7 +68,7 @@ export async function tryToAddFuel(
         }
 
         const vault = getMintVault(useMint)
-        const pythFeedAccountKey = returnPythAccount(useMint)
+        const pythFeedAccountKey = returnPythFeedAccount(useMint)
 
         const showError = () => {
             solanaToast.show(TransactionState.Error)

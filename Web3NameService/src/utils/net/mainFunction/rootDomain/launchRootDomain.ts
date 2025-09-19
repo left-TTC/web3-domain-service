@@ -1,9 +1,11 @@
-import { CENTRAL_STATE_AUCTION } from "@/utils/constants/constants";
-import { createLaunchRootDomainInstruction } from "@/utils/functional/instructions/createInstruction/createLanuchRootInstruction";
-import { getAuctionRecordKey } from "@/utils/functional/solana/getAuctionRecordKey";
+import { returnProjectVault } from "@/utils/constants/constants";
+import { createLaunchRootDomainInstruction, type InitiateRootInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createLanuchRootInstruction";
+import { getRootStateKey } from "@/utils/functional/solana/getRootStateKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
-import { Transaction, type PublicKey } from "@solana/web3.js";
+import { SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, type PublicKey } from "@solana/web3.js";
+import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
+import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 
 
 
@@ -12,27 +14,29 @@ export function launchRootDomain(
     initiator: PublicKey,
 ): Transaction {
 
-    const rootStateAccountKey = getAuctionRecordKey(
+    const rootStateAccountKey = getRootStateKey(
         getHashedName(willLanunchRootDomain)
     )
     
-    const rootNameAccount = getNameAccountKey(
+    const rootNameAccountKey = getNameAccountKey(
         getHashedName(willLanunchRootDomain)
     )
 
-    const rootCreateFeeSaver = getAuctionRecordKey(
-        getHashedName(willLanunchRootDomain), CENTRAL_STATE_AUCTION, CENTRAL_STATE_AUCTION
-    )
-
     console.log("rootStateAccountKey: ", rootStateAccountKey.toBase58())
-    console.log("rootCreateFeeSaver: ", rootCreateFeeSaver.toBase58())
+
+    const initiateRootTransactionAccounts: InitiateRootInstructionAccounts = {
+        systemAccount: SystemProgram.programId,
+        initiator: initiator,
+        rootStateAccount: rootStateAccountKey,
+        rootNameAccount: rootNameAccountKey,
+        vault: returnProjectVault(),
+        rentSysvar: SYSVAR_RENT_PUBKEY,
+        pythFeedAccount: returnPythFeedAccount(MainMint.SOL),
+    } 
 
     const launchTransactionInstruction = createLaunchRootDomainInstruction(
-        initiator,
-        rootStateAccountKey,
-        rootNameAccount,
-        rootCreateFeeSaver,
-        willLanunchRootDomain
+        initiateRootTransactionAccounts,
+        willLanunchRootDomain,
     )
 
     return new Transaction().add(launchTransactionInstruction)

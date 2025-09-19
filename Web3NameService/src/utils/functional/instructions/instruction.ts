@@ -16,3 +16,12 @@ export enum AuctionInstruction {
 
     DeleteAuction,
 }
+
+export enum Web3DomainRegistrarInstruction {
+    InitiateRoot,
+    CreateRoot,
+    StartName,
+    IncreasePrice,
+    CreateName,
+    StartProject,
+}

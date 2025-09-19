@@ -36,7 +36,7 @@ export async function getPythFeedAccount(
 }
 
 
-export function returnPythAccount(
+export function returnPythFeedAccount(
     useMint: MainMint
 ): PublicKey {
     switch(useMint){

@@ -5,7 +5,7 @@ import "@/style/components/auction/rootDomainCreate/addFuel/pay/addFuelCrypto.cs
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AmountChooser from "../tool/amountChooser";
-import type { RootStateAccount } from "@/utils/functional/common/class/RootStateAccount";
+import type { RootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";

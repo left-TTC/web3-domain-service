@@ -9,8 +9,10 @@ import RootDomainCreate from './components/auction/rootDomainCreate';
 import { useState } from 'react';
 import { User } from './pages/usr';
 
+
+
 function App() { 
-      
+    
     const [showBrowserDomainQuery, setShowBrowserDomainQuery] = useState(false);
 
     return (
