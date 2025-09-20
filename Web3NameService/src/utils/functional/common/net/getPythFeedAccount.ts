@@ -41,6 +41,7 @@ export function returnPythFeedAccount(
 ): PublicKey {
     switch(useMint){
         case MainMint.SOL:
+            //main net 
             return new PublicKey("7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE")
         case MainMint.USDC:
             return new PublicKey("Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX")

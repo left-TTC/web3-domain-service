@@ -34,6 +34,12 @@ export function launchRootDomain(
         pythFeedAccount: returnPythFeedAccount(MainMint.SOL),
     } 
 
+    console.log("root state: ", rootStateAccountKey.toBase58())
+    console.log("rootNameAccount: ", rootNameAccountKey.toBase58())
+    console.log("vault: ", returnProjectVault().toBase58())
+    console.log("rentSysvar: ", SYSVAR_RENT_PUBKEY.toBase58())
+    console.log("pythFeedAccount: ", initiateRootTransactionAccounts.pythFeedAccount.toBase58())
+
     const launchTransactionInstruction = createLaunchRootDomainInstruction(
         initiateRootTransactionAccounts,
         willLanunchRootDomain,

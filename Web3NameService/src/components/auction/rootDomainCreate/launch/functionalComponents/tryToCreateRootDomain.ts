@@ -1,8 +1,8 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { handleTransactionError } from "@/utils/functional/error/transactionError";
-import { showCheckBalanceToastOnlySol } from "@/utils/functional/show/checkBalanceToast";
+import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { launchRootDomain } from "@/utils/net/mainFunction/rootDomain/launchRootDomain";    
-import type { Connection, PublicKey, Transaction, VersionedTransaction } from "@solana/web3.js";
+import { Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
 
 
@@ -21,22 +21,26 @@ export async function tryToCreateRootDomain(
         return
     }
 
-    const createRootStateTransactionId = await showCheckBalanceToastOnlySol(
+    const createRootStateTransactionId = await showCheckSolBalance(
         solanaToast, wallet, connection, totalFee
     )
     if(!createRootStateTransactionId[1])return
 
     try{
+        const tryCreateRootDomainTransaction = new Transaction()
+
         const createRootDomainTransaction = launchRootDomain(
             rootDomainName, wallet
         )
 
-        const { blockhash } = await connection.getLatestBlockhash()
-        createRootDomainTransaction.recentBlockhash = blockhash
-        //gas fee payer
-        createRootDomainTransaction.feePayer = wallet
+        tryCreateRootDomainTransaction.add(createRootDomainTransaction)
 
-        const signedTransaction = await signTransaction(createRootDomainTransaction)
+        const { blockhash } = await connection.getLatestBlockhash()
+        tryCreateRootDomainTransaction.recentBlockhash = blockhash
+        //gas fee payer
+        tryCreateRootDomainTransaction.feePayer = wallet
+
+        const signedTransaction = await signTransaction(tryCreateRootDomainTransaction)
         const transaction = await connection.sendRawTransaction(signedTransaction.serialize())
         
         if(String(transaction).includes("success")){
@@ -44,6 +48,7 @@ export async function tryToCreateRootDomain(
         }
         console.log("transaction success: ", transaction)
     }catch(err){
+        console.log(err)
         handleTransactionError(String(err), solanaToast, createRootStateTransactionId[0])
     }
 }

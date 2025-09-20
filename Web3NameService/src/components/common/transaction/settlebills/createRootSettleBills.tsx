@@ -30,7 +30,7 @@ const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
         if(!priceMap || !priceMap.get(MainMint.SOL)) return
         console.log(priceMap)
         setLoadingBills(false)
-        setSolPrice(priceMap.get(MainMint.SOL)!);
+        setSolPrice(priceMap.get(MainMint.SOL)! * 5);
     }, [priceMap])
 
     const solanaToast = useSolanaToast()

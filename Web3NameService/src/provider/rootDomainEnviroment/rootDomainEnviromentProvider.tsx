@@ -1,4 +1,5 @@
 import { CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
+import { parsePriceUpdateV2 } from "@/utils/functional/common/net/testPyth";
 import { getAllRootDomain } from "@/utils/net/getAllRootDomain";
 import { PDAReverseLookUp } from "@/utils/net/PDAReverseLookUp";
 import { useConnection } from "@solana/wallet-adapter-react";
@@ -58,6 +59,7 @@ export function RootDomainEnviromentProvider({ children }: { children: ReactNode
         setLoading(true);
 
         try {
+
             const thisRootDomainsPubkey = await getAllRootDomain(connection);
 
             console.log(thisRootDomainsPubkey[0].toBase58())
