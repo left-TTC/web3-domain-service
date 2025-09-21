@@ -1,14 +1,15 @@
 
 import Solana from "@/assets/solana.svg"
-import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto"
+
+import { SupportedMint } from "@/provider/priceProvider/priceProvider"
 
 import "@/style/components/commonStyle/transaction/mintChooser.css"
 import { getNowUsableMint } from "@/utils/functional/common/mint/getNowUsableMint"
 import { useTranslation } from "react-i18next"
 
 export interface MintChooserProps {
-    activeMint: MainMint,
-    setActiveMint: (mint: MainMint) => void,
+    activeMint: SupportedMint,
+    setActiveMint: (mint: SupportedMint) => void,
 }
 
 
@@ -18,10 +19,17 @@ const MintChooser: React.FC<MintChooserProps> = ({
 
     const {t} = useTranslation()
 
-    const returnMainMint = (mintType: MainMint) => {
+    const returnMainMint = (mintType: SupportedMint) => {
         switch(mintType){
-            case MainMint.SOL:
+            case SupportedMint.SOL:
                 return Solana;
+        }
+    }
+
+    const returnMintName = (mintType: SupportedMint) => {
+        switch(mintType){
+            case SupportedMint.SOL:
+                return "SOL";
         }
     }
 
@@ -40,7 +48,7 @@ const MintChooser: React.FC<MintChooserProps> = ({
                         onClick={() => setActiveMint(mainMint)}
                     >
                         <img src={returnMainMint(mainMint)} className="minticon" />
-                        <h2>{mainMint}</h2>
+                        <h2>{returnMintName(mainMint)}</h2>
                     </button>
                 ))}
             </div>

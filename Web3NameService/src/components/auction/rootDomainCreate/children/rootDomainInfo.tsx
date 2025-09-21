@@ -1,6 +1,6 @@
 
 import "@/style/components/auction/rootDomainCreate/children/rootDomainInfo.css"
-import type { RootStateAccount } from "@/utils/functional/common/class/RootStateAccount";
+import type { rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -11,8 +11,10 @@ import { CREATE_ROOT_TARGET } from "@/utils/constants/constants";
 import { useEffect, useState } from "react";
 import AddFuel from "../addFuel/addFuel";
 
+import more from "@/assets/more.png"
+
 export interface RootDomainInfoProps {
-    activeDomain: RootStateAccount | null,
+    activeDomain: rootStateAccount | null,
     ifActiveRootLoaded: boolean
 }
 
@@ -36,6 +38,8 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
             setFundingState(percent*100 + " %")
         }
     }, [activeDomain])
+
+    const [showFuelAbout, setShowFuelAbout] = useState(false)
  
     return(
         <div className="rootdomaininfo">
@@ -53,7 +57,19 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
                     </div>
                     <div className="rootdomainword">
                         <h1>{t("fuel")}:</h1>
-                        <h2>{fundingState}</h2>
+                        <div className="fulepercent">
+                            <img src={more} className="percentmore"
+                                onMouseEnter={() => setShowFuelAbout(true)}
+                                onMouseLeave={() => setShowFuelAbout(false)}
+                            />
+                            <h2>{fundingState}</h2>
+
+                            {showFuelAbout &&
+                            <div className="showfuelabout">
+                                <h1>${(activeDomain!.fundState.toNumber() / 1e6).toFixed(2)} / ${(CREATE_ROOT_TARGET / 1e6).toFixed(2)}</h1>
+                            </div>
+                            }
+                        </div>
                     </div>
                     <div className="addFuelbutton">
                         <button className="addfuel pixel" onClick={() => openAddFuelModal()}>

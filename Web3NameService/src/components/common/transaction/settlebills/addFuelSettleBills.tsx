@@ -1,35 +1,43 @@
 import { useTranslation } from "react-i18next";
 
 import "@/style/components/commonStyle/transaction//settleBills/settleBills.css"
-import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { useEffect, useState } from "react";
-import { useCalculateMint } from "@/components/auction/rootDomainCreate/addFuel/functionalComponents/addFuelMintCalculate";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { tryToAddFuel } from "@/components/auction/rootDomainCreate/addFuel/functionalComponents/tryToAddFuel";
+import { SupportedMint, usePrice } from "@/provider/priceProvider/priceProvider";
+import { toTokenPerUsd } from "@/utils/functional/common/number/toTokenPerUsd";
 
 export interface SettleBillsProps {
-    useMint: MainMint,
+    useMint: SupportedMint,
     fuelQuantity: number | null,
     creatingRootName: string,
 }
 
-
+// fuel quantity's unit is usd
 const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
     useMint, fuelQuantity, creatingRootName
 }) => {
 
     const {t} = useTranslation()
-    const { fuelCost, ifCalculating } = useCalculateMint( useMint, fuelQuantity )
 
-    const [costShow, setCostShow] = useState("")
+    const {price, expo} = usePrice()
+
+    const [perPrice, setPerPrice] = useState(0)
+    const [solCost ,setSolCost] = useState(0)
     useEffect(() => {
-        if(fuelCost === 0) return
-        switch(useMint){
-            case MainMint.SOL: setCostShow((fuelCost / 1e9).toFixed(6) + " SOL"); break
+        if(!price || !expo) return
+        setPerPrice(toTokenPerUsd(price, expo, useMint))
+    }, [perPrice, useMint])
+    useEffect(() => {
+        if(perPrice && fuelQuantity){
+            switch(useMint){
+                case SupportedMint.SOL:
+                    setSolCost(perPrice * fuelQuantity * 1e3)
+            }
         }
-    }, [fuelCost, useMint])
+    }, [perPrice, fuelQuantity])
 
 
     const solanaToast = useSolanaToast();
@@ -37,16 +45,16 @@ const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
     const {publicKey: wallet, signTransaction} = useWalletEnv();
     const {connection} = useConnection()
 
-    const confirmAddFuelTransaction = () => {
-        tryToAddFuel(
+    const confirmAddFuelTransaction = async() => {
+        await tryToAddFuel(
             connection,
             signTransaction,
             wallet,
             solanaToast,
             fuelQuantity,
-            useMint,
             creatingRootName,
-            fuelCost
+            solCost,
+            useMint,
         )
     }
         
@@ -57,13 +65,13 @@ const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
                 <div className="registerrule">
                     <h1>{t("Fund")}:</h1>
                 </div>
-                <h1>{costShow? costShow:"Choose numbers"}</h1>
+                <h1>{solCost? `${(solCost / 1e9).toFixed(4) + " SOL"}`:"Choose numbers"}</h1>
             </div>
             <div className="cryptodiliver"/>
             <div className="cryptoconfirm">
                 <div className="cryptototal">
                     <h1>{t("total")}</h1>
-                    <h2>{costShow? costShow:"Waiting"}</h2>
+                    <h2>{solCost? `${(solCost / 1e9).toFixed(4) + " SOL"}`:"Waiting"}</h2>
                 </div>
                 <button className="cryptoconfirmbutton" onClick={() => confirmAddFuelTransaction()}>
                     <h1>{t("confirm")}</h1>

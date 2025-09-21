@@ -1,15 +1,10 @@
-import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
-import { getMintVault } from "@/utils/constants/constants";
-import { checkAccountBalance } from "@/utils/functional/common/net/checkAccountBalance";
-import { checkIfCreateWSOLAccount } from "@/utils/functional/common/net/checkIfCreateWSOLAccount";
-import { getMintPublickey } from "@/utils/functional/common/net/checkMintAccountBalance";
+import type { SupportedMint } from "@/provider/priceProvider/priceProvider";
 import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
-import { getUsrMintSourceAccount } from "@/utils/functional/common/net/getUsrMintSourceAccount";
 import { handleTransactionError } from "@/utils/functional/error/transactionError";
-import { showcCheckBalanceToast } from "@/utils/functional/show/checkBalanceToast";
+import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { addFuelForRoot } from "@/utils/net/mainFunction/rootDomain/addFuelForRoot";
-import { Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
+import { SendTransactionError, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
 
 
@@ -20,9 +15,9 @@ export async function tryToAddFuel(
     solanaToast: SolanaToastContextType,
     //usd
     fuelQuantity: number | null,
-    useMint: MainMint,
     creatingRootName: string,
-    tokenQuantity: number
+    tokenQuantity: number,
+    useMint: SupportedMint,
     // need a common toast
 ): Promise<void> {
     if(!fuelQuantity || tokenQuantity === 0){
@@ -36,56 +31,30 @@ export async function tryToAddFuel(
         return
     }
 
-    const tryToAddFuelTransactionId = await showcCheckBalanceToast(
-        solanaToast, wallet, connection, fuelQuantity, useMint
+    const tryToAddFuelTransactionId = await showCheckSolBalance(
+        solanaToast, wallet, connection, fuelQuantity
     )
     if(!tryToAddFuelTransactionId[1]) return
 
     try{
         const tryToAddFuelTransaction = new Transaction()
 
-        const buyerTokenSource = await getUsrMintSourceAccount(wallet, useMint)
-
-        if(useMint === MainMint.SOL){
-            const WSOLQuantity = await checkAccountBalance(
-                connection, wallet, useMint
-            )
-
-            console.log(WSOLQuantity[1] * 1e9)
-            const transferNum = tokenQuantity - (WSOLQuantity[1] * 1e9)
-            console.log("transferNum:", transferNum)
-            console.log("tokenQuantity:", tokenQuantity)
-            console.log("WSOLQuantity:", WSOLQuantity)
-            await checkIfCreateWSOLAccount(
-                connection,
-                buyerTokenSource,
-                wallet,
-                wallet,
-                getMintPublickey(useMint),
-                tryToAddFuelTransaction,
-                transferNum
-            )
-        }
-
-        const vault = getMintVault(useMint)
         const pythFeedAccountKey = returnPythFeedAccount(useMint)
 
         const showError = () => {
-            solanaToast.show(TransactionState.Error)
+            solanaToast.update(tryToAddFuelTransactionId[0], TransactionState.Error)
         }
 
-        await addFuelForRoot(
-            vault,
+        const addFuelAndOtherTransaction = await addFuelForRoot(
             wallet,
-            buyerTokenSource,
             pythFeedAccountKey,
-
             showError,
             connection,
-            tryToAddFuelTransaction,
             creatingRootName,
             fuelQuantity,
         )
+
+        tryToAddFuelTransaction.add(addFuelAndOtherTransaction)
 
         const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
         tryToAddFuelTransaction.recentBlockhash = blockhash
@@ -121,8 +90,16 @@ export async function tryToAddFuel(
         if(String(txResult).includes("success")){
             solanaToast.show(TransactionState.Success)
         }
-    }catch(err){
-        console.log(err)
-        handleTransactionError(String(err), solanaToast, tryToAddFuelTransactionId[0])
+    }catch (err: any) {
+        console.error("Transaction failed:", err);
+
+        // 捕获并打印完整日志
+        if (err instanceof SendTransactionError) {
+            const logs = err.getLogs(connection);
+            console.error("=== Simulation Logs ===");
+            console.error(logs);
+        }
+
+        handleTransactionError(String(err), solanaToast, tryToAddFuelTransactionId[0]);
     }
 }

@@ -1,4 +1,5 @@
 import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { SupportedMint } from "@/provider/priceProvider/priceProvider";
 import { getPythProgramKeyForCluster, PythHttpClient, type PythCluster } from "@pythnetwork/client";
 import { PublicKey, type Connection } from "@solana/web3.js";
 
@@ -37,17 +38,13 @@ export async function getPythFeedAccount(
 
 
 export function returnPythFeedAccount(
-    useMint: MainMint
+    useMint: SupportedMint
 ): PublicKey {
     switch(useMint){
-        case MainMint.SOL:
+        case SupportedMint.SOL:
             //main net 
             return new PublicKey("7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE")
-        case MainMint.USDC:
-            return new PublicKey("Dpw1EAVrSB1ibxiDQyTAW6Zip3J4Btk2x4SgApQCeFbX")
-        case MainMint.USDT:
-            return new PublicKey("HT2PLQBcG5EiCcNSaMHAjSgd9F98ecpATbk4Sk5oYuM")
-        default:
+        default: 
             return new PublicKey("7UVimffxr9ow1uXYxsr4LHAcV58mLzhmwaeKvJ1pjLiE")
     }
 }

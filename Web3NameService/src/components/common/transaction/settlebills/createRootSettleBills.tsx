@@ -3,35 +3,37 @@ import { useTranslation } from "react-i18next";
 import "@/style/components/commonStyle/transaction//settleBills/settleBills.css"
 import "@/style/components/commonStyle/transaction//settleBills/createRootSettleBills.css"
 
-import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { useEffect, useState } from "react";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { extractNumber } from "@/utils/functional/common/number/extractNumber";
 import { tryToCreateRootDomain } from "@/components/auction/rootDomainCreate/launch/functionalComponents/tryToCreateRootDomain";
 import { TransactionState, useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import { SupportedMint, usePrice } from "@/provider/priceProvider/priceProvider";
+import { toTokenPerUsd } from "@/utils/functional/common/number/toTokenPerUsd";
 
 export interface SettleBillsProps {
-    priceMap: Map<MainMint, number> | null,
     creatingRootName: string,
 }
 
 
 const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
-    priceMap, creatingRootName
+    creatingRootName
 }) => {
 
     const {t} = useTranslation()
     const {connection} = useConnection()
 
+    const {price, expo} = usePrice()
+
     const [loadingBills, setLoadingBills] = useState(true)
     const [solPrice, setSolPrice] = useState(0)
     useEffect(() => {
-        if(!priceMap || !priceMap.get(MainMint.SOL)) return
-        console.log(priceMap)
+        if(!price || !price.get(SupportedMint.SOL) || !expo) return
+        
+        setSolPrice(toTokenPerUsd(price, expo, SupportedMint.SOL) * 5)
         setLoadingBills(false)
-        setSolPrice(priceMap.get(MainMint.SOL)! * 5);
-    }, [priceMap])
+
+    }, [price])
 
     const solanaToast = useSolanaToast()
     const { publicKey, signTransaction } = useWalletEnv()

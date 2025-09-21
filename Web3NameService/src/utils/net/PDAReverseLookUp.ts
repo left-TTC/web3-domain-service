@@ -28,6 +28,5 @@ export async function PDAReverseLookUp(
 
     const reverseKeyState: ReverseKeyState = new ReverseKeyState(reversedKeyData);
 
-    console.log("reverse:", reverseKeyState)
     return reverseKeyState.storagedData;
 }

@@ -5,7 +5,7 @@ import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, type PublicKey } from "@solana/web3.js";
 import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
-import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+import { SupportedMint } from "@/provider/priceProvider/priceProvider";
 
 
 
@@ -31,7 +31,7 @@ export function launchRootDomain(
         rootNameAccount: rootNameAccountKey,
         vault: returnProjectVault(),
         rentSysvar: SYSVAR_RENT_PUBKEY,
-        pythFeedAccount: returnPythFeedAccount(MainMint.SOL),
+        pythFeedAccount: returnPythFeedAccount(SupportedMint.SOL),
     } 
 
     console.log("root state: ", rootStateAccountKey.toBase58())

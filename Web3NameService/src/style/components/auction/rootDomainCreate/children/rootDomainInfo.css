@@ -100,6 +100,36 @@
     }
 }
 
+.fulepercent{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 20px;
+    position: relative;
+}
+.percentmore{
+    opacity: 0.5;
+}
+
+.showfuelabout{
+    position: absolute;
+    top: 40px;
+    width: 200%;
+    height: 40px;
+    background-color: #434C52;
+    transform: translateX(-25%);
+    border: 2px solid rgb(123, 120, 120);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.showfuelabout h1{
+    font-size: 15px;
+    color: white;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
 

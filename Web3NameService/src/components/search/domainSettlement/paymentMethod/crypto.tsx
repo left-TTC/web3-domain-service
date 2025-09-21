@@ -40,7 +40,7 @@ const Crypto: React.FC<CryptoProps> = ({
 
     const {t} = useTranslation()
 
-    const [activeMint, setActiveMint] = useState<MainMint>(MainMint.SOL)
+    const [activeMint, setActiveMint] = useState<SupportedMint>(MainMint.SOL)
     const setWillUseMint = (mint: MainMint) => {
         setActiveMint(mint)
         setUseMint(mint)

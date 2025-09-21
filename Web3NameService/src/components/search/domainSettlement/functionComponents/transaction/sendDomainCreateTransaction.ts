@@ -10,7 +10,6 @@ import { getHashedName } from "@/utils/functional/solana/getHashedName"
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider"
 import { registerWeb3Domain } from "@/utils/net/mainFunction/registerWeb3Domain"
 import type { PublicKey } from "@solana/web3.js"
-import { getUsrMintSourceAccount } from "@/utils/functional/common/net/getUsrMintSourceAccount"
 import { getMintVault } from "@/utils/constants/constants"
 import type { MainMint } from "../../paymentMethod/crypto"
 

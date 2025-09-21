@@ -1,7 +1,8 @@
-import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+
+import { SupportedMint } from "@/provider/priceProvider/priceProvider";
 
 
 
-export function getNowUsableMint(): MainMint[] {
-    return [MainMint.SOL]
+export function getNowUsableMint(): SupportedMint[] {
+    return [SupportedMint.SOL]
 }

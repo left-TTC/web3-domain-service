@@ -13,15 +13,15 @@ export function getNameAccountKey(
     const seeds  = [hashed_name];
 
     if (nameClassKey) {
-      seeds.push(nameClassKey.toBuffer());
+        seeds.push(nameClassKey.toBuffer());
     } else {
-      seeds.push(Buffer.alloc(32));
+        seeds.push(Buffer.alloc(32));
     }
 
     if (nameParentKey) {
-      seeds.push(nameParentKey.toBuffer());
+        seeds.push(nameParentKey.toBuffer());
     } else {
-      seeds.push(Buffer.alloc(32));
+        seeds.push(Buffer.alloc(32));
     }
 
     const [nameAccountKey] = PublicKey.findProgramAddressSync(
