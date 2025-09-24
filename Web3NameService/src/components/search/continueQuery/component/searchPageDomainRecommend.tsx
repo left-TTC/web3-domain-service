@@ -1,5 +1,5 @@
 
-
+import "@/style/components/search/continueQuery/components/searchPageDomainRecommend.css"
 
 const SearchPageDomainRecommend = () => {
 

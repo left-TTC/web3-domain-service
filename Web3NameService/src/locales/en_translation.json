@@ -24,8 +24,8 @@
     "settlementInfo": "Settlement Information",
     "paymint": "Pay with:",
     "domainprice": "Domain Price:",
-    "optionaldisc": "optional discount",
-    "enterinvitation": "Enter Referral Code",
+    "Refferer": "Refferer",
+    "enterinvitation": "Enter Referrer's Key",
     "verify": "Verify",
     "bill": "Settle bills",
     "rent": "Rent Exemption:",
@@ -100,5 +100,12 @@
     "Fund": "Fund",
     "buyfor": "Buy for",
     "enterdomainowner": "Enter owner's Key",
-    "check": "Check"
+    "check": "Check",
+    "Result": "Result",
+    "unregis": "Unregistered domain name",
+    "domainattention": "After confirmation, an auction will be launched. You need to pay 20% of the product price as a deposit. If no one bids higher, you can settle the domain name after three days (the settlement period is 7 days).",
+    "startingp": "Starting Price",
+    "important": "Important",
+    "learn": "Learn about our ",
+    "refferrerpolicy": "referral policy"
 }

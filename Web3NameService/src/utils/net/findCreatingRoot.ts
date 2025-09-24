@@ -1,7 +1,9 @@
 import { Connection } from "@solana/web3.js"
 import { rootStateAccount } from "../functional/common/class/rootStateAccount"
 import { getCreatingRootAccounts } from "../functional/solana/getCreatingRootAccounts"
-import { CREATE_ROOT_TARGET } from "../constants/constants";
+import { getNameAccountKey } from "../functional/solana/getNameAccountKey";
+import { getHashedName } from "../functional/solana/getHashedName";
+
 
 
 
@@ -18,7 +20,11 @@ export async function findCreatingRoot(
     for(const info of await connection.getMultipleAccountsInfo(accounts)){
         if(info){
             const newItem = new rootStateAccount(info);
-            if(newItem.fundState.toNumber() < CREATE_ROOT_TARGET){
+
+            const rootDomainKey = getNameAccountKey(
+                getHashedName(newItem.creatingName)
+            )
+            if(!await connection.getAccountInfo(rootDomainKey)){
                 states.push(newItem)
             }
         }

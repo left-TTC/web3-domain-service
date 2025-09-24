@@ -3,6 +3,7 @@
 .totalfees h1{
     color: white;
     font-weight: 500;
+    font-size: 20px;
 }
 
 .registerfee{
@@ -11,14 +12,16 @@
     justify-content: space-between;
     align-items: center;
 }
-
 .registerfee h1{
-    font-weight: 300;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
 }
 
 .registerrule h1{
-    font-weight: 300;
-    opacity: 0.6;
+    font-weight: 500;
+    color: #B5B9BF;
+    font-size: 15px;
 }
 
 .rentfee{
@@ -27,21 +30,18 @@
     justify-content: space-between;
     align-items: center;
 }
-
 .rentfee h1{
-    font-weight: 300;
-    color: white;
-    opacity: 0.6;
+    font-weight: 500;
+    color: #B5B9BF;
     margin: 0;
+    font-size: 14px;
 }
-
 .rentfee h2{
     font-weight: 300;
     color: white;
     margin: 0;
+    font-size: 16px;
 }
-
-
 
 .cryptoconfirm{
     position: absolute;
@@ -59,9 +59,13 @@
     align-items: center;
     justify-content: center;
 }
-
 .cryptoconfirmbutton:hover{
     opacity: 0.9;
+}
+.cryptoconfirmbutton h1{
+    color: black;
+    padding: 0;
+    font-weight: 600;
 }
 
 .cryptototal{
@@ -70,44 +74,16 @@
     align-items: center;
     justify-content: space-between;
 }
-
+.cryptototal h1{
+    font-size: 19px;
+}
 .cryptototal h2{
     font-weight: 400;
     color: white;
+    font-size: 20px;
 }
 
 @media (min-width: 1024px){
-    .totalfees h1{
-        font-size: 20px;
-    }
+    
 
-    .registerfee h1{
-        font-size: 16px;
-    }
-
-    .rentfee h1{
-        font-size: 14px;
-    }
-
-    .rentfee h2{
-        font-size: 16px;
-    }
-
-    .registerrule h1{
-        font-size: 15px;
-    }
-
-    .cryptoconfirmbutton h1{
-        color: black;
-        padding: 0;
-        font-weight: 600;
-    }
-
-    .cryptototal h1{
-        font-size: 19px;
-    }
-
-    .cryptototal h2{
-        font-size: 20px;
-    }
 }

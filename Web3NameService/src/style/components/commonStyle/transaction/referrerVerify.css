@@ -6,7 +6,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    opacity: 0.4;
     filter: blur(0.5px);
 }
 
@@ -16,11 +15,11 @@
     height: 42px;
     align-items: center;
     justify-content: center;
-    width: 20%;
+    width: 16%;
 }
 .verifyword{
-    color: #737982;
-    font-weight: 60o;
+    color: #B5B9BF;
+    font-weight: 600;
     font-size: 20px;
     margin: 0;
 }
@@ -35,9 +34,13 @@
     color: black;
 }
 
-.referrerinput{
-    width: 70%;
+.inputbl{
+    width: 73%;
     margin-left: 15px;
+    position: relative;
+}
+.referrerinput{
+    width: 100%;
     height: 40px;
     padding: 5px 0 5px 20px;
     outline: none;
@@ -45,8 +48,84 @@
     border: 2px solid #434C52;
     border-radius: 8px;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.defaultrecommend{
+    position: absolute;
+    width: 100%;
+    padding: 5px 0 5px 20px;
+    background-color: #2A3446;
+    top: 64px;
+    left: 2px;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 5px;
+    gap: 20px;
+    cursor: pointer;
+}
+.defaultrecommend h4{
+    margin: 0;
+    font-size: 12px !important;
+    color: white;
+}
+.defaultrecommend:hover{
+    opacity: 0.8;
+}
+
+.defaulticon{
+    border-radius: 10px;
+    border: 1px solid white;
+    
+}
+.defaulticon h4{
+    margin: 0;
+    padding: 1px 10px;
+}
+
+.fixedRefferrershow{
+    display: flex;
+    align-items: center;
+}
+.fixedRefferrershow h2{
+    padding: 0;
+    margin: 0;
+    color: #95A6C1;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 .referrerinputfocus{
     border-color: #B4FC75;
+}
+
+.cantclick{
+    pointer-events: none;
+}
+
+.refferrerloading{
+    transform-origin: center center;   /* 关键：以元素中心为原点 */
+    animation: spin 1.2s linear infinite;
+    width: 20px;
+}
+@keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 无障碍：用户偏好减少动画时关闭 */
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; }
+}
+
+.refferrervalidimg{
+    width: 20px;
+}
+
+.checkError{
+    background-color: red;
 }

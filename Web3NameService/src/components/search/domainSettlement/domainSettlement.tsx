@@ -5,38 +5,28 @@ import ChoosePayment, { PaymentMethod } from "./choosePayment"
 import { useEffect, useState } from "react"
 import Crypto, { MainMint } from "./paymentMethod/crypto"
 import Back from "@/components/common/functional/back"
-import { getDomainPrice } from "@/utils/functional/domain/getDomainPrice"
 import { useConnection } from "@solana/wallet-adapter-react"
 import { cutDomain } from "@/utils/functional/common/cutDomain"
 import { checkRentExemption } from "@/utils/net/otherFunction/checkRentExemption"
 import { sendCreateDomainTransaction } from "./functionComponents/transaction/sendDomainCreateTransaction"
 import { PublicKey } from "@solana/web3.js"
+import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState"
+import { usePrice } from "@/provider/priceProvider/priceProvider"
 
 export interface DomainSettlementProps{
     domainName: string,
     backToSearchResult: ()=>void,
-    domainPriceUsd: number,
+    domainInfo: NameRecordState | null,
+    domainPrice: number | null,
 }
 
 const DomainSettlement: React.FC<DomainSettlementProps> = ({
-    domainName, backToSearchResult, domainPriceUsd
+    domainName, backToSearchResult, domainInfo, domainPrice
 }) => {
 
     const [cryptoMint, setCryptoMint] = useState<MainMint > (MainMint.SOL)
     const {connection} = useConnection()
-
-
-    const [domainPriceMap, setDomainPriceMap] = useState<Map<MainMint, number> | null>(null)
-    useEffect(() => {
-        const fetchPythPrice = async () => {
-            const domainPythMap = await getDomainPrice(domainPriceUsd, connection)
-            if(domainPythMap.size > 0){
-                setDomainPriceMap(domainPythMap)
-            }
-        }
-        fetchPythPrice()
-    }, [domainPriceUsd])
-
+    const {price} = usePrice()
 
     const [rentExemption, setRentExemption] = useState(0)
     useEffect(() => {
@@ -47,37 +37,9 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
         fetchDomainRent()
     },[domainName])
 
-    const [referrerKey, setReferrerKey] = useState<PublicKey | null>(null)
+    
 
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.Crypto);
-    const [domainOwner, setDomainOwner] = useState<PublicKey | null>(null)
-    let payBlock;
-    switch(paymentMethod){
-        case PaymentMethod.Crypto:
-            payBlock = <Crypto 
-                            openWaitingWallet={() => setComfirmTransaction(true)}
-                            domainPriceMap={domainPriceMap}
-                            setUseMint={setCryptoMint}
-                            rentExemption={rentExemption}
-                            domainOwenr={domainOwner}
-                            setDomainOwner={setDomainOwner}
-                            referrerKey={referrerKey}
-                            setReferrerKey={setReferrerKey}
-                        />
-            break;
-    }
-
-  
-    const [confirmTransaction, setComfirmTransaction] = useState(false)
-    sendCreateDomainTransaction(
-        confirmTransaction, 
-        setComfirmTransaction,
-        cryptoMint,
-        domainPriceMap,
-        domainName,
-        domainOwner,
-    )
-
 
     return(
         <div className="settlement">
@@ -95,7 +57,10 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
                     chooseMethod={setPaymentMethod} 
                     activingMethod={paymentMethod}
                 />
-                {payBlock}
+                <Crypto 
+                    domainName={domainName}
+                    domainPrice={domainPrice!}
+                />
             </div>
         </div>
     )

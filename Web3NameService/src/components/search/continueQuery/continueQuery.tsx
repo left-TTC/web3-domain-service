@@ -1,40 +1,34 @@
 
 
 import "@/style/components/search/continueQuery/continueQuery.css"
-import type { ReverseKeyState } from "@/utils/functional/common/class/reverseKeyState";
-import DomainShowAndQueryAgain from "./domainShowAndQueryAgain";
-import RegisterDomainPixel from "./registerDomainPixel";
+import DomainShowAndQueryAgain from "./component/domainShowAndQueryAgain";
+import RegisterDomainPixel from "./component/registerDomainPixel";
+import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 
 export interface ContinueQueryProps{
-    queryingDomain: string,
-    queryingDomainInfo: ReverseKeyState | null,
-    ifCouldBuy: boolean,
+    domainName: string,
+    domainInfo: NameRecordState | null,
     ifDomainInfoLoaded: boolean,
-    setDomainSettlement: React.Dispatch<React.SetStateAction<boolean>>,
-    domainUsdc: number
+    openDomainSettle: () => void,
+    domainPrice: number | null,
 }
 
 const ContinueQuery: React.FC<ContinueQueryProps> = ({
-    queryingDomain, ifCouldBuy, queryingDomainInfo, ifDomainInfoLoaded, setDomainSettlement, domainUsdc
+    domainName, domainInfo, ifDomainInfoLoaded, openDomainSettle, domainPrice
 }) => {
 
     return (
         <div className="continuequery">
-
             <DomainShowAndQueryAgain 
-                queryingDomain={queryingDomain}
-                ifCouldBuy={ifCouldBuy}
+                domainInfo={domainInfo}
                 ifDomainInfoLoaded={ifDomainInfoLoaded}
-                domainPriceUsdc={domainUsdc}
+                domainName={domainName}
+                domainPrice={domainPrice}
             /> 
-            
-            <div className="diliver"/>
 
             <RegisterDomainPixel
                 ifDomainInfoLoaded={ifDomainInfoLoaded}
-                ifCouldBuy={ifCouldBuy}
-                openSettlePage={() => setDomainSettlement(true)}
-                queryingDomainInfo={queryingDomainInfo}
+                openSettlePage={openDomainSettle}
             />
         </div>
     )

@@ -1,0 +1,91 @@
+
+.domainandquery{
+    width: 64%;
+    border-radius: 15px;
+    position: relative;
+}
+.domainandquery h1{
+    font-size: 25px;
+    margin: 0;
+    font-weight: 500;
+    color: white;
+}
+
+.domainInfo{
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.domainInfo h1{
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.domainnameandprice{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 90%;
+    background-color: #2A3446;
+    margin-top: 30px;
+    padding: 5px 20px;
+    border-radius: 8px;
+}
+
+.domainname{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+.domainname h1{
+    font-size: 25px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+.domainname h2{
+    font-size: 25px;
+    font-weight: 700;
+    color: #95A6C1;
+    margin: 0;
+}
+
+.showPrice h1{
+    font-size: 28px;
+    font-weight: 600;
+    font-family: 'Minecraftia', monospace;
+    color: #B4FC75;;
+}
+
+.ungis{
+    padding: 10px;
+}
+.ungis a{
+    color: #B4FC75;
+    text-decoration: underline;
+    font-size: 17px;
+}
+
+.domainFeatures{
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.feature{
+    border: 2px solid #FDC83D;
+    border-radius: 15px;
+}
+.feature h1{
+    color: #FDC83D;
+    margin: 0;
+    padding: 3px 15px;
+    font-size: 16px;
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    
+}

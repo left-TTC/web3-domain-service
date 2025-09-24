@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getQueryDomainInfo } from "@/utils/net/getQueryDomainInfo";
 import { useConnection } from "@solana/wallet-adapter-react";
-import type { ReverseKeyState } from "@/utils/functional/common/class/reverseKeyState";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 
 import DomainSettlement from "@/components/search/domainSettlement/domainSettlement";
 import Back from "@/components/common/functional/back";
-import { getDomainUSDPrice } from "@/utils/functional/domain/getDomainUSDPrice";
+import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
+import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
 
 export function Search() {
 
@@ -24,26 +24,30 @@ export function Search() {
 
     const { queryingDomain } = location.state || {};
 
-    const [ifCounldBuy, setIfCouldBuy] = useState(false)
     const [domainBlock, setDomainBlock] = useState<string[] | null> (null)
-    const [queryDomainInfo, setQueryDomainInfo] = useState<ReverseKeyState | null>(null)
+    const [queryDomainInfo, setQueryDomainInfo] = useState<NameRecordState | null>(null)
+    
     const [isDomainInfoLoaded, setIsDomainInfoLoaded] = useState(false)
-    const [domainUsdc, setDomainUsdc] = useState(0)
+    const [domainStartPrice, setDomainStartPrice] = useState<number | null>(null)
+
+    useEffect(() => {
+        if(isDomainInfoLoaded){
+            if(queryDomainInfo){
+                // means the domain has already initialized
+                setDomainStartPrice(queryDomainInfo.customPrice.toNumber())
+            }else{
+                setDomainStartPrice(INIT_DOMAIN_PRICE)
+            }
+        }
+    }, [isDomainInfoLoaded])
 
     const [showSaleDomain, setShowSaleDomain] = useState(false)
 
     useEffect(() => {
-        setIfCouldBuy(false)
         setIsDomainInfoLoaded(false)
         setDomainBlock(cutDomain(queryingDomain));
     } ,[queryingDomain])
 
-    useEffect(() => {
-        if(domainBlock){
-            console.log(domainBlock[0])
-            setDomainUsdc(getDomainUSDPrice(domainBlock[0]))
-        }
-    }, [domainBlock])
 
     useEffect(() => {
         const fetchDomainInfo = async() => {
@@ -53,10 +57,6 @@ export function Search() {
             const accountInfo = await getQueryDomainInfo(domainBlock, rootDomainKey, connection);
 
             setIsDomainInfoLoaded(true)
-            if(!accountInfo[0]){
-                setIfCouldBuy(true)
-            }
-
             setQueryDomainInfo(accountInfo[0])
         }
 
@@ -73,19 +73,19 @@ export function Search() {
             <div className="searchPageContent">
                 <Back backFun={() => backToIndex()} />
                 <ContinueQuery 
-                    queryingDomain={queryingDomain} 
-                    queryingDomainInfo={queryDomainInfo}
-                    ifCouldBuy={ifCounldBuy}
+                    domainName={queryingDomain} 
+                    domainInfo={queryDomainInfo}
                     ifDomainInfoLoaded={isDomainInfoLoaded}
-                    setDomainSettlement={setShowSaleDomain}
-                    domainUsdc={domainUsdc}
+                    openDomainSettle={() => setShowSaleDomain(true)}
+                    domainPrice={domainStartPrice}
                 />
             </div>
             {showSaleDomain &&
                 <DomainSettlement 
                     domainName={queryingDomain}
                     backToSearchResult={() =>setShowSaleDomain(false)}
-                    domainPriceUsd={domainUsdc}
+                    domainInfo={queryDomainInfo}
+                    domainPrice={domainStartPrice}
                 />
             }
         </div>

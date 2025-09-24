@@ -50,6 +50,9 @@ export const CREATE_ROOT_TARGET = 20000000;
 
 export const VAULT_ADMIN = 500000000; //lamports
 
+// $ 0.99
+export const INIT_DOMAIN_PRICE = 990000
+
 export function getMintVault(mintType: MainMint): PublicKey{
     switch(mintType){
         case MainMint.SOL:

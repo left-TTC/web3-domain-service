@@ -24,4 +24,5 @@ export enum Web3DomainRegistrarInstruction {
     IncreasePrice,
     CreateName,
     StartProject,
+    ConfirmRoot,
 }

@@ -1,0 +1,67 @@
+
+
+.queryagain{
+    position: absolute;
+    background-color: #081328;
+    height: 60px;
+    bottom: 0;
+    border-radius: 10px;
+    border: 2px solid #434C52;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.queryagain:focus-within{
+    border-color: #B4FC75;
+}
+
+.queryagaininput{
+    height: 70%;
+    width: 65%;
+    margin-left: 20px;
+    background-color: #081328;
+    outline: none;
+    border: none;
+    font-size: 21px;
+    color: white;
+    font-weight: 500;
+}
+.queryagaininput::placeholder {
+    font-size: 21px;
+}
+
+.queryagaineenter{
+    display: flex;
+    flex-direction: row;
+    color: #BFBFBF;
+    align-items: center;
+    gap: 5px;
+}
+.queryagaineenter h1{
+    font-size: 20px;
+}
+.querypagequericon{
+    width: 30px;
+}
+
+.queryagainsubmitbutton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #B4FC75;
+    height: 70%;
+}
+.queryagainsubmitbutton:hover{
+    opacity: 0.8;
+}
+
+.domainsale{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 20px;
+    width: fit-content;
+}
+

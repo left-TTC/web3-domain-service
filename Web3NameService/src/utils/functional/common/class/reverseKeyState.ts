@@ -19,10 +19,10 @@ export class ReverseKeyState{
             throw new Error("Not a valid reverse account's data");
         }
 
-        this.parentNameAccount = new PublicKey(reversedData.slice(0, SLICE));
-        this.ownerAccount = new PublicKey(reversedData.slice(SLICE, SLICE*2));
-        this.classAccount = new PublicKey(reversedData.slice(SLICE*2, SLICE*3));
+        this.parentNameAccount = new PublicKey(reversedData.subarray(0, SLICE));
+        this.ownerAccount = new PublicKey(reversedData.subarray(SLICE, SLICE*2));
+        this.classAccount = new PublicKey(reversedData.subarray(SLICE*2, SLICE*3));
         this.customPrice = Numberu64.fromBuffer(Buffer.from(reversedData.subarray(SLICE*3, SLICE*3+8)));
-        this.storagedData = reversedData.slice(SLICE*3 + 8 + VEC_LENGTH).toString("utf-8");
+        this.storagedData = reversedData.subarray(SLICE*3 + 8 + VEC_LENGTH).toString("utf-8");
     }
 }

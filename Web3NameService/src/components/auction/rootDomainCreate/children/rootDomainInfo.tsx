@@ -32,8 +32,17 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
     }
 
     const [fundingState, setFundingState] = useState("")
+    const [ifWaitingAdConfirm, setIfWaitingAdConfirm] = useState(false)
     useEffect(() => {
         if(activeDomain){
+            const state = activeDomain.fundState.toNumber()
+
+            if(state > CREATE_ROOT_TARGET){
+                setFundingState("100 %")
+                setIfWaitingAdConfirm(true)
+                return
+            }
+
             const percent = activeDomain.fundState.toNumber() / CREATE_ROOT_TARGET
             setFundingState(percent*100 + " %")
         }
@@ -66,14 +75,21 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
 
                             {showFuelAbout &&
                             <div className="showfuelabout">
-                                <h1>${(activeDomain!.fundState.toNumber() / 1e6).toFixed(2)} / ${(CREATE_ROOT_TARGET / 1e6).toFixed(2)}</h1>
+                                <h1>
+                                    {ifWaitingAdConfirm? "FULL" :
+                                        `$ ${(activeDomain!.fundState.toNumber() / 1e6).toFixed(2)} / ${(CREATE_ROOT_TARGET / 1e6).toFixed(2)}`
+                                    }
+                                </h1>
                             </div>
                             }
                         </div>
                     </div>
                     <div className="addFuelbutton">
-                        <button className="addfuel pixel" onClick={() => openAddFuelModal()}>
-                            <h1>{t("add")} {t("fuel")}</h1>
+                        <button className={`addfuel pixel ${ifWaitingAdConfirm? "waitingAD" : ""}`} onClick={() => openAddFuelModal()}>
+                            {ifWaitingAdConfirm? 
+                                <h1>{t("add")} 1{t("fuel")}</h1> :
+                                <h1>{t("add")} {t("fuel")}</h1>
+                            }
                         </button>
                     </div>
                 </div>

@@ -1,61 +1,44 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
-import type { SupportedMint } from "@/provider/priceProvider/priceProvider";
-import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
-import { handleTransactionError } from "@/utils/functional/error/transactionError";
+import { NAME_RECORD_LENGTH } from "@/utils/functional/common/class/nameRecordState";
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
-import { addFuelForRoot } from "@/utils/net/mainFunction/rootDomain/addFuelForRoot";
+import { confirmRootDomain } from "@/utils/net/mainFunction/rootDomain/confirmRootDomian";
 import { SendTransactionError, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
 
 
-export async function tryToAddFuel(
+export async function tryToConfirmRootDomain(
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
-    wallet: PublicKey | null,
+    admin: PublicKey | null,
     solanaToast: SolanaToastContextType,
-    //usd
-    fuelQuantity: number | null,
-    creatingRootName: string,
-    tokenQuantity: number,
-    useMint: SupportedMint,
-    // need a common toast
-): Promise<void> {
-    if(!fuelQuantity || tokenQuantity === 0){
-        solanaToast.show(TransactionState.Error)
-        return
-    }
 
-    if(!wallet || !signTransaction){
+    rootDomain: string
+): Promise<void> {
+
+    if(!admin || !signTransaction){
         solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
         return
     }
 
-    const tryToAddFuelTransactionId = await showCheckSolBalance(
-        solanaToast, wallet, connection, fuelQuantity
+    const rent = await connection.getMinimumBalanceForRentExemption(2 * NAME_RECORD_LENGTH + rootDomain.length);
+
+    const tryConfirmRootTransactionId = await showCheckSolBalance(
+        solanaToast, admin, connection, rent
     )
 
-    if(!tryToAddFuelTransactionId[1]) return
+    if(!tryConfirmRootTransactionId[1])return
 
     try{
-        const tryToAddFuelTransaction = new Transaction()
-
-        const pythFeedAccountKey = returnPythFeedAccount(useMint)
-
-        const addFuelAndOtherTransaction = addFuelForRoot(
-            wallet,
-            pythFeedAccountKey,
-            creatingRootName,
-            fuelQuantity,
+        const tryConfirmRootTransaction = confirmRootDomain(
+            admin, rootDomain
         )
 
-        tryToAddFuelTransaction.add(addFuelAndOtherTransaction)
-
         const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
-        tryToAddFuelTransaction.recentBlockhash = blockhash
-        tryToAddFuelTransaction.feePayer = wallet
+        tryConfirmRootTransaction.recentBlockhash = blockhash
+        tryConfirmRootTransaction.feePayer = admin
 
-        const signedTransaction = await signTransaction(tryToAddFuelTransaction)
+        const signedTransaction = await signTransaction(tryConfirmRootTransaction)
         const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
             skipPreflight: false,
         })
@@ -85,7 +68,8 @@ export async function tryToAddFuel(
         if(String(txResult).includes("success")){
             solanaToast.show(TransactionState.Success)
         }
-    }catch (err: any) {
+
+    }catch(err){
         console.error("Transaction failed:", err);
 
         // 捕获并打印完整日志
@@ -94,7 +78,5 @@ export async function tryToAddFuel(
             console.error("=== Simulation Logs ===");
             console.error(logs);
         }
-
-        handleTransactionError(String(err), solanaToast, tryToAddFuelTransactionId[0]);
     }
 }

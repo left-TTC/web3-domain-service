@@ -9,10 +9,7 @@ import query from "@/assets/query.svg"
 import enter from "@/assets/enter.svg"
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 
-
-import { useNavigate } from "react-router-dom";
 import ChangeAndGoRoot, { type ChangeAndGoRootHandle } from "./changeAndGoRoot/changeAndGoRoot";
-import { ifDomainLegal } from "@/utils/functional/domain/ifDomainLegal";
 import { useClinkQueryDomain } from "./functionalComponents/clinkQueryDomain";
 import { useClinkSetRoot } from "./functionalComponents/clinkSetRoot";
 import { unlockYScroll } from "@/utils/functional/show/page/lockYScorll";
@@ -27,7 +24,6 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     ifShowTheQueryPage, setQueryPage
 }) => {
     const {t} = useTranslation();
-    const navigate = useNavigate();
 
     const browseDomainRef = useRef<HTMLDivElement | null> (null);
     const compRef = useRef<ChangeAndGoRootHandle>(null);

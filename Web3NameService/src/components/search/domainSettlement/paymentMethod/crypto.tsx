@@ -9,8 +9,10 @@ import { useEffect, useState } from "react";
 import MintChooser from "@/components/common/transaction/mintChooser";
 import CreateDomainSettleBills from "@/components/common/transaction/settlebills/createDomainSettleBills";
 import type { PublicKey } from "@solana/web3.js";
-import OwnerWriter from "@/components/common/transaction/ownerWriter";
 import ReferrerVerify from "@/components/common/transaction/referrerVerify";
+import { SupportedMint } from "@/provider/priceProvider/priceProvider";
+
+import rootAttention from "@/assets/attention.svg"
 
 export enum MainMint{
     SOL = "SOL",
@@ -19,43 +21,30 @@ export enum MainMint{
 }
 
 export interface CryptoProps{
-    openWaitingWallet: () => void,
-    domainPriceMap: Map<MainMint, number> | null,
-    setUseMint: React.Dispatch<React.SetStateAction<MainMint>>,
-    rentExemption: number,
-    domainOwenr: PublicKey | null,
-    setDomainOwner: React.Dispatch<React.SetStateAction<PublicKey | null>>,
-    referrerKey: PublicKey | null,
-    setReferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>,
+    domainName: string,
+    // usd
+    domainPrice: number,   
 }
 
 const Crypto: React.FC<CryptoProps> = ({
-    openWaitingWallet, domainPriceMap, setUseMint, rentExemption,
-    domainOwenr, setDomainOwner, referrerKey, setReferrerKey
+    domainName, domainPrice
 }) => {
 
-    useEffect(() => {
-        console.log(domainPriceMap)
-    }, [domainPriceMap])
+    const [referrerKey, setReferrerKey] = useState<PublicKey | null>(null)
+    const [ifReferrerValid, setIfReferrerValid] = useState(false)
 
     const {t} = useTranslation()
 
-    const [activeMint, setActiveMint] = useState<SupportedMint>(MainMint.SOL)
-    const setWillUseMint = (mint: MainMint) => {
+    const [activeMint, setActiveMint] = useState<SupportedMint>(SupportedMint.SOL)
+    const setWillUseMint = (mint: SupportedMint) => {
         setActiveMint(mint)
-        setUseMint(mint)
     }
 
-    const [domainPriceShow, setDomainPriceShow] = useState("")
-    useEffect(() => {
-        if(!domainPriceMap)return setDomainPriceShow(t("loading"))
-        switch(activeMint){
-            case MainMint.SOL:
-                setDomainPriceShow(domainPriceMap.get(activeMint)?.toFixed(4) + " SOL")
-                break
-        }
-    }, [activeMint, domainPriceMap])
+    const [rentExemption, setRentExemption] = useState(0);
         
+    const createNameState = async() => {
+
+    }
 
     return(
         <div className="paymentBlock">
@@ -63,33 +52,38 @@ const Crypto: React.FC<CryptoProps> = ({
                 <div className="settlewirdbl">
                     <h3>{t("settlementInfo")}</h3>
                 </div>
-                
                 <MintChooser 
                     activeMint={activeMint} 
                     setActiveMint={setWillUseMint}
                 />
-                <OwnerWriter 
-                    setDomainOwner={setDomainOwner}
-                />
-
                 <div className="priceBlock">
-                    <h3>{t("domainprice")}</h3>
-                    <h2>{domainPriceShow}</h2>
+                    <h3>{t("startingp")}:</h3>
+                    <h2>$ {(domainPrice / 1e6).toFixed(2)}</h2>
                 </div>
-                
                 <div className="cryptodiliver"/>
-                
-                <h3>{t("optionaldisc")}</h3>
+                <div className="reffererattention">
+                    <h4>{t("Refferer")}:</h4>
+                    <img src={rootAttention} className="refferrerattention" />
+                </div>
                 <ReferrerVerify 
                     setReferrerKey={setReferrerKey}
+                    setReffererValid={setIfReferrerValid}
+                    ifRefferValid={ifReferrerValid}
                 />
+                <div className="importantattention">
+                    <h2>{t("important")}:</h2>
+                    <div className="referrerpolicy">
+                        <h2>{t("learn")}</h2>
+                        <a>{t("refferrer policy")}</a>
+                    </div>
+                </div>
             </div>
             
             
             <CreateDomainSettleBills 
-                confirmFunction={openWaitingWallet} 
-                domainPrice={domainPriceShow}
-                rentExemption={rentExemption}
+                confirmFunction={createNameState} 
+                rentExemption={1}
+                ifRefferverValid={ifReferrerValid}
             />
         </div>
     )

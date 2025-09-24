@@ -1,34 +1,21 @@
 import { useTranslation } from "react-i18next";
 
-import "@/style/components/commonStyle/transaction//settleBills/settleBills.css"
+import "@/style/components/commonStyle/transaction/settleBills/settleBills.css"
+import "@/style/components/commonStyle/transaction/settleBills/createDomainSettleBills.css"
 
 export interface CreateDomainSettleBillsProps {
     confirmFunction: () => void;
     rentExemption: number;
-    domainPrice: string
+    ifRefferverValid: boolean,
 }
 
 
 const CreateDomainSettleBills: React.FC<CreateDomainSettleBillsProps> = ({
-    confirmFunction, rentExemption, domainPrice
+    confirmFunction, rentExemption, ifRefferverValid
 }) => {
 
     const {t} = useTranslation()
 
-    const calculateTotal = () => {
-        if(rentExemption === 0 || domainPrice === "Loading"){
-            return "Loading"
-        }
-        if(domainPrice.includes("SOL")){
-            const match = domainPrice.match(/[\d.]+/);
-            if(match){
-                const totalfees = parseFloat(match[0]) + rentExemption
-                return totalfees + " SOL"
-            }else{
-                return "Error"
-            }
-        }
-    }
 
     return(
         <div className="totalfees">
@@ -37,7 +24,7 @@ const CreateDomainSettleBills: React.FC<CreateDomainSettleBillsProps> = ({
                 <div className="registerrule">
                     <h1>{t("domainprice")}</h1>
                 </div>
-                <h1>{domainPrice}</h1>
+                <h1>{1}</h1>
             </div>
             <div className="rentfee">
                 <h1>{t("rent")}</h1>
@@ -47,9 +34,9 @@ const CreateDomainSettleBills: React.FC<CreateDomainSettleBillsProps> = ({
             <div className="cryptoconfirm">
                 <div className="cryptototal">
                     <h1>{t("total")}</h1>
-                    <h2>{calculateTotal()}</h2>
+                    <h2>{1}</h2>
                 </div>
-                <button className="cryptoconfirmbutton" onClick={confirmFunction}>
+                <button className={`cryptoconfirmbutton ${ifRefferverValid? "":"invalidrefferrer"}`} onClick={confirmFunction}>
                     <h1>{t("confirm")}</h1>
                 </button>
             </div>

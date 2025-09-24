@@ -1,0 +1,9 @@
+
+
+.invalidrefferrer{
+    pointer-events: none;
+    background-color: #2A3446;
+}
+.invalidrefferrer h1{
+    color: #B5B9BF;
+}

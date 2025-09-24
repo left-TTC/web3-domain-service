@@ -2,9 +2,6 @@
 .adminbl{
     height: 100vh;
     width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .startpjbl{
@@ -37,44 +34,13 @@
     transform: translateY(2px) translateX(2px);
 }
 
-.vaultinfo{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 300px;
-}
 
-.vaultbalance{
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 50px;
-    color: white;
-}
-.vaultbalance h1{
-    font-size: 25px;
-}
-.vaultbalance h2{
-    font-size: 50px;
-}
-
-.vaultopratrion{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-.transfer{
-    width: 160px;
-    background-color: #B4FC75;
-    height: 50px;
+.projectStartbl{
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    gap: 80px;
 }
-.transfer h1{
-    font-size: 18px;
-    padding: 0;
-    color: black;
-    margin: 0;
-    font-weight: 500;
-}
+

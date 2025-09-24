@@ -48,12 +48,7 @@
     opacity: 1;
  }
 
- .paymentBlock{
-    display: flex;
-    flex-direction: row;
-    width: 1024px;
-    gap: 30px;
- }
+ 
 
  .paymintchoose{
     background-color: #161F2F;

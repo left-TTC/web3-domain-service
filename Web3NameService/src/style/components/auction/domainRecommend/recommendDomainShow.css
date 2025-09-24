@@ -39,7 +39,7 @@
     top: 20px;
     right: 5%;
     box-shadow: 
-        0 0 0 4px #2D363D, /* 外层阴影作为像素边框 */
+        0 0 0 4px #2D363D,
         inset 0 0 0 2px rgba(90, 106, 127, 0.5);
 }
 .startcontentomit:active{

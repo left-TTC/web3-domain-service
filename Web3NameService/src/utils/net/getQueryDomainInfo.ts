@@ -1,7 +1,7 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { ReverseKeyState } from "../functional/common/class/reverseKeyState";
 import { getNameAccountKey } from "../functional/solana/getNameAccountKey";
 import { getHashedName } from "../functional/solana/getHashedName";
+import { NameRecordState } from "../functional/common/class/nameRecordState";
 
 export enum DomainBlockType{
     //like fmc.web3
@@ -26,7 +26,7 @@ export async function getQueryDomainInfo(
     domainBlock: string[],
     rootDomainKey: PublicKey,
     connection: Connection
-): Promise<[ReverseKeyState, PublicKey] | [null, PublicKey]> {
+): Promise<[NameRecordState, PublicKey] | [null, PublicKey]> {
     const domainType = checkBlockTpye(domainBlock);
 
     switch(domainType){
@@ -36,13 +36,12 @@ export async function getQueryDomainInfo(
                 getNameAccountKey(getHashedName(checkDomain), null, rootDomainKey);
 
             console.log("domain:", checkDomain)
-            console.log("hashedName:", getHashedName(checkDomain))
             console.log("rootOpt:", rootDomainKey.toBase58())
             console.log("PDA:", domainNameAccountKey.toBase58());
             
             const accountInfo = await connection.getAccountInfo(domainNameAccountKey);
             if(accountInfo){
-                const para1 = new ReverseKeyState(accountInfo)
+                const para1 = new NameRecordState(accountInfo)
                 return [para1, domainNameAccountKey]
             }
             

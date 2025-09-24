@@ -1,0 +1,90 @@
+
+
+.showtheaccountInfo{
+    position: relative;
+    background-color: #2A3446;
+    width: calc(36% - 30px);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.infoloadinganimate {
+    position: relative;
+    overflow: hidden;
+    background-color: #2A3446; 
+    background-image: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.6) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    opacity: 0.4;
+    background-repeat: no-repeat;
+    background-size: 200% 100%; 
+    animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton { animation: none; }
+}
+
+.showcoountinfocontent{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.domainattention{
+    background-color: #434C52;
+    width: 85%;
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.domainattention h1{
+    color: #fff3cd;
+    margin: 0;
+    font-size: 18px;
+}
+.domainattention h2{
+    color: white;
+    margin: 0;
+    font-size: 15px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+.domainattention:hover{
+    cursor: pointer;
+}
+
+.confrimcreatedomain{
+    margin-top: 30px;
+    background-color: #B4FC75;
+    position: absolute;
+    bottom: 20px;
+    width: 70%;
+    height: 60px;
+}
+.confrimcreatedomain h1{
+    margin: 0;
+    font-size: 25px;
+    font-family: 'Minecraftia', monospace;
+}
+.confrimcreatedomain:active{
+    transform: translateY(2px) translateX(2px); 
+}
+
+/*common computer*/
+@media (min-width: 1024px){
+    
+}

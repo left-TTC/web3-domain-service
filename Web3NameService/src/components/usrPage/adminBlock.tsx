@@ -9,6 +9,8 @@ import "@/style/components/usrPage/adminBlock.css"
 import { startProject } from "@/utils/net/mainFunction/startProject";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
+import VaultManage from "./adminComponent/vaultManage";
+import RootConfirm from "./adminComponent/rootConfirm";
 
 export const web3ProjectStarted = atomWithStorage<boolean>(
     'web3DomianProject',
@@ -33,22 +35,7 @@ const AdminBlcok = () => {
         if(!ifProjectStarted) checkProject()
     }, [])
 
-    const [vaultBalance, setVaultBalance] = useState("loaing");
-
-    useEffect(() => {
-        const vault = returnProjectVault()
-        const fetchVaultBalance = async() => {
-            const balanceData = await connection.getAccountInfo(vault);
-            if (!balanceData) {
-                setVaultBalance("Error") 
-                return
-            }
-            const bl = balanceData.lamports
-            setVaultBalance((bl / 1e9).toFixed(4))
-        }
-
-        fetchVaultBalance()
-    }, [])
+    
 
     const startweb3Project = async() => {
         await startProject(
@@ -59,19 +46,9 @@ const AdminBlcok = () => {
     return(
         <div className="adminbl">
             {ifProjectStarted? (
-                <div className="vaultinfo">
-                    <div className="vaultbalance">
-                        <h1>Vault Balance:</h1>
-                        <h2>{vaultBalance} SOL</h2>
-                    </div>
-                    <div className="vaultopratrion">
-                        <button className="transfer">
-                            <h1>transfer in</h1>
-                        </button>
-                        <button className="transfer">
-                            <h1>transfer out</h1>
-                        </button>
-                    </div>
+                <div className="projectStartbl">
+                    <VaultManage />
+                    <RootConfirm />
                 </div>
             ):(
                 <div className="startpjbl">
