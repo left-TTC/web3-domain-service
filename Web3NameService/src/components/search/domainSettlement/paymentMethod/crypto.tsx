@@ -9,10 +9,18 @@ import { useEffect, useState } from "react";
 import MintChooser from "@/components/common/transaction/mintChooser";
 import CreateDomainSettleBills from "@/components/common/transaction/settlebills/createDomainSettleBills";
 import type { PublicKey } from "@solana/web3.js";
-import ReferrerVerify from "@/components/common/transaction/referrerVerify";
-import { SupportedMint } from "@/provider/priceProvider/priceProvider";
+import RefferrerVerify from "@/components/common/transaction/refferrerVerify";
+import { SupportedMint, usePrice } from "@/provider/priceProvider/priceProvider";
 
 import rootAttention from "@/assets/attention.svg"
+import { toTokenPerUsd } from "@/utils/functional/common/number/toTokenPerUsd";
+import { useConnection } from "@solana/wallet-adapter-react";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import { useFetchAllRentExemption } from "../functionComponents/useFetchAllRentExemption";
+import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
+import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
+import { startDomain } from "../functionComponents/transaction/startDomain";
+import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 
 export enum MainMint{
     SOL = "SOL",
@@ -24,27 +32,74 @@ export interface CryptoProps{
     domainName: string,
     // usd
     domainPrice: number,   
+    domainInfo: NameRecordState | null,
 }
 
 const Crypto: React.FC<CryptoProps> = ({
-    domainName, domainPrice
+    domainName, domainPrice, domainInfo
 }) => {
 
-    const [referrerKey, setReferrerKey] = useState<PublicKey | null>(null)
-    const [ifReferrerValid, setIfReferrerValid] = useState(false)
+    const {connection} = useConnection()
+    const {publicKey: usr, signTransaction} = useWalletEnv()
+    const {activeRootDomain, rootDomains} = useRootDomain()
+    const solanaToast = useSolanaToast()
+
+    const [refferrerKey, setRefferrerKey] = useState<PublicKey | null>(null)
+    const [ifRefferrerValid, setIfRefferrerValid] = useState(false)
 
     const {t} = useTranslation()
+    const {price, expo} = usePrice()
+
+    const [solPrice, setSolPrice] = useState<number | null>(null)
+
+    useEffect(() => {
+        if(price && expo){
+            const solPrice = toTokenPerUsd(price, expo, SupportedMint.SOL)
+            setSolPrice(solPrice)
+        }
+    }, [price])
 
     const [activeMint, setActiveMint] = useState<SupportedMint>(SupportedMint.SOL)
     const setWillUseMint = (mint: SupportedMint) => {
         setActiveMint(mint)
     }
 
-    const [rentExemption, setRentExemption] = useState(0);
+    useEffect(() => {
+
+    })
         
     const createNameState = async() => {
-
+        await startDomain(
+            domainName,
+            refferrerKey!,
+            usr,
+            rootDomains,
+            totalPrice,
+            solanaToast,
+            connection,
+            signTransaction,
+        )
     }
+
+    let {refferrerRecordRent, nameStateRent, calculating} = useFetchAllRentExemption(
+        usr, connection, domainName, activeRootDomain
+    )
+
+    const [depositRatio, setDepositRatio] = useState(0)
+    useEffect(() => {
+        if(domainInfo){
+            setDepositRatio(0.05)
+        }else setDepositRatio(0.1)
+    }, [])
+    
+    const [totalPrice, setTotalPrice] = useState(0)
+    useEffect(() => {
+        if(!calculating && solPrice){
+            //means calculating over
+            const domainDepositPriceSol = domainPrice * depositRatio * 1e3 * solPrice;
+            setTotalPrice(domainDepositPriceSol + refferrerRecordRent + nameStateRent)
+        }
+    }, [calculating, solPrice])
 
     return(
         <div className="paymentBlock">
@@ -65,25 +120,30 @@ const Crypto: React.FC<CryptoProps> = ({
                     <h4>{t("Refferer")}:</h4>
                     <img src={rootAttention} className="refferrerattention" />
                 </div>
-                <ReferrerVerify 
-                    setReferrerKey={setReferrerKey}
-                    setReffererValid={setIfReferrerValid}
-                    ifRefferValid={ifReferrerValid}
+                <RefferrerVerify 
+                    setRefferrerKey={setRefferrerKey}
+                    setReffererValid={setIfRefferrerValid}
+                    ifRefferValid={ifRefferrerValid}
                 />
                 <div className="importantattention">
                     <h2>{t("important")}:</h2>
-                    <div className="referrerpolicy">
+                    <div className="refferrerpolicy">
                         <h2>{t("learn")}</h2>
                         <a>{t("refferrer policy")}</a>
                     </div>
                 </div>
             </div>
             
-            
             <CreateDomainSettleBills 
                 confirmFunction={createNameState} 
-                rentExemption={1}
-                ifRefferverValid={ifReferrerValid}
+                ifRefferverValid={ifRefferrerValid}
+                price={domainPrice}
+                solPrice={solPrice}
+                nameStateRent={nameStateRent}
+                refferrerRecordRent={refferrerRecordRent}
+                ifRentCalculating={calculating}
+                depositRatio={depositRatio}
+                totalPrice={totalPrice}
             />
         </div>
     )

@@ -25,7 +25,7 @@
     "paymint": "Pay with:",
     "domainprice": "Domain Price:",
     "Refferer": "Refferer",
-    "enterinvitation": "Enter Referrer's Key",
+    "enterinvitation": "Enter Refferrer's Key",
     "verify": "Verify",
     "bill": "Settle bills",
     "rent": "Rent Exemption:",
@@ -107,5 +107,6 @@
     "startingp": "Starting Price",
     "important": "Important",
     "learn": "Learn about our ",
-    "refferrerpolicy": "referral policy"
+    "refferrerpolicy": "referral policy",
+    "Startde": "Start Deposit"
 }

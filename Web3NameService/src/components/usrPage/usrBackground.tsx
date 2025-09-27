@@ -1,9 +1,16 @@
 import "@/style/components/usrPage/usrBackground.css"
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-
-import search from "@/assets/query.svg"
+import SearchYourFrist from "./usrBack/searchYourFrist";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import { atomWithStorage } from "jotai/utils";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
+import { findUsrBiddingDomain } from "@/utils/net/findUsrBiddingDomain";
+import { useConnection } from "@solana/wallet-adapter-react";
+import UsrIndex from "./usrBack/usrIndex";
+import ConnectWalletFrist from "./usrBack/connectWallet";
+import { PublicKey } from "@solana/web3.js";
+import { useAuctioningDomain } from "./function/useAuctioningDomain";
+import { useAsPayerName } from "./function/useAsPayerName";
 
 
 export interface UsrBackgroundProps{
@@ -11,42 +18,33 @@ export interface UsrBackgroundProps{
     openDomainQueryPage: () => void,
 }
 
+
+export const payerRootDomain = atomWithStorage<PublicKey[]>(
+    "DomainAsPayer",
+    []
+)
+
 const UsrBackground: React.FC<UsrBackgroundProps> = ({
     domainNumber, openDomainQueryPage
 }) => {
 
-    const {t} = useTranslation()
-    const navigate = useNavigate()
+    const {publicKey: usr} = useWalletEnv()
+    const {connection} = useConnection()
 
-    const [backContent, setBackContent] = useState<React.ReactNode | null>(null)
-
-    const openAndQueryDomain = () => {
-        openDomainQueryPage();
-        navigate("/#");     
-    } 
-
-    useEffect(() => {
-        if(domainNumber === 0){
-            return setBackContent(
-                <div className="havenotdomainusr">
-                    <h1>{t("getfrist")}</h1>
-                    <button className="getfristbu" onClick={() => openAndQueryDomain()}>
-                        <h1>search domains</h1>
-                        <img className="usrsearchdomain" src={search} />
-                    </button>
-                </div>
-            )
-        }
-        setBackContent(
-            <div className="haveDomainusr">
-
-            </div>
-        )
-    }, [domainNumber])
+    const { auctioningDomain } = useAuctioningDomain(connection, usr)
+    const { asPayerDomain } = useAsPayerName(connection, usr)
 
     return(
         <div className="usrback">
-            {backContent}
+            {usr? (
+                (domainNumber === 1 && !auctioningDomain && !asPayerDomain)? (
+                    <SearchYourFrist openDomainQueryPage={openDomainQueryPage}/>
+                ):(
+                    <UsrIndex usr={usr}/>
+                )
+            ):(
+                <ConnectWalletFrist />
+            )}
         </div>
     )
 }

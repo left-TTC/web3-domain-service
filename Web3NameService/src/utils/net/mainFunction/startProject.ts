@@ -4,7 +4,7 @@ import { createStartProjectInstruction, type StartProjectInstructionAccounts } f
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
-import { SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
+import { SendTransactionError, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
 
 
@@ -52,15 +52,51 @@ export async function startProject(
 
         startProjectTransaction.add(createStartProjectInstruction(transactionAccountsStructure));
 
-        const { blockhash } = await connection.getLatestBlockhash()
+        const { blockhash, lastValidBlockHeight} = await connection.getLatestBlockhash()
         startProjectTransaction.recentBlockhash = blockhash
         startProjectTransaction.feePayer = admin
 
         const signedTransaction = await signTransaction(startProjectTransaction)
-        const transaction = await connection.sendRawTransaction(signedTransaction.serialize());
+        const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
+            skipPreflight: false,
+        });
 
-        console.log(transaction)
+        const simulationResult = await connection.simulateTransaction(signedTransaction);
+        console.log("simulate result", simulationResult);
+
+        const txResult = await connection.confirmTransaction(
+            {
+                signature: transaction,
+                blockhash,
+                lastValidBlockHeight,
+            },
+            "confirmed"
+        );
+
+        console.log("Tx signature:", transaction);
+        console.log("Tx confirm result:", txResult);
+
+        const txInfo = await connection.getTransaction(transaction, {
+            commitment: "confirmed",
+            maxSupportedTransactionVersion: 0,
+        });
+
+        if (txInfo) {
+            console.log("=== Transaction Logs ===");
+            console.log(txInfo.meta?.logMessages);
+        }
+
+        if(String(txResult).includes("success")){
+            solanaToast.show(TransactionState.Success)
+        }
     }catch(err){
-        console.log(err)
+        console.error("Transaction failed:", err);
+
+        // 捕获并打印完整日志
+        if (err instanceof SendTransactionError) {
+            const logs = err.getLogs(connection);
+            console.error("=== Simulation Logs ===");
+            console.error(logs);
+        }
     }
 }

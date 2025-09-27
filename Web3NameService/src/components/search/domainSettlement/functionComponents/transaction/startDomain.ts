@@ -1,68 +1,70 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
-import type { SupportedMint } from "@/provider/priceProvider/priceProvider";
-import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
-import { handleTransactionError } from "@/utils/functional/error/transactionError";
+import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
-import { addFuelForRoot } from "@/utils/net/mainFunction/rootDomain/addFuelForRoot";
+import { startWeb3DomainAuction } from "@/utils/net/mainFunction/startWeb3DomainAuction";
 import { SendTransactionError, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
 
 
-export async function tryToAddFuel(
+export async function startDomain(
+    entireDomain: string,
+    refferrerKey: PublicKey,
+    buyer: PublicKey | null,
+    
+    RootDomain: string[] | null,
+    totalFee: number, //lamports
+    solanaToast: SolanaToastContextType,
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
-    wallet: PublicKey | null,
-    solanaToast: SolanaToastContextType,
-    //usd
-    fuelQuantity: number | null,
-    creatingRootName: string,
-    tokenQuantity: number,
-    useMint: SupportedMint,
-    // need a common toast
 ): Promise<void> {
-    if(!fuelQuantity || tokenQuantity === 0){
-        solanaToast.show(TransactionState.Error)
-        return
-    }
 
-    if(!wallet || !signTransaction){
+    const domainAndRoot = cutDomain(entireDomain)
+
+    console.log("total fee: ",totalFee)
+
+    if(!buyer || !signTransaction){
         solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
         return
     }
+    if(!RootDomain){
+        solanaToast.show(TransactionState.Error)
+        console.log("root error")
+        return
+    }else{
+        if(!RootDomain.includes(domainAndRoot[1])){
+            solanaToast.show(TransactionState.Error)
+            console.log("root error")
+            return
+        }
+    }
 
-    const tryToAddFuelTransactionId = await showCheckSolBalance(
-        solanaToast, wallet, connection, fuelQuantity
+    const startDomainTransactionId = await showCheckSolBalance  (
+        solanaToast, buyer, connection, totalFee
     )
-
-    if(!tryToAddFuelTransactionId[1]) return
+    if(!startDomainTransactionId[1])return
 
     try{
-        const tryToAddFuelTransaction = new Transaction()
-
-        const pythFeedAccountKey = returnPythFeedAccount(useMint)
-
-        const addFuelAndOtherTransaction = addFuelForRoot(
-            wallet,
-            pythFeedAccountKey,
-            creatingRootName,
-            fuelQuantity,
+        const tryStartDomainTransaction = await startWeb3DomainAuction(
+            domainAndRoot[1],
+            domainAndRoot[0],
+            buyer,
+            refferrerKey,
+            connection
         )
 
-        tryToAddFuelTransaction.add(addFuelAndOtherTransaction)
-
         const { blockhash } = await connection.getLatestBlockhash()
-        tryToAddFuelTransaction.recentBlockhash = blockhash
-        tryToAddFuelTransaction.feePayer = wallet
+        tryStartDomainTransaction.recentBlockhash = blockhash
+        tryStartDomainTransaction.feePayer = buyer
 
-        const simulationResult = await connection.simulateTransaction(tryToAddFuelTransaction);
+        const simulationResult = await connection.simulateTransaction(tryStartDomainTransaction);
         console.log("simulate result", simulationResult);
 
         if(simulationResult.value.err === null){
             const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
-            tryToAddFuelTransaction.recentBlockhash = blockhash
+            tryStartDomainTransaction.recentBlockhash = blockhash
 
-            const signedTransaction = await signTransaction(tryToAddFuelTransaction)
+            const signedTransaction = await signTransaction(tryStartDomainTransaction)
             const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
                 skipPreflight: false,
             })
@@ -96,9 +98,8 @@ export async function tryToAddFuel(
             console.log("simulate fail")
         }
 
-        
-    }catch (err: any) {
-        console.error("Transaction failed:", err);
+    }catch(err){
+         console.error("Transaction failed:", err);
 
         // 捕获并打印完整日志
         if (err instanceof SendTransactionError) {
@@ -107,6 +108,5 @@ export async function tryToAddFuel(
             console.error(logs);
         }
 
-        handleTransactionError(String(err), solanaToast, tryToAddFuelTransactionId[0]);
     }
 }

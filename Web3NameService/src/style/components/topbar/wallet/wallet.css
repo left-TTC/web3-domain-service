@@ -8,11 +8,18 @@
     position: relative;
     padding: 0;
     overflow: hidden;
+    width: 220px;
+    height: 100%;
+    border-radius: 7px;
+}
+.wallet h1{
+    color: white;
 }
 
 .walletpackage{
     position: relative;
     height: auto;
+    height: 66%;
 }
 
 .walletconnect{
@@ -24,9 +31,7 @@
     opacity: 0.8;
 }
 
-.wallet h1{
-    color: white;
-}
+
 
 .walletConnected{
     display: flex;
@@ -37,12 +42,17 @@
 }
 
 .walletusericon{
-    background-image: url("/usr/usricon.png");
-    background-size:contain;
-    background-position: center;
-    background-repeat: no-repeat;
     border-radius: 50%;
-    background-size: 200%;  
+    width: 26px;
+    height: 26px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.walletConnected h1{
+    font-size: 15px;
+    font-weight: 550;
 }
 
 .walletarray{
@@ -54,32 +64,17 @@
     transform: rotate(180deg);
 }
 
-.wallet{
-    width: 220px;
-    height: 100%;
-    border-radius: 7px;
-}
 
 .walletpackage{
     height: 66%;
 }
 
-.walletusericon{
-    width: 20px;
-    height: 20px;
-}
-
-.walletConnected h1{
-    font-size: 15px;
-    font-weight: 550;
-}
 
 .walletconnect{
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .walletconnect h1{
     color: black;
     font-size: 16px;

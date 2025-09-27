@@ -9,10 +9,12 @@ import { SupportedMint } from "@/provider/priceProvider/priceProvider";
 
 
 
-export function launchRootDomain(
+export async function launchRootDomain(
     willLanunchRootDomain: string,
     initiator: PublicKey,
-): Transaction {
+): Promise<Transaction> {
+
+    const transaction = new Transaction()
 
     const rootStateAccountKey = getRootStateKey(
         getHashedName(willLanunchRootDomain)
@@ -45,5 +47,5 @@ export function launchRootDomain(
         willLanunchRootDomain,
     )
 
-    return new Transaction().add(launchTransactionInstruction)
+    return transaction.add(launchTransactionInstruction)
 }

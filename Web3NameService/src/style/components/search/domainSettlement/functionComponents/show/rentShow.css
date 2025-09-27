@@ -1,0 +1,62 @@
+
+
+.rentshow{
+    width: 100%;
+}
+.rentshow h1{
+    font-weight: 500;
+    color: #B5B9BF;
+    font-size: 15px;
+    margin: 0;
+}
+.rentshow h2{
+    font-weight: 600;
+    font-size: 15px;
+    color: white;
+    margin: 0;
+}
+
+.rentshowbl{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.rentshowblbetween{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.rentshowblsloading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 15px 0 5px 0;
+}
+.rentshowbls{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 5px 0;
+}
+
+.rentshowLoading{
+    transform-origin: center center;   /* 关键：以元素中心为原点 */
+    animation: spin 1.8s linear infinite;
+    width: 16px;
+    margin-right: 50px;
+}
+@keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 无障碍：用户偏好减少动画时关闭 */
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; }
+}

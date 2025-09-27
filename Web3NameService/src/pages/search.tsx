@@ -84,8 +84,8 @@ export function Search() {
                 <DomainSettlement 
                     domainName={queryingDomain}
                     backToSearchResult={() =>setShowSaleDomain(false)}
-                    domainInfo={queryDomainInfo}
                     domainPrice={domainStartPrice}
+                    domainInfo={queryDomainInfo}
                 />
             }
         </div>

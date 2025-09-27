@@ -82,20 +82,20 @@
     font-size: 18px;
 }
 
-.referrerpolicy{
+.refferrerpolicy{
     display: flex;
     flex-direction: row;
     align-items: baseline;
     margin-left: 20px;
     gap: 10px;
 }
-.referrerpolicy h2{
+.refferrerpolicy h2{
     color: white;
     font-weight: 500;
     font-size: 16px;
     margin: 0;
 }
-.referrerpolicy a{
+.refferrerpolicy a{
     color: #95A6C1;
     font-weight: 500;
     font-size: 16px;

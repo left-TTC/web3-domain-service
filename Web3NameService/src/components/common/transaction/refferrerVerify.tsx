@@ -2,7 +2,7 @@ import { PublicKey } from "@solana/web3.js";
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next";
 
-import "@/style/components/commonStyle/transaction/referrerVerify.css"
+import "@/style/components/commonStyle/transaction/refferrerVerify.css"
 import { useConnection } from "@solana/wallet-adapter-react";
 import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
@@ -16,43 +16,43 @@ import { ifStringPubkeyValid } from "@/utils/functional/common/ifStringPubkeyVal
 import { returnProjectVault } from "@/utils/constants/constants";
 import { checkRefferrerValid } from "@/utils/functional/common/net/checkRefferrerValid";
 
-export interface ReferrerVerifyProps {
-    setReferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>,
+export interface RefferrerVerifyProps {
+    setRefferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>,
     setReffererValid: React.Dispatch<React.SetStateAction<boolean>>,
     ifRefferValid: boolean,
 }
 
-const ReferrerVerify: React.FC<ReferrerVerifyProps> = ({
-    setReferrerKey, setReffererValid, ifRefferValid
+const RefferrerVerify: React.FC<RefferrerVerifyProps> = ({
+    setRefferrerKey, setReffererValid, ifRefferValid
 }) => {
 
     const {t} = useTranslation()
     const {connection} = useConnection()
     const {publicKey: buyer} = useWalletEnv()
 
-    const [referrerValue, setReferrerValue] = useState("");
-    const [isReferrerFocus, setIsReferrerFocus] = useState(false)
+    const [refferrerValue, setRefferrerValue] = useState("");
+    const [isRefferrerFocus, setIsRefferrerFocus] = useState(false)
     const [canReffererCheck, setCanReffererCheck] = useState(false)
 
-    const handReferrer = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(ifRefferValid && e.target.value != referrerValue){
+    const handRefferrer = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(ifRefferValid && e.target.value != refferrerValue){
             setReffererValid(false)
             setIfRefferrerChecked(false)
         }
-        setReferrerValue(e.target.value)
+        setRefferrerValue(e.target.value)
     }
 
     useEffect(() => {
         const checkIfAccount = async() => {
             setIfRefferrerChecking(true)
-            if(await ifStringPubkeyValid(referrerValue, connection)){
+            if(await ifStringPubkeyValid(refferrerValue, connection)){
                 setCanReffererCheck(true)
             }else setCanReffererCheck(false)
             setIfRefferrerChecking(false)
         }
 
         checkIfAccount()
-    }, [referrerValue])
+    }, [refferrerValue])
 
     const [fixedRefferrer, setFixRefferrer] = useState<PublicKey | null>()
     const [loadingFixedRefferrer, setLoadingFixedRefferrer] = useState(true)
@@ -68,9 +68,10 @@ const ReferrerVerify: React.FC<ReferrerVerifyProps> = ({
                 setFixRefferrer(null)
                 setLoadingFixedRefferrer(false)
             }else{
-                const referrerRecordState = new RefferrerRecordState(refferrerRecordData)
-                setFixRefferrer(referrerRecordState.refferrer)
-                setReferrerKey(referrerRecordState.refferrer)
+                const refferrerRecordState = new RefferrerRecordState(refferrerRecordData)
+                console.log("refferrer record: ", refferrerRecordState)
+                setFixRefferrer(refferrerRecordState.refferrer)
+                setRefferrerKey(refferrerRecordState.refferrer)
                 setLoadingFixedRefferrer(false)
             }
         }
@@ -83,7 +84,7 @@ const ReferrerVerify: React.FC<ReferrerVerifyProps> = ({
 
     const verifyReffer = async() => {
         setIfRefferrerChecking(true)
-        const refferrer = new PublicKey(referrerValue)
+        const refferrer = new PublicKey(refferrerValue)
 
         const ifValid = await checkRefferrerValid(refferrer, connection)
         console.log(ifValid)
@@ -95,6 +96,7 @@ const ReferrerVerify: React.FC<ReferrerVerifyProps> = ({
             setIfRefferrerChecking(false)
             setIfRefferrerChecked(true)
             setReffererValid(true)
+            setRefferrerKey(refferrer)
         }
     }
 
@@ -107,9 +109,9 @@ const ReferrerVerify: React.FC<ReferrerVerifyProps> = ({
     }, [ifRefferrerChecked])
 
     return(
-        <div className={`referrer`} onFocus={() => setIsReferrerFocus(true)} onBlur={() => setIsReferrerFocus(false)}>
+        <div className={`refferrer`} onFocus={() => setIsRefferrerFocus(true)} onBlur={() => setIsRefferrerFocus(false)}>
             {fixedRefferrer? (
-                <div className="referrerinput fixedRefferrershow">
+                <div className="refferrerinput fixedRefferrershow">
                     <h2>{fixedRefferrer.toBase58()}</h2>
                 </div>
             ): (
@@ -117,12 +119,12 @@ const ReferrerVerify: React.FC<ReferrerVerifyProps> = ({
                     <input  
                         type="text"
                         placeholder={loadingFixedRefferrer? "Loading...":t("enterinvitation")}
-                        value={referrerValue}
-                        onChange={handReferrer}
-                        className={`referrerinput ${isReferrerFocus ? 'referrerinputfocus' : ''}`}
+                        value={refferrerValue}
+                        onChange={handRefferrer}
+                        className={`refferrerinput ${isRefferrerFocus ? 'refferrerinputfocus' : ''}`}
                     />
-                    {isReferrerFocus && referrerValue.length === 0 &&
-                        <div className="defaultrecommend" onMouseDown={() => setReferrerValue(returnProjectVault().toBase58())}>
+                    {isRefferrerFocus && refferrerValue.length === 0 &&
+                        <div className="defaultrecommend" onMouseDown={() => setRefferrerValue(returnProjectVault().toBase58())}>
                             <h4>{returnProjectVault().toBase58()}</h4>
                             <div className="defaulticon">
                                 <h4>default</h4>
@@ -133,8 +135,8 @@ const ReferrerVerify: React.FC<ReferrerVerifyProps> = ({
             )}
             <button 
                 className=
-                    {`referrerverify 
-                        ${canReffererCheck ? 'referrerverifyfocus' : 'cantclick'} 
+                    {`refferrerverify 
+                        ${canReffererCheck ? 'refferrerverifyfocus' : 'cantclick'} 
                         ${ifRefferrerChecked? (ifRefferValid? "":"checkError"):""}
                     `}
                 onClick={() => verifyReffer()}
@@ -157,4 +159,4 @@ const ReferrerVerify: React.FC<ReferrerVerifyProps> = ({
     )
 }
 
-export default ReferrerVerify;
+export default RefferrerVerify;

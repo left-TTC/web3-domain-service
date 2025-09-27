@@ -14,14 +14,16 @@
 }
 .registerfee h1{
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     color: white;
+    margin: 0;
 }
 
 .registerrule h1{
     font-weight: 500;
     color: #B5B9BF;
     font-size: 15px;
+    margin: 0;
 }
 
 .rentfee{
@@ -71,16 +73,16 @@
 .cryptototal{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
 }
 .cryptototal h1{
     font-size: 19px;
 }
 .cryptototal h2{
-    font-weight: 400;
+    font-weight: 600;
     color: white;
-    font-size: 20px;
+    font-size: 17px!important;
 }
 
 @media (min-width: 1024px){

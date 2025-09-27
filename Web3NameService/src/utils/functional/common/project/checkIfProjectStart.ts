@@ -16,6 +16,7 @@ export async function checkIfProjectStart(
     )
 
     const web3DomainData = await connection.getAccountInfo(defulatName)
+    console.log(web3DomainData)
 
     if (web3DomainData && web3DomainData.data.length === NAME_RECORD_LENGTH) return true
 

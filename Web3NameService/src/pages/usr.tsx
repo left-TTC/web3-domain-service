@@ -23,7 +23,6 @@ export function User({
 
     useEffect(() => {
         if(usr?.toBase58() === ADMIN.toBase58()){
-            console.log("yes")
             setShowChangeAdmin(true)
         }
     }, [usr])

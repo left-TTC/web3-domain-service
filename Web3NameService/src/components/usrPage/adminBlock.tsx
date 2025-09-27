@@ -1,8 +1,6 @@
-import { returnProjectVault } from "@/utils/constants/constants";
+
 import { checkIfProjectStart } from "@/utils/functional/common/project/checkIfProjectStart";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import { useEffect, useState } from "react";
 
 import "@/style/components/usrPage/adminBlock.css"
@@ -12,18 +10,13 @@ import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider
 import VaultManage from "./adminComponent/vaultManage";
 import RootConfirm from "./adminComponent/rootConfirm";
 
-export const web3ProjectStarted = atomWithStorage<boolean>(
-    'web3DomianProject',
-    false
-)
-
 const AdminBlcok = () => {
 
     const {connection} = useConnection()
     const {publicKey: admin, signTransaction} = useWalletEnv()
     const solanaToast = useSolanaToast()
 
-    const [ifProjectStarted, setIfProjectStarted] = useAtom(web3ProjectStarted)
+    const [ifProjectStarted, setIfProjectStarted] = useState(false)
     const [ifReload, setIfReload] = useState(false)
 
     useEffect(() => {

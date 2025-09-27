@@ -34,39 +34,49 @@ export async function tryToConfirmRootDomain(
             admin, rootDomain
         )
 
-        const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
+        const { blockhash } = await connection.getLatestBlockhash()
         tryConfirmRootTransaction.recentBlockhash = blockhash
         tryConfirmRootTransaction.feePayer = admin
 
-        const signedTransaction = await signTransaction(tryConfirmRootTransaction)
-        const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
-            skipPreflight: false,
-        })
+        const simulationResult = await connection.simulateTransaction(tryConfirmRootTransaction);
+        console.log("simulate result", simulationResult);
 
-        const txResult = await connection.confirmTransaction(
-            {
-                signature: transaction,
-                blockhash,
-                lastValidBlockHeight,
-            },
-            "confirmed"
-        );
+        if(simulationResult.value.err === null){
+            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
+            tryConfirmRootTransaction.recentBlockhash = blockhash
 
-        console.log("Tx signature:", transaction);
-        console.log("Tx confirm result:", txResult);
+            const signedTransaction = await signTransaction(tryConfirmRootTransaction)
+            const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
+                skipPreflight: false,
+            })
 
-        const txInfo = await connection.getTransaction(transaction, {
-            commitment: "confirmed",
-            maxSupportedTransactionVersion: 0,
-        });
+            const txResult = await connection.confirmTransaction(
+                {
+                    signature: transaction,
+                    blockhash,
+                    lastValidBlockHeight,
+                },
+                "confirmed"
+            );
 
-        if (txInfo) {
-            console.log("=== Transaction Logs ===");
-            console.log(txInfo.meta?.logMessages);
-        }
+            console.log("Tx signature:", transaction);
+            console.log("Tx confirm result:", txResult);
 
-        if(String(txResult).includes("success")){
-            solanaToast.show(TransactionState.Success)
+            const txInfo = await connection.getTransaction(transaction, {
+                commitment: "confirmed",
+                maxSupportedTransactionVersion: 0,
+            });
+
+            if (txInfo) {
+                console.log("=== Transaction Logs ===");
+                console.log(txInfo.meta?.logMessages);
+            }
+
+            if(String(txResult).includes("success")){
+                solanaToast.show(TransactionState.Success)
+            }
+        }else{
+            console.log("simulate fail")
         }
 
     }catch(err){

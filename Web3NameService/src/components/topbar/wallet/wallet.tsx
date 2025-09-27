@@ -11,6 +11,7 @@ import "@/style/components/topbar/wallet/wallet.css"
 import { cutString } from "@/utils/functional/common/cutString";
 import { animate } from "animejs";
 import WalletDropDownBox from "./walletDropDownBox";
+import Identicon from "@/components/common/show/usr/identicon";
 
 export interface WalletProps{
     ifShowDropBox: boolean,
@@ -79,7 +80,10 @@ const Wallet: React.FC<WalletProps> = ({
                 {connected ?
                     (
                         <div className="walletConnected">
-                            <div className="walletusericon" />
+                            
+                            <div className="walletusericon">
+                                <Identicon pubkey={publicKey!.toBase58()}/>
+                            </div>
                             <h1>{walletAddress}</h1>
                             <div className="walletarray" ref={arrayRef}>
                                 <img src={array} className="arrayicon"/>

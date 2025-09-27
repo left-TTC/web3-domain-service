@@ -11,41 +11,9 @@
     height: 300px;
 }
 
-.havenotdomainusr{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-}
-.havenotdomainusr h1{
-    color: white;
-    font-weight: 300;
-    font-size: 36px;
-}
 
-.getfristbu{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: center;
-    background-color: #B4FC75;
-    width: 300px;
-}
-.getfristbu h1{
-    color: black;
-    margin: 0;
-    font-weight: 500;
-    font-size: 20px;
-}
-.getfristbu:hover{
-    opacity: 0.8;
-}
 
-.usrsearchdomain{
-    width: 40px;
-}
+
 
 /*common computer*/
 @media (min-width: 1024px){

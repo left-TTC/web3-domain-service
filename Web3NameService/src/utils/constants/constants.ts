@@ -6,7 +6,7 @@ import { getHashedName } from "../functional/solana/getHashedName";
 export const HASH_PREFIX = "WEB3 Name Service";
 
 export const WEB3_NAME_SERVICE_ID = new PublicKey(
-    "29CkJByNom4XprPhyntVis1jqjDzHHx43do4oYeDDQRL"
+    "6drdeNVv4G33jUt18qN3GBeESN5yi4tsQv96ZYjw23Qg"
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
@@ -14,7 +14,7 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "64Qy6UEMwuK1nqkrkW3H1qX9fMmJEoxdE1zwruKfvbyG"
+    "DXGawcWQTb1G3G1hSAYJ7H13MzMBAETHNhvu4Pvv6QHZ"
 );
 
 export const WEB3_AUCTION_ID = new PublicKey(
@@ -50,8 +50,8 @@ export const CREATE_ROOT_TARGET = 20000000;
 
 export const VAULT_ADMIN = 500000000; //lamports
 
-// $ 0.99
-export const INIT_DOMAIN_PRICE = 990000
+// $ 1.99
+export const INIT_DOMAIN_PRICE = 1990000
 
 export function getMintVault(mintType: MainMint): PublicKey{
     switch(mintType){

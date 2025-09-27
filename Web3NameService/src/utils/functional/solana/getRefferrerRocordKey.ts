@@ -1,7 +1,6 @@
 import { WEB3_REGISTER_ID } from "@/utils/constants/constants";
 import { PublicKey } from "@solana/web3.js";
-
-
+import { getHashedName } from "./getHashedName";
 
 
 export function getRefferrerRecordKey(
@@ -9,7 +8,9 @@ export function getRefferrerRecordKey(
 ): PublicKey {
     const seeds = []
 
-    seeds.push(usr.toBuffer())
+    const hashedUsr = getHashedName(usr.toBase58())
+
+    seeds.push(hashedUsr)
     seeds.push(WEB3_REGISTER_ID.toBuffer())
     seeds.push(WEB3_REGISTER_ID.toBuffer())
 
