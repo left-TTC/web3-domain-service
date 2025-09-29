@@ -14,6 +14,7 @@ import { User } from './pages/usr';
 function App() { 
     
     const [showBrowserDomainQuery, setShowBrowserDomainQuery] = useState(false);
+    const [usrHint, setUsrHint] = useState(false)
 
     return (
         <Router>

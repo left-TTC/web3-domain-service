@@ -73,6 +73,7 @@ const RefferrerVerify: React.FC<RefferrerVerifyProps> = ({
                 setFixRefferrer(refferrerRecordState.refferrer)
                 setRefferrerKey(refferrerRecordState.refferrer)
                 setLoadingFixedRefferrer(false)
+                setReffererValid(true)
             }
         }
 

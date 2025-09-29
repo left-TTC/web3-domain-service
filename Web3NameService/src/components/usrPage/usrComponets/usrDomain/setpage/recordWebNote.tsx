@@ -1,4 +1,4 @@
-import "@/style/components/usrPage/usrDomain/setpage/recordWebNote.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/setpage/recordWebNote.css"
 
 import { RecordType } from "./recordChooser";
 import exit from "@/assets/exit.svg"

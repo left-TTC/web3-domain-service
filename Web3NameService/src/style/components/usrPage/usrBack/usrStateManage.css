@@ -1,0 +1,38 @@
+
+.usrcommanage{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 40%;
+    justify-content: center;
+}
+
+
+.comBu{
+    height: 50px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #B4FC75;
+    border-radius: 5px;
+    position: relative;
+}
+.comBu:hover{
+    opacity: 0.9;
+}
+
+.comimg{
+    width: 20px;
+}
+
+.redattention{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: red;
+    border-radius: 50%;
+    right: -6px;
+    top: -6px;
+}

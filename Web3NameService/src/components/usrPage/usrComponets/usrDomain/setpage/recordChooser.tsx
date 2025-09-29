@@ -1,4 +1,4 @@
-import "@/style/components/usrPage/usrDomain/setpage/recordChooser.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/setpage/recordChooser.css"
 
 export enum RecordType{
     IPFS = "IPFS",

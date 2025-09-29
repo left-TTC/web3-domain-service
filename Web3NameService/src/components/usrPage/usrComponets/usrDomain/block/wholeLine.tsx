@@ -1,4 +1,4 @@
-import "@/style/components/usrPage/usrDomain/block/wholeLine.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/block/wholeLine.css"
 
 import manage from "@/assets/manageDomain.svg"
 import ipfs from "@/assets/ipfs.svg"

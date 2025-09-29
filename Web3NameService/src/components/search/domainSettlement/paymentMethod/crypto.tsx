@@ -21,6 +21,8 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { startDomain } from "../functionComponents/transaction/startDomain";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
+import { useAtom } from "jotai";
+import { biddingDomain } from "@/components/usrPage/function/useAuctioningDomain";
 
 export enum MainMint{
     SOL = "SOL",
@@ -44,6 +46,8 @@ const Crypto: React.FC<CryptoProps> = ({
     const {activeRootDomain, rootDomains} = useRootDomain()
     const solanaToast = useSolanaToast()
 
+    const [auctioningDomain, setAuctioningDomain] = useAtom(biddingDomain)
+
     const [refferrerKey, setRefferrerKey] = useState<PublicKey | null>(null)
     const [ifRefferrerValid, setIfRefferrerValid] = useState(false)
 
@@ -63,11 +67,7 @@ const Crypto: React.FC<CryptoProps> = ({
     const setWillUseMint = (mint: SupportedMint) => {
         setActiveMint(mint)
     }
-
-    useEffect(() => {
-
-    })
-        
+  
     const createNameState = async() => {
         await startDomain(
             domainName,
@@ -78,6 +78,7 @@ const Crypto: React.FC<CryptoProps> = ({
             solanaToast,
             connection,
             signTransaction,
+            () => {setAuctioningDomain([...auctioningDomain, domainName])}
         )
     }
 

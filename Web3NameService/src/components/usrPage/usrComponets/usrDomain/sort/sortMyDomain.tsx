@@ -1,4 +1,4 @@
-import "@/style/components/usrPage/usrDomain/sort/sortMyDomain.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/sort/sortMyDomain.css"
 import { useTranslation } from "react-i18next"
 
 import array from "@/assets/array.svg"

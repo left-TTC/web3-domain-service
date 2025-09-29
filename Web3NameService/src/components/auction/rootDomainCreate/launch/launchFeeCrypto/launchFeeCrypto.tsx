@@ -1,10 +1,10 @@
 import MintChooser from "@/components/common/transaction/mintChooser";
-import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import "@/style/components/auction/rootDomainCreate/launch/launchFeeCrypto/launchFeeCrypto.css"
 import CreateRootSettleBills from "@/components/common/transaction/settlebills/createRootSettleBills";
+import { SupportedMint } from "@/provider/priceProvider/priceProvider";
 
 
 
@@ -16,7 +16,7 @@ const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
     creatingRootName
 }) => {
 
-    const [chooseMint, setChooseMint] = useState<MainMint>(MainMint.SOL)
+    const [chooseMint, setChooseMint] = useState<SupportedMint>(SupportedMint.SOL)
     const {t} = useTranslation()
 
     return(

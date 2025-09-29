@@ -11,6 +11,7 @@ import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRoc
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { Numberu64 } from "@/utils/functional/common/number/number64";
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
+import { getNameStateRevserseKey } from "@/utils/functional/solana/getNameStateReverseKey";
 
 
 export async function startWeb3DomainAuction(
@@ -35,6 +36,10 @@ export async function startWeb3DomainAuction(
         getHashedName(domain), rootDomainAccountKey
     )
     console.log("name state: ", domainNameStateKey.toBase58())
+    const domainNameStateReverseKey = getNameStateRevserseKey(
+        getHashedName(domainNameStateKey.toBase58())
+    )
+    console.log("name state reverse: ", domainNameStateReverseKey.toBase58())
 
     console.log("usr: ", feePayer.toBase58())
 
@@ -72,6 +77,7 @@ export async function startWeb3DomainAuction(
         rootDomainAccount: rootDomainAccountKey,
         name: domainNameAccountKey,
         domainNameState: domainNameStateKey,
+        domainNameStateReverse: domainNameStateReverseKey,
         systemAccount: SystemProgram.programId,
         centralState: CENTRAL_STATE_REGISTER,
         feePayer: feePayer,
@@ -87,6 +93,7 @@ export async function startWeb3DomainAuction(
     const transactionInstruction = createDomainInstruction(
         createDomainInstructionAccounts,
         domain,
+        rootDomain,
         domainPrice,
     )
 

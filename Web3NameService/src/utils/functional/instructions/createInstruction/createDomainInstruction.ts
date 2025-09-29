@@ -14,6 +14,8 @@ export interface StartDomainInstructionAccounts {
     name: PublicKey,
     /// name state
     domainNameState: PublicKey,
+    /// name state reverse
+    domainNameStateReverse: PublicKey,
     /// system account
     systemAccount: PublicKey,
     /// central state register
@@ -39,12 +41,15 @@ export interface StartDomainInstructionAccounts {
 export function createDomainInstruction(
     instructionAccounts: StartDomainInstructionAccounts,
     domainName: string,
+    rootDomain: string,
     domainPrice: Numberu64,
 ): TransactionInstruction {
     const buffers = [
         Buffer.from(Uint8Array.from([Web3DomainRegistrarInstruction.StartName])),
         new Numberu32(Buffer.from(domainName).length).toBuffer(),
         Buffer.from(domainName, 'utf8'),
+        new Numberu32(Buffer.from(rootDomain).length).toBuffer(),
+        Buffer.from(rootDomain, 'utf8'),
         domainPrice.toBuffer()
     ];
 
@@ -56,6 +61,7 @@ export function createDomainInstruction(
 
         { pubkey: instructionAccounts.name, isSigner: false, isWritable: false },
         { pubkey: instructionAccounts.domainNameState, isSigner: false, isWritable: true },
+        { pubkey: instructionAccounts.domainNameStateReverse, isSigner: false, isWritable: true },
 
         { pubkey: instructionAccounts.systemAccount, isSigner: false, isWritable: false },
         { pubkey: instructionAccounts.centralState, isSigner: false, isWritable: false },

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import "@/style/components/usrPage/usrDomain/sort/allMyDomain.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/sort/allMyDomain.css"
 
 import array from "@/assets/array.svg"
 import { animate } from "animejs";

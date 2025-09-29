@@ -1,4 +1,4 @@
-import "@/style/components/usrPage/usrDomain/domainSetPage.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/domainSetPage.css"
 import { useTranslation } from "react-i18next";
 import RecordChooser, { RecordType } from "./setpage/recordChooser";
 import { useEffect, useState } from "react";

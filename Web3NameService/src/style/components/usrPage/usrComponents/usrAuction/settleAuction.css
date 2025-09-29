@@ -1,0 +1,41 @@
+
+
+.settleauctionbl{
+    display: flex;
+    flex-direction: column;
+}
+
+.showsettlebu{
+    display: flex;
+    flex-direction: row;
+    background-color: #1C2334;
+    margin-top: 20px;
+    padding: 15px;
+    width: 10px;
+    width: calc(100% - 30px);
+    border-radius: 8px;
+    justify-content: space-between;
+    cursor: pointer; 
+    margin-bottom: 20px;
+}
+.showsettlebu:hover{
+    opacity: 0.9;
+}
+.showsettlebu h1{
+    font-size: 18px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.numbershow{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.numbershow h1{
+    font-weight: 500;
+}
+
+.settlearray{
+    width: 20px;
+}

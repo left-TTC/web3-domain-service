@@ -1,4 +1,4 @@
-import "@/style/components/usrPage/usrDomain.css"
+import "@/style/components/usrPage/usrComponents/usrDomain.css"
 import { useTranslation } from "react-i18next";
 import DomainSort from "./usrDomain/domainSort";
 import { useEffect, useState } from "react";

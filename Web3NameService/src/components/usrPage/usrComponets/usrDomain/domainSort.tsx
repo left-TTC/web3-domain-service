@@ -1,4 +1,4 @@
-import "@/style/components/usrPage/usrDomain/domainSort.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/domainSort.css"
 import AllMyDomain, { MyDomainFilter } from "./sort/allMyDomain";
 import SortMyDomain, { SortWay } from "./sort/sortMyDomain";
 

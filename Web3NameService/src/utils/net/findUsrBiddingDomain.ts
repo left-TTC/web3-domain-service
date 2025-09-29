@@ -15,6 +15,8 @@ export async function findUsrBiddingDomain(
 
     if(!usr) throw new Error("no wallet")
 
+    // find usr's auctioning domain
+
     const filters = {
         dataSlice: {offset: 0, length: 0},
         filters: [
@@ -36,6 +38,9 @@ export async function findUsrBiddingDomain(
 
         switch(getDomainTimeState(accountState)){
             case DomainState.Auctioning:
+                validAccounts.push(biddingAccount.pubkey)
+                break;
+            case DomainState.Settling:
                 validAccounts.push(biddingAccount.pubkey)
                 break;
             default: break

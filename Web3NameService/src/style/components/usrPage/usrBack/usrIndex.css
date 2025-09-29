@@ -42,6 +42,12 @@
     width: 20px;
 }
 
+.usrindex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .name{
     display: flex;
     flex-direction: column;

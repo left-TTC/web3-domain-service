@@ -1,0 +1,32 @@
+
+
+.increasePrice{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1200;
+    background-color: #081328;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.increasePricepaytitle{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: 100%;
+    margin-top: 80px;
+    gap: 20px;
+}
+.increasePricepaytitle h2{
+    color: white;
+    opacity: 0.8;
+    font-size: 19px;
+}
+.increasePricepaytitle h1{
+    color: white;
+    font-size: 35px;
+    margin: 0;
+}

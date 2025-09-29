@@ -108,5 +108,12 @@
     "important": "Important",
     "learn": "Learn about our ",
     "refferrerpolicy": "referral policy",
-    "Startde": "Start Deposit"
+    "Startde": "Start Deposit", 
+    "myauction": "About My Auctions",
+    "settle": "Settlement",
+    "onauction": "on Auction Bills",
+    "currentprice": "Current Price",
+    "highestbidder": "Leader",
+    "settlememtin": "Settlement in",
+    "bidincrement": "Bid Increment"
 }

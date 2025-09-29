@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import "@/style/components/usrPage/usrDomain/setpage/recordCreate/ipfsRecordCreate.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/setpage/recordCreate/ipfsRecordCreate.css"
 
 export interface IpfsRecordCreateProps{
     inputIpfs: string,

@@ -1,5 +1,5 @@
 
-import "@/style/components/usrPage/usrDomain/domainBlock.css"
+import "@/style/components/usrPage/usrComponents/usrDomain/domainBlock.css"
 import { useEffect, useState } from "react"
 import WholeLine from "./block/wholeLine"
 import DomainSetPage from "./domainSetPage"

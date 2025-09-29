@@ -1,0 +1,22 @@
+
+
+.usrAuction{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.usrAuction h1{
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.linedomain{
+    width: 100%;
+    margin: 0px 0;
+    height: 1px;
+    background-color: white;
+    opacity: 0.6;
+}

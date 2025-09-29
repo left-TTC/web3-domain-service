@@ -16,6 +16,7 @@ export async function startDomain(
     solanaToast: SolanaToastContextType,
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
+    addDomainToCache: () => void,
 ): Promise<void> {
 
     const domainAndRoot = cutDomain(entireDomain)
@@ -94,6 +95,8 @@ export async function startDomain(
             if(String(txResult).includes("success")){
                 solanaToast.show(TransactionState.Success)
             }
+
+            addDomainToCache()
         }else{
             console.log("simulate fail")
         }

@@ -1,0 +1,68 @@
+
+
+.IncreasePriceCrypto{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 320px;
+    width: 100%;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.bidincrementblcok{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+.bidincrementblcok h3{
+    color: #B5B9BF;
+    font-weight: 400;
+    font-size: 17px;
+    margin: 0;
+}
+
+.pricebidchoose {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.pricebidchoose h3{
+    color: white;
+    font-weight: 700;
+    margin: 0 30px;
+}
+
+.autoChoose{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);   
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.bidbu{
+    background-color: #161F2F;
+    width: 80px;
+    border: 2px solid white;
+    margin-top: 5px;
+    padding: 6px 0;
+}
+.bidbu h3{
+    color: white;
+    font-size: 14px;
+    margin: 0;
+}
+
+.activeborder{
+    border-color: #B4FC75;
+}
+.activeborder h3{
+    color: #B4FC75;
+}
+
+.custominput{
+    width: 100%;
+    height: 100%;
+}
+

@@ -4,13 +4,16 @@ import "@/style/components/usrPage/usrBack/usrIndex.css"
 import type { PublicKey } from "@solana/web3.js";
 
 import copy from "@/assets/copy.svg"
+import UsrStateManage, { UsrComponents } from "./usrStateManage";
 
 export interface UsrIndexProps {
     usr: PublicKey,
+    hintCom: UsrComponents[],
+    setShowUsrComponent: React.Dispatch<React.SetStateAction<UsrComponents>>,
 }
 
 const UsrIndex: React.FC<UsrIndexProps> = ({
-    usr
+    usr, hintCom, setShowUsrComponent
 }) => {
 
     
@@ -31,9 +34,7 @@ const UsrIndex: React.FC<UsrIndexProps> = ({
                     <div className="nameline" />
                 </div>
             </div>
-            <div className="usrstatemanage">
-
-            </div>
+            <UsrStateManage needAttentionCom={hintCom} setShowUsrComponent={setShowUsrComponent}/>
         </div>
     )
 }
