@@ -1,4 +1,3 @@
-import { CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
 import { getAllRootDomain } from "@/utils/net/getAllRootDomain";
 import { PDAReverseLookUp } from "@/utils/net/PDAReverseLookUp";
 import { useConnection } from "@solana/wallet-adapter-react";
@@ -80,7 +79,7 @@ export function RootDomainEnviromentProvider({ children }: { children: ReactNode
         } finally {
             setLoading(false);
         }
-    }, [connection, activeRootDomain, setActiveRootDomain, setRootDomains]);
+    }, []);
 
     useEffect(() => {
         refreshRootDomains();

@@ -13,6 +13,8 @@ export class NameAuctionState {
 
     constructor(nameStateInfo: AccountInfo<Buffer<ArrayBufferLike>>){
         const nameStateData = nameStateInfo.data;
+
+        console.log(nameStateData.length)
         
         if (nameStateData.length < NAME_STATE_LENGTH) {
             throw new Error("Not a valid reverse account's data");

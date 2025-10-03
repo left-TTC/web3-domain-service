@@ -6,7 +6,7 @@ import { getHashedName } from "../functional/solana/getHashedName";
 export const HASH_PREFIX = "WEB3 Name Service";
 
 export const WEB3_NAME_SERVICE_ID = new PublicKey(
-    "6drdeNVv4G33jUt18qN3GBeESN5yi4tsQv96ZYjw23Qg"
+    "BEUuE7dmW6yyTVhyecrHktKF1necQvfiZdFyBCBjCXQm"
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
@@ -14,11 +14,7 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "DXGawcWQTb1G3G1hSAYJ7H13MzMBAETHNhvu4Pvv6QHZ"
-);
-
-export const WEB3_AUCTION_ID = new PublicKey(
-    "7o1pWHkCzGzQz63pUWTzMYBirNF95ShfiPBeYYXU3nEc"
+    "7WrKf6E5AHySxQjQ3fQBmhuw9VJMoPSXQo3qv8rdhpry"
 );
 
 export const ADMIN = new PublicKey(
@@ -32,11 +28,6 @@ export const TOKEN_PROGRAM_ID = new PublicKey(
 export const [CENTRAL_STATE_RECORDS] = PublicKey.findProgramAddressSync(
     [WEB3_RECORDS_ID.toBuffer()],
     WEB3_RECORDS_ID
-);
-
-export const [CENTRAL_STATE_AUCTION] = PublicKey.findProgramAddressSync(
-    [WEB3_AUCTION_ID.toBuffer()],
-    WEB3_AUCTION_ID
 );
 
 export const [CENTRAL_STATE_REGISTER] = PublicKey.findProgramAddressSync(

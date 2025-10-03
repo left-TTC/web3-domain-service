@@ -1,7 +1,7 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
-import { startWeb3DomainAuction } from "@/utils/net/mainFunction/startWeb3DomainAuction";
+import { startWeb3DomainAuction } from "@/utils/net/mainFunction/domain/startWeb3DomainAuction";
 import { SendTransactionError, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
 

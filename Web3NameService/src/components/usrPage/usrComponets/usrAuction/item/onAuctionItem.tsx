@@ -9,11 +9,13 @@ import IncreasePrice from "../increasePrice";
 
 export interface OnAuctionItemProps {
     itemName: string,
-    auctionState: NameAuctionState
+    auctionState: NameAuctionState,
+    index: number,
+    ifBiddingBills: boolean
 }
 
 const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
-    itemName, auctionState
+    itemName, auctionState, index, ifBiddingBills
 }) => {
 
     const {t} = useTranslation()
@@ -21,7 +23,7 @@ const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
     const [showIncreaseBlock, setShowIncreaseBlock] = useState(false)
 
     return(
-        <div className="onAuctionItem">
+        <div className="onAuctionItem" key={index}>
             <div className="itemhead">
                 <div className="head1">
                     <Identicon pubkey={itemName} />
@@ -44,7 +46,7 @@ const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
             <div className="auctionState">
                 <div className="timeshow">
                     <h2 className="settlememtin">{t("settlememtin")}:</h2>
-                    <TimeClock target={auctionState!.updateTime.toNumber() + 4800} />
+                    <TimeClock target={auctionState!.updateTime.toNumber() + 2400} />
                 </div>
                 <button className="increaseBU" onClick={() => setShowIncreaseBlock(true)}>
                     <h1>increase</h1>

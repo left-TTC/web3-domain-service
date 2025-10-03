@@ -1,19 +1,19 @@
-
 import Back from "@/components/common/functional/back";
 import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettlement/choosePayment";
-import "@/style/components/usrPage/usrComponents/usrAuction/increasePrice.css"
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { useState } from "react";
-import IncreasePriceCrypto from "./function/increasePriceCrypto";
+import SettleDomainCrypto from "./function/settleDomainCrypto";
 
-export interface IncreasePriceProps {
-    addName: string,
-    addInfo: NameAuctionState,
+
+
+export interface SettleDomainProps {
+    settleName: string,
+    settleInfo: NameAuctionState,
     back: () => void
 }
 
-const IncreasePrice: React.FC<IncreasePriceProps> = ({
-    addName, addInfo, back
+const SettleDomain: React.FC<SettleDomainProps> = ({
+    settleName, settleInfo, back
 }) => {
 
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
@@ -23,17 +23,17 @@ const IncreasePrice: React.FC<IncreasePriceProps> = ({
             <div className="launchfeepay">
                 <Back backFun={back} className="launchrootback"/>
                 <div className="increasePricepaytitle">
-                    <h2>Increase Price For:</h2>
-                    <h1>{addName}</h1>
+                    <h2>Settling:</h2>
+                    <h1>{settleName}</h1>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
-                <IncreasePriceCrypto 
-                    nameState={addInfo}
-                    extireDomainName={addName}
+                <SettleDomainCrypto
+                    nameState={settleInfo}
+                    extireDomainName={settleName}
                 />
             </div>
         </div>
     )
 }
 
-export default IncreasePrice;
+export default SettleDomain;

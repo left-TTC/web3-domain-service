@@ -36,8 +36,13 @@ const OnAuctionBills: React.FC<OnAuctionBillsProps> = ({
                 </div>
             </div>
             {showTheBills ? 
-                (billsName.map((billName, _) => (
-                    <OnAuctionItem itemName={billName} auctionState={onAuctionBills!.get(billName)!}/>
+                (billsName.map((billName, index) => (
+                    <OnAuctionItem 
+                        itemName={billName} 
+                        auctionState={onAuctionBills!.get(billName)!}
+                        index={index}   
+                        ifBiddingBills={false} 
+                    />
                 ))) : (
                     <div className="onAuctionItem">
 

@@ -1,0 +1,26 @@
+
+
+.settletotal h1{
+    margin-bottom: 12px;
+}
+
+
+.settlebillsome{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.settlebillsome h1{
+    font-weight: 550!important;
+    font-size: 13.2px!important;
+    color: white;
+    margin: 0;
+}
+
+.settlebillsomeword h1{
+    font-weight: 500!important;;
+    color: #B5B9BF;
+    font-size: 14px;
+    margin: 0;
+}

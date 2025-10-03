@@ -116,6 +116,20 @@
     color: white;
 }
 
+.settleBU{
+    width: 100px;
+    height: 50px;
+    background-color: #B4FC75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.settleBU h1{
+    font-size: 18px;
+    color: black;
+    font-weight: 500;
+}
+
 .increaseBU{
     width: 100px;
     height: 50px;

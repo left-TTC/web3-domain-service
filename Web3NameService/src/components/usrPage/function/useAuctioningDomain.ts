@@ -2,7 +2,7 @@ import { findUsrBiddingDomain } from "@/utils/net/findUsrBiddingDomain";
 import type { Connection, PublicKey } from "@solana/web3.js";
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // use local cache
 // when create a auction, We can observe for a long time 
@@ -21,11 +21,13 @@ export function useAuctioningDomain(
     useEffect(() => {
         const fetchMyAuctioningDomain = async() => {
             try{
+                console.log("start fetch")
                 const auctioningDomains = await findUsrBiddingDomain(
                     connection, usr
                 )
                 // should add new but change
                 setAuctioningDomain(auctioningDomains)
+                console.log(auctioningDomain)
             }catch(err){
                 console.log(err)
             }
@@ -33,8 +35,16 @@ export function useAuctioningDomain(
     
         // change to new device or delete the cache 
         // we can fetch one
-        if(!auctioningDomain)fetchMyAuctioningDomain()
+        if(auctioningDomain.length === 0 && usr){
+            console.log("need fetch: ")
+            fetchMyAuctioningDomain()
+        }
     }, [usr])
+
+    useEffect(() => {
+        const unique = Array.from(new Set(auctioningDomain));
+        setAuctioningDomain(unique)
+    }, [])
 
     return { auctioningDomain }
 }

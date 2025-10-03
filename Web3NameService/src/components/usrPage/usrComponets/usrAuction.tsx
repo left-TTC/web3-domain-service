@@ -5,8 +5,9 @@ import SettleAuction from "./usrAuction/settleAuction";
 import OnAuctionBills from "./usrAuction/onAuctionBills";
 import { useEffect, useState } from "react";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
-import { getAuctionItemInfo } from "./usrAuction/function/getAuctionItemInfo";
+import { getAuctionItemInfo } from "./usrAuction/function/tool/getAuctionItemInfo";
 import { useConnection } from "@solana/wallet-adapter-react";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 
 export interface UsrAuctionProps {
     allAuctionName: string[]
@@ -18,21 +19,23 @@ const UsrAuction: React.FC<UsrAuctionProps> = ({
 
     const {t} = useTranslation()
     const {connection} = useConnection()
+    const {publicKey: usr} = useWalletEnv()
 
     const [settleMap, setSettleMap] = useState<Map<string, NameAuctionState | null> | null>(null)
     const [onAuctionMap, setOnAuctionMap] = useState<Map<string, NameAuctionState | null> | null>(null)
 
     useEffect(() => {
         const fetchMaps = async() => {
+            if(!usr)return
             const infoMaps = await getAuctionItemInfo(
-                connection, allAuctionName
+                connection, allAuctionName, usr
             )
             setOnAuctionMap(infoMaps[0])
             setSettleMap(infoMaps[1])
         }
 
-        fetchMaps()
-    }, [])
+        if(usr)fetchMaps()
+    }, [usr])
 
     return(
         <div className="usrAuction">
@@ -40,7 +43,7 @@ const UsrAuction: React.FC<UsrAuctionProps> = ({
                 <h1>{t("myauction")}</h1>
             </div>
             <div className="linedomain" />
-            <SettleAuction settlingDomain={[]} />
+            <SettleAuction settlingDomain={settleMap} />
             <OnAuctionBills onAuctionBills={onAuctionMap}/>
         </div>
     )

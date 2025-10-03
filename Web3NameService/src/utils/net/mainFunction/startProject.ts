@@ -39,6 +39,8 @@ export async function startProject(
         )
         console.log("name reverse:", web3NameReverseAccountKey.toBase58())
 
+        console.log("vault: ", returnProjectVault().toBase58())
+
         const transactionAccountsStructure: StartProjectInstructionAccounts = {
             systemAccount: SystemProgram.programId,
             nameService: WEB3_NAME_SERVICE_ID,
@@ -52,42 +54,49 @@ export async function startProject(
 
         startProjectTransaction.add(createStartProjectInstruction(transactionAccountsStructure));
 
-        const { blockhash, lastValidBlockHeight} = await connection.getLatestBlockhash()
+        const { blockhash } = await connection.getLatestBlockhash()
         startProjectTransaction.recentBlockhash = blockhash
         startProjectTransaction.feePayer = admin
 
-        const signedTransaction = await signTransaction(startProjectTransaction)
-        const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
-            skipPreflight: false,
-        });
-
-        const simulationResult = await connection.simulateTransaction(signedTransaction);
+        const simulationResult = await connection.simulateTransaction(startProjectTransaction);
         console.log("simulate result", simulationResult);
 
-        const txResult = await connection.confirmTransaction(
-            {
-                signature: transaction,
-                blockhash,
-                lastValidBlockHeight,
-            },
-            "confirmed"
-        );
+        if(simulationResult.value.err === null){
+            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
+            startProjectTransaction.recentBlockhash = blockhash
 
-        console.log("Tx signature:", transaction);
-        console.log("Tx confirm result:", txResult);
+            const signedTransaction = await signTransaction(startProjectTransaction)
+            const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
+                skipPreflight: false,
+            })
 
-        const txInfo = await connection.getTransaction(transaction, {
-            commitment: "confirmed",
-            maxSupportedTransactionVersion: 0,
-        });
+            const txResult = await connection.confirmTransaction(
+                {
+                    signature: transaction,
+                    blockhash,
+                    lastValidBlockHeight,
+                },
+                "confirmed"
+            );
 
-        if (txInfo) {
-            console.log("=== Transaction Logs ===");
-            console.log(txInfo.meta?.logMessages);
-        }
+            console.log("Tx signature:", transaction);
+            console.log("Tx confirm result:", txResult);
 
-        if(String(txResult).includes("success")){
-            solanaToast.show(TransactionState.Success)
+            const txInfo = await connection.getTransaction(transaction, {
+                commitment: "confirmed",
+                maxSupportedTransactionVersion: 0,
+            });
+
+            if (txInfo) {
+                console.log("=== Transaction Logs ===");
+                console.log(txInfo.meta?.logMessages);
+            }
+
+            if(String(txResult).includes("success")){
+                solanaToast.show(TransactionState.Success)
+            }
+        }else{
+            console.log("simulate fail")
         }
     }catch(err){
         console.error("Transaction failed:", err);

@@ -29,23 +29,17 @@ const RentShow: React.FC<RentShowProps> = ({
                             <h2>NULL</h2>
                         </div>
                     }
-                    {(stateRent | recordRent )&&
-                        <div className="rentshowblbetween">
-                            <h1>——RentExemption——</h1>
-                        </div>
-                    }
-                    {stateRent &&
-                        <div className="rentshowbls">
-                            <h1>Auction Account</h1>
-                            <h2>{(stateRent/1e9).toFixed(4)} SOL</h2>
-                        </div>
-                    }
-                    {recordRent &&
-                        <div className="rentshowbls">
-                            <h1>Refferrer Account</h1>
-                            <h2>{(recordRent/1e9).toFixed(4)} SOL</h2>
-                        </div>
-                    }
+                    <div className={`rentshowblbetween ${(stateRent || recordRent)?"":"nodisplay"}`}>
+                        <h1>——RentExemption——</h1>
+                    </div>
+                    <div className={`rentshowbls ${!stateRent&&"nodisplay"}`}>
+                        <h1>Auction Account</h1>
+                        <h2>{(stateRent/1e9).toFixed(4)} SOL</h2>
+                    </div>
+                    <div className={`rentshowbls ${!recordRent&&"nodisplay"}`}>
+                        <h1>Refferrer Account</h1>
+                        <h2>{(recordRent/1e9).toFixed(4)} SOL</h2>
+                    </div>
                 </div>
             )}
         </div>

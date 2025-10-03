@@ -1,0 +1,55 @@
+
+
+.totalfees{
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.registerfee{
+    margin: 10px 0;
+}
+.registerfee h1{
+    font-weight: 600;
+    font-size: 15px;
+    color: white;
+    margin: 0;
+}
+
+.registerrule h1{
+    font-weight: 500;
+    color: #B5B9BF;
+    font-size: 15px;
+    margin: 0;
+}
+
+.cryptototal h1{
+    font-size: 19px;
+}
+.cryptototal h2{
+    font-weight: 600;
+    color: white;
+    font-size: 17px!important;
+}
+
+.cryptoconfirmbutton{
+    height: 60px;
+    background-color: #B4FC75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cryptoconfirmbutton:hover{
+    opacity: 0.9;
+}
+.cryptoconfirmbutton h1{
+    color: black;
+    padding: 0;
+    font-weight: 600;
+}
+
+.cannotclinck{
+    pointer-events: none;
+    background-color: #B5B9BF;
+}
+

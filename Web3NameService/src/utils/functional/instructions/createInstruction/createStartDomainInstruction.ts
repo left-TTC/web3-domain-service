@@ -38,7 +38,7 @@ export interface StartDomainInstructionAccounts {
     superiorReferrerRecord: PublicKey | null, 
 }
 
-export function createDomainInstruction(
+export function createStartDomainInstruction(
     instructionAccounts: StartDomainInstructionAccounts,
     domainName: string,
     rootDomain: string,

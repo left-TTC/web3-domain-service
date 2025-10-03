@@ -115,5 +115,9 @@
     "currentprice": "Current Price",
     "highestbidder": "Leader",
     "settlememtin": "Settlement in",
-    "bidincrement": "Bid Increment"
+    "bidincrement": "Bid Increment",
+    "endin": "Ends in",
+    "finalprice": "Final Price",
+    "customvalue": "Custom Value (Optional)",
+    "final": "Final"    
 }

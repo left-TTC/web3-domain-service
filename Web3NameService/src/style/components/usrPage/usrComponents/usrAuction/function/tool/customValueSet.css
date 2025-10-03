@@ -1,0 +1,57 @@
+
+
+.customValueset{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.titleandattention{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.titleandattention h3{
+    color: #B5B9BF;
+    font-weight: 400;
+    font-size: 17px;
+    margin: 0;
+}
+
+.cutomValueAttetion{
+    width: 20px;
+}
+
+.customvalueinput{
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    width: 70%;
+    margin-top: 15px;
+    height: 40px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    border: 2px solid #B5B9BF;
+}
+.customvalueinput h3{
+    margin-left: 10px;
+}
+
+.customvaluesetinput{
+    outline: none;
+    width: 80%;
+    background-color: black;
+    border: none;
+    color: white;
+    text-align: right;
+    padding: 3px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.inputactive{
+    border-color: #B4FC75;
+}

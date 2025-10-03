@@ -1,7 +1,7 @@
 import { Connection, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, type PublicKey } from "@solana/web3.js";
 
-import { CENTRAL_STATE_REGISTER, INIT_DOMAIN_PRICE, returnProjectVault, WEB3_NAME_SERVICE_ID } from "../../constants/constants";
-import { createDomainInstruction, type StartDomainInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createDomainInstruction";
+import { CENTRAL_STATE_REGISTER, INIT_DOMAIN_PRICE, returnProjectVault, WEB3_NAME_SERVICE_ID } from "../../../constants/constants";
+import { createStartDomainInstruction, type StartDomainInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createStartDomainInstruction";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
@@ -58,7 +58,8 @@ export async function startWeb3DomainAuction(
             const nameState = new NameRecordState(nameAccountInfo)
             domainPrice = nameState.customPrice
         }else {
-            throw new Error("domain account error")
+            // maybe init but not settle
+            domainPrice = new Numberu64(INIT_DOMAIN_PRICE)
         }
     }else{
         nameStateRentPayer = feePayer;
@@ -72,7 +73,7 @@ export async function startWeb3DomainAuction(
     }
     console.log("superiorReferrerRecord: ", superiorReferrerRecord?.toBase58())
 
-    const createDomainInstructionAccounts: StartDomainInstructionAccounts = {
+    const createStartDomainInstructionAccounts: StartDomainInstructionAccounts = {
         nameService: WEB3_NAME_SERVICE_ID,
         rootDomainAccount: rootDomainAccountKey,
         name: domainNameAccountKey,
@@ -90,8 +91,8 @@ export async function startWeb3DomainAuction(
         superiorReferrerRecord: superiorReferrerRecord,
     }
 
-    const transactionInstruction = createDomainInstruction(
-        createDomainInstructionAccounts,
+    const transactionInstruction = createStartDomainInstruction(
+        createStartDomainInstructionAccounts,
         domain,
         rootDomain,
         domainPrice,

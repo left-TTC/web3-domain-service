@@ -31,7 +31,7 @@ const CreateDomainSettleBills: React.FC<CreateDomainSettleBillsProps> = ({
                 <div className="registerrule">
                     <h1>{t("Startde")}</h1>
                 </div>
-                <h1>$ {(price/1e6 * depositRatio).toFixed(3)} ({solPrice? `${(solPrice * price /1e6 *  depositRatio).toFixed(4)} SOL`:"Loading"})</h1>
+                <h1>$ {(price/1e6 * depositRatio).toFixed(3)} ({solPrice? `${(price/1e6 * depositRatio * solPrice).toFixed(4)} SOL`:"Loading"})</h1>
             </div>
             <RentShow ifCalculating={ifRentCalculating} stateRent={nameStateRent} recordRent={refferrerRecordRent} />
 

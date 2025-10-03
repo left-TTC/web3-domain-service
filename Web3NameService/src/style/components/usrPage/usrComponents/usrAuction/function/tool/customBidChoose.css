@@ -48,7 +48,7 @@
 .custominput{
     width: calc(100% - 20px);
     height: 100%;
-    background-color: #081328;
+    background-color: black;
     border: none;
     outline: none;
     color: white;
@@ -67,4 +67,18 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+.confirmusecustom{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    padding: 0;
+    border: 2px solid white;
+    background-color: #B5B9BF;
+    margin-left: 5px;
+}
+
+.usecusom{
+    background-color: #B4FC75;
 }

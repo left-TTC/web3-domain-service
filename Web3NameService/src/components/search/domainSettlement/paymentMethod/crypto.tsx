@@ -88,6 +88,7 @@ const Crypto: React.FC<CryptoProps> = ({
 
     const [depositRatio, setDepositRatio] = useState(0)
     useEffect(() => {
+        console.log(domainInfo)
         if(domainInfo){
             setDepositRatio(0.05)
         }else setDepositRatio(0.1)
@@ -97,6 +98,7 @@ const Crypto: React.FC<CryptoProps> = ({
     useEffect(() => {
         if(!calculating && solPrice){
             //means calculating over
+            console.log("ratio: ", depositRatio, domainPrice)
             const domainDepositPriceSol = domainPrice * depositRatio * 1e3 * solPrice;
             setTotalPrice(domainDepositPriceSol + refferrerRecordRent + nameStateRent)
         }

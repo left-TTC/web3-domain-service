@@ -14,8 +14,6 @@ export async function findCreatingRoot(
 
     const accounts = await getCreatingRootAccounts(connection);
 
-    console.log(accounts[0].toBase58())
-
     let states: rootStateAccount[] = [];
     for(const info of await connection.getMultipleAccountsInfo(accounts)){
         if(info){
