@@ -84,7 +84,6 @@ export async function startWeb3DomainAuction(
         feePayer: feePayer,
         pythFeedAccount: returnPythFeedAccount(SupportedMint.SOL),
         rentSysvar: SYSVAR_RENT_PUBKEY,
-        refferrer: refferrer,
         refferrerRecord: usrRefferrerRecord,
         vault: returnProjectVault(),
         rentPayer: nameStateRentPayer,
@@ -93,6 +92,7 @@ export async function startWeb3DomainAuction(
 
     const transactionInstruction = createStartDomainInstruction(
         createStartDomainInstructionAccounts,
+        refferrer,
         domain,
         rootDomain,
         domainPrice,

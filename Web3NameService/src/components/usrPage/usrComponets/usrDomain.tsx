@@ -11,11 +11,18 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import DomainBlock, { SortStyle } from "./usrDomain/domainBlock";
+import { atomWithStorage } from "jotai/utils";
+import { useAtom } from "jotai";
 
 
 export interface UsrDomainProps{
     domainNumber: number,
 }
+
+export const usrPreferShow = atomWithStorage<SortStyle>(
+    "usrSortShow",
+    SortStyle.Simple
+) 
 
 const UsrDomain: React.FC<UsrDomainProps> = ({
     domainNumber
@@ -36,26 +43,22 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
     useEffect(() => {
         if(!wallet || !activeRootDomain) return
         const fetchUsrDomains = async() => {
-            const usrDomains = await getUsrDomains(
-                connection, wallet, getNameAccountKey(getHashedName(activeRootDomain))
-            )
-            console.log("mydomain:", usrDomains)
-            setUsrDomains(usrDomains)
+            // const usrDomains = await getUsrDomains(
+            //     connection, wallet, getNameAccountKey(getHashedName(activeRootDomain))
+            // )
+            // setUsrDomainLoaded(true)
+            // console.log("mydomain:", usrDomains)
+            // setUsrDomains(usrDomains)
+            setUsrDomainLoaded(true)
+            setUsrDomains(["aaa.web3", "aa1.web3", "2.web3", "3.web3", "4.web3", "5.web3", "6.web3", "7.web3", "8.web3", ])
         }
 
         fetchUsrDomains()
     }, [wallet, activeRootDomain])
 
-    const [sortStyle, setSortStyle] = useState<SortStyle>(SortStyle.Two)
+    
 
-    useEffect(() => {
-        const length = usrDomains.length;
-        if (length <= 10) {
-            setSortStyle(SortStyle.Two);
-        } else{
-            setSortStyle(SortStyle.Three);
-        }
-    }, [usrDomains]);
+    const [showWay, setShowWay] = useAtom(usrPreferShow)
 
     return(
         <div className="usrdomain">
@@ -69,27 +72,33 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
                 setDomainFilter={setSortType}
                 sortWay={sortWay}
                 setSortWay={setSortWay}
+                nowShowWay={showWay}
+                setShowWay={setShowWay}
             />
             <div className="mydomainsbl">
-                {(usrDomains.length === 0)? 
+                {
+                usrDomainLoaded? (
+                    usrDomains.length === 0? 
                     <div className="mydomainblno">
                         <h1>{t("nodomain")}</h1>
                     </div> 
                     :
                     <div className={`mydomainblco ${
-                        sortStyle === SortStyle.Two
-                            ? "onelinetwo"
-                            : "onlinethree"
+                        showWay === SortStyle.Detail
+                            ? "detailShow"
+                            : "simpleShow"
                     }`}>
-                        {usrDomains.map(usrDomain => (
-                            <div key={usrDomain} className="mydomaincontent">
-                                <DomainBlock 
-                                    domainName={usrDomain}
-                                    sortStyle={sortStyle}    
-                                />
-                            </div>
+                        {usrDomains.map((usrDomain, index) => (
+                            <DomainBlock 
+                                key={index}
+                                domainName={usrDomain}
+                                sortStyle={showWay}    
+                            />
                         ))}
                     </div>
+                    ):(
+                        <div className="loaingusrDomain" />
+                    )
                 }
             </div>
         </div>

@@ -119,5 +119,10 @@
     "endin": "Ends in",
     "finalprice": "Final Price",
     "customvalue": "Custom Value (Optional)",
-    "final": "Final"    
+    "final": "Final",
+    "configure": "Configure",
+    "participate": "This domain is currently being auctioned. The current price is more likely to be different from the final price. Click to follow this domain. You can view and bid on it in \"My Domains\"",
+    "keep": "The current domain name has been auctioned. You can wait for the settlement time to pass and then bid it from the owner, or start the auction at the starting price after the bidder gives up.",
+    "joinin": "Follow",
+    "waiting": "Need to Wait"    
 }

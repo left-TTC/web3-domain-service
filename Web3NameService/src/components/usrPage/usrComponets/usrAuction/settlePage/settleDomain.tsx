@@ -2,7 +2,7 @@ import Back from "@/components/common/functional/back";
 import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettlement/choosePayment";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { useState } from "react";
-import SettleDomainCrypto from "./function/settleDomainCrypto";
+import SettleDomainCrypto from "../function/settleDomainCrypto";
 
 
 

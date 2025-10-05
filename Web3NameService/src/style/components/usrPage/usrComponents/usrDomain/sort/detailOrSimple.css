@@ -1,0 +1,30 @@
+
+
+.detailorsimple{
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    background-color: #2B2F3C;
+    padding: 4px;
+    height: calc(100% - 4px);
+    border-radius: 8px;
+}
+
+.sortShowone{
+    background-color: #2B2F3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.activeSort{
+    background-color: #B4FC75;
+}
+
+.detailsortimg{
+    width: 20px;
+}
+
+.simpleSortimg{
+    width: 25px;
+}

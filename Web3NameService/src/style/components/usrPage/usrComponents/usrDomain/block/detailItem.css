@@ -1,0 +1,56 @@
+
+
+.detaildomainitem{
+    height: 90px;
+    margin-top: 10px;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detailitem{
+    margin-left: 10px;
+}
+
+.detailitemline{
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background-color: white;
+    opacity: 0.8;
+    filter: blur(1px);
+}
+
+.detailfuction{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.detailimg{
+    color: gray;
+    opacity: 0.8;
+    width: 33px;
+}
+.detailprice{
+    width: 35px;
+}
+.detailsale{
+    width: 30px;
+}
+
+.detailToopensetting{
+    width: 150px;
+    margin-right: 20px;
+    background-color: #B4FC75;
+}
+.detailToopensetting h1{
+    font-size: 18px;
+    padding: 3px 0;
+    margin: 0;
+    color: black;
+}

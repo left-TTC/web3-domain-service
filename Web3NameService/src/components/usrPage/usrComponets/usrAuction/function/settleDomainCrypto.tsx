@@ -12,6 +12,9 @@ import "@/style/components/usrPage/usrComponents/usrAuction/function/settleDomai
 import { toTokenPerUsd } from "@/utils/functional/common/number/toTokenPerUsd";
 import { NAME_RECORD_LENGTH } from "@/utils/functional/common/class/nameRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
+import { settleDomain } from "./settleDomain";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 
 export interface SettleDomainCryptoProps{
     nameState: NameAuctionState,
@@ -26,6 +29,8 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
     const {t} = useTranslation()
     const {connection} = useConnection()
     const {price, expo} = usePrice()
+    const {publicKey: usr, signTransaction} = useWalletEnv()
+    const solanaToast = useSolanaToast()
 
     const [chooseMint, setChooseMint] = useState<SupportedMint>(SupportedMint.SOL)
 
@@ -65,6 +70,12 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
 
     const [domainCustomValue, setDomainCustomValue] = useState<number | null>(null)
 
+    const settleAuctionDomain = async() => {
+        await settleDomain(
+            signTransaction, usr, solanaToast, connection, nameState, extireDomainName, totalLamports!, domainCustomValue
+        )
+    } 
+
     return(
         <div className="settlePriceCrypto">
             <div className="launchfeeway">
@@ -83,7 +94,7 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
                 />
             </div>
             <SettleDomainBills 
-                confirmFunction={() => {}}
+                confirmFunction={() => settleAuctionDomain()}
                 domainPrice={nameState.highestPrice.toNumber()}
                 domainPriceLamports={domainPriceLamport}
                 rentExemption={rentExemption}

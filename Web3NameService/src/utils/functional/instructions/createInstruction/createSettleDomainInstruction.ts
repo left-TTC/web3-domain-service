@@ -1,7 +1,8 @@
-import type { PublicKey, TransactionInstruction } from "@solana/web3.js";
+import { PublicKey, TransactionInstruction } from "@solana/web3.js";
 import { Web3DomainRegistrarInstruction } from "../instruction";
 import { Numberu32 } from "../../common/number/number32";
 import { Numberu64 } from "../../common/number/number64";
+import { WEB3_REGISTER_ID } from "@/utils/constants/constants";
 
 
 
@@ -27,7 +28,7 @@ export interface CreateSettleDomainInstructionAccounts {
     /// rent sysvar
     rentSysvar: PublicKey,
     /// name account owner -- if init the name, this is unuseless
-    nameOwner: PublicKey | null,
+    nameOwner: PublicKey,
     /// usr's refferrer record account
     refferrerRecord: PublicKey,
     /// usr's refferrer
@@ -39,7 +40,7 @@ export interface CreateSettleDomainInstructionAccounts {
     /// B's refferrer record account -- if B.key != vault
     refferrerBRecord: PublicKey | null,
     /// B's refferrer -- C (if refferrerBRecord is exsited, this must be exsited too)
-    refferrerC: PublicKey,
+    refferrerC: PublicKey | null,
 }
 
 export function createSettleDomainInstruction(
@@ -51,7 +52,8 @@ export function createSettleDomainInstruction(
     const buffers = [
         Buffer.from(Uint8Array.from([Web3DomainRegistrarInstruction.SettleName])),
         new Numberu32(Buffer.from(domainName).length).toBuffer(),
-        Buffer.from(domainName, 'utf-8')
+        Buffer.from(domainName, 'utf-8'),
+        Buffer.from(Uint8Array.from([customDomainPrice ? 1 : 0])),
     ];
 
     if (customDomainPrice) {
@@ -78,8 +80,73 @@ export function createSettleDomainInstruction(
 
         { pubkey: transactionAccounts.nameOwner, isSigner: false, isWritable: false },
         { pubkey: transactionAccounts.refferrerRecord, isSigner: false, isWritable: false },
-        { pubkey: transactionAccounts.refferrerA, isSigner: false, isWritable: false },
+        { pubkey: transactionAccounts.refferrerA, isSigner: false, isWritable: true },
     ];
 
-    if(transactionAccounts.)
+    let canInsert = true
+
+    if(transactionAccounts.refferrerARecord && canInsert){
+        keys.push({
+            pubkey: transactionAccounts.refferrerARecord,
+            isSigner: false,
+            isWritable: false
+        })
+    } else {
+        keys.push({
+            pubkey: PublicKey.default,
+            isSigner: false,
+            isWritable: false,
+        });
+        canInsert = false
+    }
+
+    if(canInsert && transactionAccounts.refferrerB){
+        keys.push({
+            pubkey: transactionAccounts.refferrerB,
+            isSigner: false,
+            isWritable: true
+        })
+    } else {
+        keys.push({
+            pubkey: PublicKey.default,
+            isSigner: false,
+            isWritable: false,
+        });
+        canInsert = false
+    }
+
+    if(canInsert && transactionAccounts.refferrerBRecord){
+        keys.push({
+            pubkey: transactionAccounts.refferrerBRecord,
+            isSigner: false,
+            isWritable: false
+        })
+    } else {
+        keys.push({
+            pubkey: PublicKey.default,
+            isSigner: false,
+            isWritable: false,
+        });
+        canInsert = false
+    }
+
+    if(canInsert && transactionAccounts.refferrerC){
+        keys.push({
+            pubkey: transactionAccounts.refferrerC,
+            isSigner: false,
+            isWritable: true
+        })
+    } else {
+        keys.push({
+            pubkey: PublicKey.default,
+            isSigner: false,
+            isWritable: false,
+        });
+    }
+
+    return new TransactionInstruction({
+        programId: WEB3_REGISTER_ID,
+        keys,
+        data,
+    });
 }

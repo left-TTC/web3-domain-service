@@ -14,9 +14,10 @@ export async function increaseBidNum(
     extireDomain: string,
     totalLamports: number,
     newDomainPrice: number,
+    refferrerKey: PublicKey | null,
 ): Promise<void> {
 
-    if(!wallet || !signTransaction){
+    if(!wallet || !signTransaction || !refferrerKey){
         solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
         return
@@ -32,8 +33,8 @@ export async function increaseBidNum(
         const increaseBidNumTransaction = new Transaction()
 
         increaseBidNumTransaction.add(
-            increaseDomainBid(
-                extireDomain, newDomainPrice, wallet, domainNameState.highestBidder
+            await increaseDomainBid(
+                extireDomain, newDomainPrice, connection, wallet, domainNameState.highestBidder, refferrerKey
             )
         )
 

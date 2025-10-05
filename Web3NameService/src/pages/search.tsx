@@ -14,6 +14,9 @@ import DomainSettlement from "@/components/search/domainSettlement/domainSettlem
 import Back from "@/components/common/functional/back";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
+import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
+import { getDomainTimeState, type DomainState } from "@/utils/functional/common/time/getDomainTimeState";
 
 export function Search() {
 
@@ -26,6 +29,8 @@ export function Search() {
 
     const [domainBlock, setDomainBlock] = useState<string[] | null> (null)
     const [queryDomainInfo, setQueryDomainInfo] = useState<NameRecordState | null>(null)
+
+    const [domainAuctionState, setDomainAuctionState] = useState<NameAuctionState | null>(null)
     
     const [isDomainInfoLoaded, setIsDomainInfoLoaded] = useState(false)
     const [domainStartPrice, setDomainStartPrice] = useState<number | null>(null)
@@ -53,8 +58,20 @@ export function Search() {
         const fetchDomainInfo = async() => {
             if((!domainBlock)) return;
 
-            const rootDomainKey = getNameAccountKey(getHashedName(domainBlock[domainBlock.length - 1]))
+            const rootDomainKey = getNameAccountKey(getHashedName(domainBlock[1]))
             const accountInfo = await getQueryDomainInfo(domainBlock, rootDomainKey, connection);
+
+            const nameAuctionStateKey = getNameStateKey(getHashedName(domainBlock[0]), rootDomainKey)
+            const auctionStateInfo = await connection.getAccountInfo(nameAuctionStateKey)
+            if(auctionStateInfo){
+                try{
+                    setDomainAuctionState(new NameAuctionState(auctionStateInfo))
+                }catch(err){
+                    console.log(err)
+                }
+            }else{
+                setDomainAuctionState(null)
+            }
 
             setIsDomainInfoLoaded(true)
             setQueryDomainInfo(accountInfo[0])
@@ -78,6 +95,7 @@ export function Search() {
                     ifDomainInfoLoaded={isDomainInfoLoaded}
                     openDomainSettle={() => setShowSaleDomain(true)}
                     domainPrice={domainStartPrice}
+                    domainAuctionState={domainAuctionState}
                 />
             </div>
             {showSaleDomain &&

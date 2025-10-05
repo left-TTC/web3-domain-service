@@ -17,26 +17,26 @@ export async function findUsrBiddingDomain(
 
     // find usr's auctioning domain
 
-    const filters = {
-        dataSlice: {offset: 0, length: 0},
-        filters: [
-            {dataSize: 80},
-            {
-                memcmp: {
-                    offset: 0, 
-                    bytes: usr.toBase58(),
-                },
-            }
-        ]
-    }
+    const filters = [
+        { dataSize: 80 },
+        {
+            memcmp: {
+            offset: 0,
+            bytes: usr.toBase58(),
+            },
+        },
+    ];
 
-    const biddingDomainAccounts = await connection.getProgramAccounts(WEB3_REGISTER_ID, filters)
+    const biddingDomainAccounts = await connection.getProgramAccounts(WEB3_REGISTER_ID, {filters})
 
     let validAccounts: PublicKey[] = []
     for(const biddingAccount of biddingDomainAccounts){
         const accountState = new NameAuctionState(biddingAccount.account)
 
-        switch(getDomainTimeState(accountState)){
+        console.log("check one")
+        const timeState = getDomainTimeState(accountState)
+
+        switch(timeState){
             case DomainState.Auctioning:
                 validAccounts.push(biddingAccount.pubkey)
                 break;
@@ -46,6 +46,8 @@ export async function findUsrBiddingDomain(
             default: break
         }
     }
+
+    console.log("valid accounts length: ", validAccounts.length)
 
     let biddingDomain: string[] = []
     let reverseKeys: PublicKey[] = []

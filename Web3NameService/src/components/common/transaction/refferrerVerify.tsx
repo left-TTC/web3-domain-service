@@ -6,7 +6,7 @@ import "@/style/components/commonStyle/transaction/refferrerVerify.css"
 import { useConnection } from "@solana/wallet-adapter-react";
 import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import { REFFERRER_RECORD_LENGTH, RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
+import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
 
 import loading from "@/assets/loading.svg"
 import valid from "@/assets/valid.svg"

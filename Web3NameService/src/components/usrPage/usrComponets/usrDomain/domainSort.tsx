@@ -1,6 +1,9 @@
 import "@/style/components/usrPage/usrComponents/usrDomain/domainSort.css"
 import AllMyDomain, { MyDomainFilter } from "./sort/allMyDomain";
 import SortMyDomain, { SortWay } from "./sort/sortMyDomain";
+import SearchMyDomain from "./sort/searchMyDomain";
+import DetailOrSimple from "./sort/detailOrSimple";
+import type { SortStyle } from "./domainBlock";
 
 
 export interface DomainSortProps{
@@ -9,10 +12,12 @@ export interface DomainSortProps{
     setDomainFilter: React.Dispatch<React.SetStateAction<MyDomainFilter>>,
     sortWay: SortWay,
     setSortWay: React.Dispatch<React.SetStateAction<SortWay>>,
+    nowShowWay: SortStyle,
+    setShowWay: React.Dispatch<React.SetStateAction<SortStyle>>,
 }
 
 const DomainSort: React.FC<DomainSortProps> = ({
-    domainNumber, domainFilter, setDomainFilter, sortWay, setSortWay
+    domainNumber, domainFilter, setDomainFilter, sortWay, setSortWay, nowShowWay, setShowWay
 }) => {
 
 
@@ -30,7 +35,11 @@ const DomainSort: React.FC<DomainSortProps> = ({
                 />
             </div>
             <div className="sortsearchbl">
-
+                <SearchMyDomain />
+                <DetailOrSimple 
+                    nowShowWay={nowShowWay}
+                    setShowWay={setShowWay}
+                />
             </div>
         </div>
     )

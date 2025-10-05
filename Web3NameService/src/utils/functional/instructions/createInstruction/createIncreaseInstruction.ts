@@ -21,12 +21,19 @@ export interface CreateIncreaseInstructionAccounts {
     /// last bidder -- returm the deposit
     lastBidderKey: PublicKey,
     /// vault
-    vault: PublicKey
+    vault: PublicKey,
+    /// usr's refferrer record account
+    refferrerRecord: PublicKey,
+    /// refferrer's refferrer record
+    superiorRefferrerRecord: PublicKey | null,
+    /// rent -- if the usr need create the record
+    rent: PublicKey | null,
 }
 
 export function createIncreaseInstruction(
     transactionAccounts: CreateIncreaseInstructionAccounts,
 
+    refferrerKey: PublicKey,
     myPrice: number, // origin + bid increment
     domainName: string // cutted domain
 ): TransactionInstruction {
@@ -35,6 +42,7 @@ export function createIncreaseInstruction(
         new Numberu32(Buffer.from(domainName).length).toBuffer(),
         Buffer.from(domainName, 'utf-8'),
         new Numberu64(myPrice).toBuffer(),
+        refferrerKey.toBuffer()
     ];
 
     const data = Buffer.concat(buffers)

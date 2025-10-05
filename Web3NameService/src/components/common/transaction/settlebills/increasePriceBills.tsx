@@ -10,11 +10,12 @@ export interface IncreasePriceSettleBills {
     totalLamports: number | null,
     ratio: number | null,
     originalNumber: number,
+    ifRefferrerValid: boolean,
 }
 
 
 const IncreasePriceSettleBills: React.FC<IncreasePriceSettleBills> = ({
-    confirmFunction, totalDecimals, totalLamports, ratio, originalNumber
+    confirmFunction, totalDecimals, totalLamports, ratio, originalNumber, ifRefferrerValid
 }) => {
 
     const {t} = useTranslation()
@@ -22,12 +23,12 @@ const IncreasePriceSettleBills: React.FC<IncreasePriceSettleBills> = ({
     const [canBeConfirm, setCanBeConfirm] = useState(false)
 
     useEffect(() => {
-        if(ratio && totalLamports){
+        if(ratio && totalLamports && ifRefferrerValid){
             if(totalDecimals > originalNumber){
                 setCanBeConfirm(true)
             }else setCanBeConfirm(false)
         }else setCanBeConfirm(false)
-    }, [ratio, totalLamports])
+    }, [ratio, totalLamports, ifRefferrerValid])
 
     return(
         <div className="totalfees">

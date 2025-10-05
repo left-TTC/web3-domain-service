@@ -58,6 +58,23 @@
     color: #B4FC75;;
 }
 
+.ownerShowword{
+    margin-top: 5px; 
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 15px;
+}
+.ownerShowword h1{
+    font-size: 15px;
+    font-weight: 600;
+}
+.ownerShowword a{
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 .ungis{
     padding: 10px;
 }

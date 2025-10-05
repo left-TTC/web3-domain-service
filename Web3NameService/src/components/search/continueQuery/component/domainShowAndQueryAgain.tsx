@@ -11,23 +11,25 @@ import { useTranslation } from "react-i18next";
 import { cutString } from "@/utils/functional/common/cutString";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getDomainFeatures } from "@/utils/functional/domain/getDomainFeatures";
+import { DomainState } from "@/utils/functional/common/time/getDomainTimeState";
 
 export interface DomainShowAndQueryAgainProps {
     domainInfo: NameRecordState | null,
     ifDomainInfoLoaded: boolean,
     domainName: string,
     domainPrice: number | null,
+    domainSaleState: DomainState | null,
 }
 
 const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
-    ifDomainInfoLoaded, domainInfo, domainName, domainPrice
+    ifDomainInfoLoaded, domainInfo, domainName, domainPrice, domainSaleState
 }) => {
 
     const {t} = useTranslation()
 
     const [domainFeatures, setDomainFeatures] = useState<string[]>([])
     useEffect(() => {
-        setDomainFeatures(getDomainFeatures(cutDomain(domainName), domainInfo?.customPrice.toNumber()))
+        setDomainFeatures(getDomainFeatures(cutDomain(domainName), domainInfo?.customPrice.toNumber(), domainSaleState))
     }, [])
 
     return(
@@ -46,9 +48,10 @@ const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
                         </div>
                     </div>
                     {domainInfo? (
-                        <h1>Owned by 
-                            <a href="#">{cutString(domainInfo.owner.toBase58(), 5, 5, "...")}</a>
-                        </h1>
+                        <div className="ownerShowword">
+                            <h1> Owned by </h1>
+                            <a href="#">{cutString(domainInfo.owner.toBase58(), 8, 8, "...")}</a>
+                        </div>
                     ):(
                         <div className="ungis">
                             <a href="#">{t("unregis")}</a>

@@ -1,17 +1,43 @@
 import { useTranslation } from "react-i18next";
 
 import "@/style/components/search/continueQuery/components/registerDomainPixel.css"
+import { DomainState } from "@/utils/functional/common/time/getDomainTimeState";
 
 export interface RegisterDomainPixelProps {
     ifDomainInfoLoaded: boolean,
     openSettlePage: () => void,
+    domainSaleState: DomainState | null,
 }
 
 const RegisterDomainPixel: React.FC<RegisterDomainPixelProps> = ({
-    ifDomainInfoLoaded, openSettlePage,
+    ifDomainInfoLoaded, openSettlePage, domainSaleState
 }) => {
 
     const {t} = useTranslation()
+
+    const returnAttetionContent = () => {
+        if(domainSaleState === null) return t("domainattention")
+        switch(domainSaleState){
+            case DomainState.Auctioning: 
+                return t("participate")
+            case DomainState.Saling:
+                return t("domainattention")
+            case DomainState.Settling:
+                return t("keep")
+        }
+    }
+
+    const returnButtonWord = () => {
+        if(domainSaleState === null) return t("confirm")
+        switch(domainSaleState){
+            case DomainState.Auctioning: 
+                return t("joinin")
+            case DomainState.Saling:
+                return t("confirm")
+            case DomainState.Settling:
+                return t("waiting")
+        }
+    }
 
     return(
         <div className={`showtheaccountInfo ${ifDomainInfoLoaded? "":"infoloadinganimate"}`}>
@@ -19,10 +45,13 @@ const RegisterDomainPixel: React.FC<RegisterDomainPixelProps> = ({
              <div className="showcoountinfocontent">
                 <div className="domainattention">
                     <h1>{t("attention")}:</h1>
-                    <h2>{t("domainattention")}</h2>
+                    <h2>{returnAttetionContent()}</h2>
                 </div>
-                <button className="confrimcreatedomain pixel" onClick={() => openSettlePage()}>
-                    <h1>{t("confirm")}</h1>
+                <button 
+                    className={`confrimcreatedomain  ${domainSaleState===DomainState.Settling? "cantconfirm" : "pixel"}`} 
+                    onClick={() => openSettlePage()}
+                >
+                    <h1>{returnButtonWord()}</h1>
                 </button>
              </div>
              }

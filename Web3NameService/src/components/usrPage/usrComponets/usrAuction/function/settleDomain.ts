@@ -22,6 +22,12 @@ export async function settleDomain(
         return
     }
 
+    if(domainNameState.highestBidder.toBase58() != wallet.toBase58()){
+        solanaToast.show(TransactionState.Error)
+        console.log("wallet error")
+        return
+    }
+
     const settelDomainTransactionId = await showCheckSolBalance(
             solanaToast, wallet, connection, totalLamports
         )
@@ -33,7 +39,7 @@ export async function settleDomain(
 
         settelDomainTransaction.add(
             await settleAuctionDomain(
-                extireDomain
+                extireDomain, connection, wallet, customDomainPrice
             )
         )
 

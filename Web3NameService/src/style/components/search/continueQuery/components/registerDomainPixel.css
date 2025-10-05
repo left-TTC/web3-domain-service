@@ -84,6 +84,14 @@
     transform: translateY(2px) translateX(2px); 
 }
 
+.cantconfirm{
+    pointer-events: none;
+    background-color: #434C52;
+}
+.cantconfirm h1{
+    color: white;
+}
+
 /*common computer*/
 @media (min-width: 1024px){
     

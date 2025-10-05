@@ -46,10 +46,18 @@ const SettleAuction: React.FC<SettleAuctionProps> = ({
                     <img src={array} className="settlearray" />
                 </div>
             </div>
-            {showTheBills && 
-                <OnSettlementItem
-                    test={a}
-                />
+            {showTheBills ? 
+                (billsName.map((billName, index) => (
+                    <OnSettlementItem 
+                        key={index}
+                        itemName={billName} 
+                        settleState={settlingDomain!.get(billName)!} 
+                    />
+                ))) : (
+                    <div className="onAuctionItem">
+
+                    </div>
+                )
             }
         </div>
     )

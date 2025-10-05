@@ -1,0 +1,62 @@
+
+
+
+.simpleitem{
+    height: 180px;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    border-radius: 10px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.simpleitem:hover{
+    opacity: 0.7;
+}
+
+.CardOne{
+    background: linear-gradient(135deg, #2E026D 0%, #151A5B 50%, #0F766E 100%);
+}
+.CardTwo{
+    background: linear-gradient(135deg, #111827 0%, #0F766E 100%);
+}
+.CardThree{
+    background: radial-gradient(circle at top right, #1E3A8A 0%, #0F172A 80%);
+}
+
+.simpleitem h1{
+    font-size: 20px;
+    color: white;
+    font-size: 18px;
+    z-index: 20;
+}
+
+.ipfsFlag{
+    position: absolute;
+    opacity: 0.2;
+    width: 120px;
+    z-index: 10;
+}
+.true{
+    opacity: 0.5;
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 2px #3B82F6)
+                drop-shadow(0 0 2px #3B82F6);
+        opacity: 1;
+    }
+    50% {
+        filter: drop-shadow(0 0 0px #3B82F6);
+        opacity: 0.6;
+    }
+}
+
+.ipfsFlag.true {
+    animation: glow 3s ease-in-out infinite;
+}
+

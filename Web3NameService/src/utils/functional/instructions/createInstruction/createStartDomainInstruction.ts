@@ -26,8 +26,6 @@ export interface StartDomainInstructionAccounts {
     pythFeedAccount: PublicKey,
     /// rent sysvar
     rentSysvar: PublicKey,
-    /// refferrer
-    refferrer: PublicKey,
     /// refferrer record -- the account that record usr's refferrer
     refferrerRecord: PublicKey,
     /// vault
@@ -40,6 +38,7 @@ export interface StartDomainInstructionAccounts {
 
 export function createStartDomainInstruction(
     instructionAccounts: StartDomainInstructionAccounts,
+    refferrerKey: PublicKey,
     domainName: string,
     rootDomain: string,
     domainPrice: Numberu64,
@@ -50,7 +49,8 @@ export function createStartDomainInstruction(
         Buffer.from(domainName, 'utf8'),
         new Numberu32(Buffer.from(rootDomain).length).toBuffer(),
         Buffer.from(rootDomain, 'utf8'),
-        domainPrice.toBuffer()
+        domainPrice.toBuffer(),
+        refferrerKey.toBuffer(),  
     ];
 
     const data = Buffer.concat(buffers)
@@ -70,7 +70,6 @@ export function createStartDomainInstruction(
         { pubkey: instructionAccounts.pythFeedAccount, isSigner: false, isWritable: false },
 
         { pubkey: instructionAccounts.rentSysvar, isSigner: false, isWritable: false },
-        { pubkey: instructionAccounts.refferrer, isSigner: false, isWritable: false },
         { pubkey: instructionAccounts.refferrerRecord, isSigner: false, isWritable: true },
         { pubkey: instructionAccounts.vault, isSigner: false, isWritable: true },
         { pubkey: instructionAccounts.rentPayer, isSigner: false, isWritable: false },

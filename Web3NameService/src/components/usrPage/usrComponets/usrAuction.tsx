@@ -44,7 +44,7 @@ const UsrAuction: React.FC<UsrAuctionProps> = ({
             </div>
             <div className="linedomain" />
             <SettleAuction settlingDomain={settleMap} />
-            <OnAuctionBills onAuctionBills={onAuctionMap}/>
+            <OnAuctionBills onAuctionBills={settleMap}/>
         </div>
     )
 }

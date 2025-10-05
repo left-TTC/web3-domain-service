@@ -14,6 +14,8 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { increaseBidNum } from "./increaseBidNum";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
+import RefferrerVerify from "@/components/common/transaction/refferrerVerify";
+import { PublicKey } from "@solana/web3.js";
 
 export interface IncreasePriceCryptoProps{
     nameState: NameAuctionState,
@@ -91,8 +93,12 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
             extireDomainName,
             totalFeeSol! * 1e9,
             totalFee,
+            refferrerKey
         )
     } 
+
+    const [refferrerKey, setRefferrerKey] = useState<PublicKey | null>(null)
+    const [refferrerValid, setRefferrerValid] = useState(false)
 
     return(
         <div className="IncreasePriceCrypto">
@@ -139,6 +145,14 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
                         <div className="pricecheckline" />
                     </div>
                 </div>
+                <div className="increaseRefferrerVerfify">
+                    <h3>{t("Refferer")}:</h3>
+                    <RefferrerVerify
+                        setRefferrerKey={setRefferrerKey}
+                        setReffererValid={setRefferrerValid}
+                        ifRefferValid={refferrerValid}
+                    />
+                </div>
             </div>
             <IncreasePriceSettleBills 
                 confirmFunction={increaseBidNumConfrim} 
@@ -146,6 +160,7 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
                 totalLamports={totalFeeSol}
                 ratio={depositRatio}
                 originalNumber={nameState.highestPrice.toNumber()}
+                ifRefferrerValid={refferrerValid}
             />
         </div>
     )
