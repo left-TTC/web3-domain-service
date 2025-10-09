@@ -10,7 +10,7 @@ export const WEB3_NAME_SERVICE_ID = new PublicKey(
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
-    "Fvsk2JxGzcaaEL4eh4nZpWZjXT5XsD3dK2PpxqmbFbDv"
+    "67rgrXvFjXRmWXGcMZjtgp6Ys3KwjagssKmSNbfWaAQu"
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
@@ -20,10 +20,6 @@ export const WEB3_REGISTER_ID = new PublicKey(
 export const ADMIN = new PublicKey(
     "DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx"
 )
-
-export const TOKEN_PROGRAM_ID = new PublicKey(
-    'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'
-);
 
 export const [CENTRAL_STATE_RECORDS] = PublicKey.findProgramAddressSync(
     [WEB3_RECORDS_ID.toBuffer()],

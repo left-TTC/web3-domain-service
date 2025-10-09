@@ -8,17 +8,18 @@ import { getCardStyleFromName } from "./function/getCardStyleFromName"
 export interface SimpleItemProps {
     itemName: string,
     ipfsAble: boolean,
+    openDomainSet: () => void,
 }
 
 const SimpleItem: React.FC<SimpleItemProps> = ({
-    itemName, ipfsAble
+    itemName, ipfsAble, openDomainSet
 }) => {
 
 
     return(
         <div 
             className={`simpleitem ${ipfsAble? getCardStyleFromName(itemName):""}`}
-            onClick={() => {}}    
+            onClick={() => {openDomainSet()}}    
         >
             <h1>{itemName}</h1>
             {ipfsAble?

@@ -1,0 +1,23 @@
+
+
+.SetCustomPriceCryptoine{
+    width: 100%;
+    margin: 20px 0;
+    background-color: white;
+    height: 1px;
+    filter: blur(1px);
+}
+
+.CustomSetPage{
+    margin-top: 10px;
+}
+
+.SetCustomPriceCrypto{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 280px;
+    width: 100%;
+    gap: 40px;
+    margin-top: 20px;
+}

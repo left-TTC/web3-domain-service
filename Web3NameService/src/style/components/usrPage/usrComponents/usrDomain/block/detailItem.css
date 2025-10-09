@@ -9,6 +9,9 @@
     justify-content: space-between;
     align-items: center;
 }
+.detaildomainitem:hover{
+    background-color: #1C2334;
+}
 
 .detailitem{
     margin-left: 10px;

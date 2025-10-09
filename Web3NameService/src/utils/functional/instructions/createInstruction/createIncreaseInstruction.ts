@@ -1,4 +1,4 @@
-import { TransactionInstruction, type PublicKey } from "@solana/web3.js";
+import { PublicKey, TransactionInstruction } from "@solana/web3.js";
 import { Web3DomainRegistrarInstruction } from "../instruction";
 import { Numberu32 } from "../../common/number/number32";
 import { Numberu64 } from "../../common/number/number64";
@@ -59,7 +59,36 @@ export function createIncreaseInstruction(
 
         { pubkey: transactionAccounts.lastBidderKey, isSigner: false, isWritable: true },
         { pubkey: transactionAccounts.vault, isSigner: false, isWritable: true },
+        { pubkey: transactionAccounts.refferrerRecord, isSigner: false, isWritable: true },
     ];
+
+    if(transactionAccounts.superiorRefferrerRecord){
+         keys.push({
+            pubkey: transactionAccounts.superiorRefferrerRecord,
+            isSigner: false,
+            isWritable: false
+        })
+    }else{
+        keys.push({
+            pubkey: PublicKey.default,
+            isSigner: false,
+            isWritable: false,
+        });
+    }
+
+    if(transactionAccounts.rent){
+         keys.push({
+            pubkey: transactionAccounts.rent,
+            isSigner: false,
+            isWritable: false
+        })
+    }else{
+        keys.push({
+            pubkey: PublicKey.default,
+            isSigner: false,
+            isWritable: false,
+        });
+    }
 
     return new TransactionInstruction({
         programId: WEB3_REGISTER_ID,

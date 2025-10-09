@@ -1,9 +1,11 @@
 
 import "@/style/components/usrPage/usrComponents/usrDomain/domainBlock.css"
 import { useEffect, useState } from "react"
-import DomainSetPage from "./domainSetPage"
 import DetailItem from "./block/detailItem"
 import SimpleItem from "./block/simpleItem"
+import DomainSet from "./setpage/domainSet"
+import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState"
+import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState"
 
 export enum SortStyle { 
     Detail,
@@ -12,35 +14,51 @@ export enum SortStyle {
 
 export interface DomainBlockProps{
     domainName: string,
-    sortStyle: SortStyle
+    sortStyle: SortStyle,
+    domainState: NameRecordState | null | undefined,
+    ifDomainRecordLoading: boolean,
+    domainRecordState: IPFSRecordState | undefined,
 }
 
 const DomainBlock: React.FC<DomainBlockProps> = ({
-    domainName, sortStyle
+    domainName, sortStyle, domainState, ifDomainRecordLoading, domainRecordState
 }) => {
 
-    const [domainFunctionSet, setDomainFunctionSet] = useState(false)
 
+    const [domainFunctionSet, setDomainFunctionSet] = useState(false)
+    const openSet = () => {
+        setDomainFunctionSet(true)
+    }
+
+    const [ifIpfsSetted, setIfIpfsSetted] = useState(false)
+    useEffect(() => {
+        if(domainRecordState){
+            if(domainRecordState.recordData)setIfIpfsSetted(true)
+        }
+    }, [domainRecordState])
 
     return(
         <div className="domainbl">
             {sortStyle === SortStyle.Detail? 
                 <DetailItem 
                     itemName={domainName}
-                    ipfsAble={false}
+                    ipfsAble={ifIpfsSetted}
+                    openDomainSet={openSet}
                 />
                 :
                 <SimpleItem 
                     itemName={domainName}
-                    ipfsAble={false}
+                    ipfsAble={ifIpfsSetted}
+                    openDomainSet={openSet}
                 />
             }
             {domainFunctionSet &&
-                <DomainSetPage 
+                <DomainSet 
                     domainName={domainName}
-                    ifIPFS={false}
-                    ifImg={false}
-                    closeTheSetPage={() => setDomainFunctionSet(false)}
+                    backToDomainPage={() => setDomainFunctionSet(false)}
+                    domainState={domainState}
+                    ifIpfsLoading={ifDomainRecordLoading}
+                    domainRecordState={domainRecordState}
                 />
             }
         </div>

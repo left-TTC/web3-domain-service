@@ -8,21 +8,36 @@ import { useState } from "react";
 export interface CustomValueSetProps {
     customValue: number | null,
     setCustomValue: React.Dispatch<React.SetStateAction<number | null>>,
+    ifCustomSetPage?: boolean
 }
 
 const CustomValueSet: React.FC<CustomValueSetProps> = ({
-    customValue, setCustomValue
+    customValue, setCustomValue, ifCustomSetPage
 }) => {
 
     const {t} = useTranslation()
 
+    const [inputValue, setInputValue] = useState<string>(""); 
     const handleCustomValueInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let inputValue = e.target.value;
-        const num = Number(inputValue);
+        const value = e.target.value;
 
-        if (!isNaN(num) && /^\d*\.?\d{0,2}$/.test(inputValue)) {
-            setCustomValue(num);
-        } 
+        if (value === "") {
+            setInputValue("");
+                setCustomValue(null);
+            return;
+        }
+
+        const regex = /^\d*\.?\d{0,2}$/;
+
+        if (regex.test(value)) {
+            setInputValue(value);
+
+            if (value.endsWith(".")) {
+                setCustomValue(Number.parseInt(value));
+            } else {
+                setCustomValue(Number(value));
+            }
+        }
     };
 
     const [showCustomValueAttention, setShowCustomValueAttention] = useState(false)
@@ -30,9 +45,9 @@ const CustomValueSet: React.FC<CustomValueSetProps> = ({
     const [inputActive, setInputActive] = useState(false)
 
     return(
-        <div className="customValueset">
+        <div className={`customValueset ${ifCustomSetPage? "CustomSetPage":""}`}>
             <div className="titleandattention">
-                <h3>{t("customvalue")}:</h3>
+                <h3>{ifCustomSetPage? t("customprice"):t("customvalue")}:</h3>
                 <img src={attention} className="cutomValueAttetion" />
             </div>
             <div className={`customvalueinput ${inputActive? "inputactive":""}`}>
@@ -41,7 +56,7 @@ const CustomValueSet: React.FC<CustomValueSetProps> = ({
                     className="customvaluesetinput"
                     step="0.01"
                     min="0"
-                    value={customValue? customValue:""}
+                    value={inputValue? inputValue:""}
                     onChange={(e) => handleCustomValueInput(e)}
                     onClick={() => setInputActive(true)}
                     onBlur={() => setInputActive(false)}

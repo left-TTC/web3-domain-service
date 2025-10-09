@@ -1,0 +1,116 @@
+
+
+.domainurlset{
+    height: 120px;
+    background-color: #161F2F;
+    width: calc(100% - 60px);
+    border-radius: 10px;
+    padding: 20px 30px;
+}
+
+
+.deployhead{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.deployhead h1{
+    color: white;
+    margin: 0;
+    font-size: 20px;
+}
+
+.deployloading{
+    width: 20px;
+    transform-origin: center center;   /* 关键：以元素中心为原点 */
+    animation: spin 1.2s linear infinite;
+}
+
+.deployipfs{
+    width: 35px;
+}
+
+@keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 2px #3B82F6)
+                drop-shadow(0 0 2px #3B82F6);
+        opacity: 1;
+    }
+    50% {
+        filter: drop-shadow(0 0 0px #3B82F6);
+        opacity: 0.6;
+    }
+}
+
+.deployipfs.true {
+    animation: glow 3s ease-in-out infinite;
+}
+
+.ipsfset{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    height: 60px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headandcid{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ipfshead{
+    border: 1px solid #95A6C1;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20%;
+    opacity: 0.8;
+    height: 40px;
+}
+
+.ipfscontent{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    gap: 5px;
+}
+.ipfscontent h1{
+    color: white;
+    font-size: 15px;
+    margin: 0;
+}
+
+.cidshow{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+.cidshow h1{
+    color: #8DA6BC;
+}
+
+.coppipfs{
+    width: 15px;
+}
+
+.setButton{
+    background-color: #B4FC75;
+    width: 30%;
+    padding: 6px 10px;
+}
+.setButton h1{
+    color: black;
+    font-size: 18px;
+    margin: 0;
+}

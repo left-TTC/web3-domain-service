@@ -72,7 +72,7 @@ export function createStartDomainInstruction(
         { pubkey: instructionAccounts.rentSysvar, isSigner: false, isWritable: false },
         { pubkey: instructionAccounts.refferrerRecord, isSigner: false, isWritable: true },
         { pubkey: instructionAccounts.vault, isSigner: false, isWritable: true },
-        { pubkey: instructionAccounts.rentPayer, isSigner: false, isWritable: false },
+        { pubkey: instructionAccounts.rentPayer, isSigner: false, isWritable: true },
     ];
 
     if (instructionAccounts.superiorReferrerRecord) {

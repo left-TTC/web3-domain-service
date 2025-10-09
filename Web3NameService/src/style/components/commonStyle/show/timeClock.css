@@ -1,6 +1,12 @@
 
 
+.timeclock{
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .timeclock h1{
-    font-size: 26px;
+    font-size: 22px;
     color: white;
 }

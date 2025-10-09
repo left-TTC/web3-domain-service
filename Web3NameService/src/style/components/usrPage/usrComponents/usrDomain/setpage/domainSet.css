@@ -1,0 +1,39 @@
+
+
+.domainSetPage{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 200;
+    background-color: #081328;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.domainSetcontent{
+    width: 1280px;
+    position: relative;
+}
+
+.setfunctioncom{
+    width: 1280px;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.priceandurl{
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auctionStateshow{
+    width: calc(68% - 30px);
+}

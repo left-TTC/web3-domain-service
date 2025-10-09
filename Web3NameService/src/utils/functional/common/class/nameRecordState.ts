@@ -14,7 +14,7 @@ export class NameRecordState{
         const reversedData = reversedInfo.data;
 
         if (reversedData.length < NAME_RECORD_LENGTH) {
-            throw new Error("Not a valid reverse account's data");
+            throw new Error("Not a valid name account's data");
         }
 
         this.parentName = new PublicKey(reversedData.subarray(0, SLICE));

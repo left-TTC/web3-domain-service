@@ -11,11 +11,12 @@ import { useTranslation } from "react-i18next";
 export interface DetailItemProps {
     itemName: string,
     ipfsAble: boolean,
+    openDomainSet: () => void,
 }
 
 
 const DetailItem: React.FC<DetailItemProps> = ({
-    itemName, ipfsAble
+    itemName, ipfsAble, openDomainSet
 }) => {
 
     const {t} = useTranslation()
@@ -39,7 +40,7 @@ const DetailItem: React.FC<DetailItemProps> = ({
                 </div>
             </div>
             
-            <button className="detailToopensetting">
+            <button className="detailToopensetting" onClick={() => openDomainSet()}>
                 <h1>{t("configure")}</h1>
             </button>
             <div className="detailitemline" />

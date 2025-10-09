@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import "@/style/components/commonStyle/show/timeClock.css"
+
 type Props = {
     target: number;
     onExpire?: () => void;

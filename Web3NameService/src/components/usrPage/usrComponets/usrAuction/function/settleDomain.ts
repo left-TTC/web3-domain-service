@@ -1,4 +1,5 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
+import { CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { settleAuctionDomain } from "@/utils/net/mainFunction/domain/settleAuctionDomain";
@@ -27,6 +28,8 @@ export async function settleDomain(
         console.log("wallet error")
         return
     }
+
+    console.log("central state register", CENTRAL_STATE_REGISTER.toBase58())
 
     const settelDomainTransactionId = await showCheckSolBalance(
             solanaToast, wallet, connection, totalLamports
