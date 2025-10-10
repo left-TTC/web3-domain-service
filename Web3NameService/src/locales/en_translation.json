@@ -133,5 +133,14 @@
     "highest": "Highest Bid",
     "notauction": "Not in auction",
     "bidder": "Bidder",
-    "addfollow": "Add to my follow list"    
+    "addfollow": "Add to my follow list",
+    "ComputeUnit": "Compute Unit",
+    "negligible": "negligible",
+    "lastup": "Last updated",
+    "Uninitialized": "Uninitialized",
+    "urlset": "Url Set",
+    "inputcid": "Please enter a valid IPFS cid",
+    "troubleIPFS": "Having trouble uploading to IPFS?",
+    "reallocfee": "Realloc Fee",
+    "lastRecord": "Last Record"    
 }

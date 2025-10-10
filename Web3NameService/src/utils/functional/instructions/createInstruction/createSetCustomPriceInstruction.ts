@@ -1,27 +1,41 @@
-import { PublicKey, TransactionInstruction } from "@solana/web3.js";
-import { Web3DomainRegistrarInstruction } from "../instruction";
+import { TransactionInstruction, type PublicKey } from "@solana/web3.js";
+import { Web3NameSeriviceInstruction } from "../instruction";
+import { Numberu32 } from "../../common/number/number32";
+import { Numberu64 } from "../../common/number/number64";
+import { WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
 
 
+// directly use the web3 name service update function
 export interface SetCustomPriceInstructionAccounts {
-    /// the domain name account key
+    // the domain that will be setted
     nameAccount: PublicKey,
-    /// name owner -- signer,
-    nameOwner: PublicKey,
+    // updater
+    nameUpdateSigner: PublicKey,
 }
 
-// export function createSetCustomPriceInstruction(
-//     transactionAccounts: SetCustomPriceInstructionAccounts,
-//     customPrice: number
-// ): TransactionInstruction {
+export function createSetCustomPriceInstruction(
+    instructionAccounts: SetCustomPriceInstructionAccounts,
+    customPrice: number,
+): TransactionInstruction {
+    const customPrice64 = new Numberu64(customPrice)
+    const buffers = [
+        Buffer.from(Uint8Array.from([Web3NameSeriviceInstruction.Update])),
+        // offset
+        new Numberu32(0).toBuffer(),
+        new Numberu32(customPrice64.toBuffer().length).toBuffer(),
+        customPrice64.toBuffer(),  
+    ];
 
-//     const buffers = [
-//         Buffer.from(Uint8Array.from([Web3DomainRegistrarInstruction.IncreasePrice])),
-//         new Numberu32(Buffer.from(domainName).length).toBuffer(),
-//         Buffer.from(domainName, 'utf-8'),
-//         new Numberu64(myPrice).toBuffer(),
-//     ];
+    const data = Buffer.concat(buffers)
 
-//     return new TransactionInstruction({
+    const keys = [
+        { pubkey: instructionAccounts.nameAccount, isSigner: false, isWritable: true },
+        { pubkey: instructionAccounts.nameUpdateSigner, isSigner: true, isWritable: true },
+    ]
 
-//     })
-// }
+    return new TransactionInstruction({
+        programId: WEB3_NAME_SERVICE_ID,
+        keys,
+        data,
+    });
+}

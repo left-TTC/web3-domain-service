@@ -1,19 +1,17 @@
 
 import Back from "@/components/common/functional/back";
 import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettlement/choosePayment";
-import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { useState } from "react";
 import SetCustomPriceCrypto from "./bills/setCustomPriceCrypto";
 
 
 export interface CustomPriceSetProps {
     setName: string,
-    setInfo: NameRecordState | null | undefined,
     back: () => void
 }
 
 const CustomPriceSet: React.FC<CustomPriceSetProps> = ({
-    setName, setInfo, back
+    setName, back
 }) => {
 
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
@@ -27,7 +25,9 @@ const CustomPriceSet: React.FC<CustomPriceSetProps> = ({
                     <h1>{setName}</h1>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
-                <SetCustomPriceCrypto />
+                <SetCustomPriceCrypto 
+                    domainExtireName={setName}
+                />
             </div>
         </div>
     )

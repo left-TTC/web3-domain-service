@@ -1,0 +1,43 @@
+
+
+.operationchooser{
+    display: flex;
+    flex-direction: row;
+    width: 180px;
+    background-color: #2B2F3C;
+    height: 100%;
+    padding: 4px 8px;
+    border-radius: 10px;
+    gap: 5px;
+}
+
+.Chooseblock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+.Chooseblock h3{
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+}
+
+.activeChooseBlock{
+    background-color: #B4FC75;
+}
+.activeChooseBlock h3{
+    color: black!important;
+}
+
+.setimg{
+    width: 20px;
+}
+
+.cannotoperate{
+    pointer-events: none;
+}

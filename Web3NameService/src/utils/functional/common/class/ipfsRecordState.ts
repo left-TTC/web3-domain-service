@@ -10,6 +10,7 @@ export class IPFSRecordState{
     class: PublicKey;
     updateTime: Numberu64;
     recordData: string | null;
+    length: number;
 
     constructor(recordInfo: AccountInfo<Buffer<ArrayBufferLike>>){
         const recordData = recordInfo.data
@@ -18,11 +19,13 @@ export class IPFSRecordState{
             throw new Error("Not a valid record account's data");
         }
 
+        this.length = recordData.length
+
         this.parentName = new PublicKey(recordData.subarray(0, 32));
         this.owner = new PublicKey(recordData.subarray(32, 64));
         this.class = new PublicKey(recordData.subarray(64, 96));
         this.updateTime = Numberu64.fromBuffer(
-            Buffer.from(recordData.subarray(64, NAME_RECORD_LENGTH))
+            Buffer.from(recordData.subarray(96, NAME_RECORD_LENGTH))
         );
 
         const recordContentBuffer = recordData.subarray(NAME_RECORD_LENGTH, recordData.length)

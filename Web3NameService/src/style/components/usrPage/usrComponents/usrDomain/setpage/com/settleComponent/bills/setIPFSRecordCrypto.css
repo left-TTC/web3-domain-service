@@ -1,0 +1,146 @@
+
+.setIPFSCrypto{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 380px;
+    width: 100%;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.steIPFSine{
+    width: 100%;
+    margin: 20px 0;
+    background-color: white;
+    height: 1px;
+    filter: blur(1px);
+}
+
+.updateTimeShow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+}
+.updateTimeShow h3{
+    color: #B5B9BF;
+    font-weight: 400;
+    font-size: 17px;
+    margin: 0;
+}
+.updateTimeShow h4{
+    margin: 0;
+    font-size: 17px;
+    color: white;
+}
+
+
+.updatetimeLaod{
+    width: 120px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.loadingtime{
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    animation: shimmerMove 2s infinite linear;
+}
+
+@keyframes shimmerMove {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+.downloadipfstool{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.downloadipfstool h3{
+    color: white;
+    font-weight: 500;
+    font-size: 17px;
+    margin: 0;
+}
+.downloadipfstool h4{
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.downloadipfstool a{
+    margin-left: 10px;
+    text-decoration: underline;
+}
+
+.ipfsetordeleteblock{
+    display: flex;
+    flex-direction: column;
+}
+
+.nameandchooseoperation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    height: 30px;
+    align-items: center;
+}
+.nameandchooseoperation h3{
+    color: #B5B9BF;
+    font-weight: 400;
+    font-size: 17px;
+    margin: 0;
+}
+
+.showThewillDelete{
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.showThewillDelete h3{
+    color: #B5B9BF;
+    font-weight: 400;
+    font-size: 17px;
+    margin: 0;
+}
+.showThewillDelete h4{
+    color: white;
+    font-weight: 400;
+    font-size: 13px;
+    margin: 0;
+}
+
+.showthewilldeleteword{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.showThewillDeleteLine{
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    filter: blur(1px);
+}

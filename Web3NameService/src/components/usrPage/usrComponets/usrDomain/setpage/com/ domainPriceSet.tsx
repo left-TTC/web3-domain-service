@@ -41,7 +41,6 @@ const DomainPriceSet: React.FC<DomainPriceSetProps> = ({
             {ifOpenPirceSet && 
                 <CustomPriceSet
                     setName={domainName}
-                    setInfo={domainState}
                     back={closeSet}
                 />
             }

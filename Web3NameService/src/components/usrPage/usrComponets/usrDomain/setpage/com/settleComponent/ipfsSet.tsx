@@ -1,17 +1,19 @@
 import Back from "@/components/common/functional/back";
 import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettlement/choosePayment";
-import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { useState } from "react";
+import SetIPFSRecordCrypto from "./bills/setIPFSRecordCrypto";
+import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 
 
 export interface IpfsSetProps {
     setName: string,
-    setInfo: NameAuctionState,
-    back: () => void
+    back: () => void,
+    domainRecordState: IPFSRecordState | undefined,
+    ifLoadingRecord: boolean,
 }
 
 const IpfsSet: React.FC<IpfsSetProps> = ({
-    setName, setInfo, back
+    setName, back, ifLoadingRecord, domainRecordState
 }) => {
 
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
@@ -25,6 +27,11 @@ const IpfsSet: React.FC<IpfsSetProps> = ({
                     <h1>{setName}</h1>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
+                <SetIPFSRecordCrypto
+                    domainName={setName}
+                    domainRecordState={domainRecordState}
+                    ifLoading={ifLoadingRecord}
+                />
             </div>
         </div>
     )

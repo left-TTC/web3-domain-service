@@ -1,0 +1,23 @@
+
+.setcustompricecryptoconfirmbutton{
+    height: 60px;
+    background-color: #B4FC75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.setcustompricecryptoconfirmbutton:hover{
+    opacity: 0.9;
+}
+.setcustompricecryptoconfirmbutton h1{
+    color: black;
+    padding: 0;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+.cannotsetthecustom{
+    background-color: #B5B9BF;
+    pointer-events: none;   
+}

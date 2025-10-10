@@ -8,6 +8,7 @@ import DomainUrlSet from "./com/domainUrlSet";
 import DomainAuctionStateShow from "./com/domainAuctionStateShow";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
+import { useEffect } from "react";
 
 export interface DomainSetProps {
     domainName: string,
@@ -21,6 +22,15 @@ const DomainSet: React.FC<DomainSetProps> = ({
     domainName, backToDomainPage, domainState, ifIpfsLoading, domainRecordState
 }) => {
 
+    useEffect(() => {
+        if(domainRecordState){
+            console.log(
+                "updatetime:", domainRecordState.updateTime,
+                "length: ", domainRecordState.length,
+                "data: ", domainRecordState.recordData
+            )
+        }
+    }, [domainRecordState])
 
     return(
         <div className="domainSetPage">
@@ -37,6 +47,7 @@ const DomainSet: React.FC<DomainSetProps> = ({
                         domainName={domainName}
                     />
                     <DomainUrlSet 
+                        domainName={domainName}
                         ifLoading={ifIpfsLoading}
                         domainRecordState={domainRecordState}
                     />

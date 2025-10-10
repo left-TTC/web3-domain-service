@@ -10,19 +10,22 @@ import ipfshead from "@/assets/ipfs.svg"
 import copy from "@/assets/copyblue.svg"
 import { cutString } from "@/utils/functional/common/cutString"
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState"
+import { useState } from "react"
+import IpfsSet from "./settleComponent/ipfsSet"
 
 export interface DomainUrlSetProps {
+    domainName: string,
     ifLoading: boolean,
     domainRecordState: IPFSRecordState | undefined,
 }
 
 const DomainUrlSet: React.FC<DomainUrlSetProps> = ({
-    ifLoading, domainRecordState
+    ifLoading, domainRecordState, domainName
 }) => {
 
     const {t} = useTranslation()
 
-    const testCid = "bafybeigdyrztw3n3r7v6c5rpp5aw5yml7ksfhtg6kcfmfqgkt2l4r2l5ty"
+    const [ifOpenUrlSet, setIfOpenUrlSet] = useState(false)
 
     return(
         <div className="domainurlset">
@@ -47,7 +50,7 @@ const DomainUrlSet: React.FC<DomainUrlSetProps> = ({
                         <h1>CID:</h1>
                         {domainRecordState?.recordData? (
                             <div className="cidshow">
-                                <h1>{cutString(testCid, 5, 5, "...")}</h1>
+                                <h1>{cutString(domainRecordState.recordData, 5, 5, "...")}</h1>
                                 <img className="coppipfs" src={copy} />
                             </div>
                         ):(
@@ -57,10 +60,19 @@ const DomainUrlSet: React.FC<DomainUrlSetProps> = ({
                         )} 
                     </div>
                 </div>
-                <button className="setButton">
+                <button className="setButton" onClick={() => setIfOpenUrlSet(true)}>
                     <h1>Set</h1>
                 </button>
             </div>
+
+            {ifOpenUrlSet && 
+                <IpfsSet 
+                    setName={domainName}
+                    back={() => setIfOpenUrlSet(false)}
+                    domainRecordState={domainRecordState}
+                    ifLoadingRecord={ifLoading}
+                />
+            }
         </div>
     )
 }
