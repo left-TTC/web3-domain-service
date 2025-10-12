@@ -40,6 +40,7 @@ const IPFSVerify: React.FC<IPFSVerify> = ({
     }
 
     const verify = async() => {
+        console.log("start verify")
         if(ifNeedCreateAccount){
             const rent = await connection.getMinimumBalanceForRentExemption(NAME_RECORD_LENGTH + cid.length);
             setRent(rent)
@@ -48,7 +49,10 @@ const IPFSVerify: React.FC<IPFSVerify> = ({
             if(!domainRecordState){
                 console.log("accouunt err")
             }else{
-                if((domainRecordState.length - NAME_RECORD_LENGTH) >= cid.length) return
+                if((domainRecordState.length - NAME_RECORD_LENGTH) >= cid.length){
+                    console.log("legth enough")
+                    setCidValid(true)
+                }
                 const recordKey = getRecordKey(
                     domainRecordState.parentName, RecordType.IPFS
                 )

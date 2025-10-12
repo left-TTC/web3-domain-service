@@ -1,3 +1,4 @@
+import { CENTRAL_STATE_RECORDS, CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
 import { getAllRootDomain } from "@/utils/net/getAllRootDomain";
 import { PDAReverseLookUp } from "@/utils/net/PDAReverseLookUp";
 import { useConnection } from "@solana/wallet-adapter-react";
@@ -77,6 +78,8 @@ export function RootDomainEnviromentProvider({ children }: { children: ReactNode
         } catch (err) {
             console.log("get root err: ", err);
         } finally {
+            console.log("cnetral state register: ", CENTRAL_STATE_REGISTER.toBase58())
+            console.log("cnetral state record: ", CENTRAL_STATE_RECORDS.toBase58())
             setLoading(false);
         }
     }, []);
