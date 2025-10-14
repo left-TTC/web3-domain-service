@@ -4,12 +4,11 @@
     display: flex;
     height: 100%;
     background-color: #161A39;
-    font-family: 'Minecraftia', monospace;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    border-radius: 3px;
-    padding: 3px;
+    border-radius: 6px;
+    padding: 3px 10px;
 }
 .refreshbutton:hover{
     background-color: #434C52;
@@ -32,6 +31,7 @@
 @media (width < 860px){
     .refreshbutton h1{
         display: none;
+        padding: 3px 5px;
     }
 
     .refreshbuicon{

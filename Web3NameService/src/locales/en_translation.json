@@ -36,7 +36,7 @@
     "home": "Home",
     "auction": "Marketplace",
     "docus": "Docus",
-    "quickbuy": "Quick Buy",
+    "quickbuy": "Quick Start",
     "add": "Add",
     "redommend": "Domain Recommend",
     "refresh": "Refresh",
@@ -142,5 +142,13 @@
     "inputcid": "Please enter a valid IPFS cid",
     "troubleIPFS": "Having trouble uploading to IPFS?",
     "reallocfee": "Realloc Fee",
-    "lastRecord": "Last Record"    
+    "lastRecord": "Last Record",
+    "start": "Start",
+    "filterdomain": "Filter Domain",
+    "contain": "Contains",
+    "character": "Character sequence",
+    "length": "Length",
+    "apply": "Apply",
+    "cancle": "Cancle",
+    "mycart": "My Cart"    
 }

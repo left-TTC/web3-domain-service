@@ -74,8 +74,8 @@
 
 }
 @media (width < 640px){
-    .checkingrootcontent{
-        width: 80px;
+    .checkingroot{
+        width: 70%;
     }
     
     .checkingrootgo{

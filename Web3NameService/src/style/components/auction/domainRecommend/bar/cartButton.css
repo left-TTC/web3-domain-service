@@ -7,54 +7,145 @@
     height: 100%;
     background-color: #161A39;
     gap: 10px;
-    border-radius: 3px;
-    padding: 3px;
+    border-radius: 6px;
+    padding: 3px 10px;
 }
 .cartbu:hover{
     background-color: #434C52;
 }
 .cartbu h1{
     color: white;
-    font-family: 'Minecraftia', monospace;
     font-size: 14px;
 }
 
 .cartbuicon{
-    width: 25px;
-}
-
-.usrcart{
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(10, 14, 23, 0.7);
-    z-index: 50;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(0.9);
-    opacity: 0;
+    width: 17px;
 }
 
 .cartsettle{
     background-color: #161A39;
     border-radius: 20px;
-    width: 1000px;
-    height: 600px;
+    width: calc(300px - 30px);
+    padding: 20px;
+    max-height: 300px;
+    border-radius: 10px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    right: 0;
+    top: 50px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.cartsettle::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
 }
 
+.cartitem{
+    width: 100%;
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.noitem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.noitem h1{
+    color: white;
+    font-size: 34px;
+    margin: 0;
+}
+
+.domainitemcart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.nameandpricecart{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.nameart h1,
+.nameandpricecart h2{
+    color: white;
+    margin: 0;
+}
+.nameandpricecart h1{
+    font-size: 18px;
+}
+.nameandpricecart h2{
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.artball{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #a855f7, #22c55e);
+    margin-right: 10px;
+}
+
+.nameart{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+.nameart h1,
+.nameart h2{
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+.nameart h2{
+    color: #979DAB;
+}
+
+.cartitemline{
+    width: 100%;
+    background-color: white;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    filter: blur(1px);
+}
+
+.deletethecartitem{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #161A39;
+    border: #434C52 solid 2px;
+}
+.deletethecartitem:hover{
+    background-color: #252947;
+}
+.cartexitimg{
+    width: 13px;
+}
 
 @media (min-width: 1024px){
 
 }
 @media (width < 860px){
+    .cartbu{
+        padding: 3px 5px;
+    }
     .cartbu h1{
         display: none;
-    }
-
-    .cartbuicon{
-        width: 19px;
     }
 }

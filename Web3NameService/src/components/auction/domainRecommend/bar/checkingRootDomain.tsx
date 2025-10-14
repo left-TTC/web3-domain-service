@@ -5,20 +5,27 @@ import { useEffect, useRef, useState } from "react";
 import open from "@/assets/whitego.svg"
 import { animate } from "animejs";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
+import { useAuctionStore } from "@/components/store/auctionRecommendStore";
 
 export interface CheckingRootDomainProps {
     checkingRoot: string,
-    setCheckingRoot: React.Dispatch<React.SetStateAction<string>>,
+    setReloadFlag: () => void,
 }
 
 const CheckingRootDomain: React.FC<CheckingRootDomainProps> = ({
-    checkingRoot, setCheckingRoot
+    checkingRoot, setReloadFlag
 }) => {
 
     const {rootDomains} = useRootDomain()
 
     const [showChangeRoot, setShowChangeRoot] = useState(false)
     const [animateCloseRoot, setAnimateCloseRoot] = useState(false)
+
+    const setData = useAuctionStore((store) => store.setData);
+    const handleChangeRoot = (newRoot: string) => {
+        setData({ checkingRoot: newRoot, ifDomainGenerated: false });
+        setReloadFlag()
+    };
 
     const imgRef = useRef<HTMLImageElement | null>(null)
     const dropRef = useRef<HTMLDivElement | null>(null)
@@ -68,6 +75,11 @@ const CheckingRootDomain: React.FC<CheckingRootDomainProps> = ({
         }
     }
 
+    const chooseRoot = (root: string) => {
+        handleChangeRoot(root)
+        setShowChangeRoot(false)
+    }
+
     return(
         <div className="checkingroot">
             <button className="checkingrootcontent" onClick={() => checkBuClick()}>
@@ -75,9 +87,9 @@ const CheckingRootDomain: React.FC<CheckingRootDomainProps> = ({
                 <img src={open} className="checkingrootgo" ref={imgRef}/>
             </button>
             {showChangeRoot &&
-                <div className="changerootdrop" ref={dropRef}>
-                    {rootDomains.map(rootDomain => (
-                        <button className="chooseRootDomaininchecking" key={rootDomain}>
+                <div className="changerootdrop" ref={dropRef} >
+                    {rootDomains.map((rootDomain, index) => (
+                        <button className="chooseRootDomaininchecking" key={index} onClick={() => chooseRoot(rootDomain)}>
                             <h1>{rootDomain}</h1>
                         </button>
                     ))}

@@ -16,7 +16,6 @@ import type { NameRecordState } from "@/utils/functional/common/class/nameRecord
 import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
-import { getDomainTimeState, type DomainState } from "@/utils/functional/common/time/getDomainTimeState";
 
 export function Search() {
 
@@ -25,7 +24,7 @@ export function Search() {
     const {connection} = useConnection();
     const navigate = useNavigate();
 
-    const { queryingDomain } = location.state || {};
+    const { queryingDomain, ifRecommendPage } = location.state || {};
 
     const [domainBlock, setDomainBlock] = useState<string[] | null> (null)
     const [queryDomainInfo, setQueryDomainInfo] = useState<NameRecordState | null>(null)
@@ -82,7 +81,12 @@ export function Search() {
     }, [domainBlock])
 
     const backToIndex = () => {
-        navigate("./index")
+        console.log("recommend page: ", ifRecommendPage)
+        if(ifRecommendPage){
+            navigate("/auction/recommend")
+        }else{
+            navigate("./index")
+        }
     }
 
     return(
