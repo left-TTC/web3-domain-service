@@ -63,7 +63,7 @@ const CartButton: React.FC<CartButtonProps> = ({
         }
 
         if(starDomains && rootDomains && !loaded.current)fetchDomainPrice()
-        if(starDomains.length > lastStar.length && lastStar.length != 0){
+        if(starDomains.length > lastStar.length){
             fetchDomainPrice()
         }else setLastStar(starDomains)
     }, [starDomains, rootDomains])
@@ -100,6 +100,33 @@ const CartButton: React.FC<CartButtonProps> = ({
         const newDomains = starDomains.filter(domain => domain !== item);
         setStarDomains(newDomains);
     }
+
+    const [hovered, setHovered] = useState(false);
+    const hoverTimer = useRef<NodeJS.Timeout | null>(null);
+
+    const handleMouseEnter = () => {
+            hoverTimer.current = setTimeout(() => {
+            setHovered(true);
+        }, 500);
+    };
+
+    const handleMouseLeave = () => {
+        if (hoverTimer.current) {
+            clearTimeout(hoverTimer.current);
+            hoverTimer.current = null;
+        }
+        setHovered(false);
+    };
+
+    const hoverRef = useRef<HTMLDivElement | null>(null)
+    useEffect(() => {
+        if(hovered && hoverRef.current){
+            animate(hoverRef.current, {
+                opacity: [0, 0.3],
+                duration: 500,
+            })
+        }
+    }, [hovered])
     
     return(
         <div style={{position:"relative", zIndex:"100"}}>
@@ -107,11 +134,14 @@ const CartButton: React.FC<CartButtonProps> = ({
                 <img src={cart} className="cartbuicon" />
                 <h1>{t("mycart")}</h1>
             </button>
-
+ 
             {showUsrCart &&
                 <div className="cartsettle" ref={cartSettleRef}>
                     {starDomains.length != 0? starDomains.map((domain, index) => (
-                        <div className="cartitem" key={index}>
+                        <div className="cartitem" key={index}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                        >
                             <div className="domainitemcart">
                                 <div className="nameandpricecart">
                                     <div className="nameart">
@@ -126,6 +156,11 @@ const CartButton: React.FC<CartButtonProps> = ({
                                 </button>
                             </div>
                             <div className="cartitemline" />
+                            {hovered &&
+                                <div className="starthover" ref={hoverRef}>
+                                    <h1>{t("start")}</h1>
+                                </div>
+                            }
                         </div>
                     )):
                         <div className="cartitem noitem">

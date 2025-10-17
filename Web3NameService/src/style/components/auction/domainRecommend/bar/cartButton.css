@@ -138,8 +138,37 @@
     width: 13px;
 }
 
-@media (min-width: 1024px){
+.starthover{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at center,
+        #ffffff 0%,       /* 中心纯白 */
+        #f0f0f0 20%,      /* 稍微过渡 */
+        #555555 70%,      /* 中间灰暗 */
+        #000000 100%      /* 四周纯黑 */
+    );
+    opacity: 0.8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+.starthover h1{
+    margin: 0;
+    color: black;
+    font-size: 24px;
+    position: absolute;
+    bottom: 10px;
+    font-weight: 500;
+}
 
+@media (width < 1024px){
+    .cartsettle{
+        right: -100px;
+    }
 }
 @media (width < 860px){
     .cartbu{
@@ -147,5 +176,10 @@
     }
     .cartbu h1{
         display: none;
+    }
+}
+@media (width < 450px){
+    .cartsettle{
+        right: -30px;
     }
 }

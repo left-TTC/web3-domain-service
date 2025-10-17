@@ -150,5 +150,9 @@
     "length": "Length",
     "apply": "Apply",
     "cancle": "Cancle",
-    "mycart": "My Cart"    
+    "mycart": "My Cart",
+    "collected": "Collected",
+    "waitconfirm": "Waiting Confirm",
+    "createnow": "Create Now",
+    "launchrootdetail": "You will initiate a new root domain name collection plan as the initiator and start the registration process for the domain name after the collection is complete."    
 }

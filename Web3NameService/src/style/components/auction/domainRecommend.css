@@ -94,13 +94,12 @@
     }
 
     .recommendbarleft{
-        gap: 8px;
+        gap: 5px;
     }
     
     .recommendright{
         width: 70%;
         justify-content: space-between;
-        overflow: hidden;
     }
 
     .recommendDomains{
@@ -139,8 +138,6 @@
 
     .recommendright{
         gap: 4px;
-    }
-    .recommendright{
         width: 60%;
     }
 }

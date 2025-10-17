@@ -1,6 +1,4 @@
 
-import "@/../public/background/hero/direction.png"
-import { useTranslation } from "react-i18next";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -9,33 +7,29 @@ import "@/style/components/auction/rootDomainCreate/children/rootNameChange.css"
 import type { rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import { Swiper, SwiperSlide, type SwiperClass } from 'swiper/react';
 import { Navigation } from "swiper/modules";
+import FlipCard from "../flipCard";
 
 export interface RootNameChangeProps {
     creatingAccounts: rootStateAccount[],
     setActiveRoot: React.Dispatch<React.SetStateAction<rootStateAccount | null>>,
     setLoadingState: () => void,
+    loaded: boolean
 }
 
 const RootNameChange: React.FC<RootNameChangeProps> = ({
-    creatingAccounts, setActiveRoot, setLoadingState
+    creatingAccounts, setActiveRoot, setLoadingState, loaded
 }) => {
-
-    const {t} = useTranslation()
 
     const handleSwiderChange = (swiper: SwiperClass) => {
         const currentIndex = swiper.realIndex;
         const currentItem = creatingAccounts[currentIndex];
-        console.log("change active: ", currentItem.fundState)
         setActiveRoot(currentItem);
         setLoadingState();
     }
 
     return(
         <div className="rootnamechange">
-            <div className="sailtitle">
-                <h1>{t("arecreating")}</h1>
-            </div>
-             <div className="swipercontent">
+            {loaded? (
                 <Swiper
                     modules={[Navigation]}
                     spaceBetween={20}
@@ -47,15 +41,21 @@ const RootNameChange: React.FC<RootNameChangeProps> = ({
                 >
                     {creatingAccounts.map((creatingAccounts, index) => (
                         <SwiperSlide key={index} className="creatingaccountswiper">
-                            <h1>{creatingAccounts.creatingName}</h1>
+                            <FlipCard
+                                frontText={creatingAccounts.creatingName}
+                                fundNumber={creatingAccounts.fundState.toNumber()}
+                                loaded={loaded}
+                            />
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                <button className="checklogs">
-                    <h1>{t("checklogs")}</h1>
-                </button>
-             </div>
-                
+            ):(
+                <div className="creatingaccountloading">
+                    <FlipCard
+                        loaded={loaded}
+                    />
+                </div>
+            )}
         </div>
     )
 }

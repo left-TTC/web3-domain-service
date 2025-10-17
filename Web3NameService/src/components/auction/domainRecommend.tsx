@@ -1,10 +1,10 @@
 import "@/style/components/auction/domainRecommend.css";
 import { useTranslation } from "react-i18next";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useConnection } from "@solana/wallet-adapter-react";
 
 import FilterButton from "./domainRecommend/bar/filterButton";
-import SortButton from "./domainRecommend/bar/sortButton";
+import SortButton, { RecommendSortWay } from "./domainRecommend/bar/sortButton";
 import RefreshButton from "./domainRecommend/bar/refreshButton";
 import EyeBack from "./domainRecommend/bar/eyeBack";
 import CartButton from "./domainRecommend/bar/cartButton";
@@ -16,6 +16,7 @@ import { startWithTop } from "../index/browseDomain/functionalComponents/startWi
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { generateRandomStringsFromDictionary } from "@/utils/functional/common/net/generateRandomStringsFromDictionary";
 import { useAuctionStore } from "../store/auctionRecommendStore";
+import { sortMapDomains } from "./domainRecommend/bar/tool/sortMapDomains";
 
 export default function DomainRecommend() {
     startWithTop();
@@ -71,6 +72,15 @@ export default function DomainRecommend() {
         loaded.current = false
     }
 
+    const [domainArray, setDomainArray] = useState<string[]>([])
+    const [domainSortWay, setDomainSortWay] = useState<RecommendSortWay>(RecommendSortWay.AtoZ)
+    useEffect(() => {
+        const map = store.data.recommendDomainAndInfoMap
+        if(map && map.size > 0){
+            setDomainArray(sortMapDomains(map, domainSortWay))
+        }
+    }, [domainSortWay, store.data.recommendDomainAndInfoMap])
+
     return (
         <div className="Recommendpage">
             <LargeRound />
@@ -85,7 +95,10 @@ export default function DomainRecommend() {
                         <FilterButton 
                             refresh={() => refresh()}
                         />
-                        <SortButton />
+                        <SortButton 
+                            setSortWay={setDomainSortWay}
+                            nowWay={domainSortWay}
+                        />
                     </div>
                     <div className="recommendright">
                         <EyeBack />
@@ -106,7 +119,7 @@ export default function DomainRecommend() {
 
                 <div className="recommendDomains">
                     {store.data.ifDomainGenerated && store.data.recommendDomainAndInfoMap
-                        ? Array.from(store.data.recommendDomainAndInfoMap.keys()).map((domain, index) => (
+                        ? domainArray.map((domain, index) => (
                               <div className="recommenddomainbl" key={index}>
                                   <RecommendDomainShow
                                       showDomain={domain + "." + store.data.checkingRoot}

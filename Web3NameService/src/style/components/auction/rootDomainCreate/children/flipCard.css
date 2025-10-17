@@ -1,0 +1,124 @@
+
+.flip-card {
+    width: 200px;
+    height: 270px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.flipped {
+    transform: rotateY(180deg);
+}
+
+.flip-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    font-family: "Orbitron", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 20px rgba(255,255,255,0.15),
+        inset 0 0 25px rgba(255,255,255,0.15);
+}
+.flip-face h1{
+    z-index: 1;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    color: white;
+    font-weight: 600;
+}
+
+.flip-front {
+    background-color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 0 15px rgba(0,255,255,0.2),
+        inset 0 0 25px rgba(255,255,255,0.3);
+}
+
+.flip-back {
+    background: radial-gradient(circle at 30% 30%, #0f172a, #000);
+    transform: rotateY(180deg);
+    box-shadow:
+        0 0 25px rgba(138,43,226,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flip-back h1{
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    margin: 0;
+    font-size: 13px;
+    font-family: 'Minecraftia', monospace;
+    color: #8A59F3;
+}
+.flip-back h2{
+    color: white;
+    -webkit-box-reflect: below 5px
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.frontback{
+    position: absolute;
+    width: 90%;
+    height: 94%;
+    background-color: #8A59F3;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frontcardstar{
+    width: 150px;
+}
+
+.cardGlowing{
+    animation: glow 3s ease-in-out infinite;
+}
+
+.frontcardstarjoker{
+    width: 90px;
+}
+
+.continuerotate{
+    animation: rotateCardY 3s linear infinite;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+@keyframes rotateCardY {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 2px #3B82F6)
+                drop-shadow(0 0 2px #3B82F6);
+        opacity: 1;
+    }
+    50% {
+        filter: drop-shadow(0 0 0px #3B82F6);
+        opacity: 0.6;
+    }
+}

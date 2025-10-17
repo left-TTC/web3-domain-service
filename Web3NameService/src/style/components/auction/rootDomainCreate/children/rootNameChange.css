@@ -1,38 +1,23 @@
 
 .rootnamechange{
     height: 100%;
-}
-
-.sailtitle{
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: center;
-    text-align: center;
-    padding-top: 30px;
-}
-.sailtitle h1{
-    color: white;
-    font-family: 'Minecraftia', monospace;
-    font-size: 23px;
 }
 
 .rootcreateswider{
-    width: 90%;
-    height: 80px;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
-.swipercontent{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 60%;
-    gap: 30px;
-}
 .creatingaccountswiper{
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 .creatingaccountswiper h1{
     color: white;
@@ -40,24 +25,16 @@
     font-size: 38px;
 }
 
-.checklogs{
-    width: 60%;
-    background-color: #B4FC75;
-    padding: 20px 0;
-    color: black;
-    border-radius: 5px;
-}
-.checklogs h1{
-    margin: 0;
-    font-size: 22px;
-    color: black;
-    font-weight: 400;
+.creatingaccountloading{
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-    color: white; /* 你想要的颜色 */
+    color: white; 
+    --swiper-navigation-size: 20px;
 }
+
+
 
 /*common computer*/
 @media (min-width: 1024px){
@@ -78,6 +55,9 @@
     .creatingaccountswiper h1{
         font-size: 18px;
     }
+}
+@media (width < 740px){
+    
 }
 @media (width < 640px){
 

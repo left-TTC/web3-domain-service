@@ -38,17 +38,23 @@ const SailingShip = () => {
 
     return(
         <div className="sailship">
-            <div className="shipbl">
-                <RootDomainInfo 
-                    activeDomain={activeCreatingRoot}
-                    ifActiveRootLoaded={activeLoaded}
-                />
-            </div>
             <div className="changeshipBl">
                 <RootNameChange 
                     creatingAccounts={sailingRootDomains} 
                     setActiveRoot={setActiveCreatingRoot}
                     setLoadingState={() => setActiveLoaded(false)}    
+                    loaded={activeLoaded}
+                />
+                    <div className="bubble"></div>
+                    <div className="bubble"></div>
+                    <div className="bubble"></div>
+                    <div className="bubble"></div>
+                    <div className="bubble"></div>
+            </div>
+            <div className="shipbl">
+                <RootDomainInfo 
+                    activeDomain={activeCreatingRoot}
+                    ifActiveRootLoaded={activeLoaded}
                 />
             </div>
         </div>

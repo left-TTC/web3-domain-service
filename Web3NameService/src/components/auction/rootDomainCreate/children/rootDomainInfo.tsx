@@ -10,8 +10,8 @@ import { cutString } from "@/utils/functional/common/cutString";
 import { CREATE_ROOT_TARGET } from "@/utils/constants/constants";
 import { useEffect, useState } from "react";
 import AddFuel from "../addFuel/addFuel";
+import Identicon from "@/components/common/show/usr/identicon";
 
-import more from "@/assets/more.png"
 
 export interface RootDomainInfoProps {
     activeDomain: rootStateAccount | null,
@@ -48,51 +48,50 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
         }
     }, [activeDomain])
 
-    const [showFuelAbout, setShowFuelAbout] = useState(false)
  
     return(
         <div className="rootdomaininfo">
             {ifActiveRootLoaded ? (
-                <div className="rootinfobl">
-                    <div className="rootdomainword">
-                        <h1>{t("rootdomain")}</h1>
-                        <h2>{activeDomain!.creatingName}</h2>
-                    </div>
-                    <div className="rootdomainword">
-                        <h1>{t("sponsor")}</h1>
-                        <button className="sponerhead">
-                            <h1>{cutString(activeDomain!.rootSponsor.toBase58(), 5, 5, "...")}</h1>
-                        </button>
-                    </div>
-                    <div className="rootdomainword">
-                        <h1>{t("fuel")}:</h1>
-                        <div className="fulepercent">
-                            <img src={more} className="percentmore"
-                                onMouseEnter={() => setShowFuelAbout(true)}
-                                onMouseLeave={() => setShowFuelAbout(false)}
-                            />
-                            <h2>{fundingState}</h2>
-
-                            {showFuelAbout &&
-                            <div className="showfuelabout">
-                                <h1>
-                                    {ifWaitingAdConfirm? "FULL" :
-                                        `$ ${(activeDomain!.fundState.toNumber() / 1e6).toFixed(2)} / ${(CREATE_ROOT_TARGET / 1e6).toFixed(2)}`
-                                    }
-                                </h1>
+                activeDomain? (
+                    <div className="rootinfobl">
+                        <div className="rootdomainword">
+                            <h1>{t("rootdomain")}</h1>
+                            <h2>{activeDomain!.creatingName}</h2>
+                        </div>
+                        <div className="rootdomainwords">
+                            <h1>{t("sponsor")}</h1>
+                            <button className="sponerhead">
+                                <div className="fundstatesponerhead">
+                                    <Identicon pubkey={activeDomain!.rootSponsor.toBase58()} size={40}/>
+                                </div>
+                                <h1>{cutString(activeDomain!.rootSponsor.toBase58(), 7, 7, "...")}</h1>
+                            </button>
+                        </div>
+                        <div className="rootdomainword">
+                            <h1>{t("collected")}:</h1>
+                            <div className="fulepercent">
+                                <h2>{fundingState}</h2>
                             </div>
-                            }
+                        </div>
+                        <div className="addFuelbutton">
+                            <button className={`addfuel pixel ${ifWaitingAdConfirm? "waitingAD" : ""}`} onClick={() => openAddFuelModal()}>
+                                {ifWaitingAdConfirm? 
+                                    <h1>{t("waitconfirm")}</h1> :
+                                    <h1>{t("add")} {t("fuel")}</h1>
+                                }
+                            </button>
                         </div>
                     </div>
-                    <div className="addFuelbutton">
-                        <button className={`addfuel pixel ${ifWaitingAdConfirm? "waitingAD" : ""}`} onClick={() => openAddFuelModal()}>
-                            {ifWaitingAdConfirm? 
-                                <h1>{t("add")} 1{t("fuel")}</h1> :
-                                <h1>{t("add")} {t("fuel")}</h1>
-                            }
-                        </button>
+                ):(
+                    <div className="noitemcolletiing">
+                        <h1>No Item</h1>
+                        <div className="addFuelbutton waitingconfirmitem">
+                            <button className={`addfuel pixel waitingconfirmitembu`} onClick={() => openAddFuelModal()}>
+                                <h1>{t("createnow")}</h1>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )
             ): (
                 <div className="rootinfobl rootchecking"/>
             )}

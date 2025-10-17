@@ -1,14 +1,13 @@
 .rootdomaininfo{
     width: 100%;
+    height: 100%;
 }
 .rootinfobl{
-    background-color: #1C2334;
     padding: 10px;
-    border-radius: 20px;
-    border: 2px solid #434C52;
     width: 90%;
     margin-left: 5%;
-    height: 240px;
+    height: calc(100% - 20px);
+    position: relative;
 }
 
 .rootdomainword{
@@ -17,7 +16,7 @@
     flex-direction: row;
     align-items: baseline;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 20px 20px;
 }
 .rootdomainword h1{
     color: white;
@@ -27,18 +26,45 @@
 .rootdomainword h2{
     color: #B4FC75;
     margin: 0;
-    font-size: 22px;
+    font-size: 23px;
+}
+
+.rootdomainwords{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 20px;
+    font-family: 'Minecraftia', monospace;
+}
+.rootdomainwords h1{
+    color: white;
+    margin: 0;
+    font-size: 18px;
 }
 
 .sponerhead{
-    background-color: #434C52;
+    background-color: #0F192C;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 .sponerhead h1{
     color: #B4FC75;
     margin: 0;
+    font-size: 18px;
 }
 .sponerhead:hover{
     opacity: 0.8;
+}
+
+.fundstatesponerhead{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid gray;
 }
 
 .addFuelbutton{
@@ -47,7 +73,10 @@
     align-items: center;
     justify-content: center;
     margin-top: 15px;
+    position: absolute;
+    bottom: 10px;
 }
+
 .addfuel{
     height: 50px;
     width: 50%;
@@ -66,12 +95,12 @@
 }
 
 .rootchecking{
-    background-color: #1C2334;
     display: flex;
     position: relative;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-radius: 30px;
 }
 
 .rootchecking::before{
@@ -89,6 +118,33 @@
     );
     filter: blur(8px); /* 模糊边缘，增强真实感 */
     animation: shimmer-sweep 1.5s infinite ease-in-out;
+}
+
+.noitemcolletiing{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.waitingconfirmitem{
+    position: relative;
+    padding: 20px;
+}
+.noitemcolletiing h1{
+    font-size: 45px;
+    color: white;
+}
+
+.waitingconfirmitembu{
+    padding: 10px;
+}
+.waitingconfirmitembu h1{
+    font-size: 19px;
+    padding: 20px;
+    color: black;
 }
 
 @keyframes shimmer-sweep {
@@ -134,6 +190,11 @@
 @media (min-width: 1024px){
 
 }
+@media (width < 740px){
+    .sailt{
+        text-align: center;
+    }
+}
 @media (width < 1024px){
     .rootdomainword h1{
         font-size: 15px;
@@ -141,25 +202,32 @@
     .rootdomainword h2{
         font-size: 15px;
     }
+    
+    .sponerhead h1{
+        font-size: 15px;
+    }
 
     .addfuel{
         width: 80%;
     }
     .addfuel h1 {
-        font-size: 12px;
+        font-size: 15px;
     }
 }
 @media (width < 640px){
     .rootinfobl{
         margin: 0;
         width: calc(100% - 20px);
-        height: 190px;
     }
     
     .rootdomainword{
         padding: 5px 20px 
     }
     .rootdomainword h1{
+        font-size: 12px;
+    }
+
+    .sponerhead h1{
         font-size: 12px;
     }
 }

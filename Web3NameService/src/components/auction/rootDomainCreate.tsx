@@ -4,7 +4,7 @@ import "@/style/components/auction/rootDomainCreate.css"
 import { useTranslation } from "react-i18next"
 import LaunchRootDomain from "./rootDomainCreate/launchRootDomain"
 
-import factory from "@/assets/factory.svg"
+import factory from "@/assets/factorys.svg"
 import SailingShip from "./rootDomainCreate/sailingShip"
 import LargeRound from "../common/show/largeRound"
 
@@ -32,7 +32,7 @@ export default function RootDomainCreate(){
                 <div className="lanunchdomainor">
                     <h1>or</h1>
                 </div>
-                <div className="launcht">
+                <div className="sailt">
                     <h1>{t("launchnew")}</h1>
                 </div>
                 <LaunchRootDomain />

@@ -5,6 +5,8 @@ import { useState } from "react";
 import LaunchBlock from "./launch/launchBlock";
 import LaunchFeeSettle from "./launch/launchFeeSettle";
 
+import card from "/public/background/file/card.png"
+
 
 const LaunchRootDomain = () => {
 
@@ -18,9 +20,13 @@ const LaunchRootDomain = () => {
     return(
         <div className="launchroot">
             <div className="launchnewdomain">
-                <button className="launchnewbu pixel" onClick={() => setShowRootCreatePage(true)}>
-                    <h1>{t("launch")}</h1>
-                </button>
+                <div className="detailandlaunchbu">
+                    <h1>{t("launchrootdetail")}</h1>
+                    <button className="launchnewbu pixel" onClick={() => setShowRootCreatePage(true)}>
+                        <h1>{t("launch")}</h1>
+                    </button>
+                </div>
+                <img src={card} className="cardback" />
             </div>
 
             {showRootCreatePage &&
