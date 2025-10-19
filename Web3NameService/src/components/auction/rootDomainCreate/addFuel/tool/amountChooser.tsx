@@ -9,10 +9,11 @@ import { useTranslation } from "react-i18next";
 export interface AmountChooserProps {
     nowFuel: number,
     setFuelQuantity: React.Dispatch<React.SetStateAction<number | null>>,
+    setcanConfirm: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const AmountChooser: React.FC<AmountChooserProps> = ({
-    nowFuel, setFuelQuantity, 
+    nowFuel, setFuelQuantity, setcanConfirm
 }) => {
 
     const {t} = useTranslation();
@@ -23,11 +24,19 @@ const AmountChooser: React.FC<AmountChooserProps> = ({
     const click = (quantity: number, index: number) => {
         setFuelQuantity(quantity * (CREATE_ROOT_TARGET - nowFuel))
         setActiveIndex(index)
+        setUseCustom(false)
     }
 
     const [customActive, setCustomActive] = useState(false)
     const [customNum, setCustomNum] = useState("")
     const [ifInputValid, setIfInputValid] = useState(true)
+    const [useCustom, setUseCustom] = useState(false)
+
+    useEffect(() => {
+        if(customNum.length===0 || !ifInputValid){
+            setcanConfirm(false)
+        }
+    }, [customNum, ifInputValid])
 
     const handleNumInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         let raw = e.target.value;
@@ -92,7 +101,7 @@ const AmountChooser: React.FC<AmountChooserProps> = ({
                 ))}
 
                 <div 
-                    className={`quantitybu ${customActive? "quantitybuactive":""} ${ifInputValid? "":"redWord"}`}
+                    className={`quantitybu ${customActive? "quantitybuactive":""} ${ifInputValid? "":"redWord"} ${useCustom ? "quantitybuactive":""}`}
                     onClick={() => {setActiveIndex(null); setCustomActive(true)}} 
                     ref={inputRef}   
                 >
@@ -101,6 +110,7 @@ const AmountChooser: React.FC<AmountChooserProps> = ({
                         placeholder={t("custom")}
                         value={customNum}
                         onChange={handleNumInput}
+                        onClick={() => setUseCustom(true)}
                         className={`quantitybuinput ${customActive? "quantitybuactive":""} ${ifInputValid? "":"redWord"}`}
                     />
                 </div>

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import "@/style/components/auction/rootDomainCreate/launch/launchFeeCrypto/launchFeeCrypto.css"
 import CreateRootSettleBills from "@/components/common/transaction/settlebills/createRootSettleBills";
 import { SupportedMint } from "@/provider/priceProvider/priceProvider";
+import RootNameVerify from "./tool/rootNameVerify";
 
 
 
@@ -27,6 +28,9 @@ const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
                     setActiveMint={setChooseMint} 
                 />
                 <div className="launchctyptoline" />
+                <RootNameVerify
+                     
+                />
                 <h4 className="attention">{t("attention")}:</h4>
                 <div className="attentionblock">
                     <h1>{t("rootattention")}</h1>

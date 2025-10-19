@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 
-import "@/style/components/commonStyle/transaction//settleBills/settleBills.css"
+import "@/style/components/commonStyle/transaction/settleBills/settleBills.css"
+import "@/style/components/commonStyle/transaction/settleBills/addfuelSettleBills.css"
+
 import { useEffect, useState } from "react";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
@@ -13,11 +15,12 @@ export interface SettleBillsProps {
     useMint: SupportedMint,
     fuelQuantity: number | null,
     creatingRootName: string,
+    canBeConfirm: boolean,
 }
 
 // fuel quantity's unit is usd
 const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
-    useMint, fuelQuantity, creatingRootName
+    useMint, fuelQuantity, creatingRootName, canBeConfirm
 }) => {
 
     const {t} = useTranslation()
@@ -38,7 +41,6 @@ const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
             }
         }
     }, [perPrice, fuelQuantity])
-
 
     const solanaToast = useSolanaToast();
 
@@ -73,7 +75,7 @@ const AddFuelSettleBills: React.FC<SettleBillsProps> = ({
                     <h1>{t("total")}</h1>
                     <h2>{solCost? `${(solCost / 1e9).toFixed(4) + " SOL"}`:"Waiting"}</h2>
                 </div>
-                <button className="cryptoconfirmbutton" onClick={() => confirmAddFuelTransaction()}>
+                <button className={`cryptoconfirmbutton ${canBeConfirm? "":"cannotbeconfirmed"}`} onClick={() => confirmAddFuelTransaction()}>
                     <h1>{t("confirm")}</h1>
                 </button>
             </div>

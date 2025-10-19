@@ -88,9 +88,8 @@
     }
 }
 @media (width < 640px){
-
     .shipbl{
         width: 100%;
-        height: 400px;
+        height: 280px;
     }
 }

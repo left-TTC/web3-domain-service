@@ -6,16 +6,18 @@ import "@/style/components/auction/rootDomainCreate/launch/launchFeeSettle.css"
 import type React from "react";
 import { useState } from "react";
 import LaunchFeeCrypto from "./launchFeeCrypto/launchFeeCrypto";
+import { useTranslation } from "react-i18next";
 
 
 export interface LaunchFeeSettleProps {
     backToChooseRoot: () => void,
-    wantCreateName: string,
 }
 
 const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
-    backToChooseRoot, wantCreateName
+    backToChooseRoot
 }) => {
+
+    const {t} = useTranslation()
 
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
 
@@ -24,12 +26,11 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
             <div className="launchfeepay">
                 <Back backFun={backToChooseRoot} className="launchrootback"/>
                 <div className="launchfeetitle">
-                    <h2>Creating:</h2>
-                    <h1>{wantCreateName}</h1>
+                    <h2>{t("createroot")}</h2>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
                 <LaunchFeeCrypto 
-                    creatingRootName={wantCreateName}
+                    creatingRootName="a"
                 />
             </div>
         </div>

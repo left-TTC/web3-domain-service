@@ -26,6 +26,8 @@
     backface-visibility: hidden;
     overflow: hidden;
     font-family: "Orbitron", sans-serif;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,6 +49,8 @@
     box-shadow:
         0 0 15px rgba(0,255,255,0.2),
         inset 0 0 25px rgba(255,255,255,0.3);
+    z-index: 2;
+    transform: rotateY(0deg);
 }
 
 .flip-back {
@@ -100,6 +104,10 @@
     animation: rotateCardY 3s linear infinite;
     transform-style: preserve-3d;
     backface-visibility: hidden;
+}
+
+.filpdisplaynone{
+   
 }
 
 @keyframes rotateCardY {

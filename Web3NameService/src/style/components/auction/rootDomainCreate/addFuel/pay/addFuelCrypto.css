@@ -12,35 +12,35 @@
 }
 
 .addFuelmintaandprice{
+    display: flex;
+    flex-direction: column;
     width: 60%;
     background-color: #161F2F;
     border-radius: 20px;
     padding: 40px;
 }
-
-.totalfees{
-    width: 32%;
-}
-
-.addFuelmintaandprice{
-    display: flex;
-    flex-direction: column;
-}
-
 .addFuelmintaandprice h1{
     margin: 0;
     padding: 0;
     color: white;
     opacity: 0.4;
     font-weight: 200;
+    font-size: 18px;
 }
 
 .mintChooser{
     margin-top: 10px;
 }
 
-@media (min-width: 1024px){
-    .addFuelmintaandprice h1{
-        font-size: 18px;
+@media (width < 1024px){
+    .addfuelcrypro{
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        gap: 20px;
+    }
+
+    .addFuelmintaandprice{
+        width: calc(96% - 80px);
     }
 }

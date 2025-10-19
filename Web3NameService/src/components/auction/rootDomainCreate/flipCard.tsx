@@ -47,7 +47,7 @@ export default function FlipCard({ frontText, fundNumber, loaded }: FlipCardProp
 
     return (
         <div 
-            className="flip-card" 
+            className={`flip-card }`}
             onClick={() => setFlipped(!flipped)}
             onMouseEnter={() => setCardOnHover(true)}
             onMouseLeave={() => setCardOnHover(false)}
@@ -59,7 +59,7 @@ export default function FlipCard({ frontText, fundNumber, loaded }: FlipCardProp
                         <div className="frontback">
                             <img src={cardStar} className="frontcardstar" style={{ opacity }}/>
                         </div>
-                        <h1>{frontText}</h1>
+                        <h1 className={`${flipped ? "filpdisplaynone":""}`}>{frontText}</h1>
                     </div>
                     <div className="flip-face flip-back" >
                         <h1>{t("collected")}:</h1>

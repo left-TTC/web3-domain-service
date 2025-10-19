@@ -54,7 +54,7 @@ const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
     }
 
     return(
-        <div className="totalfees">
+        <div className="totalfees createrootsettlebills">
             <h1>{t("bill")}</h1>
             <div className="registerfee">
                 <div className="registerrule">

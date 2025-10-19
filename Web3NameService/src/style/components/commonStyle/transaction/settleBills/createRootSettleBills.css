@@ -2,3 +2,15 @@
 .cryptototal h2{
     font-size: 15px;
 }
+
+
+@media (width < 1024px){
+
+    .createrootsettlebills{
+        height: 210px;
+        width: calc(100% - 40px) !important;
+    }
+}
+@media (width < 640px){
+
+}

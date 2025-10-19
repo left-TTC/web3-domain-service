@@ -1,11 +1,10 @@
 
-
-
 .addfuelpage{
     position: fixed;
     width: 100vw;
     height: 100vh;
     z-index: 1200;
+    overflow: hidden;
     background-color: #081328;
     top: 0;
     left: 0;
@@ -20,6 +19,7 @@
     align-items: center;
     margin-top: 100px;
     position: relative;
+    width: 1024px;
 }
 
 .addfueltitle{
@@ -31,57 +31,57 @@
     flex-direction: column;
     gap: 10px;
 }
-
 .addfueltitle h1{
     margin: 0;
     color: white;
     font-weight: 300;
+    font-size: 25px;
 }
-
 .addfueltitle h2{
     margin: 0;
     padding: 0;
     color: #B4FC75;
     font-weight: 600;
+    font-size: 42px;
 }
 
-.payemenCryptotchooser{
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    margin-top: 20px;
-}
-
-.payemenCryptotchooser h1{
-    margin: 0;
-}
 
 .addfuelbackbl{
     position: relative;
+    width: 1024px;
+    padding-bottom: 50px;
 }
 
 /*common computer*/
 @media (min-width: 1024px){
-    .addfuelpay{
-        width: 1024px;
+
+}
+@media (width < 1024px){
+    .addfuelbackbl{
+        width: 100%;
     }
 
-    .addfuelbackbl{
-        width: 1024px;
-        padding-bottom: 50px;
+    .addfuelpay{
+        width: 96%;
+        margin-top: 80px;
     }
 
     .addfueltitle h1{
-        font-size: 25px;
+        font-size: 23px;
     }
-
     .addfueltitle h2{
-        font-size: 42px;
+        font-size: 36px;
     }
 
-    .payemenCryptotchooser h1{
-        font-size: 21px;
-        margin: 0;
-        padding: 0;
+    .addfuelpage{
+        overflow-y: auto;
+    }
+}
+@media (width < 640px){
+    .addfueltitle h1{
+        font-size: 20px;
+    }
+    .addfueltitle h2{
+        font-size: 32px;
     }
 }

@@ -196,6 +196,9 @@
     }
 }
 @media (width < 1024px){
+    .rootdomainwords h1{
+        font-size: 15px;
+    }
     .rootdomainword h1{
         font-size: 15px;
     }
@@ -220,6 +223,13 @@
         width: calc(100% - 20px);
     }
     
+    .rootdomainwords{
+        padding: 5px 20px
+    }
+    .rootdomainwords h1{
+        font-size: 12px;
+    }
+
     .rootdomainword{
         padding: 5px 20px 
     }
@@ -229,5 +239,10 @@
 
     .sponerhead h1{
         font-size: 12px;
+    }
+
+    .fundstatesponerhead{
+        width: 35px;
+        height: 35px;
     }
 }

@@ -120,16 +120,20 @@
     .subrootfactorytitle h1{
         font-size: 20px;
     }
+    .RootDomainCreate{
+        margin-top: 120px;
+    }
 }
 @media (width < 740px){
     .sailt{
         text-align: center;
     }
+    
 }
 @media (width < 640px){
 
     .RootDomainCreate{
-        margin-top: 100px;
+        margin-top: 80px;
     }
 
     .rootfactorytitle{
@@ -150,7 +154,7 @@
     }
 
     .supportbl{
-        margin-top: 60px;
+        margin-top: 40px;
         height: 800px;
     }
     .sailt{
