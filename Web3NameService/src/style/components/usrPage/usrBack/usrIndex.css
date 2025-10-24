@@ -17,7 +17,6 @@
     height: 90px;
     display: flex;
     border-radius: 50%;
-    background-color: skyblue;
     overflow: hidden;
     align-items: center;
     justify-content: center;
@@ -33,6 +32,9 @@
 .nameCopy{
     display: flex;
     align-items: center;
+    padding: 0;
+    margin: 0;
+    background-color: #062548;
 }
 .nameCopy:hover{
     opacity: 0.8;
@@ -66,4 +68,51 @@
     background-color: white;
     filter: blur(1px);
     width: 100%;
+}
+
+@media (min-width: 1024px){
+
+}
+@media (width < 1024px){
+    .usrindex{
+        width: 96%;
+    }
+
+    .head{
+        scale: 0.8;
+    }
+
+    .namebl h1{
+        font-size: 13px !important;
+    }
+
+    .usrinfobl{
+        align-items: center;
+    }
+
+}
+@media (width < 800px){
+    .usrindex{
+        width: 96%;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+@media (width < 640px){
+    .usrindex{
+        gap: 0px;
+    }
+
+    .head{
+        scale: 0.6;
+    }
+
+    .usrinfobl{
+        gap: 1px;
+        align-items: center;
+    }
+
+    .namebl h1{
+        font-size: 12px !important;
+    }
 }

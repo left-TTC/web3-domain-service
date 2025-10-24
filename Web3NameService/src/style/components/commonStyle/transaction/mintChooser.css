@@ -52,7 +52,13 @@
 
 @media (min-width: 1024px){
 
-
+}
+@media (width < 1024px){
     
+}
+@media (width < 640px){
+    .mintchoosetl h3{
+        font-size: 15px;
+    }
 }
 

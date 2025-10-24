@@ -1,5 +1,5 @@
 
-import eye from "@/../public/background/hero/eye.png"
+import eye from "/background/hero/eye.png"
 
 import "@/style/components/auction/domainRecommend/bar/eyeBack.css"
 

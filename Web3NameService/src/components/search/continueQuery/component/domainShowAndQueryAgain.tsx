@@ -49,7 +49,7 @@ const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
                     </div>
                     {domainInfo? (
                         <div className="ownerShowword">
-                            <h1> Owned by </h1>
+                            <h1>{t("ownedby")}</h1>
                             <a href="#">{cutString(domainInfo.owner.toBase58(), 8, 8, "...")}</a>
                         </div>
                     ):(
@@ -59,7 +59,7 @@ const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
                     )}
                     <div className="domainFeatures">
                         {domainFeatures.map((feature, index) => (
-                            <div className="feature" key={index}>
+                            <div className="featurewords" key={index}>
                                 <h1>{feature}</h1>
                             </div>
                         ))}

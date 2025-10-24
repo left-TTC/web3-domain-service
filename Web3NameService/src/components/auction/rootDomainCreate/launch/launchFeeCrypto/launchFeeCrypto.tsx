@@ -9,16 +9,14 @@ import RootNameVerify from "./tool/rootNameVerify";
 
 
 
-export interface LaunchFeeCryptoProps {
-    creatingRootName: string;
-}
-
-const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
-    creatingRootName
-}) => {
+const LaunchFeeCrypto = () => {
 
     const [chooseMint, setChooseMint] = useState<SupportedMint>(SupportedMint.SOL)
     const {t} = useTranslation()
+
+    const [rootName, setRootName] = useState("")
+
+    const [rootNameValid, setRootNameValid] = useState(false)
 
     return(
         <div className="launchctypto">
@@ -29,15 +27,18 @@ const LaunchFeeCrypto: React.FC<LaunchFeeCryptoProps> = ({
                 />
                 <div className="launchctyptoline" />
                 <RootNameVerify
-                     
+                     setRootName={setRootName}
+                     setNamaValid={setRootNameValid}
+                     nameValid={rootNameValid}
                 />
                 <h4 className="attention">{t("attention")}:</h4>
                 <div className="attentionblock">
-                    <h1>{t("rootattention")}</h1>
+                    <h3>{t("rootattention")}</h3>
                 </div>
             </div>
             <CreateRootSettleBills 
-                creatingRootName={creatingRootName}
+                creatingRootName={rootName}
+                nameValid={rootNameValid}
             />
         </div>
     )

@@ -38,9 +38,9 @@ export const WalletEnvironmentProvider: React.FC<{ children: React.ReactNode }> 
 export const useWalletEnvContext = () => {
     const ctx = useContext(WalletEnvContext)
 
-    // if(!ctx){
-    //     throw new Error("wallet paranms err")
-    // }
+    if(!ctx){
+        throw new Error("wallet paranms err")
+    }
 
     return ctx;
 }

@@ -2,7 +2,7 @@
 
 import "@/style/pages/usr.css"
 import UsrBackground from "@/components/usrPage/usrBackground";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UsrDomain from "@/components/usrPage/usrComponets/usrDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { ADMIN } from "@/utils/constants/constants";
@@ -13,12 +13,18 @@ import UsrAuction from "@/components/usrPage/usrComponets/usrAuction";
 import { useAuctioningDomain } from "@/components/usrPage/function/useAuctioningDomain";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useAsPayerName } from "@/components/usrPage/function/useAsPayerName";
+import { useParams } from "react-router-dom";
+import { PublicKey } from "@solana/web3.js";
 
 export function User({
     openDomainQueryPage,
 }: {
     openDomainQueryPage: () => void;
 }) {
+
+    // get the params from url
+    const { key } = useParams();
+    const ifOtherUsr = useRef(false)
 
     const [domainNumber, setDomainNumber] = useState(0)
     const [showChangeAdmin, setShowChangeAdmin] = useState(false)
@@ -27,9 +33,22 @@ export function User({
     const {publicKey: usr} = useWalletEnv()
     const {connection} = useConnection()
 
+    useEffect(() => {
+        if(key != undefined && usr?.toBase58() != key)ifOtherUsr.current=true
+    }, [key, usr])
+
+    const [searchKey, setSearchKey] = useState<PublicKey | null>(usr)
+    useEffect(() => {
+        if(ifOtherUsr.current){
+            setSearchKey(new PublicKey(key!))
+        }else{
+            setSearchKey(usr)
+        }
+    }, [ifOtherUsr.current, usr])
+
     // contains all the domains that currently being liquidated and auctioned
-    const { auctioningDomain } = useAuctioningDomain(connection, usr)
-    const { asPayerDomain } = useAsPayerName(connection, usr)
+    const { auctioningDomain } = useAuctioningDomain(connection, searchKey)
+    const { asPayerDomain } = useAsPayerName(connection, searchKey)
 
     const [showSearchFrist, setShowSearchFrist] = useState(false)
     useEffect(() => {
@@ -49,11 +68,16 @@ export function User({
     const getUsrComponent = () => {
         switch(showUsrComponents){
             case UsrComponents.Domain:
-                return <UsrDomain domainNumber={domainNumber}/>
+                return <UsrDomain 
+                            domainNumber={domainNumber}
+                            ifCheckingOtherUsr={ifOtherUsr.current}
+                            setDomainNumber={setDomainNumber}
+                            searchKey={searchKey}
+                        />
             case UsrComponents.Auction:
                 return <UsrAuction allAuctionName={auctioningDomain}/>
             case UsrComponents.Profit:
-                return <UsrDomain domainNumber={domainNumber}/>
+                return <UsrAuction allAuctionName={auctioningDomain}/>
         }
     }
 
@@ -64,15 +88,16 @@ export function User({
                     openDomainQueryPage={openDomainQueryPage}
                     setShowUsrComponent={setShowUsrComponents}
                     showSearchFrist={showSearchFrist}
+                    searchKey={searchKey}
                 />
                 <div className="usrpagecon">
                     {getUsrComponent()}
                 </div>
-                {showChangeAdmin &&
+                {/* {showChangeAdmin &&
                     <ChangeToAdmin 
                         ifAdminModel={adminModel} changeAdminModel={setAdminModel}
                     />
-                }
+                } */}
             </div>
         ) : (
             <div className="usrPage">

@@ -7,7 +7,14 @@ import { findCreatingRoot } from "@/utils/net/findCreatingRoot";
 import { useConnection } from "@solana/wallet-adapter-react";
 import RootNameChange from "./children/rootNameChange";
 
-const SailingShip = () => {
+
+interface SailingShipProps{
+    openLanunchSettleAndRecordPosition: () => void
+}
+
+const SailingShip: React.FC<SailingShipProps> = ({
+    openLanunchSettleAndRecordPosition
+}) => {
 
     const {connection} = useConnection();
 
@@ -55,6 +62,7 @@ const SailingShip = () => {
                 <RootDomainInfo 
                     activeDomain={activeCreatingRoot}
                     ifActiveRootLoaded={activeLoaded}
+                    openLanunchSettleAndRecordPosition={openLanunchSettleAndRecordPosition}
                 />
             </div>
         </div>

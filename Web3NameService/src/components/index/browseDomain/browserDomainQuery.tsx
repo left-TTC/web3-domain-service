@@ -12,16 +12,16 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 import ChangeAndGoRoot, { type ChangeAndGoRootHandle } from "./changeAndGoRoot/changeAndGoRoot";
 import { useClinkQueryDomain } from "./functionalComponents/clinkQueryDomain";
 import { useClinkSetRoot } from "./functionalComponents/clinkSetRoot";
-import { unlockYScroll } from "@/utils/functional/show/page/lockYScorll";
 
 export interface BrowserDomainQueryProps{
     ifShowTheQueryPage: boolean,
-    setQueryPage: React.Dispatch<React.SetStateAction<boolean>>
+    setQueryPage: React.Dispatch<React.SetStateAction<boolean>>,
+    backOriginPosition: () => void | null,
 }
 
 
 const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
-    ifShowTheQueryPage, setQueryPage
+    ifShowTheQueryPage, setQueryPage, backOriginPosition
 }) => {
     const {t} = useTranslation();
 
@@ -72,16 +72,15 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
         }
     }, [shouldAnimate])
 
-
     const clickExitQueryPage = () => {
         const queryPage = browseDomainRef.current
         if(queryPage){
+            if(backOriginPosition)backOriginPosition()
             animate(queryPage, {
                 opacity: [1, 0],
                 scale: [1, 0.9],
                 duration: 100,
                 onComplete: () => {
-                    unlockYScroll()
                     setQueryPage(false)
                 }
             })
@@ -101,7 +100,6 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     return(
         <div className="queryPage" ref={browseDomainRef}>
             <div className="queryblock">
-
                 <div className="titleandexit">
                     <div className="querypagetitle">
                         <h1>{t("chooseprefer")}</h1>

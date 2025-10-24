@@ -6,13 +6,16 @@ import { useTranslation } from "react-i18next"
 import query from "@/assets/query.svg"
 import { useEffect, useRef, useState } from "react"
 import { animate } from "animejs"
-import { lockYScroll } from "@/utils/functional/show/page/lockYScorll"
+import { getAndReturnNowPosition } from "@/utils/functional/show/page/getAndReturnNowPosition"
 
 export interface BrowserDomainProps{
     setQueryPage: React.Dispatch<React.SetStateAction<boolean>>
+    setBackFn: React.Dispatch<React.SetStateAction<()=>void>>
 }
 
-const BrowserDomain: React.FC<BrowserDomainProps> = ({setQueryPage}) => {
+const BrowserDomain: React.FC<BrowserDomainProps> = ({
+    setQueryPage, setBackFn
+}) => {
 
     const {t} = useTranslation();
 
@@ -49,7 +52,7 @@ const BrowserDomain: React.FC<BrowserDomainProps> = ({setQueryPage}) => {
     }, [])
 
     const openSearchDomain = () => {
-        lockYScroll()
+        setBackFn(() => getAndReturnNowPosition(false))
         setQueryPage(true)
     }
 

@@ -44,12 +44,11 @@
     display: flex;
     text-align: left;
     flex-direction: column;
-    gap: 5px;
     align-items: center;
     transform: scale(0.9);
     opacity: 0;
     z-index: 1;
-    height: 150px;
+    max-height: 150px;
 }
 
 .chooseRootDomaininchecking{
@@ -57,7 +56,7 @@
     align-items: center;
     justify-content: center;
     width: 90%;
-    margin-top: 5px;
+    margin: 5px 0;
     border-radius: 5px;
     background-color: #434C52;
 }
@@ -75,11 +74,29 @@
 }
 @media (width < 640px){
     .checkingroot{
-        width: 70%;
+        width: 50%;
+    }
+
+    .checkingrootcontent{
+        justify-content: center;
+    }
+    .checkingrootcontent h1{
+        font-size: 11px !important;
     }
     
     .checkingrootgo{
         display: none;
+    }
+
+    .changerootdrop{
+        width: 120%;
+        right: 0;
+    }
+    .chooseRootDomaininchecking{
+        margin: 4px 0;
+    }
+    .chooseRootDomaininchecking h1{
+        font-size: 11px;
     }
 
     .checkingrootcontent h1{

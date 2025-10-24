@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import filter from "@/assets/filter.svg"
 
 import "@/style/components/auction/domainRecommend/bar/filterButton.css"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import Slider from "./tool/slider"
 import { useAuctionStore } from "@/components/store/auctionRecommendStore"
 import { lockYScroll, unlockYScroll } from "@/utils/functional/show/page/lockYScorll"
@@ -22,7 +22,6 @@ const FilterButton: React.FC<FilterButtonProps> = ({
     const [showFilterMask, setShowFilterMask] = useState(false)
 
     const [inputvalue, setInputValue] = useState("")
-    const inputRef = useRef<HTMLInputElement | null>(null)
 
     const [inputFocus, setInputFocus] = useState(false)
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +63,6 @@ const FilterButton: React.FC<FilterButtonProps> = ({
                                     placeholder={t("character")}
                                     value={inputvalue}
                                     onChange={handleInput}
-                                    ref={inputRef}
                                     className={`comtaincontentinput ${inputFocus? "inputcontainsfocus":""}`}
                                     onFocus={() => setInputFocus(true)}
                                     onBlur={() => setInputFocus(false)}

@@ -31,3 +31,16 @@
 @media (min-width: 1024px){
     
 }
+@media (width < 1024px){
+    .continuequery {
+        width: calc(96%);
+        padding: 0;
+        flex-direction: column;
+        height: auto;
+        background-color: #081328;
+        margin-top: 160px;
+    }
+}
+@media (width < 640px){
+    
+}

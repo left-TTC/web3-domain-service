@@ -27,7 +27,7 @@ const SearchYourFrist: React.FC<SearchYourFristProps> = ({
         <div className="havenotdomainusr">
             <h1>{t("getfrist")}</h1>
             <button className="getfristbu" onClick={() => openAndQueryDomain()}>
-                <h1>search domains</h1>
+                <h1>{t("searchdomain")}</h1>
                 <img className="usrsearchdomain" src={search} />
             </button>
         </div>

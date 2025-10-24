@@ -1,8 +1,7 @@
 import type { DetectWalletParams } from "@/utils/functional/wallet/detectPhoneWallet";
 import { useWallet, type Wallet } from "@solana/wallet-adapter-react";
-import type { WalletName } from "node_modules/@solana/wallet-adapter-base/lib/types/adapter";
 import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import type { WalletName } from "@solana/wallet-adapter-base";
 import OptionalButton from "./optionalButton/optionalButton";
 import { animate } from "animejs";
 

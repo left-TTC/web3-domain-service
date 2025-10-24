@@ -13,7 +13,7 @@ export interface RootNameChangeProps {
     creatingAccounts: rootStateAccount[],
     setActiveRoot: React.Dispatch<React.SetStateAction<rootStateAccount | null>>,
     setLoadingState: () => void,
-    loaded: boolean
+    loaded: boolean,
 }
 
 const RootNameChange: React.FC<RootNameChangeProps> = ({

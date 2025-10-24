@@ -135,8 +135,6 @@ export default function DomainRecommend() {
                                 </div>
                             ))}
                 </div>
-
-                {}
             </div>
         </div>
     );

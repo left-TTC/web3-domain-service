@@ -13,12 +13,11 @@ export enum UsrComponents {
 }
 
 export interface UsrStateManageProps {
-    needAttentionCom: UsrComponents[],
     setShowUsrComponent: React.Dispatch<React.SetStateAction<UsrComponents>>,
 }
 
 const UsrStateManage: React.FC<UsrStateManageProps> = ({
-    needAttentionCom, setShowUsrComponent
+    setShowUsrComponent
 }) => {
 
     const getImg = (com: UsrComponents) => {
@@ -36,9 +35,6 @@ const UsrStateManage: React.FC<UsrStateManageProps> = ({
         <div className="usrcommanage">
             {Object.values(UsrComponents).map((com, index) => (
                 <button key={index} className="comBu" onClick={() => setShowUsrComponent(com)}>
-                    {needAttentionCom.includes(com)&& 
-                        <div className="redattention" />
-                    }
                     <img src={getImg(com)} className="comimg" />
                 </button>
             ))}

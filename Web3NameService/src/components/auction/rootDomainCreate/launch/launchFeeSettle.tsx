@@ -29,9 +29,7 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
                     <h2>{t("createroot")}</h2>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
-                <LaunchFeeCrypto 
-                    creatingRootName="a"
-                />
+                <LaunchFeeCrypto />
             </div>
         </div>
     )

@@ -1,6 +1,4 @@
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import { addressStringListAtom } from "@/utils/functional/common/storage/storageStarDomain";
-import { useAtom } from "jotai";
 
 import nostart from "@/assets/starwhite.svg"
 import coin from "@/assets/coin.svg"
@@ -59,7 +57,6 @@ const RecommendDomainShow: React.FC<RecommendDomainShowProps> = ({
                 <h1>{showDomain}</h1>
             </div>
             <div className="buyoraddtocart">
-            
                 <div className="addtocart pixel">
                     <div className="cartpriceshow">
                         <img src={coin} className="priceCoin" />

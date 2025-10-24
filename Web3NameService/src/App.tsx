@@ -25,6 +25,7 @@ function App() {
                     <Route path='*' element={<Index ifShowDomain={showBrowserDomainQuery} setDomainQuery={setShowBrowserDomainQuery}/>} />
                     <Route path='/search' element={<Search />} />
                     <Route path='/usr' element={<User openDomainQueryPage={() => setShowBrowserDomainQuery(true)} />} />
+                    <Route path='/usr/:key' element={<User openDomainQueryPage={() => setShowBrowserDomainQuery(true)} />} />
 
                     {/** Auction Page */}
                     <Route path='/auction/recommend' element={<DomainRecommend />} />

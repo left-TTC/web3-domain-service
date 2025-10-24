@@ -46,7 +46,8 @@
 }
 
 .mydomaintypebu{
-    width: 96%;
+    width: calc(96% - 10px);
+    padding: 0 5px;
     height: 40px;
     margin-top: 3px;
     background-color: #1C2334;
@@ -75,13 +76,22 @@
 }
 @media (width < 640px){
     .allmydomainbl{
-        width: 100px;
+        width: 50px;
+        padding: 0;
     }
     .allmydomainbl h1{
-        font-size: 13px;
+        font-size: 12px;
+        padding: 0;
+        margin: 0;
     }
+    
+    .allmydomain{
+        align-items: center;
+        justify-content: center;
+    }
+
     .arrayicon{
-        width: 16px;
+        display: none;
     }
 
     .mydomaintypebu{
@@ -91,8 +101,12 @@
     }
     .mydomaintypebu h1{
         margin: 0;
-        padding: 0;
+        padding: 0 5px;
         font-size: 12px;
+    }
+
+    .mydomainfilterbl{
+        width: 230%;
     }
 }
 

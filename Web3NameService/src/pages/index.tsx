@@ -6,6 +6,7 @@ import DownloadBrave from "@/components/index/downloadBrave/downloadBrave"
 import IndexBackground from "@/components/index/indexBackground"
 import Web3CoreUtilities from "@/components/index/web3CoreUtilities/web3CoreUtilities"
 import "@/style/pages/index.css"
+import { useState } from "react"
 
 export interface IndexProps {
     ifShowDomain: boolean
@@ -15,16 +16,22 @@ export interface IndexProps {
 const Index: React.FC<IndexProps> = ({
     setDomainQuery, ifShowDomain
 }) => {
+
+    const [getBackPositionFn, setGetBackPositionFn] = useState<()=>void>(()=>{})
     
     return(
         <div className="index">
-            <BrowserDomain setQueryPage={setDomainQuery}/>
+            <BrowserDomain 
+                setQueryPage={setDomainQuery}
+                setBackFn={setGetBackPositionFn}    
+            />
             <IndexBackground />
             {/* fixed content */}
             {ifShowDomain &&
                 <BrowserDomainQuery 
                     ifShowTheQueryPage={ifShowDomain} 
-                    setQueryPage={setDomainQuery} 
+                    setQueryPage={setDomainQuery}
+                    backOriginPosition={getBackPositionFn}
                 />
             }
 

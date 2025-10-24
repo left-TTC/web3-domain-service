@@ -16,23 +16,26 @@ import { getAllUsrDomains } from "@/utils/net/getUsrDomains";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 import { getUsrDomainsRecord } from "@/utils/net/getUsrDomiansRecord";
+import type { PublicKey } from "@solana/web3.js";
 
 
 export interface UsrDomainProps{
     domainNumber: number,
+    ifCheckingOtherUsr: boolean,
+    setDomainNumber: React.Dispatch<React.SetStateAction<number>>,
+    searchKey: PublicKey | null,
 }
 
 export const usrPreferShow = atomWithStorage<SortStyle>(
     "usrSortShow",
     SortStyle.Simple
-) 
+)   
 
 const UsrDomain: React.FC<UsrDomainProps> = ({
-    domainNumber
+    domainNumber, ifCheckingOtherUsr, setDomainNumber, searchKey
 }) => {
 
     const {t} = useTranslation()
-    const { publicKey: wallet } = useWalletEnv()
     const { connection } = useConnection()
     const { rootDomains } = useRootDomain()
 
@@ -47,7 +50,7 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
 
     useEffect(() => {
         if (hasFetched.current) return;
-        if(!wallet || rootDomains.length === 0) return
+        if(!searchKey || rootDomains.length === 0) return
 
         hasFetched.current = true;
         const fetchUsrDomains = async() => {
@@ -59,16 +62,17 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
             }
 
             const [usrDomains, nameStateMap] = await getAllUsrDomains(
-                connection, wallet, rootKeyToNameMap
+                connection, searchKey, rootKeyToNameMap
             )
             setUsrDomainLoaded(true)
-            console.log("mydomain:", usrDomains)
+            console.log("domains:", usrDomains)
+            setDomainNumber(usrDomains.length)
             setUsrDomains(usrDomains)
             setDomainStateMap(nameStateMap)
         }
 
         fetchUsrDomains()
-    }, [wallet, rootDomains])
+    }, [searchKey, rootDomains])
 
     const [recordMap, setRecordMap] = useState<Map<string, IPFSRecordState> | null>(null)
     const [isLoadingRecordData, setIsLoadingRecordDate] = useState(false)
@@ -89,10 +93,20 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
 
     const [showWay, setShowWay] = useAtom(usrPreferShow)
 
+    const [sortedDomains, setSortedDomains] = useState<string[]>(usrDomains)
+    const [recordedNumber, setRecordedNumber] = useState(0)
+    useEffect(() => {
+        // sort the domain
+    }, [sortWay, sortType])
+
     return(
         <div className="usrdomain">
             <div className="mydomintitle">
-                <h1>{t("mydomain")}</h1>
+                {ifCheckingOtherUsr? (
+                    <h1>{t("domains")}</h1>
+                ):(
+                    <h1>{t("mydomain")}</h1>
+                )}
             </div>
             <div className="linedomain" />
             <DomainSort 
@@ -101,8 +115,9 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
                 setDomainFilter={setSortType}
                 sortWay={sortWay}
                 setSortWay={setSortWay}
-                nowShowWay={showWay}
+                nowShowWay={showWay} 
                 setShowWay={setShowWay}
+                recordedNumber={recordedNumber}
             />
             <div className="mydomainsbl">
                 {

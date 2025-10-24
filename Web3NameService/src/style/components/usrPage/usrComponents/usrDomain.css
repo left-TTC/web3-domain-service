@@ -70,10 +70,16 @@
     
 }
 @media (width < 1024px){
-
+    .usrdomain{
+        margin-top: 15px;
+    }
 }
 @media (width < 640px){
+    .usrdomain{
+        margin-top: 5px;
+    }
+
     .mydomintitle h1{
-        font-size: 20px;
+        font-size: 16px;
     }
 }

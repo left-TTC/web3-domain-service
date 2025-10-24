@@ -24,15 +24,35 @@
 }
 
 .comimg{
-    width: 20px;
+    width: 24px;
 }
 
-.redattention{
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background-color: red;
-    border-radius: 50%;
-    right: -6px;
-    top: -6px;
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+
+    .usrcommanage{
+        gap: 5px;   
+    }
+    
+}
+@media (width < 800px){
+    .usrcommanage{
+        gap: 20px;
+        justify-content: left;
+        width: 96%;
+        padding-left: 4%;
+    }
+}
+@media (width < 640px){
+    
+    .comBu{
+        height: 32px;
+        width: 40px;
+    }
+
+    .comimg{
+        width: 16px;
+    }
 }

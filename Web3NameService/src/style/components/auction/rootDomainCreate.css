@@ -123,6 +123,10 @@
     .RootDomainCreate{
         margin-top: 120px;
     }
+
+    .lanunchdomainor h1{
+        font-size: 48px;
+    }
 }
 @media (width < 740px){
     .sailt{

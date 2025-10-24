@@ -23,8 +23,13 @@
         rgba(255, 255, 255, 0.12) 50%,
         rgba(255, 255, 255, 0) 100%
     );
-    filter: blur(8px); /* 模糊边缘，增强真实感 */
+    filter: blur(8px); 
     animation: shimmer-sweep 1.5s infinite ease-in-out;
+}
+
+.DomainGeneratingShow{
+    width: 300px;
+    height: 280px;
 }
 
 @keyframes shimmer-sweep {
@@ -37,8 +42,11 @@
 }
 
 @media (min-width: 1024px){
+    
+}
+@media (width < 640px){
     .DomainGeneratingShow{
-        width: 300px;
-        height: 280px;
+        width: 90%;
+        height: 190px;
     }
 }

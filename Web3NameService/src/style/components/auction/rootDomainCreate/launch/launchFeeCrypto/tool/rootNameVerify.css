@@ -1,0 +1,125 @@
+
+.rootnameInputbl{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.rootnameInputbl h3{
+    color: #B5B9BF;
+    font-weight: 400;
+    font-size: 17px;
+    margin: 0;
+}
+
+.rootnameinputbl{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.rootnameinputcontent{
+    width: 70%;
+    background-color: black;
+    height: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.rootnamecomtaincontentinput{
+    padding: 0 20px;
+    width: calc(100% - 40px);
+    outline: none;
+    border: none;
+    background-color: black;
+    font-weight: 600;
+    color: white;
+    font-size: 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.RootnameVerifybu{
+    width: 20%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #B5B9BF;
+    position: relative;
+}
+.RootnameVerifybu h3{
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+    color: black;
+}
+.rootNameValid:hover{
+    opacity: 0.8;
+}
+
+.rootNameValid{
+    background-color: #B4FC75;
+}
+
+.rootNameInvalid{
+    pointer-events: none;
+}
+
+.rootnameverifyimg{
+    width: 20px;
+    transform-origin: center center;   /* 关键：以元素中心为原点 */
+    animation: spin 1.2s linear infinite;
+}
+.rootnameokimg{
+    width: 30px;
+}
+
+@keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.red{
+    background-color: red;
+}
+
+.rootnameerrorshow{
+    position: absolute;
+    width: 200%;
+    height: 30px;
+    background-color: #434C52;
+    bottom: 50px;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+.rootnameerrorshow h3{
+    color: white;
+    font-size: 13px;
+}
+
+@media (width < 1024px){
+    .rootnameerrorshow{
+        width: 220px;
+    }
+}
+@media (width < 640px){
+    .rootnameInputbl h3{
+        font-size: 15px;
+    }
+
+    .rootnamecomtaincontentinput{
+        font-size: 12px;
+    }
+
+    .RootnameVerifybu h3{
+        font-size: 13px;
+    }
+}

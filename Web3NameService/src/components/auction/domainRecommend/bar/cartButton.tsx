@@ -1,7 +1,6 @@
 
 
 import cart from "@/assets/star.svg"
-import exit from "@/assets/exit.svg"
 
 import "@/style/components/auction/domainRecommend/bar/cartButton.css"
 import { useEffect, useRef, useState } from "react";
@@ -16,17 +15,13 @@ import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
+import StarDomainItem from "./tool/starDomainItem";
 
-interface CartButtonProps {
 
-}
-
-const CartButton: React.FC<CartButtonProps> = ({
-
-}) => {
+const CartButton = () => {
 
     const {t} = useTranslation()
-    const {starDomains, setStarDomains} = useStarDomains()
+    const {starDomains} = useStarDomains()
     const {connection} = useConnection()
     const {rootDomains} = useRootDomain()
 
@@ -95,38 +90,6 @@ const CartButton: React.FC<CartButtonProps> = ({
         };
 
     }, [showUsrCart])
-
-    const deleteItem = (item: string) => {
-        const newDomains = starDomains.filter(domain => domain !== item);
-        setStarDomains(newDomains);
-    }
-
-    const [hovered, setHovered] = useState(false);
-    const hoverTimer = useRef<NodeJS.Timeout | null>(null);
-
-    const handleMouseEnter = () => {
-            hoverTimer.current = setTimeout(() => {
-            setHovered(true);
-        }, 500);
-    };
-
-    const handleMouseLeave = () => {
-        if (hoverTimer.current) {
-            clearTimeout(hoverTimer.current);
-            hoverTimer.current = null;
-        }
-        setHovered(false);
-    };
-
-    const hoverRef = useRef<HTMLDivElement | null>(null)
-    useEffect(() => {
-        if(hovered && hoverRef.current){
-            animate(hoverRef.current, {
-                opacity: [0, 0.3],
-                duration: 500,
-            })
-        }
-    }, [hovered])
     
     return(
         <div style={{position:"relative", zIndex:"100"}}>
@@ -136,38 +99,22 @@ const CartButton: React.FC<CartButtonProps> = ({
             </button>
  
             {showUsrCart &&
-                <div className="cartsettle" ref={cartSettleRef}>
-                    {starDomains.length != 0? starDomains.map((domain, index) => (
-                        <div className="cartitem" key={index}
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <div className="domainitemcart">
-                                <div className="nameandpricecart">
-                                    <div className="nameart">
-                                        <div className="artball" />
-                                        <h1>{cutDomain(domain)[0]}</h1>
-                                        <h2>.{cutDomain(domain)[1]}</h2>
-                                    </div>
-                                    <h2>${(starDomainsInfo[index]/1e6).toFixed(2)}</h2>
-                                </div>
-                                <button className="deletethecartitem" onClick={() => deleteItem(domain)}>
-                                    <img src={exit} className="cartexitimg" />
-                                </button>
+                <div className="shellcart" ref={cartSettleRef}>
+                    <div className="cartsettle">
+                        {starDomains.length != 0? starDomains.map((domain, index) => (
+                            <StarDomainItem
+                                key={index}
+                                domainName={domain}
+                                index={index}
+                                starDomainsInfo={starDomainsInfo[index]}
+                            />
+                        )):
+                            <div className="cartitem noitem">
+                                <h1>{t("noitem")}</h1>
+                                <div className="cartitemline" />
                             </div>
-                            <div className="cartitemline" />
-                            {hovered &&
-                                <div className="starthover" ref={hoverRef}>
-                                    <h1>{t("start")}</h1>
-                                </div>
-                            }
-                        </div>
-                    )):
-                        <div className="cartitem noitem">
-                            <h1>No Item</h1>
-                            <div className="cartitemline" />
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             }
         </div>

@@ -11,23 +11,27 @@ import { CREATE_ROOT_TARGET } from "@/utils/constants/constants";
 import { useEffect, useState } from "react";
 import AddFuel from "../addFuel/addFuel";
 import Identicon from "@/components/common/show/usr/identicon";
+import { getAndReturnNowPosition } from "@/utils/functional/show/page/getAndReturnNowPosition";
 
 
 export interface RootDomainInfoProps {
     activeDomain: rootStateAccount | null,
-    ifActiveRootLoaded: boolean
+    ifActiveRootLoaded: boolean,
+    openLanunchSettleAndRecordPosition: () => void,
 }
 
 
 const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
-    activeDomain, ifActiveRootLoaded
+    activeDomain, ifActiveRootLoaded, openLanunchSettleAndRecordPosition
 }) => {
 
     const {t}= useTranslation()
 
     const [ifShowAddFuel, setIfShowAddFuel] = useState(false)
+    const [addModelBackFn, setAddModelBackFn] = useState<()=>void>(()=>{})
 
     const openAddFuelModal = () => {
+        setAddModelBackFn(() => getAndReturnNowPosition(false))
         setIfShowAddFuel(true)
     }
 
@@ -84,9 +88,9 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
                     </div>
                 ):(
                     <div className="noitemcolletiing">
-                        <h1>No Item</h1>
+                        <h1>{t("noitem")}</h1>
                         <div className="addFuelbutton waitingconfirmitem">
-                            <button className={`addfuel pixel waitingconfirmitembu`} onClick={() => openAddFuelModal()}>
+                            <button className={`addfuel pixel waitingconfirmitembu`} onClick={() => openLanunchSettleAndRecordPosition()}>
                                 <h1>{t("createnow")}</h1>
                             </button>
                         </div>
@@ -96,7 +100,9 @@ const RootDomainInfo: React.FC<RootDomainInfoProps> = ({
                 <div className="rootinfobl rootchecking"/>
             )}
             {ifShowAddFuel &&
-                <AddFuel addingRootInfo={activeDomain!} closeAddFuelPage={() => setIfShowAddFuel(false)}/>
+                <AddFuel 
+                    addingRootInfo={activeDomain!} 
+                    closeAddFuelPage={() => {addModelBackFn(); setIfShowAddFuel(false)}}/>
             }
         </div>
     )

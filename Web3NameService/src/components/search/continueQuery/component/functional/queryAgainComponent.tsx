@@ -48,19 +48,21 @@ const QueryAgainComponent = () => {
         <div className="queryagain">
             <input 
                 type="text"
+                className="queryagaininputs"
                 placeholder={`Searching for .${activeRootDomain} Domain`}
                 value={queryAgainDomain}
                 onChange={handDomainInput}
-                className="queryagaininput"
                 onFocus={() => setIfInputOnfocus(true)}
             />
-            <div className="queryagaineenter">
-                <img src={enter} className="querypagenetericon" />
-                <h1>Enter</h1>
+            <div className="thequeryblockcontent">
+                <div className="queryagaineenter">
+                    <img src={enter} className="querypagenetericon" />
+                    <h1>Enter</h1>
+                </div>
+                <button className="queryagainsubmitbutton" ref={queryButtonRef} onClick={() => clickQueryDomian()}>
+                    <img src={query} className="querypagequericon" />
+                </button>
             </div>
-            <button className="queryagainsubmitbutton" ref={queryButtonRef} onClick={() => clickQueryDomian()}>
-                <img src={query} className="querypagequericon" />
-            </button>
         </div>
     )
 }

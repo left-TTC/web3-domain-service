@@ -1,7 +1,7 @@
 
 import "@/style/components/index/backgroud/mountain.css"
 
-import mountain from "@/../public/background/hero/a.png"
+import mountain from "/background/hero/a.png"
 
 const Mountain = () => {
 

@@ -22,14 +22,6 @@
     padding-bottom: 50px;
     font-size: 26px;
 }
-.showdomainOmit:hover 
-
-.showOnhover{
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
 
 .startcontentomit{
     display: flex;
@@ -177,8 +169,8 @@
     }
 
     .domiannamebl h1{
-        padding-bottom: 100px;
-        font-size: 22px;
+        padding-bottom: 50px;
+        font-size: 20px;
     }
 
     .quickBuy{

@@ -35,3 +35,12 @@
         width: 1024px;
     }
 }
+@media (width < 1024px){
+    .searchPageContent{
+        width: 100%;
+    }
+
+    .backtoLastPage{
+        top: 80px;
+    }
+}

@@ -94,7 +94,7 @@
     "moreop": "More Options",
     "lessop": "Less Options",
     "loading": "Loading",
-    "rootattention": "The initiator needs to pay a deposit of 5USD, the root domain's rent will sub from the deposit, so please be casual",
+    "rootattention": "The sponsor needs to pay a one-time fee of five dollars, so please pay carefully",
     "deposit": "Deposit",
     "rootex": "Account Exemption",
     "Fund": "Fund",
@@ -103,7 +103,7 @@
     "check": "Check",
     "Result": "Result",
     "unregis": "Unregistered domain name",
-    "domainattention": "After confirmation, an auction will be launched. You need to pay 20% of the product price as a deposit. If no one bids higher, you can settle the domain name after three days (the settlement period is 7 days).",
+    "domainattention": "After confirmation, the domain name auction will be launched and everyone can bid. The highest bidder needs to deposit a portion of the deposit into the system. If it is an uninitialized domain name, the proportion is 10% of the price, and if it is an initialized domain name, it is 5%. If no one bids higher, you can settle the domain name after three days (the settlement period is 7 days).",
     "startingp": "Starting Price",
     "important": "Important",
     "learn": "Learn about our ",
@@ -156,5 +156,13 @@
     "createnow": "Create Now",
     "launchrootdetail": "You will initiate a new root domain name collection plan as the initiator and start the registration process for the domain name after the collection is complete.",
     "createroot": "Create Root Domain",
-    "rootName": "Root name"   
+    "rootName": "Root name",
+    "inputroot": "Type in Root Domain",
+    "nousecommon": "Generic domain are prohibited",
+    "created": "This root was created",
+    "noitem": "No item",
+    "delete": "delete",
+    "ownedby": "Owned by",
+    "searchdomain": "Search Domain",
+    "domains": "Domains"   
 }

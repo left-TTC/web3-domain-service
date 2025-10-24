@@ -84,33 +84,35 @@ const ChangeAndGoRoot = forwardRef<ChangeAndGoRootHandle, ChangeAndGoRootProps>(
                 </button>
             </div>
             <div className="changerootcontent">
-                {(rootDomains.length >= 3) ?    
+                {(rootDomains.length >= 7) ?    
                     (<Swiper
                         modules={[Mousewheel]}
                         direction="vertical"
                         slidesPerView={3}
                         centeredSlides={true}
-                        spaceBetween={10}
+                        spaceBetween={30}
                         mousewheel={true} 
                         className="allroot"
                         loop={true} 
                     >
                         {
                             rootDomains.map((rootdomain, index) => (
-                                <SwiperSlide key={index}>
-                                    <button className="rootchooseshowbutton pixel">
+                                <SwiperSlide key={index} className="rootslied">
+                                    <button className="rootchooseshowbutton pixel" onClick={() => clickChooseDomain(rootdomain)}>
                                         {rootdomain}
                                     </button>
                                 </SwiperSlide>
                             ))
                         }
                     </Swiper>) : 
-                    (<div className="allrootless">
+                    (<div className={`allrootless ${rootDomains.length>3? "needgrid":""}`}>
                         {
                             rootDomains.map((rootdomain, index) => (
-                                <button key={index} className="rootchooseshowbutton common pixel" onClick={() => clickChooseDomain(rootdomain)}>
-                                    {rootdomain}
-                                </button>
+                                <div className="lessbl" key={index}>
+                                    <button className="rootchooseshowbutton common pixel" onClick={() => clickChooseDomain(rootdomain)}>
+                                        {rootdomain}
+                                    </button>
+                                </div>
                             ))
                         }
                     </div>)

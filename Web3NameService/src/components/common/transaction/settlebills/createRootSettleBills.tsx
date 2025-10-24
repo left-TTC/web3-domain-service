@@ -13,11 +13,12 @@ import { toTokenPerUsd } from "@/utils/functional/common/number/toTokenPerUsd";
 
 export interface SettleBillsProps {
     creatingRootName: string,
+    nameValid: boolean
 }
 
 
 const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
-    creatingRootName
+    creatingRootName, nameValid
 }) => {
 
     const {t} = useTranslation()
@@ -72,7 +73,10 @@ const CreateRootSettleBills: React.FC<SettleBillsProps> = ({
                     <h1>{t("total")}</h1>
                     <h2>{solPrice.toFixed(4)} SOL</h2>
                 </div>
-                <button className="cryptoconfirmbutton" onClick={() => createRootState()}>
+                <button 
+                    className={`cryptoconfirmbutton ${!nameValid && "cannotcomfirmcreateroot"}`} 
+                    onClick={() => createRootState()}
+                >
                     <h1>{t("confirm")}</h1>
                 </button>
             </div>

@@ -1,24 +1,29 @@
 import { useTranslation } from "react-i18next";
 
 import "@/style/components/auction/rootDomainCreate/launchRootDomain.css"
-import { useState } from "react";
 import LaunchFeeSettle from "./launch/launchFeeSettle";
 
-import card from "/public/background/file/card.png"
+import card from "/background/file/card.png"
 
+interface LaunchRootDomainProps {
+    showLaunchSettle: boolean,
+    openLanunchSettleAndRecordPosition: () => void;
+    backFn: () => void,
+    setShowLaunchSettle: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-const LaunchRootDomain = () => {
+const LaunchRootDomain: React.FC<LaunchRootDomainProps> = ({
+    showLaunchSettle, openLanunchSettleAndRecordPosition, backFn, setShowLaunchSettle
+}) => {
 
     const {t} = useTranslation()
-
-    const [showLaunchSettle, setShowLaunchSettle] = useState(false)
 
     return(
         <div className="launchroot">
             <div className="launchnewdomain">
                 <div className="detailandlaunchbu">
                     <h1>{t("launchrootdetail")}</h1>
-                    <button className="launchnewbu pixel" onClick={() => setShowLaunchSettle(true)}>
+                    <button className="launchnewbu pixel" onClick={() => openLanunchSettleAndRecordPosition()}>
                         <h1>{t("launch")}</h1>
                     </button>
                 </div>
@@ -27,7 +32,7 @@ const LaunchRootDomain = () => {
 
             {showLaunchSettle &&
                 <LaunchFeeSettle 
-                    backToChooseRoot={() => setShowLaunchSettle(false)}
+                    backToChooseRoot={() => {backFn(); setShowLaunchSettle(false)}}
                 />
             }
         </div>

@@ -34,7 +34,9 @@
 }
 @media (width < 640px){
     .sortwaybu{
-        width: 140px;
+        width: 110px;
+        padding: 0 10px;
+        justify-content: center;
     }
     .sortwaybu h1{
         font-size: 11px;

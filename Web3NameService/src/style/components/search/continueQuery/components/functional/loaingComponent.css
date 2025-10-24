@@ -1,0 +1,49 @@
+
+
+.loadcontent{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.loadcontent h1{
+    color: white;
+}
+
+.loadDot{
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    animation: jump 1.2s ease-in-out infinite;
+}
+
+.loadDot:nth-child(1) {
+  animation-delay: 0s;
+}
+.loadDot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.loadDot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* 定义跳动动画 */
+@keyframes jump {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-120%);
+    }
+}
+
+@media (width < 640px){
+    .loadDot{
+        width: 20px;
+        height: 20px;
+    }
+}

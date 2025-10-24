@@ -1,32 +1,30 @@
 import "@/style/components/usrPage/usrBackground.css"
 import SearchYourFrist from "./usrBack/searchYourFrist";
-import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import UsrIndex from "./usrBack/usrIndex";
 import ConnectWalletFrist from "./usrBack/connectWallet";
 import { UsrComponents } from "./usrBack/usrStateManage";
+import type { PublicKey } from "@solana/web3.js";
 
 
 export interface UsrBackgroundProps{
     openDomainQueryPage: () => void,
     setShowUsrComponent: React.Dispatch<React.SetStateAction<UsrComponents>>,
-    showSearchFrist: boolean
+    showSearchFrist: boolean,
+    searchKey: PublicKey | null
 }
 
 
 const UsrBackground: React.FC<UsrBackgroundProps> = ({
-    openDomainQueryPage, setShowUsrComponent, showSearchFrist
+    openDomainQueryPage, setShowUsrComponent, showSearchFrist, searchKey
 }) => {
-
-    const {publicKey: usr} = useWalletEnv()
-    
 
     return(
         <div className="usrback">
-            {usr? (
+            {searchKey? (
                 (showSearchFrist)? (
                     <SearchYourFrist openDomainQueryPage={openDomainQueryPage}/>
                 ):(
-                    <UsrIndex usr={usr} hintCom={[UsrComponents.Auction]} setShowUsrComponent={setShowUsrComponent}/>
+                    <UsrIndex usr={searchKey} setShowUsrComponent={setShowUsrComponent}/>
                 )
             ):(
                 <ConnectWalletFrist />

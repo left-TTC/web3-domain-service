@@ -12,12 +12,13 @@
     align-items: center;
     gap: 10px;
     width: 100%;
+    justify-content: space-between;
 }
 .queryagain:focus-within{
     border-color: #B4FC75;
 }
 
-.queryagaininput{
+.queryagaininputs{
     height: 70%;
     width: 65%;
     margin-left: 20px;
@@ -28,8 +29,11 @@
     color: white;
     font-weight: 500;
 }
-.queryagaininput::placeholder {
+.queryagaininputs::-webkit-input-placeholder,
+.queryagaininputs:-ms-input-placeholder,
+.queryagaininputs::placeholder {
     font-size: 21px;
+    color: rebeccapurple;
 }
 
 .queryagaineenter{
@@ -63,5 +67,69 @@
     align-items: center;
     padding: 5px 20px;
     width: fit-content;
+}
+
+.thequeryblockcontent{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 100%;
+    align-items: center;
+    margin-right: 5px;
+}
+
+@media (width < 1024px){
+    .queryagain{
+        bottom: 30px;
+        width: calc(100% - 60px);
+    }
+
+    .queryagaininputs{
+        width: 70%;
+    }
+}
+@media (width < 760px){
+    .queryagain{
+        height: 50px;
+    }
+
+    .queryagaininputs{
+        width: 70%;
+        font-size: 18px;
+        margin-left: 15px;
+    }
+    .queryagaininputs::-webkit-input-placeholder,
+    .queryagaininputs:-ms-input-placeholder,
+    .queryagaininputs::placeholder {
+        font-size: 18px !important;
+    }
+}
+@media (width < 640px){
+    .queryagain{
+        height: 40px;
+    }
+
+    .queryagaininputs{
+        font-size: 13px;
+        margin-left: 5px;
+    }
+
+    .queryagaineenter{
+        display: none;
+    }
+
+    .querypagequericon{
+        width: 20px;
+    }
+
+    .querypagenetericon{
+        width: 20px;
+    }
+    .queryagaineenter h1{
+        font-size: 13px;
+    }
+}
+@media (width < 420px){
+
 }
 

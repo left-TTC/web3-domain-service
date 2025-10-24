@@ -15,11 +15,12 @@ export enum MyDomainFilter {
 export interface AllMyDomainProps {
     domainNumber: number,
     domainFilter: MyDomainFilter,
-    setDomainFilter: React.Dispatch<React.SetStateAction<MyDomainFilter>>;
+    setDomainFilter: React.Dispatch<React.SetStateAction<MyDomainFilter>>,
+    recordedNumber: number,
 }
 
 const AllMyDomain: React.FC<AllMyDomainProps> = ({
-    domainNumber, domainFilter, setDomainFilter
+    domainNumber, domainFilter, setDomainFilter, recordedNumber
 }) => {
 
     const {t} = useTranslation()
@@ -73,9 +74,9 @@ const AllMyDomain: React.FC<AllMyDomainProps> = ({
             case MyDomainFilter.All:
                 return t("all") + `(${domainNumber})`;
             case MyDomainFilter.Recorded:
-                return t("recorded") + `(${domainNumber})`;
+                return t("recorded") + `(${recordedNumber})`;
             case MyDomainFilter.NoRecord:
-                return t("norecored") + `(${domainNumber})`;
+                return t("norecored") + `(${domainNumber - recordedNumber})`;
         }
     }
 
