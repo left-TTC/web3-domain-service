@@ -1,27 +1,68 @@
 
 .SearchMyDomain{
     width: 180px;
-    height: 100%;
     border: 2px solid #434C52;
     border-radius: 8px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     padding: 0 10px;
+    overflow: hidden;
 }
 
 .searchmyquerticon{
     width: 22px;
 }
 
-.queryagaininput{
+.mydomainsearchinput{
     color: #868E9B;
-    font-size: 18px;
+    font-size: 14px;
+    width: 70%;
+    background-color: #081328;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    outline: none;
+    border: none;
+    padding: 0;
+    color: white;
+    font-weight: 500;
 }
-.queryagaininput::placeholder{
+.mydomainsearchinput::placeholder{
     color: #868E9B;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 18px;
+    font-size: 14px;
+    padding: 0;
+}
+
+
+@media (min-width: 1024px){
+
+}
+@media (width < 1024px){
+    .SearchMyDomain{
+        width: 120px;
+    }
+}
+@media (width < 640px){
+
+    .SearchMyDomain{
+        width: 80px;
+    }
+
+    .domainsort{
+        margin-top: 10px;
+    }
+
+    .searchmyquerticon{
+        width: 10px;
+    }
+
+    .mydomainsearchinput{
+        font-size: 11px;
+        width: 80%;
+    }
+    .mydomainsearchinput::placeholder{
+        font-size: 11px;
+    }
 }
 

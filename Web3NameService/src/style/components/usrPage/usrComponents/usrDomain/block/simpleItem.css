@@ -43,6 +43,10 @@
 .true{
     opacity: 0.5;
 }
+.ipfsFlag.true {
+    animation: glow 3s ease-in-out infinite;
+}
+
 
 @keyframes glow {
     0%, 100% {
@@ -56,7 +60,18 @@
     }
 }
 
-.ipfsFlag.true {
-    animation: glow 3s ease-in-out infinite;
+
+@media (min-width: 1024px){
+
 }
+@media (width < 1024px){
+
+}
+@media (width < 640px){
+    .simpleitem{
+        height: 160px;
+        margin-top: 10px;
+    }
+}
+
 

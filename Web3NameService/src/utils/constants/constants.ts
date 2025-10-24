@@ -40,6 +40,8 @@ export const VAULT_ADMIN = 500000000; //lamports
 // $ 1.99
 export const INIT_DOMAIN_PRICE = 1990000
 
+export const DEFAULT_CUSTOM_VALUE = 99999999;
+
 export function getMintVault(mintType: MainMint): PublicKey{
     switch(mintType){
         case MainMint.SOL:

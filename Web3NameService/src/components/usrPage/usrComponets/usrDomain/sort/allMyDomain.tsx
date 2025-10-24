@@ -87,7 +87,7 @@ const AllMyDomain: React.FC<AllMyDomainProps> = ({
                 <img src={array} className="arrayicon" ref={allMyDomainImg} />
             </button>
             {showDomainFilter && 
-                <div className="mydomainfilterbl" ref={sortBlcokRef}>
+                <div className="mydomaintypefilterbl" ref={sortBlcokRef}>
                     {Object.values(MyDomainFilter).map(type => (
                         <button key={type} 
                             className={`mydomaintypebu ${(domainFilter === type)? "mydomainactive":""}`}

@@ -15,12 +15,14 @@ export interface DomainSortProps{
     nowShowWay: SortStyle,
     setShowWay: React.Dispatch<React.SetStateAction<SortStyle>>,
     recordedNumber: number,
+    contain: string,
+    setContain: React.Dispatch<React.SetStateAction<string>>,
 }
 
 const DomainSort: React.FC<DomainSortProps> = ({
     domainNumber, domainFilter, setDomainFilter, 
     sortWay, setSortWay, nowShowWay, setShowWay,
-    recordedNumber
+    recordedNumber, contain, setContain
 }) => {
 
 
@@ -39,7 +41,10 @@ const DomainSort: React.FC<DomainSortProps> = ({
                 />
             </div>
             <div className="sortsearchbl">
-                <SearchMyDomain />
+                <SearchMyDomain 
+                    contain={contain}
+                    setContain={setContain}
+                />
                 <DetailOrSimple 
                     nowShowWay={nowShowWay}
                     setShowWay={setShowWay}

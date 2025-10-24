@@ -3,8 +3,14 @@ import "@/style/components/search/continueQuery/components/functional/loaingComp
 import { animate } from "animejs";
 import { useEffect, useRef } from "react";
 
+interface LoadingComponentProps{
+    contentClass?: string,
+    dotClass?: string
+}
 
-const LoadingComponent = () => {
+const LoadingComponent: React.FC<LoadingComponentProps> = ({
+    contentClass, dotClass
+}) => {
 
     const dotRefOne = useRef<HTMLDivElement | null>(null)
     const dotRefTwo = useRef<HTMLDivElement | null>(null)
@@ -17,10 +23,10 @@ const LoadingComponent = () => {
     }, [])
 
     return(
-        <div className="loadcontent">
-            <div className="loadDot" ref={dotRefOne}/>
-            <div className="loadDot" ref={dotRefTwo}/>
-            <div className="loadDot" ref={dotRefThree}/>
+        <div className={`loadcontent ${contentClass}`}>
+            <div className={`loadDot ${dotClass}`} ref={dotRefOne}/>
+            <div className={`loadDot ${dotClass}`} ref={dotRefTwo}/>
+            <div className={`loadDot ${dotClass}`} ref={dotRefThree}/>
         </div>
     )
 }

@@ -31,7 +31,7 @@
     width: 20px;
 }
 
-.mydomainfilterbl{
+.mydomaintypefilterbl{
     position: absolute;
     width: 100%;
     background-color: #1C2334;
@@ -72,7 +72,9 @@
 
 }
 @media (width < 1024px){
-
+    .allmydomainbl{
+        width: 120px;
+    }
 }
 @media (width < 640px){
     .allmydomainbl{
@@ -80,7 +82,7 @@
         padding: 0;
     }
     .allmydomainbl h1{
-        font-size: 12px;
+        font-size: 11px;
         padding: 0;
         margin: 0;
     }
@@ -105,7 +107,7 @@
         font-size: 12px;
     }
 
-    .mydomainfilterbl{
+    .mydomaintypefilterbl{
         width: 230%;
     }
 }

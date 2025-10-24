@@ -19,6 +19,8 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
+    height: 100%;
+    padding: 0;
 }
 
 
@@ -32,11 +34,15 @@
 @media (width < 640px){
     .sortdomainsortbl{
         gap: 5px;
-        height: 30px;
     }
 
     .domainsort{
         margin-top: 10px;
+        height: 30px;
+    }
+
+    .sortsearchbl{
+        gap: 5px;
     }
 }
 

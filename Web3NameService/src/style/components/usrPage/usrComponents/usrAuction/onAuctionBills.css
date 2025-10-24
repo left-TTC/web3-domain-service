@@ -29,43 +29,6 @@
     opacity: 0.4;
 }
 
-.realhead{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-}
-
-.itemhead{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 30px;
-    width: 60%;
-    justify-content: space-between;
-}
-
-.head1{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.itemdomainame{
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-}
-.itemdomainame h1{
-    font-size: 23px;
-    color: white;
-}
-.itemdomainame h2{
-    font-size: 23px;
-    color: #95948A;
-}
-
 .priceAndhighest{
     display: flex;
     flex-direction: column;

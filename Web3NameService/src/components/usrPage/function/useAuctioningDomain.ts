@@ -2,7 +2,7 @@ import { findUsrBiddingDomain } from "@/utils/net/findUsrBiddingDomain";
 import type { Connection, PublicKey } from "@solana/web3.js";
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // use local cache
 // when create a auction, We can observe for a long time 

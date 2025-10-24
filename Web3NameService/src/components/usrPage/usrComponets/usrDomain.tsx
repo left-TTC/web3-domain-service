@@ -1,29 +1,28 @@
 import "@/style/components/usrPage/usrComponents/usrDomain.css"
 import { useTranslation } from "react-i18next";
 import DomainSort from "./usrDomain/domainSort";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { MyDomainFilter } from "./usrDomain/sort/allMyDomain";
 import { SortWay } from "./usrDomain/sort/sortMyDomain";
-import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import { useConnection } from "@solana/wallet-adapter-react";
-import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
-import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
-import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import DomainBlock, { SortStyle } from "./usrDomain/domainBlock";
 import { atomWithStorage } from "jotai/utils";
 import { useAtom } from "jotai";
-import { getAllUsrDomains } from "@/utils/net/getUsrDomains";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
-import { getUsrDomainsRecord } from "@/utils/net/getUsrDomiansRecord";
-import type { PublicKey } from "@solana/web3.js";
+import { useSortNowDomain } from "./usrDomain/sort/useSortNowDomain";
+import LoadingComponent from "@/components/search/continueQuery/component/functional/loadingComponent";
 
 
 export interface UsrDomainProps{
     domainNumber: number,
     ifCheckingOtherUsr: boolean,
-    setDomainNumber: React.Dispatch<React.SetStateAction<number>>,
-    searchKey: PublicKey | null,
+    usrDomains: string[],
+    recordMap: Map<string, IPFSRecordState> | null,
+    recordLoaded: boolean,
+    usrDomainLoaded: boolean,
+    domainStateMap: Map<string, NameRecordState> | null,
+    isLoadingRecordData: boolean,
+    onSaleDomains: string[]
 }
 
 export const usrPreferShow = atomWithStorage<SortStyle>(
@@ -32,72 +31,21 @@ export const usrPreferShow = atomWithStorage<SortStyle>(
 )   
 
 const UsrDomain: React.FC<UsrDomainProps> = ({
-    domainNumber, ifCheckingOtherUsr, setDomainNumber, searchKey
+    domainNumber, ifCheckingOtherUsr, usrDomains, recordMap, recordLoaded,
+    usrDomainLoaded, domainStateMap, isLoadingRecordData, onSaleDomains
 }) => {
 
     const {t} = useTranslation()
-    const { connection } = useConnection()
-    const { rootDomains } = useRootDomain()
 
     const [sortType, setSortType] = useState<MyDomainFilter>(MyDomainFilter.All)
     const [sortWay, setSortWay] = useState<SortWay>(SortWay.FromA)
 
-    const [usrDomainLoaded, setUsrDomainLoaded] = useState(false)
-
-    const [usrDomains, setUsrDomains] = useState<string[]>([])
-    const [domainStateMap, setDomainStateMap] = useState<Map<string, NameRecordState> | null>(null)
-    const hasFetched = useRef(false);
-
-    useEffect(() => {
-        if (hasFetched.current) return;
-        if(!searchKey || rootDomains.length === 0) return
-
-        hasFetched.current = true;
-        const fetchUsrDomains = async() => {
-
-            const rootKeyToNameMap = new Map<string, string>()
-            for(const rootName of rootDomains){
-                const rootKey = getNameAccountKey(getHashedName(rootName))
-                rootKeyToNameMap.set(rootKey.toBase58(), rootName)
-            }
-
-            const [usrDomains, nameStateMap] = await getAllUsrDomains(
-                connection, searchKey, rootKeyToNameMap
-            )
-            setUsrDomainLoaded(true)
-            console.log("domains:", usrDomains)
-            setDomainNumber(usrDomains.length)
-            setUsrDomains(usrDomains)
-            setDomainStateMap(nameStateMap)
-        }
-
-        fetchUsrDomains()
-    }, [searchKey, rootDomains])
-
-    const [recordMap, setRecordMap] = useState<Map<string, IPFSRecordState> | null>(null)
-    const [isLoadingRecordData, setIsLoadingRecordDate] = useState(false)
-    const recordLoaded = useRef(false)
-    useEffect(() => {
-        if(recordLoaded.current)return
-        if(!usrDomains || !domainStateMap)return
-
-        const fetchAllIPFSRecord = async() => {
-            recordLoaded.current = true
-            setIsLoadingRecordDate(true)
-            setRecordMap(await getUsrDomainsRecord(usrDomains, domainStateMap, connection))
-            setIsLoadingRecordDate(false)
-        }
-
-        fetchAllIPFSRecord()
-    }, [usrDomains])
-
     const [showWay, setShowWay] = useAtom(usrPreferShow)
 
-    const [sortedDomains, setSortedDomains] = useState<string[]>(usrDomains)
-    const [recordedNumber, setRecordedNumber] = useState(0)
-    useEffect(() => {
-        // sort the domain
-    }, [sortWay, sortType])
+    const [containCharacter, setContainCharacter] = useState("")
+    const { recordedNumber, sortedDomains } = useSortNowDomain(
+        usrDomains, sortType, sortWay, containCharacter, recordMap, recordLoaded
+    )
 
     return(
         <div className="usrdomain">
@@ -118,6 +66,8 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
                 nowShowWay={showWay} 
                 setShowWay={setShowWay}
                 recordedNumber={recordedNumber}
+                contain={containCharacter}
+                setContain={setContainCharacter}
             />
             <div className="mydomainsbl">
                 {
@@ -132,7 +82,7 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
                             ? "detailShow"
                             : "simpleShow"
                     }`}>
-                        {usrDomains.map((usrDomain, index) => (
+                        {sortedDomains.map((usrDomain, index) => (
                             <DomainBlock 
                                 key={index}
                                 domainName={usrDomain}
@@ -140,11 +90,15 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
                                 domainState={domainStateMap?.get(usrDomain)} 
                                 ifDomainRecordLoading={isLoadingRecordData}
                                 domainRecordState={recordMap?.get(usrDomain)}
+                                onSaleDomains={onSaleDomains}
                             />
                         ))}
                     </div>
                     ):(
-                        <div className="loaingusrDomain" />
+                        <LoadingComponent 
+                            contentClass="usrDomainLoading"
+                            dotClass="usrDomainDot"
+                        />
                     )
                 }
             </div>

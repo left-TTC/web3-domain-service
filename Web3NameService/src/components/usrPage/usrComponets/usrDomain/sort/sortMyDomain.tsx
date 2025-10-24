@@ -8,7 +8,6 @@ import { animate } from "animejs";
 export enum SortWay{
     FromA = "from A",
     FromZ = "from Z",
-    Value = "by value"
 }
 
 export interface SortMyDomainProps{
@@ -30,8 +29,6 @@ const SortMyDomain: React.FC<SortMyDomainProps> = ({
                 return t("byletters") + "(A-Z)";
             case SortWay.FromZ:
                 return t("byletters") + "(Z-A)";
-            case SortWay.Value:
-                return t("byvalue")
         }
     }
 

@@ -1,16 +1,19 @@
-import { useState } from "react";
 
 import "@/style/components/usrPage/usrComponents/usrDomain/sort/searchMyDomain.css"
 
 import query from "@/assets/query868E9B.svg"
 
+interface SearchMyDomainProps {
+    contain: string,
+    setContain: React.Dispatch<React.SetStateAction<string>>,
+}
 
-const SearchMyDomain = () => {
-
-    const [inputDomainaName, setInputDomainName] = useState("")
+const SearchMyDomain: React.FC<SearchMyDomainProps> = ({
+    contain, setContain
+}) => {
 
     const handDomainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputDomainName(e.target.value)
+        setContain(e.target.value)
     }
 
     return(
@@ -19,9 +22,9 @@ const SearchMyDomain = () => {
             <input 
                 type="text"
                 placeholder="Search"
-                value={inputDomainaName}
+                value={contain}
                 onChange={handDomainInput}
-                className="queryagaininput"
+                className="mydomainsearchinput"
             />
         </div>
     )

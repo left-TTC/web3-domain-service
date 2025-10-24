@@ -18,10 +18,11 @@ export interface DomainBlockProps{
     domainState: NameRecordState | null | undefined,
     ifDomainRecordLoading: boolean,
     domainRecordState: IPFSRecordState | undefined,
+    onSaleDomains: string[]
 }
 
 const DomainBlock: React.FC<DomainBlockProps> = ({
-    domainName, sortStyle, domainState, ifDomainRecordLoading, domainRecordState
+    domainName, sortStyle, domainState, ifDomainRecordLoading, domainRecordState, onSaleDomains
 }) => {
 
 
@@ -33,8 +34,10 @@ const DomainBlock: React.FC<DomainBlockProps> = ({
     const [ifIpfsSetted, setIfIpfsSetted] = useState(false)
     useEffect(() => {
         if(domainRecordState){
-            if(domainRecordState.recordData)setIfIpfsSetted(true)
-        }
+            if(domainRecordState.recordData){
+                setIfIpfsSetted(true)
+            }else setIfIpfsSetted(false)
+        }else setIfIpfsSetted(false)
     }, [domainRecordState])
 
     return(
@@ -42,8 +45,10 @@ const DomainBlock: React.FC<DomainBlockProps> = ({
             {sortStyle === SortStyle.Detail? 
                 <DetailItem 
                     itemName={domainName}
-                    ipfsAble={ifIpfsSetted}
+                    ipfsData={ifIpfsSetted? domainRecordState!.recordData! : null}
                     openDomainSet={openSet}
+                    nameState={domainState}
+                    onSaleDomains={onSaleDomains}
                 />
                 :
                 <SimpleItem 

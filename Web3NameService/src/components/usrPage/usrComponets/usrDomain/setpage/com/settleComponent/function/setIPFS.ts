@@ -1,7 +1,6 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
-import { setDomainCustomPrice } from "@/utils/net/mainFunction/usrOperation/setDomainCustomPrice";
 import { IPFSOperation, setDomainIPFS } from "@/utils/net/mainFunction/usrOperation/setDomainIPFSRecord";
 import { SendTransactionError, type Connection, type PublicKey, type Transaction, type VersionedTransaction } from "@solana/web3.js";
 
