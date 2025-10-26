@@ -17,8 +17,22 @@
     flex-direction: row;
     width: 100%;
     height: 280px;
-    width: 100%;
     gap: 40px;
     margin-top: 20px;
 }
 
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .SetCustomPriceCrypto{
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+}
+@media (width < 640px){
+    .SetCustomPriceCrypto{
+        gap: 20px;
+    }
+}

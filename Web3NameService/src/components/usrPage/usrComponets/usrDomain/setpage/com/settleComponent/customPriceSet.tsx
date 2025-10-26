@@ -4,6 +4,9 @@ import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettleme
 import { useState } from "react";
 import SetCustomPriceCrypto from "./bills/setCustomPriceCrypto";
 
+import "@/style/components/usrPage/usrComponents/usrDomain/setpage/com/settleComponent/bills/customPriceSet.css"
+import { cutDomain } from "@/utils/functional/common/cutDomain";
+
 
 export interface CustomPriceSetProps {
     setName: string,
@@ -18,11 +21,14 @@ const CustomPriceSet: React.FC<CustomPriceSetProps> = ({
 
     return (
         <div className="increasePrice">
-            <div className="launchfeepay">
-                <Back backFun={back} className="launchrootback"/>
-                <div className="increasePricepaytitle">
-                    <h2>Settling:</h2>
-                    <h1>{setName}</h1>
+            <div className="custompriceSet">
+                <Back backFun={back} className="customPriceSetBack "/>
+                <div className="setCustomPricepaytitle">
+                    <h2>Setting:</h2>
+                    <div className="setcustomdomainName">
+                        <h1>{cutDomain(setName)[0]}</h1>
+                        <h2>.{cutDomain(setName)[1]}</h2>
+                    </div>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
                 <SetCustomPriceCrypto 

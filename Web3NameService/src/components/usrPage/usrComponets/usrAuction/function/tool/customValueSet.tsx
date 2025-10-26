@@ -6,13 +6,12 @@ import attention from "@/assets/attention.svg"
 import { useState } from "react";
 
 export interface CustomValueSetProps {
-    customValue: number | null,
     setCustomValue: React.Dispatch<React.SetStateAction<number | null>>,
     ifCustomSetPage?: boolean
 }
 
 const CustomValueSet: React.FC<CustomValueSetProps> = ({
-    customValue, setCustomValue, ifCustomSetPage
+    setCustomValue, ifCustomSetPage
 }) => {
 
     const {t} = useTranslation()
@@ -40,6 +39,7 @@ const CustomValueSet: React.FC<CustomValueSetProps> = ({
         }
     };
 
+    // toast show
     const [showCustomValueAttention, setShowCustomValueAttention] = useState(false)
 
     const [inputActive, setInputActive] = useState(false)

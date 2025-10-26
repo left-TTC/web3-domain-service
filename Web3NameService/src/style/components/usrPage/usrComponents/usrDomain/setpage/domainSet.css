@@ -12,6 +12,7 @@
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    overflow-y: auto;
 }
 
 .domainSetcontent{
@@ -36,4 +37,43 @@
 
 .auctionStateshow{
     width: calc(68% - 30px);
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1280px){
+    .domainSetcontent{
+        width: 96%;
+    }
+
+    .setfunctioncom{
+        width: 96%;
+    }
+    
+    .auctionStateshow{
+        width: 100%;
+    }
+}
+@media (width < 1024px){
+    .setfunctioncom{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .priceandurl{
+        flex-direction: row;
+        width: 100%;
+        height: 160px;
+    }
+
+}
+@media (width < 640px){
+    .domainSetPage{
+        gap: 20px;
+    }
+
+    .priceandurl{
+        height: 120px;
+    }
 }

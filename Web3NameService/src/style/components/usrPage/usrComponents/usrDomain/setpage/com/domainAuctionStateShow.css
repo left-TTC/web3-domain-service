@@ -53,7 +53,7 @@
     overflow: hidden;
 }
 .rentintroduce h1{
-    font-size: 14px;
+    font-size: 14px !important;
     margin: 0;
     padding: 0;
 }
@@ -105,7 +105,7 @@
 .highestbid h2{
     font-size: 25px;
     color: #B4FC75;
-    margin-left: 50px;
+    text-align: center;
     margin-top: 40px;
     margin-bottom: 10px;
     font-family: 'Minecraftia', monospace;
@@ -113,7 +113,7 @@
 .highestbid h3{
     color: #95A6C1;
     font-size: 28px;
-    margin-left: 50px;
+    text-align: center;
     margin-top: 40px;
     margin-bottom: 10px;
     font-family: 'Minecraftia', monospace;
@@ -129,9 +129,11 @@
 
 .bidderandconfirm{
     width: 50%;
+    padding: 0px 20px;
     overflow: hidden;
     margin-top: 20px;
-    border-radius: 20px;
+    border-radius: 15px;
+    border: 2px solid #434C52;
 }
 
 .bidder{
@@ -155,7 +157,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 220px;
     gap: 40px;
 }
 .statebiddershowno h1{
@@ -206,4 +208,113 @@
 }
 .addToMyfollow:hover{
     opacity: 0.8;
+}
+
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1280px){
+    .domainauctionstateshow h1{
+        font-size: 20px;
+    }
+
+    .highestbid h1{
+        font-size: 18px;
+    }
+}
+@media (width < 1024px){
+    .rentpayer{
+        display: none;
+    }
+
+    .auctionState{
+        align-items: center;
+    }
+
+    .bidderhead{
+        display: none;
+    }
+
+    .bidderandkey{
+        flex-direction: row;
+        align-items: baseline;
+    }
+    .bidderandkey h1{
+        font-size: 16px;
+    }
+    .bidderandkey a{
+        font-size: 15px;
+    }
+
+    .addToMyfollow{
+        width: 80%;
+    }
+    .addToMyfollow h1{
+        font-size: 16px;
+    }
+
+    .bidderandkey{
+        gap: 10px;
+    }
+    
+    .statebiddershowno,
+    .statebiddershow{
+        height: 140px;
+    }    
+
+    .lodingbidder{
+        height: 140px;
+    }
+    
+
+    .statebiddershow{
+        gap: 20px;
+    }
+
+    .domainauctionstateshow{
+        height: auto;
+    }
+}
+@media (width < 640px){
+    .domainauctionstateshow{
+        padding: 20px;
+        width: calc(100% - 40px);
+        margin-bottom: 160px;
+    }
+    .domainauctionstateshow h1{
+        font-size: 15px;
+    }
+
+    .auctionState{
+        flex-direction: column !important;
+        width: 100%;
+    }
+
+    .highestbid{
+        margin-top: 10px;
+        width: 100%;
+    }
+    .highestbid h1{
+        font-size: 13px;
+    }
+    .highestbid h2,
+    .highestbid h3{
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    .priceline{
+        width: 100%;
+    }
+
+    .bidderandconfirm{
+        width: calc(100% - 40px);
+        margin-top: 10px;
+        overflow: hidden;
+    }
+
+    .addToMyfollow{
+        padding: 15px 0;
+    }
 }

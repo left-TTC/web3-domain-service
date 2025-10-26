@@ -8,10 +8,11 @@ import { useTranslation } from "react-i18next";
 
 export interface DomainSetHeadProps{
     domainIdentity: string,
+    ifLessThan640: boolean,
 }
 
 const DomainSetHead: React.FC<DomainSetHeadProps> = ({
-    domainIdentity
+    domainIdentity, ifLessThan640
 }) => {
 
     const {t} = useTranslation()
@@ -26,7 +27,7 @@ const DomainSetHead: React.FC<DomainSetHeadProps> = ({
             <div className="domainsetpagehead">
                 <Identicon 
                     pubkey={domainIdentity} 
-                    size={170}
+                    size={ifLessThan640? 100:170}
                 />
             </div>
             <div className="domainsetinfo">

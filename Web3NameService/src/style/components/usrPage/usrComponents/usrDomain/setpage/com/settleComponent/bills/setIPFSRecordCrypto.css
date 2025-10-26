@@ -41,6 +41,7 @@
     width: 120px;
     height: 20px;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .loadingtime{
@@ -143,4 +144,83 @@
     height: 1px;
     background-color: white;
     filter: blur(1px);
+}
+
+.checkrecord{
+    background-color: #2B2F3C;
+    padding: 3px 10px;
+}
+.checkrecord h3{
+    color: white;
+    font-size: 17px;
+}
+.checkrecord:hover{
+    opacity: 0.8;
+}
+
+.ipfsinfoabout{
+    width: 60%;
+    background-color: #161F2F;
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+}
+.ipfsinfoabout h1{
+    margin: 0;
+    padding: 0;
+    opacity: 0.4;
+    font-weight: 200;
+    font-size: 18px;
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .setIPFSCrypto{
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .steIPFSine{
+        margin: 20px 0 10px 0;
+    }
+
+    .ipfsinfoabout{
+        padding: 40px 30px;
+        width: calc(96% - 60px);
+    }
+}
+@media (width < 640px){
+    .setIPFSCrypto{
+        gap: 20px;
+    }
+
+    .ipfsinfoabout{
+        padding-bottom: 10px;
+    }
+
+    .updateTimeShow h3{
+        font-size: 13px;
+    }
+    .updateTimeShow h4{
+        font-size: 13px;
+    }
+
+    .nameandchooseoperation h3{
+        font-size: 13px;
+    }
+
+    .showthewilldeleteword h3{
+        font-size: 13px;
+    }
+
+    .downloadipfstool{
+        display: none;
+    }
+
+    .ipfsetordeleteblock{
+        height: 110px;
+    }
 }

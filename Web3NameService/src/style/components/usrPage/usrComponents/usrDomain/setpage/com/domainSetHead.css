@@ -21,7 +21,6 @@
     height: 130px;
 }
 
-
 .domainsetpagehead{
     z-index: 10;
     width: 170px;
@@ -76,4 +75,65 @@
     padding: 5px 10px;
     margin: 0;
     font-size: 15px;
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1280px){
+    
+}
+@media (width < 1024px){
+    .domainSethead{
+        margin-top: 160px;
+    }
+
+    .domainsetpagehead{
+        scale: 0.8;
+        margin-left: 20px;
+    }
+
+    .domainsetinfo{
+        margin-left: 20px;
+    }
+}
+@media (width < 640px){
+    .domainSethead{
+        margin-top: 150px;
+        height: 180px;
+    }
+
+    .setheadback{
+        height: 90px;
+    }
+
+    .domainsetpagehead{
+        width: 100px;
+        height: 100px;
+        margin-left: 10px;
+    }
+
+    .domainsetinfo{
+        margin-left: 10px;
+        gap: 10px;
+    }
+
+    .domainsetname h1,
+    .domainsetname h2{
+        font-size: 18px;
+    }
+
+    .domainsetfeature{
+        gap: 5px;
+    }
+
+    .domainsetfeature h2 {
+        font-size: 12px;
+        display: none;
+    }
+
+    .domainsetfeatureshow h1{
+        font-size: 9px;
+        padding: 5px 8px;
+    }
 }

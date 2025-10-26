@@ -29,7 +29,7 @@ const SetIPFSRecordBills: React.FC<SetIPFSRecordBillsProps> = ({
     }, [reallocFee, rentExemption])
 
     return(
-        <div className="totalfees settletotal">
+        <div className="totalfees settleIpfs">
             <h1>{t("bill")}</h1>
             {usdPrice? (
                 <div>

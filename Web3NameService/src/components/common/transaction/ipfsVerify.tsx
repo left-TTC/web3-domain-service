@@ -34,13 +34,13 @@ const IPFSVerify: React.FC<IPFSVerify> = ({
     const handDomainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCid(e.target.value)
         if(checkCidFormat(cid)){
-            console.log("ok")
             setFormatValid(true)
+        }else{
+            setFormatValid(false)
         }
     }
 
     const verify = async() => {
-        console.log("start verify")
         if(ifNeedCreateAccount){
             const rent = await connection.getMinimumBalanceForRentExemption(NAME_RECORD_LENGTH + cid.length);
             setRent(rent)
@@ -87,7 +87,7 @@ const IPFSVerify: React.FC<IPFSVerify> = ({
                     className={`verifycidbu ${formatValid? "formatvalidbu":"unvalidbu"}`}
                     onClick={() => verify()}    
                 >
-                    <h3>{t("verify")}</h3>
+                    <h3>{t("check")}</h3>
                 </button>
             </div>
         </div>

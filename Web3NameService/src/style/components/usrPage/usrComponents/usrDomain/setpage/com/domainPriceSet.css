@@ -78,3 +78,40 @@
     }
 }
 
+@media (min-width: 1024px){
+    
+}
+@media (width < 1280px){
+
+}
+@media (width < 1024px){
+    .domainpriceShow{
+        padding: 10px 20px;
+        height: calc(100% - 20px);
+        width: calc(45% -30px);
+    }
+}
+@media (width < 640px){
+    .domainpriceShow h1{
+        font-size: 14px;
+    }
+
+    .showAndset h1{
+        font-size: 18px;
+    }
+
+    .customsetbu{
+        display: none;
+    }
+
+    .showAndset{
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cusorclinck{
+        cursor: pointer;
+    }
+}
+

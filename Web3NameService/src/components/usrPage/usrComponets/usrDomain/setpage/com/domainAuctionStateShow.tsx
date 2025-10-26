@@ -6,7 +6,7 @@ import rent from "@/assets/rent.svg"
 import usr from "@/assets/usr-dhs.svg"
 
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState"
 import { cutDomain } from "@/utils/functional/common/cutDomain"
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey"
@@ -91,14 +91,14 @@ const DomainAuctionStateShow: React.FC<DomainAuctionStateShowProps> = ({
                     {ifAuctionStateLoading? (
                         <div className="lodingbidder"/>
                     ):(
-                        !ifAtAuction&&nameAuctionState? (
+                        ifAtAuction&&nameAuctionState? (
                             <div className="statebiddershow">
                                 <div className="statebidderkeyshow">
                                     <div className="bidderhead">
                                         <img src={usr} className="bidderheadimg" />
                                     </div>
                                     <div className="bidderandkey">
-                                        <h1>{t("bidder")}</h1>
+                                        <h1>{t("bidder")}:</h1>
                                         <a>{cutString(nameAuctionState.highestBidder.toBase58(), 5, 5, "...")}</a>
                                     </div>
                                 </div>

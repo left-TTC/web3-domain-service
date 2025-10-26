@@ -21,3 +21,17 @@
     background-color: #B5B9BF;
     pointer-events: none;   
 }
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .settletotal{
+        height: 220px;
+    }
+}
+@media (width < 640px){
+    .settletotal{
+        height: 200px;
+    }
+}

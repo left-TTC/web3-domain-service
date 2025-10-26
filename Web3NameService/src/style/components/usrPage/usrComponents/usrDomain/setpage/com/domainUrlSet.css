@@ -14,6 +14,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    height: 30px;
 }
 .deployhead h1{
     color: white;
@@ -113,4 +115,61 @@
     color: black;
     font-size: 18px;
     margin: 0;
+}
+
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1280px){
+    .ipfshead{
+        height: 30px;
+    }
+
+    .deployipfs{
+        width: 25px;
+    }
+}
+@media (width < 1024px){
+    .domainurlset{
+        padding: 10px 20px;
+        height: calc(100% - 20px);
+        width: calc(55% -30px);
+    }
+
+    
+}
+@media (width < 640px){
+    .deployhead h1{
+        font-size: 14px;
+    }
+
+    .ipfshead{
+        display: none;
+    }
+
+    .ipfscontent{
+        margin-left: 0px;
+        flex-direction: row;
+        margin-top: 15px;
+    }
+    .ipfscontent h1{
+        font-size: 13px;
+    }
+
+    .cidshow h1{
+        font-size: 12px;
+    }
+
+    .setButton{
+        display: none;
+    }
+
+    .ipsfset{
+        margin-top: 0;
+    }
+    
+    .deployloading{
+        width: 15px;
+    }
 }

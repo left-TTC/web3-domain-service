@@ -76,7 +76,6 @@
     "rootdomainfac": "Root Domain Factory",
     "lanunchnew": "Launch Your Preferred Root Domain",
     "arecreating": "Checking:",
-    "checklogs": "Check Logbook",
     "nogoodproject": "Don't see a project you want to support?",
     "supportnow": "Support Existing Projects",
     "getfrist": "Get your Frist Domain",
@@ -164,5 +163,6 @@
     "delete": "delete",
     "ownedby": "Owned by",
     "searchdomain": "Search Domain",
-    "domains": "Domains"   
+    "domains": "Domains",
+    "set": "Set"   
 }

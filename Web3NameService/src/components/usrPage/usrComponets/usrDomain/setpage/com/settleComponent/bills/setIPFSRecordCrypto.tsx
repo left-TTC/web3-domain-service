@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import "@/style/components/usrPage/usrComponents/usrDomain/setpage/com/settleComponent/bills/setIPFSRecordCrypto.css"
+
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState"
 import { getTimeDay } from "@/utils/functional/common/time/getTimeDay"
 import IPFSVerify from "@/components/common/transaction/ipfsVerify"
@@ -23,6 +24,7 @@ export interface SetIPFSRecordCryptoProps{
     domainRecordState: IPFSRecordState | undefined,
     ifLoading: boolean,
     domainName: string,
+    
 }
 
 const SetIPFSRecordCrypto: React.FC<SetIPFSRecordCryptoProps> = ({
@@ -101,16 +103,28 @@ const SetIPFSRecordCrypto: React.FC<SetIPFSRecordCryptoProps> = ({
         )
     }
 
+    const [ifLessThan1024, setIfLessThan1024] = useState(false)
+    useEffect(() => {
+        const handleResize = () => {
+            setIfLessThan1024(window.innerWidth < 1024);
+        };
+        
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [])
+
     return(
         <div className="setIPFSCrypto">
-            <div className="launchfeeway">
+            <div className="ipfsinfoabout">
                 <MintChooser 
                     activeMint={chooseMint} 
                     setActiveMint={setChooseMint} 
                 />
                 <div className="steIPFSine"/>
                 <div className="updateTimeShow">
-                    <h3>{t("lastup")}</h3>
+                    <h3>{t("lastup")}:</h3>
                     {ifLoading? (
                         <div className="updatetimeLaod">
                             <div className="loadingtime"/>
@@ -136,7 +150,13 @@ const SetIPFSRecordCrypto: React.FC<SetIPFSRecordCryptoProps> = ({
                         <div className="showThewillDelete">
                             <div className="showthewilldeleteword">
                                 <h3>{t("lastRecord")}:</h3>
-                                <h4>{domainRecordState!.recordData}</h4>
+                                {ifLessThan1024? (
+                                    <button className="checkrecord">
+                                        <h3>{t("check")}</h3>
+                                    </button>
+                                ):(
+                                    <h4>{domainRecordState!.recordData}</h4>
+                                )}
                             </div>
                             <div className="showThewillDeleteLine" />
                         </div>

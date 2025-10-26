@@ -8,7 +8,7 @@ import DomainUrlSet from "./com/domainUrlSet";
 import DomainAuctionStateShow from "./com/domainAuctionStateShow";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export interface DomainSetProps {
     domainName: string,
@@ -21,16 +21,17 @@ export interface DomainSetProps {
 const DomainSet: React.FC<DomainSetProps> = ({
     domainName, backToDomainPage, domainState, ifIpfsLoading, domainRecordState
 }) => {
-
+    
+    const [ifLessThan640, setIfLessThan640] = useState(false)
     useEffect(() => {
-        if(domainRecordState){
-            console.log(
-                "updatetime:", domainRecordState.updateTime,
-                "length: ", domainRecordState.length,
-                "data: ", domainRecordState.recordData
-            )
-        }
-    }, [domainRecordState])
+        const handleResize = () => {
+            setIfLessThan640(window.innerWidth < 640);
+        };
+        
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     return(
         <div className="domainSetPage">
@@ -38,6 +39,7 @@ const DomainSet: React.FC<DomainSetProps> = ({
                 <Back backFun={backToDomainPage}/>
                 <DomainSetHead 
                     domainIdentity={domainName}
+                    ifLessThan640={ifLessThan640}
                 />
             </div>
             <div className="setfunctioncom">
@@ -45,11 +47,13 @@ const DomainSet: React.FC<DomainSetProps> = ({
                     <DomainPriceSet 
                         domainState={domainState}
                         domainName={domainName}
+                        ifLessThan640={ifLessThan640}
                     />
                     <DomainUrlSet 
                         domainName={domainName}
                         ifLoading={ifIpfsLoading}
                         domainRecordState={domainRecordState}
+                        ifLessThan640={ifLessThan640}
                     />
                 </div>
                 <div className="auctionStateshow">

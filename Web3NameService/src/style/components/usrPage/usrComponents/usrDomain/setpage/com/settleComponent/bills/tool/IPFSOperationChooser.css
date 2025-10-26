@@ -41,3 +41,29 @@
 .cannotoperate{
     pointer-events: none;
 }
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    
+}
+@media (width < 640px){
+    
+    .operationchooser{
+        width: 70px;
+        height: 80%;
+    }
+
+    .Chooseblock{
+        align-items: center;
+        justify-content: center;
+    }
+    .Chooseblock h3{
+        display: none;
+    }
+    
+    .setimg{
+        width: 15px;
+    }
+}

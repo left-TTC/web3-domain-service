@@ -32,7 +32,9 @@ const SetCustomPriceCrypto: React.FC<SetCustomPriceCryptoptoProps> = ({
 
     const [canBeConfirm, setCanBeConfirm] = useState(false)
     useEffect(() => {
-        if(domainCustomValue)setCanBeConfirm(true)
+        if(domainCustomValue != null && domainCustomValue > 0){
+            setCanBeConfirm(true)
+        }else setCanBeConfirm(false)
     }, [domainCustomValue])
 
     const clinkSetCustomPrice = async() => {
@@ -56,7 +58,6 @@ const SetCustomPriceCrypto: React.FC<SetCustomPriceCryptoptoProps> = ({
                 />
                 <div className="SetCustomPriceCryptoine"/>
                 <CustomValueSet 
-                    customValue={domainCustomValue}
                     setCustomValue={setDomainCustomValue}
                     ifCustomSetPage={true}
                 />
