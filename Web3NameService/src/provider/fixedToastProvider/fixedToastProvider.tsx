@@ -16,13 +16,14 @@ export enum TransactionState {
 export interface SolanaToastMessage {
     id: number;
     type: TransactionState;
-    txSignature?: string; 
     message?: string;
+    contentFn?: () => void;
+    ifAddHiden?: boolean
 }
 
 export interface SolanaToastContextType {
-    show: (type: TransactionState, txSignature?: string, message?: string) => number; 
-    update: (id: number, type: TransactionState) => void;
+    show: (type: TransactionState, message?: string, contentFn?: () => void) => number; 
+    update: (id: number, type: TransactionState, contentFn?: () => void, message?: string) => void;
     hide: (id: number) => void;
 }
 
@@ -33,20 +34,30 @@ export const SolanaToastProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const [toasts, setToasts] = useState<SolanaToastMessage[]>([]);
     const [nextId, setNextId] = useState(0);
 
-    const show = useCallback((type: TransactionState, txSignature?: string, message?: string,) => {
+    const show = useCallback((type: TransactionState,  message?: string, contentFn?:()=>void, ifAddHiden?: boolean) => {
         const id = nextId;
         setNextId(prev => prev + 1);
-        setToasts(prev => [...prev, { id, message, type, txSignature }]);
+        setToasts(prev => [...prev, { id, message, type, contentFn, ifAddHiden }]);
         return id; 
     }, [nextId]);
 
-    const update = useCallback((id: number, type: TransactionState) => {
-        setToasts(prev => prev.map(t => t.id === id ? { ...t, type } : t));
-    }, []);
+    const update = useCallback(
+        (id: number, type: TransactionState, contentFn?: () => void, message?: string, ifAddHiden?: boolean) => {
+            setToasts(prev =>
+                prev.map(t =>
+                    t.id === id
+                        ? { ...t, type, ...(contentFn ? { contentFn } : {}), ...(message ? { message } : {}), ...(ifAddHiden? {ifAddHiden}:{}) }
+                        : t
+                )
+            );
+        },
+        []
+    );
 
     const hide = useCallback((id: number) => {
         setToasts(prev => prev.filter(t => t.id !== id));
     }, []);
+    
 
     return(
         <SolanaToastContext.Provider value={{ show, update, hide }}>
@@ -57,7 +68,25 @@ export const SolanaToastProvider: React.FC<{ children: React.ReactNode }> = ({ c
                         <FixedToast
                             key={toast.id}
                             toastType={toast.type}
-                            onClose={() => hide(toast.id)}
+                            onClose={() => {
+                                if(toast.contentFn){
+                                    toast.contentFn()
+                                }
+                                hide(toast.id)
+                            }}
+                            contentFn={
+                                () => {
+                                    if(toast.contentFn){
+                                        toast.contentFn()
+                                        if(toast.ifAddHiden){
+                                            hide(toast.id)
+                                        }
+                                    }else{
+                                        hide(toast.id)
+                                    }
+                                }
+                            }
+                            message={toast.message}
                         />
                     ))}
                 </>,

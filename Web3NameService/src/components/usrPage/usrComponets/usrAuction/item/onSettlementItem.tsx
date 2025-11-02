@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import SettleDomain from "../settlePage/settleDomain";
 
+import "@/style/components/usrPage/usrComponents/usrAuction/item/settleItemDetail.css"
+
 
 export interface OnSettlementItemProps {
     itemName: string
@@ -22,12 +24,12 @@ const OnSettlementItem: React.FC<OnSettlementItemProps> = ({
 
     return(
         <div className="onAuctionItem">
-            <div className="itemhead">
-                <div className="realhead">
+            <div className="itemheads">
+                <div className="realheads">
                     <div className="head1">
                         <Identicon pubkey={itemName} />
                     </div>
-                    <div className="itemdomainame">
+                    <div className="itemdomainames">
                         <h1>{cutDomain(itemName)[0]}</h1>
                         <h2>.{cutDomain(itemName)[1]}</h2>
                     </div>
@@ -40,10 +42,13 @@ const OnSettlementItem: React.FC<OnSettlementItemProps> = ({
                 </div>
             </div>
             
-            <div className="auctionState">
+            <div className="itemauctionState">
                 <div className="timeshow">
                     <h2 className="settlememtin">{t("endin")}:</h2>
-                    <TimeClock target={settleState!.updateTime.toNumber() + 24600} />
+                    <TimeClock 
+                        target={settleState!.updateTime.toNumber() + 24600} 
+                        customClassName="usepageitemclock"    
+                    />
                 </div>
                 <button className="settleBU" onClick={() => setShowSettleBlcok(true)}>
                     <h1>settle</h1>

@@ -3,6 +3,7 @@ import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettleme
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { useState } from "react";
 import SettleDomainCrypto from "../function/settleDomainCrypto";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -16,14 +17,16 @@ const SettleDomain: React.FC<SettleDomainProps> = ({
     settleName, settleInfo, back
 }) => {
 
+    const {t} = useTranslation()
+
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
 
     return (
         <div className="increasePrice">
-            <div className="launchfeepay">
+            <div className="increasePricepageflex">
                 <Back backFun={back} className="launchrootback"/>
                 <div className="increasePricepaytitle">
-                    <h2>Settling:</h2>
+                    <h2>{t("settleprocess")}:</h2>
                     <h1>{settleName}</h1>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />

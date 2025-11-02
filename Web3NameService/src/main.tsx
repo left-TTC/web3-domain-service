@@ -14,9 +14,10 @@ import i18n from './i18n.ts'
 import { RootDomainEnviromentProvider } from './provider/rootDomainEnviroment/rootDomainEnviromentProvider.tsx'
 import { SolanaToastProvider } from './provider/fixedToastProvider/fixedToastProvider.tsx';
 import { PriceEnviromentProvider } from "./provider/priceProvider/priceProvider.tsx"
+import { CommonToastProvider } from "./provider/fixedToastProvider/commonToastProvider.tsx";
 
 if (typeof window !== "undefined") {
-  (window as any).Buffer = Buffer;
+    (window as any).Buffer = Buffer;
 }
 
 createRoot(document.getElementById('root')!).render(
@@ -25,9 +26,11 @@ createRoot(document.getElementById('root')!).render(
             <RootDomainEnviromentProvider>
                     <I18nextProvider i18n={i18n}>
                         <SolanaToastProvider>
-                            <PriceEnviromentProvider>
-                                <App />
-                            </PriceEnviromentProvider>
+                            <CommonToastProvider>
+                                <PriceEnviromentProvider>
+                                    <App />
+                                </PriceEnviromentProvider>
+                            </CommonToastProvider>
                         </SolanaToastProvider>
                     </I18nextProvider> 
             </RootDomainEnviromentProvider>

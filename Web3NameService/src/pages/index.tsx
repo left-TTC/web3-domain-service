@@ -18,6 +18,7 @@ const Index: React.FC<IndexProps> = ({
 }) => {
 
     const [getBackPositionFn, setGetBackPositionFn] = useState<()=>void>(()=>{})
+
     
     return(
         <div className="index">

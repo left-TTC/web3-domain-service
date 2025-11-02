@@ -6,7 +6,43 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    filter: blur(0.5px);
+}
+
+.inputbl{
+    width: 73%;
+    margin-left: 15px;
+    position: relative;
+}
+
+.refferrerinput{
+    width: 100%;
+    height: 30px;
+    padding: 5px 0 5px 20px;
+    outline: none;
+    background-color: black;
+    border: 2px solid #434C52;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.refferrerinput::placeholder{
+    font-size: 15px;
+    color: #95A6C1;
+}
+
+.fixedRefferrershow{
+    display: flex;
+    align-items: center;
+}
+.fixedRefferrershow h2{
+    padding: 0;
+    margin: 0;
+    color: #95A6C1;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .refferrerverify{
@@ -20,7 +56,7 @@
 .verifyword{
     color: #B5B9BF;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
     margin: 0;
 }
 .refferrerverify:hover{
@@ -32,26 +68,6 @@
 }
 .refferrerverifyfocus h2{
     color: black;
-}
-
-.inputbl{
-    width: 73%;
-    margin-left: 15px;
-    position: relative;
-}
-.refferrerinput{
-    margin-left: 15px;
-    width: 100%;
-    height: 40px;
-    padding: 5px 0 5px 20px;
-    outline: none;
-    background-color: black;
-    border: 2px solid #434C52;
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .defaultrecommend{
@@ -88,18 +104,7 @@
     padding: 1px 10px;
 }
 
-.fixedRefferrershow{
-    display: flex;
-    align-items: center;
-}
-.fixedRefferrershow h2{
-    padding: 0;
-    margin: 0;
-    color: #95A6C1;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-}
+
 .refferrerinputfocus{
     border-color: #B4FC75;
 }
@@ -118,7 +123,6 @@
     100% { transform: rotate(360deg); }
 }
 
-/* 无障碍：用户偏好减少动画时关闭 */
 @media (prefers-reduced-motion: reduce) {
   .spinner { animation: none; }
 }
@@ -129,4 +133,57 @@
 
 .checkError{
     background-color: red;
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .defaultrecommend{
+        top: 50px;
+        padding: 5px 10px 5px 10px;
+        justify-content: space-between;
+    }
+    .defaultrecommend h4{
+        font-size: 11px !important;
+        color: white;
+    }
+}
+@media (width < 760px){
+    
+}
+@media (width < 640px){
+    .inputbl{
+        margin-left: 0;
+        width: 75%;
+    }
+
+    .refferrerinput{
+        height: 25px;
+        overflow: hidden;
+    }
+
+    .refferrerverify{
+        border-radius: 5px;
+    }
+    .refferrerverify{
+        height: 36px;
+    }
+
+    .refferrerinput{
+        padding: 5px 0 5px 6px;
+        font-size: 8px;
+        font-weight: 400;
+    }
+    .refferrerinput::placeholder{
+        font-size: 11px;
+    }
+
+    .verifyword{
+        font-size: 11px;
+    }
+
+    .refferrervalidimg{
+        width: 15px;
+    }
 }

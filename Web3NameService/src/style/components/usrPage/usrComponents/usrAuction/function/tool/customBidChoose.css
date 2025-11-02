@@ -82,3 +82,46 @@
 .usecusom{
     background-color: #B4FC75;
 }
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .customchoose{
+        padding: 20px 5px;
+    }
+    .customchoose h3{
+        font-size: 19px;
+    }
+
+    .custominput{
+        font-size: 21px;
+    }
+
+    .confirmusecustom{
+        width: 14px;
+        height: 14px;
+    }
+}
+@media (width < 760px){
+
+}
+@media (width < 640px){
+    .customchoose{
+        padding: 0;
+    }
+
+    .integerdigit{
+        width: 120px;
+        border-radius: 6px;
+        height: 40px;
+    }
+    .decimaldigit{
+        border-radius: 6px;
+        height: 40px;
+    }
+
+    .custominput{
+        font-size: 16px;
+    }
+}

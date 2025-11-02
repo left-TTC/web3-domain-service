@@ -39,3 +39,37 @@
 .settlearray{
     width: 20px;
 }
+
+.settleitemshow{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: hidden;
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .showsettlebu{
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    
+}
+@media (width < 640px){
+    .showsettlebu{
+        margin-top: 8px;
+    }
+    .showsettlebu h1{
+        font-size: 14px;
+    }
+
+    .numbershow h1{
+        font-size: 13px;
+    }
+
+    .settlearray{
+        width: 15px;
+    }
+}

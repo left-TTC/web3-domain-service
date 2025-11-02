@@ -4,12 +4,14 @@ import { useTranslation } from "react-i18next";
 
 import { useNavigate } from "react-router-dom";
 
-import home from "@/assets/home.svg";
-import greenHome from "@/assets/greenHome.svg";
-import auction  from "@/assets/auction.png";
-import auctionGreen from "@/assets/auctionGreen.png"
+import home from "@/assets/homeimg.svg";
+import greenHome from "@/assets/homeimggreen.svg";
+import auction  from "@/assets/auctionimg.svg";
+import auctionGreen from "@/assets/auctionimggreen.svg"
 import searchGreen from "@/assets/searchpixelGreen.svg"
 import search from "@/assets/pixelSearch.svg"
+import file from "@/assets/file.svg"
+import filegreen from "@/assets/filegreen.svg"
 
 import { useRef, useState } from "react";
 import MarketplaceDropDown from "./marketPlaceDropdown";
@@ -73,7 +75,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 case NavigationLists.Auction:
                     return auctionGreen
                 case NavigationLists.Docus:
-                    return greenHome
+                    return filegreen
             } 
         }else{
             switch(navigateObject){
@@ -82,7 +84,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 case NavigationLists.Auction:
                     return auction
                 case NavigationLists.Docus:
-                    return home
+                    return file
             } 
         }
     }

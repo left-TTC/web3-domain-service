@@ -8,16 +8,16 @@ import Navigation from "./navigation/navigation";
 import MyDomain from "./usr/myDomain";
 
 export interface TopbarProps {
-    openDomainQueryPage: () => void
+    openDomainQueryPage: () => void,
+    showWalletChooser: boolean,
+    setShowWalletChooser: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const Topbar: React.FC<TopbarProps> = ({
-    openDomainQueryPage
+    openDomainQueryPage, showWalletChooser, setShowWalletChooser
 }) => {
 
-
     const [showWalletDrop, setShowWalletDrop] = useState(false);
-    const [showWalletChooser, setShowWalletChooser] = useState(false);
 
     const walletRef = useRef<HTMLButtonElement | null>(null);
     

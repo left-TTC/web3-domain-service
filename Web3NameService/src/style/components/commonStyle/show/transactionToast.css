@@ -22,7 +22,9 @@
     top: 400px; 
     z-index: 10;
     background-color:   #161F2F;
-    border-radius: 20px;
+    border-radius: 18px;
+    width: 540px;
+    min-height: 200px;
 }
 
 .transactiontoastclose{
@@ -35,31 +37,48 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #161F2F;
 }
 .transactiontoastclose:hover{
     opacity: 0.8;
 }
 
-.fixedtoastcontent{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
+.transactionclose{
+    width: 20px;
 }
 
-.CheckingBalance{
-    justify-content: center;
+.scalesuccess{
+    transform: scale(0.6);
 }
 
 /*common computer*/
 @media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    
+}
+@media (width < 760px){
     .fixedtoastcon{
-        width: 640px;
-        height: 350px;
+        padding: 20px;
+        width: calc(94% - 40px);
+        top: 200px;
+        border-radius: 13px;
+        min-height: 160px;
+    }
+
+    .transactiontoastclose{
+        right: 10px;
+        top: 10px;
+        width: 40px;
+        height: 40px;
     }
 
     .transactionclose{
-        width: 20px;
+        width: 16px;
     }
+}
+@media (width < 640px){
+    
 }
 

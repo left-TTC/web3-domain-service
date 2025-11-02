@@ -5,6 +5,7 @@ import "@/style/components/commonStyle/show/timeClock.css"
 type Props = {
     target: number;
     onExpire?: () => void;
+    customClassName?: string;
 };
 
 function secondsUntil(target: number) {
@@ -22,7 +23,7 @@ function formatHHMM(totalSeconds: number) {
         .padStart(2, "0")}`;
 }
 
-export default function TimeClock({ target, onExpire }: Props) {
+export default function TimeClock({ target, onExpire, customClassName }: Props) {
     const [secondsLeft, setSecondsLeft] = useState(() => secondsUntil(target));
 
     useEffect(() => {
@@ -46,7 +47,7 @@ export default function TimeClock({ target, onExpire }: Props) {
     }, [secondsLeft, onExpire]);
 
     return (
-        <div className="timeclock">
+        <div className={`timeclock ${customClassName}`}>
             <h1>{formatHHMM(secondsLeft)}</h1>
         </div>
     )

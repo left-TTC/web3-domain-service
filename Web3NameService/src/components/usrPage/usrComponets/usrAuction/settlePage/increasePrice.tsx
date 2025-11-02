@@ -5,6 +5,7 @@ import "@/style/components/usrPage/usrComponents/settlePage/increasePrice.css"
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { useState } from "react";
 import IncreasePriceCrypto from "../function/increasePriceCrypto";
+import { useTranslation } from "react-i18next";
 
 export interface IncreasePriceProps {
     addName: string,
@@ -16,14 +17,16 @@ const IncreasePrice: React.FC<IncreasePriceProps> = ({
     addName, addInfo, back
 }) => {
 
+    const {t} = useTranslation()
+
     const [payMethod, setPayMethod] = useState<PaymentMethod>(PaymentMethod.Crypto)
 
     return (
         <div className="increasePrice">
-            <div className="launchfeepay">
+            <div className="increasePricepageflex">
                 <Back backFun={back} className="launchrootback"/>
                 <div className="increasePricepaytitle">
-                    <h2>Increase Price For:</h2>
+                    <h2>{t("priceincrease")}:</h2>
                     <h1>{addName}</h1>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />

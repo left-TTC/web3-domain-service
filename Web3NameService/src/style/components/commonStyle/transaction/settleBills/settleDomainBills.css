@@ -1,6 +1,6 @@
 
 
-.settletotal h1{
+.settleDoamintotal h1{
     margin-bottom: 12px;
 }
 
@@ -18,9 +18,52 @@
     margin: 0;
 }
 
-.settlebillsomeword h1{
-    font-weight: 500!important;;
+.settlebillsomeword h3{
+    font-weight: 500;
     color: #B5B9BF;
     font-size: 14px;
     margin: 0;
+    padding: 0;
+}
+
+.settleDoamintotal{
+    background-color: #161F2F;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    height: 300px;
+    width: calc(40% - 40px);
+}
+.settleDoamintotal h1{
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .settletotal{
+        height: 600px;
+    }
+
+    .settleDoamintotal{
+        height: auto;
+        width: calc(96% - 40px);
+        height: 260px;
+        margin-bottom: 200px;
+    }
+}
+@media (width < 640px){
+    .settleDoamintotal h1{
+        font-size: 17px;
+    }
+    
+    .settlebillsomeword h3{
+        font-size: 12px;
+    }
 }

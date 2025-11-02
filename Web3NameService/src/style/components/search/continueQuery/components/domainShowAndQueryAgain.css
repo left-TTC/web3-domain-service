@@ -69,19 +69,24 @@
     font-size: 15px;
     font-weight: 600;
 }
-.ownerShowword a{
+.ownerShowword h2{
     font-size: 16px;
     font-weight: 600;
+    color: #00ffcc;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .ungis{
     padding: 10px;
 }
-.ungis a{
+.ungis h1{
     color: #B4FC75;
     text-decoration: underline;
     font-size: 17px;
+    margin: 0;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .domainFeatures{
@@ -132,12 +137,19 @@
         font-size: 22px;
     }
 
-    .ungis a{
+    .ungis h1{
         font-size: 15px;
     }
 
     .featurewords h1{
         font-size: 14px;
+    }
+
+    .ownerShowword h1{
+        font-size: 14px;
+    }
+    .ownerShowword h2{
+        font-size: 15px;
     }
 }
 @media (width < 640px){
@@ -155,7 +167,7 @@
         font-size: 20px;
     }
 
-    .ungis a{
+    .ungis h1{
         font-size: 13px;
     }
 
@@ -165,5 +177,12 @@
     .featurewords h1{
         font-size: 12px;
         padding: 3px 8px;
+    }
+
+    .ownerShowword h1{
+        font-size: 12px;
+    }
+    .ownerShowword h2{
+        font-size: 13px;
     }
 }

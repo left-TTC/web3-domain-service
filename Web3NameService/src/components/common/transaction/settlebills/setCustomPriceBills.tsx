@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next"
 
-import "@/style/components/commonStyle/transaction/settleBills/settleDomainBills.css"
 import "@/style/components/commonStyle/transaction/settleBills/setCustomPriceBills.css"
 
 export interface SetCustomPriceBillsProps {
@@ -15,7 +14,7 @@ const SetCustomPriceBills: React.FC<SetCustomPriceBillsProps> = ({
     const {t} = useTranslation()
 
     return(
-        <div className="totalfees settletotal">
+        <div className="setCustomPricebills">
             <h1>{t("bill")}</h1>
             <div className="registerfee">
                 <div className="registerrule settlebillsomeword">

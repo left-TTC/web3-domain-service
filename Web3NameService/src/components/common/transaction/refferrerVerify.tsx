@@ -15,6 +15,7 @@ import invalid from "@/assets/invalid.svg"
 import { ifStringPubkeyValid } from "@/utils/functional/common/ifStringPubkeyValid";
 import { returnProjectVault } from "@/utils/constants/constants";
 import { checkRefferrerValid } from "@/utils/functional/common/net/checkRefferrerValid";
+import { cutString } from "@/utils/functional/common/cutString";
 
 export interface RefferrerVerifyProps {
     setRefferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>,
@@ -33,6 +34,17 @@ const RefferrerVerify: React.FC<RefferrerVerifyProps> = ({
     const [refferrerValue, setRefferrerValue] = useState("");
     const [isRefferrerFocus, setIsRefferrerFocus] = useState(false)
     const [canReffererCheck, setCanReffererCheck] = useState(false)
+
+    const [ifLessThan640, setIfLessThan640] = useState(false)
+    useEffect(() => {
+        const handleResize = () => {
+            setIfLessThan640(window.innerWidth < 640);
+        };
+        
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const handRefferrer = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(ifRefferValid && e.target.value != refferrerValue){
@@ -112,8 +124,10 @@ const RefferrerVerify: React.FC<RefferrerVerifyProps> = ({
     return(
         <div className={`refferrer`} onFocus={() => setIsRefferrerFocus(true)} onBlur={() => setIsRefferrerFocus(false)}>
             {fixedRefferrer? (
-                <div className="refferrerinput fixedRefferrershow">
-                    <h2>{fixedRefferrer.toBase58()}</h2>
+                <div className="inputbl">
+                    <div className="refferrerinput fixedRefferrershow">
+                        <h2>{fixedRefferrer.toBase58()}</h2>
+                    </div>
                 </div>
             ): (
                 <div className="inputbl">
@@ -126,7 +140,11 @@ const RefferrerVerify: React.FC<RefferrerVerifyProps> = ({
                     />
                     {isRefferrerFocus && refferrerValue.length === 0 &&
                         <div className="defaultrecommend" onMouseDown={() => setRefferrerValue(returnProjectVault().toBase58())}>
-                            <h4>{returnProjectVault().toBase58()}</h4>
+                            {ifLessThan640? (
+                                <h4>{cutString(returnProjectVault().toBase58(), 8, 8, "...")}</h4>
+                            ):(
+                                <h4>{returnProjectVault().toBase58()}</h4>
+                            )}
                             <div className="defaulticon">
                                 <h4>default</h4>
                             </div>

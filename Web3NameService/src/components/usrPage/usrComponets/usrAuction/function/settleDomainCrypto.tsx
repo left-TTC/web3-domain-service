@@ -78,7 +78,7 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
 
     return(
         <div className="settlePriceCrypto">
-            <div className="launchfeeway">
+            <div className="settleDomainAbout">
                 <MintChooser 
                     activeMint={chooseMint} 
                     setActiveMint={setChooseMint} 
@@ -89,8 +89,8 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
                 </div>
                 <div className="settleine"/>
                 <CustomValueSet 
-                    customValue={domainCustomValue}
                     setCustomValue={setDomainCustomValue}
+                    customClass="settleDomainCustomValueSet"
                 />
             </div>
             <SettleDomainBills 

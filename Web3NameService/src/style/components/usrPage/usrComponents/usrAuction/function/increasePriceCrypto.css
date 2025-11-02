@@ -4,8 +4,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 480px;
-    width: 100%;
+    height: auto;
     gap: 40px;
     margin-top: 20px;
 }
@@ -13,7 +12,7 @@
 .bidincrementblcok{
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
+    margin-top: 25px;
 }
 .bidincrementblcok h3{
     color: #B5B9BF;
@@ -81,7 +80,7 @@
 .domainpricecheck{
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
+    margin-top: 25px;
 }
 .domainpricecheck h3{
     color: #B5B9BF;
@@ -117,7 +116,7 @@
 .increaseRefferrerVerfify{
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
+    margin-top: 25px;
     gap: 10px;
 }
 .increaseRefferrerVerfify h3{
@@ -125,6 +124,55 @@
     font-weight: 450;
     font-size: 17px;
     margin: 0;
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .IncreasePriceCrypto{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bidbu h3{
+        font-size: 12px;
+    }
+
+    .bidincrementtitle{
+        font-size: 15px !important;
+    }
+}
+@media (width < 760px){
+    .orwords{
+        margin: 0 5px;
+    }
+
+    .orwords{
+        margin: 0 20px !important;
+    }
+}
+@media (width < 640px){
+    .pricebidchoose{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .pricebidchoose h3{
+        font-size: 11px;
+    }
+
+    .confirmcustomline2{
+        margin-top: 10px;
+        height: 3px;
+    }
+
+    .bidincrementtitle{
+        font-size: 12px !important;
+    }
+
+    .originandnextprice h3{
+        font-size: 15px;
+    }
 }
 
 

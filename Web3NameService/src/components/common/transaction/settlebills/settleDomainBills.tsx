@@ -24,12 +24,12 @@ const SettleDomainBills: React.FC<SettleDomainBillsProps> = ({
     }, [totalLamports])
 
     return(
-        <div className="totalfees settletotal">
+        <div className="settleDoamintotal">
             <h1>{t("bill")}</h1>
             <div>
                 <div className="registerfee settlebillsome">
                     <div className="registerrule settlebillsomeword">
-                        <h1>{t("final")}:</h1>
+                        <h3>{t("final")}:</h3>
                     </div>
                     <h1>
                         $ {(domainPrice/1e6).toFixed(2)}
@@ -38,7 +38,7 @@ const SettleDomainBills: React.FC<SettleDomainBillsProps> = ({
                 </div>
                 <div className="registerfee settlebillsome">
                     <div className="registerrule settlebillsomeword">
-                        <h1>{t("deposit")}({depositRatio? `${depositRatio*100}%`:".."}):</h1>
+                        <h3>{t("deposit")}({depositRatio? `${depositRatio*100}%`:".."}):</h3>
                     </div>
                     <h1>
                         - {domainPriceLamports? `${(domainPriceLamports/1e10).toFixed(4)} SOL`:"Loading"}
@@ -46,7 +46,7 @@ const SettleDomainBills: React.FC<SettleDomainBillsProps> = ({
                 </div>
                 <div className="registerfee settlebillsome">
                     <div className="registerrule settlebillsomeword">
-                        <h1>{t("rent")}</h1>
+                        <h3>{t("rent")}</h3>
                     </div>
                     <h1>{rentExemption? `${(rentExemption/1e9).toFixed(4)} SOL`:"Loading"}</h1>
                 </div>

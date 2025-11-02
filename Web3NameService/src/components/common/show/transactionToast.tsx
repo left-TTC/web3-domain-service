@@ -6,10 +6,12 @@ import GetToastComponent from "./transactionToast/getToastContent";
 export interface FixedToastProps{
     toastType: TransactionState,
     onClose: () => void,
+    contentFn: () => void,
+    message?: string,
 }
 
 const FixedToast: React.FC<FixedToastProps> = ({
-    toastType, onClose
+    toastType, onClose, message, contentFn
 }) => {
     
     
@@ -19,7 +21,7 @@ const FixedToast: React.FC<FixedToastProps> = ({
                 <button className="transactiontoastclose" onClick={() => onClose()}>
                     <img src={close} className="transactionclose" />
                 </button>
-                <GetToastComponent toastType={toastType} />
+                <GetToastComponent toastType={toastType} contentFn={contentFn} message={message}/>
             </div>
         </div>
     )

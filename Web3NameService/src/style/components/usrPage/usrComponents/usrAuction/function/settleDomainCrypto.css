@@ -4,10 +4,9 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 320px;
-    width: 100%;
     gap: 40px;
     margin-top: 20px;
+    justify-content: space-between;
 }
 
 .settlepriceblock{
@@ -36,4 +35,51 @@
     background-color: #B5B9BF;
     margin-top: 5px;
     filter: blur(1px);
+}
+
+.settleDomainAbout{
+    width: 60%;
+    background-color: #161F2F;
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+    height: auto;
+}
+.settleDomainAbout h1{
+    margin: 0;
+    padding: 0;
+    opacity: 0.4;
+    font-weight: 200;
+    font-size: 18px;
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .settlePriceCrypto{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .settleDomainAbout{
+        padding: 40px 20px;
+        width: calc(96% - 40px);
+    }
+}
+@media (width < 640px){
+    .settlePriceCrypto{
+        gap: 20px;
+    }
+
+    .settlepriceblock h3{
+        font-size: 12px;
+    }
+    .settlepriceblock h4{
+        font-size: 15px;
+    }
+
+    .settleDomainCustomValueSet{
+        margin-top: 25px;
+    }
 }

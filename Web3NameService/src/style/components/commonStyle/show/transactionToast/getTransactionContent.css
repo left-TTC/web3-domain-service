@@ -1,0 +1,287 @@
+
+
+.fixedtoastcontent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+.fixedtoastcontent h1{
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.fixtoastpending{
+    width: 160px;
+}
+
+.fixedtoastcontentpending{
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    gap: 50px;
+}
+.fixedtoastcontentpending h1{
+    font-size: 38px;
+    color: white;
+}
+
+.fixedtoastcontentsuccess{
+    margin-top: 30px;
+    gap: 40px;
+}
+
+.transactionsuword{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+.transactionsuword h1{
+    font-size: 32px;
+}
+
+.transactionsuexit{
+    background-color: #B4FC75;
+}
+
+.transactionsuexit{
+    width: 70%;
+}
+.transactionsuexit h1{
+    font-size: 30px;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+.transactionsuexit:hover{
+    opacity: 0.8;
+}
+
+.fixedtoastcontentCancle{
+    margin-top: 30px;
+    gap: 50px;
+}
+.fixedtoastcontentCancle h1{
+    font-size: 36px;
+    color: white;
+}
+
+.fixedtoastcontentcanclebu{
+    width: 70%;
+    background-color: aliceblue;
+}
+.fixedtoastcontentcanclebu h1{
+    font-size: 28px;
+    color: black;
+}
+
+.fixedtoastcontentFail{
+    margin-top: 30px;
+}
+.fixedtoastcontentFail h1{
+    color: red;
+    font-size: 36px;
+}
+
+.failmeassageshow{
+    width: 90%;
+    background-color: #737982;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+.failmeassageshow h1{
+    font-size: 19px;
+    font-weight: 500;
+    color: white;
+}
+
+.transactionfaexit{
+    margin-top: 20px;
+    width: 60%;
+    background-color: aliceblue;
+}
+.transactionfaexit h1{
+    color: black;
+    font-size: 26px;
+}
+
+.web3loadingcheck{
+    width: 100px;
+    animation: glowPulse 1s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 8px #00ffcc) drop-shadow(0 0 16px #00ffcc)
+}
+@keyframes glowPulse {
+    0% {
+        filter: drop-shadow(0 0 6px #00ffcc) drop-shadow(0 0 8px #00ffcc);
+    }
+    100% {
+        filter: drop-shadow(0 0 10px #00ffcc) drop-shadow(0 0 30px #00ffcc);
+    }
+}
+
+.fixedtoastcontentCheckingBalance{
+    margin-top: 20px;
+}
+.fixedtoastcontentCheckingBalance h1{
+    font-size: 32px;
+    margin-top: 40px;
+    color: white;
+}
+
+.fixedtoastcontentNoEnoughBalance{
+    margin-top: 40px;
+    gap: 40px;
+}
+.fixedtoastcontentNoEnoughBalance h1{
+    color: white;
+    font-size: 32px;
+}
+
+.fixedtoastcontentNoEnoughBalancebu{
+    width: 80%;
+    background-color: aliceblue;
+}
+.fixedtoastcontentNoEnoughBalancebu h1{
+    color: black;
+    font-size: 28px;
+}
+
+.fixedtoastcontentError{
+    gap: 50px;
+}
+.fixedtoastcontentError h1{
+    color: red;
+    font-size: 30px;
+    text-align: center;
+}
+
+.fixedtoastcontentErrorbu{
+    width: 80%;
+    background-color: aliceblue;
+}
+.fixedtoastcontentErrorbu h1{
+    color: black;
+    font-size: 25px;
+}
+
+.fixedtoastcontentNoConnect{
+    margin-top: 40px;
+    gap: 70px;
+}
+.fixedtoastcontentNoConnect h1{
+    font-size: 30px;
+}
+
+.fixedtoastconnectwallet{
+    background-color: #B4FC75;
+    width: 70%;
+}
+.fixedtoastconnectwallet h1{
+    color: black;
+    font-size: 22px;
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    
+}
+@media (width < 760px){
+    .fixedtoastcontentpendingdot{
+        width: 16px;
+        height: 16px;
+    }
+
+    .fixedtoastcontentpending{
+        gap: 30px;
+    }
+    .fixedtoastcontentpending h1{
+        font-size: 26px;
+    }
+
+    .transactionsuword{
+        gap: 10px;
+    }
+    .transactionsuword h1{
+        font-size: 16px;
+    }
+
+    .fixedtoastcontentsuccess{
+        gap: 20px;
+    }
+
+    .transactionsuexit h1{
+        font-size: 20px;
+    }
+
+    .fixedtoastcontentCancle{
+        gap: 50px;
+    }
+    .fixedtoastcontentCancle h1{
+        font-size: 22px;
+    }
+
+    .fixedtoastcontentcanclebu{
+        width: 70%;
+    }
+    .fixedtoastcontentcanclebu h1{
+        font-size: 17px;
+    }
+
+    .fixedtoastcontentFail h1{
+        font-size: 22px;
+    }
+
+    .failmeassageshow{
+        border-radius: 5px;
+    }
+    .failmeassageshow h1{
+        font-size: 14px;
+    }
+
+    .web3loadingcheck{
+        width: 70px;
+    }
+    .fixedtoastcontentCheckingBalance h1{
+        font-size: 22px;
+    }
+
+    .fixedtoastcontentNoEnoughBalance{
+        margin-top: 35px;
+    }
+    .fixedtoastcontentNoEnoughBalance h1{
+        font-size: 19px;
+    }
+
+    .fixedtoastcontentError{
+        gap: 30px;
+    }
+    .fixedtoastcontentError h1{
+        font-size: 18px;
+    }
+
+    .fixedtoastcontentErrorbu h1{
+        font-size: 17px;
+    }
+
+    .fixedtoastcontentNoConnect{
+        gap: 40px;
+    }
+    .fixedtoastcontentNoConnect h1{
+        font-size: 20px;
+    }
+
+    .fixedtoastconnectwallet h1{
+        font-size: 18px;
+    }
+}
+@media (width < 640px){
+    
+}

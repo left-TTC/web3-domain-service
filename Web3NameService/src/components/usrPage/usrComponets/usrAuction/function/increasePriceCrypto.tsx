@@ -109,7 +109,7 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
                 />
                 <div className="launchctyptoline" />
                 <div className="bidincrementblcok">
-                    <h3>{t("bidincrement")}:</h3>
+                    <h3 className="bidincrementtitle">{t("bidincrement")}:</h3>
                     <div className="pricebidchoose">
                         <div className="autoChoose">
                             {chooseBid.map((number, index) => (
@@ -122,7 +122,7 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
                                 </button>
                             ))}
                         </div>
-                        <h3>OR</h3>
+                        <h3 className="orwords">OR</h3>
                         <div className="custompriceblock">
                             <CustomBidChoose 
                                 setIncreaseNumber={setIncreaseBid}
@@ -135,7 +135,7 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
                     </div>
                 </div>
                 <div className="domainpricecheck">
-                    <h3>{t("domainprice")}:</h3>
+                    <h3 className="bidincrementtitle">{t("domainprice")}:</h3>
                     <div className="pricecheck">
                         <div className="originandnextprice">
                             <h3>$ {(nameState.highestPrice.toNumber()/1e6).toFixed(2)}</h3>
@@ -146,7 +146,7 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
                     </div>
                 </div>
                 <div className="increaseRefferrerVerfify">
-                    <h3>{t("Refferer")}:</h3>
+                    <h3 className="bidincrementtitle">{t("Refferer")}:</h3>
                     <RefferrerVerify
                         setRefferrerKey={setRefferrerKey}
                         setReffererValid={setRefferrerValid}

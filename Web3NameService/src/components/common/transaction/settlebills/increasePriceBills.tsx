@@ -31,11 +31,11 @@ const IncreasePriceSettleBills: React.FC<IncreasePriceSettleBills> = ({
     }, [ratio, totalLamports, ifRefferrerValid])
 
     return(
-        <div className="totalfees">
+        <div className="increasesettlebillcss">
             <h1>{t("bill")}</h1>
             <div className="registerfee">
-                <div className="registerrule">
-                    <h1>{t("deposit")}:</h1>
+                <div className="registerrule increaseDeposit">
+                    <h3>{t("deposit")}:</h3>
                 </div>
                 <h1>
                     $ {ratio&&totalLamports ? 

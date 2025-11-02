@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import "@/style/components/search/continueQuery/components/registerDomainPixel.css"
 import { DomainState } from "@/utils/functional/common/time/getDomainTimeState";
 import { cutString } from "@/utils/functional/common/cutString";
+import { useCommonToast } from "@/provider/fixedToastProvider/commonToastProvider";
 
 export interface RegisterDomainPixelProps {
     ifDomainInfoLoaded: boolean,
@@ -15,6 +16,8 @@ const RegisterDomainPixel: React.FC<RegisterDomainPixelProps> = ({
 }) => {
 
     const {t} = useTranslation()
+
+    const {showToast} = useCommonToast()
 
     const returnAttetionContent = () => {
         if(domainSaleState === null) return t("domainattention")
@@ -46,7 +49,9 @@ const RegisterDomainPixel: React.FC<RegisterDomainPixelProps> = ({
         <div className={`showtheaccountInfo ${ifDomainInfoLoaded? "":"infoloadinganimate"}`}>
              {ifDomainInfoLoaded &&
                 <div className="showcoountinfocontent">
-                    <div className="domainattention">
+                    <div className="domainattention" onClick={() => showToast(
+                        returnAttetionContent(), t("attention"), 6000
+                    )}>
                         <h1>{t("attention")}:</h1>
                         <h2>{cutString(returnAttetionContent(), 100, 1, "...")}</h2>
                     </div>

@@ -7,11 +7,12 @@ import { useState } from "react";
 
 export interface CustomValueSetProps {
     setCustomValue: React.Dispatch<React.SetStateAction<number | null>>,
-    ifCustomSetPage?: boolean
+    ifCustomSetPage?: boolean,
+    customClass?: string,
 }
 
 const CustomValueSet: React.FC<CustomValueSetProps> = ({
-    setCustomValue, ifCustomSetPage
+    setCustomValue, ifCustomSetPage, customClass
 }) => {
 
     const {t} = useTranslation()
@@ -45,7 +46,7 @@ const CustomValueSet: React.FC<CustomValueSetProps> = ({
     const [inputActive, setInputActive] = useState(false)
 
     return(
-        <div className={`customValueset ${ifCustomSetPage? "CustomSetPage":""}`}>
+        <div className={`customValueset ${ifCustomSetPage? "CustomSetPage":""} ${customClass}`}>
             <div className="titleandattention">
                 <h3>{ifCustomSetPage? t("customprice"):t("customvalue")}:</h3>
                 <img src={attention} className="cutomValueAttetion" />

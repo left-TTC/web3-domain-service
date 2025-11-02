@@ -103,9 +103,19 @@
     .wallet{
         width: 160px;
     }
+
+    .walletusericon{
+        display: none;
+    }
+    .walletConnected h1{
+        font-size: 12px;
+    }
 }
 
 @media (width < 750px){
+    .walletusericon{
+        display: flex;
+    }
     .walletConnected h1{
         display: none;
     }

@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 10px;
 }
 .setcustompricecryptoconfirmbutton:hover{
     opacity: 0.9;
@@ -22,6 +23,21 @@
     pointer-events: none;   
 }
 
+.setCustomPricebills{
+    background-color: #161F2F;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    width: 40%;
+}
+.setCustomPricebills h1{
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+}
+
 @media (min-width: 1024px){
     
 }
@@ -29,9 +45,20 @@
     .settletotal{
         height: 220px;
     }
+
+    .setCustomPricebills{
+        height: auto;
+        width: calc(96% - 40px);
+        margin-bottom: 200px;
+        height: 200px;
+    }
 }
 @media (width < 640px){
     .settletotal{
         height: 200px;
+    }
+
+    .setCustomPricebills h1{
+        font-size: 17px;
     }
 }

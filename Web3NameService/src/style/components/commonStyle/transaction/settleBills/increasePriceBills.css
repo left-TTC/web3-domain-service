@@ -1,6 +1,17 @@
 
 
-.totalfees{
+.increasesettlebillcss{
+    background-color: #161F2F;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    width: calc(100% - 40px);
+    margin-bottom: 200px;
+    height: calc(100% - 40px);
+}
+.increasesettlebillcss h1{
     color: white;
     font-weight: 500;
     font-size: 20px;
@@ -16,11 +27,12 @@
     margin: 0;
 }
 
-.registerrule h1{
+.increaseDeposit h3{
     font-weight: 500;
     color: #B5B9BF;
     font-size: 15px;
     margin: 0;
+    padding: 0;
 }
 
 .cryptototal h1{
@@ -52,4 +64,37 @@
     pointer-events: none;
     background-color: #B5B9BF;
 }
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    .increasesettlebillcss{
+        height: 200px;
+        width: calc(96% - 40px);
+    }
+}
+@media (width < 760px){
+    
+}
+@media (width < 640px){
+    .increasesettlebillcss h1{
+        font-size: 14px;
+    }
+
+    .increaseDeposit h3{
+        font-size: 12px;
+    }
+
+    .cryptototal h1{
+        font-size: 16px;
+    }
+    .cryptototal h2{
+        font-weight: 600;
+        color: white;
+        font-size: 17px!important;
+    }
+
+}
+
 

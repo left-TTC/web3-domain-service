@@ -12,6 +12,8 @@ import { cutString } from "@/utils/functional/common/cutString";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getDomainFeatures } from "@/utils/functional/domain/getDomainFeatures";
 import { DomainState } from "@/utils/functional/common/time/getDomainTimeState";
+import { useNavigate } from "react-router-dom";
+import { useCommonToast } from "@/provider/fixedToastProvider/commonToastProvider";
 
 export interface DomainShowAndQueryAgainProps {
     domainInfo: NameRecordState | null,
@@ -27,10 +29,24 @@ const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
 
     const {t} = useTranslation()
 
+    const navigate = useNavigate()
+    const naviToOrthers = (key: string) => {
+        navigate(`/usr/${key}`)
+    }
+
+    const { showToast } = useCommonToast()
+
     const [domainFeatures, setDomainFeatures] = useState<string[]>([])
     useEffect(() => {
-        setDomainFeatures(getDomainFeatures(cutDomain(domainName), domainInfo?.customPrice.toNumber(), domainSaleState))
-    }, [])
+        console.log("domainName chanege:", domainName)
+        const fetchFeatures = async() => {
+            setDomainFeatures(await getDomainFeatures(
+                cutDomain(domainName), domainInfo?.customPrice.toNumber(), domainSaleState, t
+            ))
+        }
+
+        fetchFeatures()
+    }, [domainName])
 
     return(
         <div className="domainandquery">
@@ -50,11 +66,17 @@ const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
                     {domainInfo? (
                         <div className="ownerShowword">
                             <h1>{t("ownedby")}</h1>
-                            <a href="#">{cutString(domainInfo.owner.toBase58(), 8, 8, "...")}</a>
+                            <h2 onClick={() => {
+                                naviToOrthers(domainInfo.owner.toBase58())
+                            }}>{cutString(domainInfo.owner.toBase58(), 8, 8, "...")}</h2>
                         </div>
                     ):(
-                        <div className="ungis">
-                            <a href="#">{t("unregis")}</a>
+                        <div className="ungis"
+                            onClick={() => {
+                                showToast(t("ungister"), t("unregis"), 20000)
+                            }}
+                        >
+                            <h1>{t("unregis")}</h1>
                         </div>
                     )}
                     <div className="domainFeatures">

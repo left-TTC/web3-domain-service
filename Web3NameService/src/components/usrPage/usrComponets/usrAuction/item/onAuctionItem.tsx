@@ -23,12 +23,12 @@ const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
 
     return(
         <div className="onAuctionItem">
-            <div className="itemhead">
-                <div className="realhead">
+            <div className="itemheads">
+                <div className="realheads">
                     <div className="head1">
                         <Identicon pubkey={itemName} />
                     </div>
-                    <div className="itemdomainame">
+                    <div className="itemdomainames">
                         <h1>{cutDomain(itemName)[0]}</h1>
                         <h2>.{cutDomain(itemName)[1]}</h2>
                     </div>
@@ -45,10 +45,13 @@ const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
                 </div>
             </div>
             
-            <div className="auctionState">
+            <div className="itemauctionState">
                 <div className="timeshow">
                     <h2 className="settlememtin">{t("settlememtin")}:</h2>
-                    <TimeClock target={auctionState!.updateTime.toNumber() + 600} />
+                    <TimeClock 
+                        target={auctionState!.updateTime.toNumber() + 600} 
+                        customClassName="usepageitemclock" 
+                    />
                 </div>
                 <button className="increaseBU" onClick={() => setShowIncreaseBlock(true)}>
                     <h1>increase</h1>

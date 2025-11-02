@@ -72,6 +72,8 @@
 
     .customvalueinput{
         height: 36px;
+        border-radius: 6px;
+        width: 90%;
     }
     .customvalueinput h3{
         font-size: 13px;

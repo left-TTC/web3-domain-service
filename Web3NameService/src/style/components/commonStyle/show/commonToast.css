@@ -1,0 +1,142 @@
+.commonfixedtoast{
+    width: 100vw;
+    height: 100vh;
+    position: fixed; 
+    display: flex;
+    justify-content: center;   
+    top: 0;
+    left: 0; 
+}
+
+.commontoastcontent{
+    width: 640px;
+    background-color: #161F2F;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-500%);
+    padding: 30px;
+    top: 160px;
+    z-index: 1200;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+}
+.commontoastcontent h1{
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+    z-index: 10;
+    text-align: left;
+    width: 100%;
+}
+
+.messageblock{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    width: 100%;
+}
+.messageblock h2{
+    color: #95A6C1;
+    font-size: 16px;
+    font-weight: 550;
+    z-index: 10;
+}
+
+.commontoastclose{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #161F2F;
+    z-index: 100;
+}
+.commontoastclose:hover{
+    opacity: 0.8;
+}
+
+.commontransactionclose{
+    width: 15px;
+}
+
+.commontoastround{
+    position: absolute;
+    width: 1250px;
+    height: 480px;
+    border-radius: 50%;
+    top: -120%;
+    right: -80%;
+    filter: blur(20px);
+    opacity: 0.3;
+}
+.a {
+    background-color: #9945FF;
+}
+.b {
+    background-color: #00FFA3;
+}
+.c {
+    background-color: #FFD166;
+}
+.d {
+    background-color: #FF3864;
+}
+
+.commonToastconfirm{
+    background-color: aliceblue;
+    width: 80%;
+    margin-top: 10px;
+}
+.commonToastconfirm h1{
+    text-align: center;
+    font-weight: 500;
+    font-size: 23px;
+}
+
+@media (min-width: 1024px){
+    
+}
+@media (width < 1024px){
+    
+}
+@media (width < 760px){
+    .commontoastcontent{
+        width: calc(94% - 20px);
+        padding: 20px 10px;
+    }
+
+    .commontoastround{
+        right: -150%;
+        top: -120%;
+    }
+
+    .commontoastcontent h1{
+        font-size: 15px;
+    }
+
+    .messageblock{
+        width: 90%;
+    }
+    .messageblock h2{
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+}
+@media (width < 640px){
+    .commontoastround{
+        right: -190%;
+        top: -170%;
+    }
+    
+}
