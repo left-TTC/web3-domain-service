@@ -11,10 +11,11 @@ import { cutString } from "@/utils/functional/common/cutString";
 export interface OnAuctionItemProps {
     itemName: string,
     auctionState: NameAuctionState,
+    ifCheckingOtherUsr: boolean,
 }
 
 const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
-    itemName, auctionState,
+    itemName, auctionState, ifCheckingOtherUsr
 }) => {
 
     const {t} = useTranslation()
@@ -53,7 +54,7 @@ const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
                         customClassName="usepageitemclock" 
                     />
                 </div>
-                <button className="increaseBU" onClick={() => setShowIncreaseBlock(true)}>
+                <button className={`increaseBU ${ifCheckingOtherUsr && "othercannotclinck"}`} onClick={() => setShowIncreaseBlock(true)}>
                     <h1>increase</h1>
                 </button>
             </div>

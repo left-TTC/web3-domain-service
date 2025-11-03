@@ -89,7 +89,7 @@
     "cid": "Input Your Website IPFS Cid",
     "createrecord": "Create Record",
     "resale": "Domain Resale",
-    "getother": "Get others' premium domain",
+    "getother": "Competing for premium domain names",
     "moreop": "More Options",
     "lessop": "Less Options",
     "loading": "Loading",
@@ -182,5 +182,9 @@
     "origin": "Origin",
     "rare": "Rare",
     "emoji": "emoji",
-    "expensive": "Expensive"
+    "expensive": "Expensive",
+    "domain": "Domains",
+    "domaininauction": "Domain in Auction",
+    "topSales": "Top Sales",
+    "auctions": "Auction"
 }

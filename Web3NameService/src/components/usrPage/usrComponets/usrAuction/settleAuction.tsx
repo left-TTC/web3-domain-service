@@ -10,10 +10,11 @@ import { useAnimateItem } from "./function/useAnimateItem";
 
 export interface SettleAuctionProps {
     settlingDomain: Map<string, NameAuctionState | null> | null,
+    ifCheckingOtherUsr: boolean,
 }
 
 const SettleAuction: React.FC<SettleAuctionProps> = ({
-    settlingDomain
+    settlingDomain, ifCheckingOtherUsr
 }) => {
 
     const {t} = useTranslation()
@@ -49,6 +50,7 @@ const SettleAuction: React.FC<SettleAuctionProps> = ({
                                 key={index}
                                 itemName={"test.domain"} 
                                 settleState={settlingDomain!.get(billName)!}
+                                ifCheckingOtherUsr={ifCheckingOtherUsr}
                             />
                         ))}
                     </div>

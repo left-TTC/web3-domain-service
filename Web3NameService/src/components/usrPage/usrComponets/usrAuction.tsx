@@ -10,11 +10,12 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 
 export interface UsrAuctionProps {
-    allAuctionName: string[]
+    allAuctionName: string[],
+    ifCheckingOtherUsr: boolean,
 }
 
 const UsrAuction: React.FC<UsrAuctionProps> = ({
-    allAuctionName
+    allAuctionName, ifCheckingOtherUsr
 }) => {
 
     const {t} = useTranslation()
@@ -46,8 +47,14 @@ const UsrAuction: React.FC<UsrAuctionProps> = ({
                 <h1>{t("myauction")}</h1>
             </div>
             <div className="linedomain" />
-            <SettleAuction settlingDomain={settleMap} />
-            <OnAuctionBills onAuctionBills={onAuctionMap}/>
+            <SettleAuction 
+                settlingDomain={settleMap} 
+                ifCheckingOtherUsr={ifCheckingOtherUsr}
+            />
+            <OnAuctionBills 
+                onAuctionBills={onAuctionMap}
+                ifCheckingOtherUsr={ifCheckingOtherUsr}
+            />
         </div>
     )
 }

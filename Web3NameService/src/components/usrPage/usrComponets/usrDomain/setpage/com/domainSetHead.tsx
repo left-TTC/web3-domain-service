@@ -3,12 +3,14 @@ import Identicon from "@/components/common/show/usr/identicon";
 import "@/style/components/usrPage/usrComponents/usrDomain/setpage/com/domainSetHead.css"
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getDomainFeatures } from "@/utils/functional/domain/getDomainFeatures";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 
 export interface DomainSetHeadProps{
     domainIdentity: string,
     ifLessThan640: boolean,
+    ifOtherUsr: boolean
 }
 
 const DomainSetHead: React.FC<DomainSetHeadProps> = ({
@@ -19,7 +21,15 @@ const DomainSetHead: React.FC<DomainSetHeadProps> = ({
 
     const nameAndRoot = cutDomain(domainIdentity)
 
-    const domainFeature = getDomainFeatures(nameAndRoot, undefined, null)
+    const [domainFeatures, setDomainFeatures] = useState<string[]>([])
+    useEffect(() => {
+        const fetchFeatures = async() => {
+            setDomainFeatures(await getDomainFeatures(nameAndRoot, undefined, null, t) )   
+        }
+
+        fetchFeatures()
+    }, [])
+
 
     return(
         <div className="domainSethead">
@@ -37,7 +47,7 @@ const DomainSetHead: React.FC<DomainSetHeadProps> = ({
                 </div>
                 <div className="domainsetfeature">
                     <h2>{t("Categories")}: </h2>
-                    {domainFeature.map((feature, index) => (
+                    {domainFeatures.map((feature, index) => (
                         <div className="domainsetfeatureshow" key={index}>
                             <h1>{feature}</h1>
                         </div>

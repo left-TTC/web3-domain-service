@@ -16,21 +16,20 @@
 }
 
 .marketdowncontent{
-    padding: 20px;
-    width: calc(100% - 40px);
-}
-
-.marketdowncontent{
+    padding: 20px 10px;
+    width: calc(100% - 20px);
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 
 .marketchoosebubl{
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 }
 
 .marketchoosebu{
@@ -43,16 +42,15 @@
     align-items: center;
     width: 90%;
 }
-
 .marketchoosebu:hover{
     background-color: #434C52;
 }
-
 .marketchoosebu h1{
     margin: 0;
     color: white;
     opacity: 0.5;
     font-family: 'Minecraftia', monospace;
+    font-size: 12px;
 }
 
 .attentionShow {
@@ -65,10 +63,6 @@
 
 .markettypeimg{
     width: 20px;
-}
-
-.marketchoosebu h1{
-    font-size: 14px;
 }
 
 .marketbumore{
@@ -86,12 +80,21 @@
 
 @media (width < 640px){
     .marketchoosebu h1{
-        font-size: 12px;
+        font-size: 9px;
     }
     .marketchoosebu{
         gap: 10px;
         padding: 10px 5px;
         width: 85%;
+    }
+
+    .marketdowncontent{
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .markettypeimg{
+        width: 15px;
     }
 
 }

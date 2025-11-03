@@ -13,6 +13,11 @@
     font-weight: 600;
 }
 
+.othercannotclinck{
+    background-color: #434C52;
+    pointer-events: none;
+}
+
 @media (width < 640px){
     .settleBU{
         width: 85px;

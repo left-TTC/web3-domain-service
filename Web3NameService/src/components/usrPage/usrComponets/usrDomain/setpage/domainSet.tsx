@@ -16,10 +16,11 @@ export interface DomainSetProps {
     domainState: NameRecordState | null | undefined,
     ifIpfsLoading: boolean,
     domainRecordState: IPFSRecordState | undefined,
+    isOtherUsr: boolean
 }
 
 const DomainSet: React.FC<DomainSetProps> = ({
-    domainName, backToDomainPage, domainState, ifIpfsLoading, domainRecordState
+    domainName, backToDomainPage, domainState, ifIpfsLoading, domainRecordState, isOtherUsr
 }) => {
     
     const [ifLessThan640, setIfLessThan640] = useState(false)
@@ -40,6 +41,7 @@ const DomainSet: React.FC<DomainSetProps> = ({
                 <DomainSetHead 
                     domainIdentity={domainName}
                     ifLessThan640={ifLessThan640}
+                    ifOtherUsr={isOtherUsr}
                 />
             </div>
             <div className="setfunctioncom">
@@ -48,12 +50,14 @@ const DomainSet: React.FC<DomainSetProps> = ({
                         domainState={domainState}
                         domainName={domainName}
                         ifLessThan640={ifLessThan640}
+                        ifCheckingOtherUsr={isOtherUsr}
                     />
                     <DomainUrlSet 
                         domainName={domainName}
                         ifLoading={ifIpfsLoading}
                         domainRecordState={domainRecordState}
                         ifLessThan640={ifLessThan640}
+                        ifCheckingOtherUsr={isOtherUsr}
                     />
                 </div>
                 <div className="auctionStateshow">

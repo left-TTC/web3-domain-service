@@ -8,6 +8,14 @@
     justify-content: center;
     margin-top: 50px;
     height: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.manageposition{
+    position: absolute;
+    bottom: 0;
+    width: 1024px;
 }
 
 
@@ -18,6 +26,10 @@
 @media (width < 1024px){
     .usrback{
         height: 250px;
+    }
+
+    .manageposition{
+        width: 100%;
     }
 }
 @media (width < 640px){

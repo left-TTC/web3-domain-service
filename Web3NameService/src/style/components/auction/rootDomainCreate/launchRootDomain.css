@@ -62,13 +62,15 @@
     font-family: 'Minecraftia', monospace;
 }
 
+
+
 /*common computer*/
 @media (min-width: 1024px){
 
 }
 @media (width < 1024px){
     .launchroot{
-        width: 96%;
+        width: calc(96% - 40px);
     }
 
     .launchnewbu{
@@ -96,6 +98,10 @@
     .detailandlaunchbu{
         width: 100%;
         text-align: center;
+    }
+    .detailandlaunchbu h1{
+        font-size: 14px;
+        font-weight: 500;
     }
 
     .launchnewbu{

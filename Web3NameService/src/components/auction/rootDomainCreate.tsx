@@ -24,7 +24,7 @@ export default function RootDomainCreate(){
 
     return(
         <div className="RootDomainCreate">
-            <LargeRound className="rootcreateround"/>
+            <LargeRound />
             <div className="rootdomaincreatecontent">
                 <div className="rootfactorytitle">
                     <h1>{t("rootdomainfac")}</h1>
@@ -47,12 +47,14 @@ export default function RootDomainCreate(){
                 <div className="sailt">
                     <h1>{t("launchnew")}</h1>
                 </div>
-                <LaunchRootDomain 
-                    showLaunchSettle={showLaunchSettle}
-                    setShowLaunchSettle={setShowLaunchSettle}
-                    openLanunchSettleAndRecordPosition={openLanunchSettleAndRecordPosition}
-                    backFn={backFn}
-                />
+                <div className="launchrootfnbl">
+                    <LaunchRootDomain 
+                        showLaunchSettle={showLaunchSettle}
+                        setShowLaunchSettle={setShowLaunchSettle}
+                        openLanunchSettleAndRecordPosition={openLanunchSettleAndRecordPosition}
+                        backFn={backFn}
+                    />
+                </div>
             </div>
         </div>  
     )

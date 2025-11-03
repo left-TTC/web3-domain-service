@@ -4,18 +4,19 @@ import "@/style/components/usrPage/usrBack/usrIndex.css"
 import type { PublicKey } from "@solana/web3.js";
 
 import copy from "@/assets/copy.svg"
-import UsrStateManage, { UsrComponents } from "./usrStateManage";
 import { useEffect, useState } from "react";
 import { cutString } from "@/utils/functional/common/cutString";
+import { useCommonToast } from "@/provider/fixedToastProvider/commonToastProvider";
 
 export interface UsrIndexProps {
     usr: PublicKey,
-    setShowUsrComponent: React.Dispatch<React.SetStateAction<UsrComponents>>,
 }
 
 const UsrIndex: React.FC<UsrIndexProps> = ({
-    usr, setShowUsrComponent
+    usr
 }) => {
+
+    const {showToast} = useCommonToast()
 
     const [ifLessThan1024, setIfLessThan1024] = useState(false)
     useEffect(() => {
@@ -31,8 +32,9 @@ const UsrIndex: React.FC<UsrIndexProps> = ({
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(usr.toBase58());
+            showToast(`Public key ${usr.toBase58()} copied successfully`, "Copy successful", 2000)
         } catch (err) {
-            console.error("复制失败:", err);
+            showToast(`Because ${err} caused the copying to fail.`, "Copy fail", 2000)
         }
     };
 
@@ -45,14 +47,14 @@ const UsrIndex: React.FC<UsrIndexProps> = ({
                 <div className="name">
                     <div className="namebl">
                         <h1>{ifLessThan1024? cutString(usr.toBase58(),10,10,"..."):usr.toBase58()}</h1>
-                        <button className="nameCopy" onClick={handleCopy}>
+                        <button className="nameCopy" onClick={() => handleCopy()}>
                             <img src={copy} className="imgcopy" />
                         </button>
                     </div>
                     <div className="nameline" />
                 </div>
             </div>
-            <UsrStateManage setShowUsrComponent={setShowUsrComponent}/>
+            
         </div>
     )
 }

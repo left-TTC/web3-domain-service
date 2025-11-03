@@ -22,7 +22,7 @@ export interface UsrDomainProps{
     usrDomainLoaded: boolean,
     domainStateMap: Map<string, NameRecordState> | null,
     isLoadingRecordData: boolean,
-    onSaleDomains: string[]
+    onSaleDomains: string[],
 }
 
 export const usrPreferShow = atomWithStorage<SortStyle>(
@@ -91,6 +91,7 @@ const UsrDomain: React.FC<UsrDomainProps> = ({
                                 ifDomainRecordLoading={isLoadingRecordData}
                                 domainRecordState={recordMap?.get(usrDomain)}
                                 onSaleDomains={onSaleDomains}
+                                ifOtherUsr={ifCheckingOtherUsr}
                             />
                         ))}
                     </div>

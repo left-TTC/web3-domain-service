@@ -12,10 +12,11 @@ import "@/style/components/usrPage/usrComponents/usrAuction/item/settleItemDetai
 export interface OnSettlementItemProps {
     itemName: string
     settleState: NameAuctionState,
+    ifCheckingOtherUsr: boolean,
 }
 
 const OnSettlementItem: React.FC<OnSettlementItemProps> = ({
-    itemName, settleState
+    itemName, settleState, ifCheckingOtherUsr
 }) => {
 
     const {t} = useTranslation()
@@ -50,7 +51,7 @@ const OnSettlementItem: React.FC<OnSettlementItemProps> = ({
                         customClassName="usepageitemclock"    
                     />
                 </div>
-                <button className="settleBU" onClick={() => setShowSettleBlcok(true)}>
+                <button className={`settleBU ${ifCheckingOtherUsr && "othercannotclinck"}`} onClick={() => setShowSettleBlcok(true)}>
                     <h1>settle</h1>
                 </button>
             </div>

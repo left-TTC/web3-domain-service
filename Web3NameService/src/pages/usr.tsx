@@ -35,14 +35,29 @@ export function User({
         if(key != undefined && usr?.toBase58() != key)ifOtherUsr.current=true
     }, [key, usr])
 
-    const [searchKey, setSearchKey] = useState<PublicKey | null>(usr)
+    const [searchKey, setSearchKey] = useState<PublicKey | null>(null)
     useEffect(() => {
         if(ifOtherUsr.current){
             setSearchKey(new PublicKey(key!))
+            console.log("searchkey change")
         }else{
             setSearchKey(usr)
         }
-    }, [ifOtherUsr.current, usr])
+    }, [ifOtherUsr.current, usr, key])
+
+    const [usrDomainLoaded, setUsrDomainLoaded] = useState(false)
+    const fetched = useRef(false)
+
+    const prevSearchKey = useRef<string | null>(null);
+    useEffect(() => {
+        if (!searchKey) return;
+            const currentKey = searchKey.toBase58();
+        if (prevSearchKey.current !== currentKey) {
+            prevSearchKey.current = currentKey;
+            setUsrDomainLoaded(false)
+            fetched.current = false
+        }
+    }, [searchKey]);
 
     // contains all the domains that currently being liquidated and auctioned
     const { auctioningDomain } = useAuctioningDomain(connection, searchKey)
@@ -50,9 +65,9 @@ export function User({
 
     const {
         domainNumber, showSearchFrist, isLoadingRecordData, recordLoaded,
-        usrDomainLoaded, domainStateMap, recordMap, usrDomains, usrDomainOnSale
+        domainStateMap, recordMap, usrDomains, usrDomainOnSale
     } = useUsrDomains(
-        auctioningDomain, asPayerDomain, searchKey
+        auctioningDomain, asPayerDomain, searchKey, setUsrDomainLoaded, fetched
     )
 
     const [showUsrComponents, setShowUsrComponents] = useState<UsrComponents>(UsrComponents.Domain)
@@ -72,9 +87,10 @@ export function User({
                             onSaleDomains={usrDomainOnSale}
                         />
             case UsrComponents.Auction:
-                return <UsrAuction allAuctionName={auctioningDomain}/>
-            case UsrComponents.Profit:
-                return <UsrAuction allAuctionName={auctioningDomain}/>
+                return <UsrAuction 
+                    allAuctionName={auctioningDomain}
+                    ifCheckingOtherUsr={ifOtherUsr.current}
+                />
         }
     }
 
@@ -83,6 +99,7 @@ export function User({
             <div className="usrPage">
                 <UsrBackground 
                     openDomainQueryPage={openDomainQueryPage}
+                    showingComponents={showUsrComponents}
                     setShowUsrComponent={setShowUsrComponents}
                     showSearchFrist={showSearchFrist}
                     searchKey={searchKey}

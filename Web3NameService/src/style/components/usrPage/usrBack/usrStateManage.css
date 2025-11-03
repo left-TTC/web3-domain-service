@@ -3,28 +3,49 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
-    width: 40%;
+    gap: 15px;
     justify-content: center;
+    position: absolute;
+    bottom: -8px;
+    left: 20px;
 }
 
-
 .comBu{
-    height: 50px;
-    width: 60px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #B4FC75;
+    background-color: #2B2F3C;
     border-radius: 5px;
     position: relative;
+    flex-direction: row;
+    width: 100px;
+    padding: 10px 10px;
+    justify-content: space-between;
+    border-radius: 5px 5px 0 0 ;
+    box-shadow: 0 0 2px 2px rgba(248, 250, 251, 0.3);
 }
 .comBu:hover{
     opacity: 0.9;
 }
+.comBu h1{
+    font-size: 12px;
+    color: white;
+}
+
+.activeComponent{
+    background-color: #B4FC75;
+}
+.activeComponent h1{
+    color: black;
+}
 
 .comimg{
-    width: 24px;
+    width: 18px;
+}
+
+.comauctionimg{
+    width: 18px;
 }
 
 @media (min-width: 1024px){
@@ -35,24 +56,38 @@
     .usrcommanage{
         gap: 5px;   
     }
+
+    .usrcommanage{
+        left: 40px;
+        gap: 10px;
+    }
+    
     
 }
 @media (width < 800px){
-    .usrcommanage{
-        gap: 20px;
-        justify-content: left;
-        width: 96%;
-        padding-left: 4%;
-    }
+
 }
 @media (width < 640px){
+
+    .usrcommanage{
+        left: 20px;
+        gap: 8px;
+    }
     
     .comBu{
         height: 32px;
-        width: 40px;
+        width: 76px;
+        padding: 8px 8px 10px 8px;
+    }
+    .comBu h1{
+        font-size: 9px;
     }
 
     .comimg{
         width: 16px;
+    }
+
+    .comimg{
+        width: 13px;
     }
 }

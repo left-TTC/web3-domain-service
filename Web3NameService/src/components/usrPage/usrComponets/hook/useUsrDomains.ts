@@ -19,6 +19,8 @@ export function useUsrDomains(
     auctioningDomain: string[],
     asPayerDomain: PublicKey[],
     searchKey: PublicKey | null,
+    setUsrDomainLoaded: React.Dispatch<React.SetStateAction<boolean>>,
+    fetched: React.RefObject<boolean>
 ){
 
     const { rootDomains } = useRootDomain()
@@ -34,8 +36,7 @@ export function useUsrDomains(
     }, [auctioningDomain, asPayerDomain, domainNumber])
 
     const [usrDomains, setUsrDomains] = useState<string[]>([])
-    const fetched = useRef(false)
-    const [usrDomainLoaded, setUsrDomainLoaded] = useState(false)
+    
 
     const [rootKeyMap, setRootKeyMap] = useState<Map<string, string> | null>(null)
 
@@ -127,6 +128,6 @@ export function useUsrDomains(
 
     return {
         domainNumber, showSearchFrist, isLoadingRecordData, recordLoaded,
-        usrDomainLoaded, domainStateMap, recordMap, usrDomains, usrDomainOnSale
+        domainStateMap, recordMap, usrDomains, usrDomainOnSale
     }
 }

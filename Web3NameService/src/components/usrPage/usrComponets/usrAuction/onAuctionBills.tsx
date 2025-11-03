@@ -9,10 +9,11 @@ import { useAnimateItem } from "./function/useAnimateItem";
 
 export interface OnAuctionBillsProps {
     onAuctionBills: Map<string, NameAuctionState | null> | null,
+    ifCheckingOtherUsr: boolean,
 }
 
 const OnAuctionBills: React.FC<OnAuctionBillsProps> = ({
-    onAuctionBills
+    onAuctionBills, ifCheckingOtherUsr
 }) => {
 
     const {t} = useTranslation()
@@ -49,6 +50,7 @@ const OnAuctionBills: React.FC<OnAuctionBillsProps> = ({
                                 key={index} 
                                 itemName={"test.domain"} 
                                 auctionState={onAuctionBills!.get(billName)!}
+                                ifCheckingOtherUsr={ifCheckingOtherUsr}
                             />
                         ))}
                     </div>

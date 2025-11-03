@@ -7,11 +7,14 @@ import { useTranslation } from "react-i18next"
 
 import "@/style/components/topbar/usr/myDomain.css"
 import { useNavigate } from "react-router-dom"
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 
 const MyDomain = () => {
 
     const {t}= useTranslation()
     const navigate = useNavigate()
+
+    const {publicKey} = useWalletEnv()
 
     const [ifOnHover, setIfOnHover] = useState(false)
 
@@ -23,7 +26,11 @@ const MyDomain = () => {
     }
 
     const goToUsrPage = () => {
-        navigate("./usr")
+        if(publicKey){
+            navigate(`./usr/${publicKey}`)
+        }else{
+            navigate(`./usr/`)
+        }
     }
 
     return(

@@ -46,6 +46,7 @@ const CommonToast: React.FC<CommonToastProps> = ({
     const animateClose = () => {
         if(outed.current)return
         if(toatsRef.current){
+            outed.current = true
             animate(toatsRef.current, {
                 translateX: ["-50%", "200%"],
                 duration: 500,
@@ -59,7 +60,8 @@ const CommonToast: React.FC<CommonToastProps> = ({
     
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (toatsRef.current && !toatsRef.current.contains(event.target as Node)) {
+            if(outed.current)return
+            if(toatsRef.current && !toatsRef.current.contains(event.target as Node)) {
                 animateClose();
             }
         }
@@ -76,7 +78,7 @@ const CommonToast: React.FC<CommonToastProps> = ({
             <button className="commontoastclose" onClick={() => animateClose()}>
                 <img src={close} className="commontransactionclose" />
             </button>
-            <h1>{title}:</h1>
+            <h1>{title}</h1>
             <div className="messageblock">
                 <h2>{message}</h2>
             </div>

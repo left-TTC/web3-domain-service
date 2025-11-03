@@ -18,11 +18,12 @@ export interface DomainBlockProps{
     domainState: NameRecordState | null | undefined,
     ifDomainRecordLoading: boolean,
     domainRecordState: IPFSRecordState | undefined,
-    onSaleDomains: string[]
+    onSaleDomains: string[],
+    ifOtherUsr: boolean
 }
 
 const DomainBlock: React.FC<DomainBlockProps> = ({
-    domainName, sortStyle, domainState, ifDomainRecordLoading, domainRecordState, onSaleDomains
+    domainName, sortStyle, domainState, ifDomainRecordLoading, domainRecordState, onSaleDomains, ifOtherUsr
 }) => {
 
 
@@ -64,6 +65,7 @@ const DomainBlock: React.FC<DomainBlockProps> = ({
                     domainState={domainState}
                     ifIpfsLoading={ifDomainRecordLoading}
                     domainRecordState={domainRecordState}
+                    isOtherUsr={ifOtherUsr}
                 />
             }
         </div>

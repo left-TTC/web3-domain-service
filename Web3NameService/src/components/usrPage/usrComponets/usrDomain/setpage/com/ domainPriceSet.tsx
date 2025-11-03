@@ -10,11 +10,12 @@ export interface DomainPriceSetProps {
     domainName: string,
     domainState: NameRecordState | null | undefined,
     ifLessThan640: boolean,
+    ifCheckingOtherUsr: boolean
 }
 
 
 const DomainPriceSet: React.FC<DomainPriceSetProps> = ({
-    domainState, domainName, ifLessThan640
+    domainState, domainName, ifLessThan640, ifCheckingOtherUsr
 }) => {
 
     const {t} = useTranslation()
@@ -42,7 +43,7 @@ const DomainPriceSet: React.FC<DomainPriceSetProps> = ({
                 {domainState? (
                     <div className="showAndset">
                         <h1>$ {(domainState.customPrice.toNumber() / 1e6).toFixed(2)}</h1>
-                        <button className="customsetbu" onClick={() => setIfOpenPriceSet(true)}>
+                        <button className={`customsetbu ${ifCheckingOtherUsr && "biddenuse"}`} onClick={() => setIfOpenPriceSet(true)}>
                             <h1>{t("set")}</h1>
                         </button>
                     </div>

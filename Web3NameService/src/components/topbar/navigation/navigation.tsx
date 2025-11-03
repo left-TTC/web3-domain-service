@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 import home from "@/assets/homeimg.svg";
 import greenHome from "@/assets/homeimggreen.svg";
-import auction  from "@/assets/auctionimg.svg";
-import auctionGreen from "@/assets/auctionimggreen.svg"
+import auction  from "@/assets/auction white.svg";
+import auctionGreen from "@/assets/auctiongreen.svg"
 import searchGreen from "@/assets/searchpixelGreen.svg"
 import search from "@/assets/pixelSearch.svg"
 import file from "@/assets/file.svg"

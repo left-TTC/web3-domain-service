@@ -2,12 +2,13 @@ import "@/style/components/usrPage/usrBackground.css"
 import SearchYourFrist from "./usrBack/searchYourFrist";
 import UsrIndex from "./usrBack/usrIndex";
 import ConnectWalletFrist from "./usrBack/connectWallet";
-import { UsrComponents } from "./usrBack/usrStateManage";
+import UsrStateManage, { UsrComponents } from "./usrBack/usrStateManage";
 import type { PublicKey } from "@solana/web3.js";
 
 
 export interface UsrBackgroundProps{
     openDomainQueryPage: () => void,
+    showingComponents: UsrComponents,
     setShowUsrComponent: React.Dispatch<React.SetStateAction<UsrComponents>>,
     showSearchFrist: boolean,
     searchKey: PublicKey | null
@@ -15,7 +16,7 @@ export interface UsrBackgroundProps{
 
 
 const UsrBackground: React.FC<UsrBackgroundProps> = ({
-    openDomainQueryPage, setShowUsrComponent, showSearchFrist, searchKey
+    openDomainQueryPage, setShowUsrComponent, showSearchFrist, searchKey, showingComponents
 }) => {
 
     return(
@@ -24,11 +25,20 @@ const UsrBackground: React.FC<UsrBackgroundProps> = ({
                 (showSearchFrist)? (
                     <SearchYourFrist openDomainQueryPage={openDomainQueryPage}/>
                 ):(
-                    <UsrIndex usr={searchKey} setShowUsrComponent={setShowUsrComponent}/>
+                    <UsrIndex usr={searchKey} />
                 )
             ):(
                 <ConnectWalletFrist />
             )}
+
+            {searchKey &&
+                <div className="manageposition">
+                    <UsrStateManage 
+                        showingComponents={showingComponents}
+                        setShowUsrComponent={setShowUsrComponent}
+                    />
+                </div>
+            }
         </div>
     )
 }

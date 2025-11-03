@@ -18,10 +18,11 @@ export interface DomainUrlSetProps {
     ifLoading: boolean,
     domainRecordState: IPFSRecordState | undefined,
     ifLessThan640: boolean,
+    ifCheckingOtherUsr: boolean
 }
 
 const DomainUrlSet: React.FC<DomainUrlSetProps> = ({
-    ifLoading, domainRecordState, domainName, ifLessThan640
+    ifLoading, domainRecordState, domainName, ifLessThan640, ifCheckingOtherUsr
 }) => {
 
     const {t} = useTranslation()
@@ -83,7 +84,7 @@ const DomainUrlSet: React.FC<DomainUrlSetProps> = ({
                         )} 
                     </div>
                 </div>
-                <button className="setButton" onClick={() => setIfOpenUrlSet(true)}>
+                <button className={`setButton ${ifCheckingOtherUsr && "biddenuse"}`} onClick={() => setIfOpenUrlSet(true)}>
                     <h1>{t("set")}</h1>
                 </button>
             </div>
