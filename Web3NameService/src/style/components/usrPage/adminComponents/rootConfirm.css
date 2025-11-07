@@ -2,13 +2,11 @@
 
 .rootconfirm{
     width: 1024px;
-    background-color: #1C2334;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 40px 0;
     gap: 30px;
-    border-radius: 10px;
 }
 
 .confirmRootInfo{

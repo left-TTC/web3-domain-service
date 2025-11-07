@@ -19,7 +19,7 @@ const OnAuctionBills: React.FC<OnAuctionBillsProps> = ({
     const {t} = useTranslation()
 
     // origin false
-    const [showTheBills, setShowTheBills] = useState(true)
+    const [showTheBills, setShowTheBills] = useState(false)
     const [billsName, setBillsName] = useState<string[]>([])
     useEffect(() => {
         if(onAuctionBills){
@@ -48,7 +48,7 @@ const OnAuctionBills: React.FC<OnAuctionBillsProps> = ({
                         {billsName.map((billName, index) => (
                             <OnAuctionItem
                                 key={index} 
-                                itemName={"test.domain"} 
+                                itemName={billName} 
                                 auctionState={onAuctionBills!.get(billName)!}
                                 ifCheckingOtherUsr={ifCheckingOtherUsr}
                             />

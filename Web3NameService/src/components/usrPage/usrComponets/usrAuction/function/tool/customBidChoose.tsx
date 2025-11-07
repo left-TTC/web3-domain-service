@@ -14,14 +14,13 @@ const CustomBidChoose: React.FC<CustomBidChooseProps> = ({
 }) => {
 
     const [integer, setInteger] = useState("0");
-    const [decimal, setDecimal] = useState("0");
 
     useEffect(() => {
         if(ifUseCustom){
-            const number = Number(integer) * 1e6 + Number(decimal) * 1e5
-            setIncreaseNumber(number)
+            const number = Number(integer)
+            setIncreaseNumber(number / 100 )
         }
-    }, [integer, decimal, ifUseCustom])
+    }, [integer, ifUseCustom])
 
     const integerChange = (e: ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value;
@@ -38,21 +37,13 @@ const CustomBidChoose: React.FC<CustomBidChooseProps> = ({
 
         setInteger(value);
     };
+
     useEffect(() => {
         if(!integer)setInteger("0")
     }, [integer])
 
-    const decimalChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let value = e.target.value;
-        if(value.length > 1){
-            setDecimal(value[1])
-        }
-        if(value.length === 0)setDecimal("0")
-    }
-
     return(
         <div className="customchoose">
-            <h3>$</h3>
             <div className="customInput">
                 <div className="integerdigit">
                     <input
@@ -62,15 +53,7 @@ const CustomBidChoose: React.FC<CustomBidChooseProps> = ({
                         onChange={(e) => {integerChange(e)}}
                     />
                 </div>
-                <h3>.</h3>
-                <div className="decimaldigit">
-                    <input
-                        type="text"
-                        value={decimal}
-                        className="custominput decimalinput"
-                        onChange={(e) => {decimalChange(e)}}
-                    />
-                </div>
+                <h2> %</h2>
             </div>
             <button 
                 className={`confirmusecustom ${ifUseCustom? "usecusom":""} `} 

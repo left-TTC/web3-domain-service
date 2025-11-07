@@ -76,6 +76,7 @@ const RefferrerVerify: React.FC<RefferrerVerifyProps> = ({
             const refferrerRecordData = await connection.getAccountInfo(
                 getRefferrerRecordKey(buyer)
             )
+            
             if(!refferrerRecordData){
                 setFixRefferrer(null)
                 setLoadingFixedRefferrer(false)

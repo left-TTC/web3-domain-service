@@ -6,12 +6,15 @@ import domainWhite from "@/assets/domainwhite.svg"
 import auction from "@/assets/auction.svg"
 import auctionWhite from "@/assets/auction white.svg"
 
+import dollar from "@/assets/Dollar-circle-fill.svg"
+import dollarwhite from "@/assets/Dollar-circle-fillwhite.svg"
+
 import "@/style/components/usrPage/usrBack/usrStateManage.css"
 import { useTranslation } from "react-i18next"
 
 export enum UsrComponents {
     Domain = "Domian",
-    // Profit = "Profit",
+    Profit = "Profit",
     Auction = "Auction",
 }
 
@@ -36,6 +39,10 @@ const UsrStateManage: React.FC<UsrStateManageProps> = ({
                 if(showingComponents === com){
                     return auction
                 }else return auctionWhite
+            case UsrComponents.Profit:
+                if(showingComponents === com){
+                    return dollar
+                }else return dollarwhite
         }
     }
 
@@ -45,8 +52,8 @@ const UsrStateManage: React.FC<UsrStateManageProps> = ({
                 return t("domain");
             case UsrComponents.Auction:
                 return t("auctions");
-            // case UsrComponents.Profit:
-            //     return profit
+            case UsrComponents.Profit:
+                return "Profit"
         }
     }
 

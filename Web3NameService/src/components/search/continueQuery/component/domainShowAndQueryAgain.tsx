@@ -60,7 +60,7 @@ const DomainShowAndQueryAgain: React.FC<DomainShowAndQueryAgainProps> = ({
                             <h2>.{cutDomain(domainName)[1]}</h2>
                         </div>
                         <div className="showPrice">
-                            <h1>$ {(domainPrice! / 1e6).toFixed(2)}</h1>
+                            <h1>{(domainPrice! /1e9).toFixed(4)} SOL</h1>
                         </div>
                     </div>
                     {domainInfo? (

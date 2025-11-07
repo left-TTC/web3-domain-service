@@ -2,7 +2,6 @@ import MintChooser from "@/components/common/transaction/mintChooser";
 import SettleDomainBills from "@/components/common/transaction/settlebills/settleDomainBills";
 import { SupportedMint, usePrice } from "@/provider/priceProvider/priceProvider";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
-import { getDomainDepositRatio } from "@/utils/functional/common/net/getDomainDepositRatio";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -34,21 +33,11 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
 
     const [chooseMint, setChooseMint] = useState<SupportedMint>(SupportedMint.SOL)
 
-    const [depositRatio, setDepositRatio] = useState<number | null>(null)
-    useEffect(() => {
-        const getDepositRatio = async() => {
-            setDepositRatio(await getDomainDepositRatio(
-                extireDomainName, connection
-            ))
-        }
-        getDepositRatio()
-    }, [])
-
-    const [domainPriceLamport, setDomainPriceLamport] = useState<number | null>(null)
+    // per usd to usdToSol SOL
+    const [usdToSol, setUsdToSol] = useState(0)
     useEffect(() => {
         if(price && expo){
-            const domainSolPrice = toTokenPerUsd(price, expo, SupportedMint.SOL);
-            setDomainPriceLamport((nameState.highestPrice.toNumber()/1e6) * domainSolPrice * 1e9)
+            setUsdToSol(toTokenPerUsd(price, expo, SupportedMint.SOL))
         }
     }, [price, expo])
 
@@ -61,18 +50,11 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
         fetchRent()
     }, [])
 
-    const [totalLamports, setTotalLamports] = useState<number | null>(null)
-    useEffect(() => {
-        if(rentExemption && depositRatio && domainPriceLamport){
-            setTotalLamports(domainPriceLamport * (1-depositRatio) - rentExemption)
-        }
-    }, [rentExemption, domainPriceLamport, depositRatio])
-
     const [domainCustomValue, setDomainCustomValue] = useState<number | null>(null)
 
     const settleAuctionDomain = async() => {
         await settleDomain(
-            signTransaction, usr, solanaToast, connection, nameState, extireDomainName, totalLamports!, domainCustomValue
+            signTransaction, usr, solanaToast, connection, nameState, extireDomainName, rentExemption!, domainCustomValue
         )
     } 
 
@@ -85,7 +67,7 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
                 />
                 <div className="settlepriceblock">
                     <h3>{t("finalprice")}:</h3>
-                    <h4>$ {((nameState.highestPrice).toNumber() / 1e6).toFixed(2)}</h4>
+                    <h4>{((nameState.highestPrice).toNumber() / 1e9).toFixed(4)} SOL</h4>
                 </div>
                 <div className="settleine"/>
                 <CustomValueSet 
@@ -95,11 +77,9 @@ const SettleDomainCrypto: React.FC<SettleDomainCryptoProps> = ({
             </div>
             <SettleDomainBills 
                 confirmFunction={() => settleAuctionDomain()}
-                domainPrice={nameState.highestPrice.toNumber()}
-                domainPriceLamports={domainPriceLamport}
+                domainPriceLamports={nameState.highestPrice.toNumber()}
+                usdToSOL={usdToSol}
                 rentExemption={rentExemption}
-                depositRatio={depositRatio}
-                totalLamports={totalLamports}
             />
         </div>
     )

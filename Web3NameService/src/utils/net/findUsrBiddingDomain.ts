@@ -18,16 +18,18 @@ export async function findUsrBiddingDomain(
     // find usr's auctioning domain
 
     const filters = [
-        { dataSize: 80 },
+        { dataSize: 49 },
         {
             memcmp: {
-            offset: 0,
-            bytes: usr.toBase58(),
+                offset: 0,
+                bytes: usr.toBase58(),
             },
         },
     ];
 
-    const biddingDomainAccounts = await connection.getProgramAccounts(WEB3_REGISTER_ID, {filters})
+    const biddingDomainAccounts = await connection.getProgramAccounts(
+        WEB3_REGISTER_ID, {filters}
+    )
 
     let validAccounts: PublicKey[] = []
     for(const biddingAccount of biddingDomainAccounts){

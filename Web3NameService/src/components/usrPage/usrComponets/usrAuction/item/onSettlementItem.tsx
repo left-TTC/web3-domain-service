@@ -1,4 +1,4 @@
-import TimeClock from "@/components/common/show/timeClock";
+
 import Identicon from "@/components/common/show/usr/identicon";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
@@ -38,20 +38,13 @@ const OnSettlementItem: React.FC<OnSettlementItemProps> = ({
                 <div className="priceAndhighest">
                     <div className="auctionPrice">
                         <h1>{t("finalprice")}:</h1>
-                        <h2>$ {(settleState.highestPrice.toNumber()/1e6).toFixed(2)}</h2>
+                        <h2>{(settleState.highestPrice.toNumber()/1e9).toFixed(4)} SOL</h2>
                     </div>
                 </div>
             </div>
             
             <div className="itemauctionState">
-                <div className="timeshow">
-                    <h2 className="settlememtin">{t("endin")}:</h2>
-                    <TimeClock 
-                        target={settleState!.updateTime.toNumber() + 24600} 
-                        customClassName="usepageitemclock"    
-                    />
-                </div>
-                <button className={`settleBU ${ifCheckingOtherUsr && "othercannotclinck"}`} onClick={() => setShowSettleBlcok(true)}>
+                <button className={`settleBU ${ifCheckingOtherUsr && ""}`} onClick={() => setShowSettleBlcok(true)}>
                     <h1>settle</h1>
                 </button>
             </div>

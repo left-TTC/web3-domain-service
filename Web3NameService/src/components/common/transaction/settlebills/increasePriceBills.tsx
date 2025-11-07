@@ -6,16 +6,16 @@ import { useEffect, useState } from "react";
 
 export interface IncreasePriceSettleBills {
     confirmFunction: () => void;
-    totalDecimals: number,
-    totalLamports: number | null,
-    ratio: number | null,
+    solPrice: number,
+    increaseNumber: number,
     originalNumber: number,
     ifRefferrerValid: boolean,
+    ifUsrSelf: boolean,
 }
 
 
 const IncreasePriceSettleBills: React.FC<IncreasePriceSettleBills> = ({
-    confirmFunction, totalDecimals, totalLamports, ratio, originalNumber, ifRefferrerValid
+    confirmFunction, solPrice, originalNumber, ifRefferrerValid, increaseNumber, ifUsrSelf
 }) => {
 
     const {t} = useTranslation()
@@ -23,32 +23,37 @@ const IncreasePriceSettleBills: React.FC<IncreasePriceSettleBills> = ({
     const [canBeConfirm, setCanBeConfirm] = useState(false)
 
     useEffect(() => {
-        if(ratio && totalLamports && ifRefferrerValid){
-            if(totalDecimals > originalNumber){
+        if(ifRefferrerValid){
+            if(increaseNumber > 0){
                 setCanBeConfirm(true)
             }else setCanBeConfirm(false)
         }else setCanBeConfirm(false)
-    }, [ratio, totalLamports, ifRefferrerValid])
+    }, [increaseNumber, ifRefferrerValid])
 
     return(
         <div className="increasesettlebillcss">
             <h1>{t("bill")}</h1>
             <div className="registerfee">
                 <div className="registerrule increaseDeposit">
-                    <h3>{t("deposit")}:</h3>
+                    <h3>{t("origin")}:</h3>
+                </div>
+                <h1 className={`${ifUsrSelf && "thispricedelete"}`}>
+                    {`${(originalNumber/1e9).toFixed(4)} SOL ($ ${(originalNumber/1e9/solPrice).toFixed(2)})`}
+                </h1>
+            </div>
+            <div className="registerfee">
+                <div className="registerrule increaseDeposit">
+                    <h3>{t("Increase")}:</h3>
                 </div>
                 <h1>
-                    $ {ratio&&totalLamports ? 
-                    `${(totalDecimals/1e6 * ratio).toFixed(3)} (${(totalLamports * ratio).toFixed(4)} SOL)`:
-                    "Loading"
-                    }
+                    {`${(originalNumber * increaseNumber /1e9).toFixed(4)} SOL ($ ${(originalNumber*increaseNumber/1e9/solPrice).toFixed(2)})`}
                 </h1>
             </div>
             <div className="cryptodiliver"/>
             <div className="cryptoconfirm">
                 <div className="cryptototal">
                     <h1>{t("total")}</h1>
-                    <h2>{ratio&&totalLamports&& (totalLamports * ratio).toFixed(4)} SOL</h2>
+                    <h2>{(originalNumber * (ifUsrSelf? increaseNumber:(1+increaseNumber)) / 1e9).toFixed(4)} SOL</h2>
                 </div>
                 <button className={`cryptoconfirmbutton ${canBeConfirm? "":"cannotclinck"}`} onClick={confirmFunction}>
                     <h1>{t("confirm")}</h1>

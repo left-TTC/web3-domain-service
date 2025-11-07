@@ -15,6 +15,8 @@ import { useParams } from "react-router-dom";
 import { PublicKey } from "@solana/web3.js";
 import { useUsrDomains } from "@/components/usrPage/usrComponets/hook/useUsrDomains";
 import { useKonamiLikeListener } from "@/components/usrPage/usrComponets/hook/openAdminBlock";
+import UsrProfit from "@/components/usrPage/usrComponets/usrProfit";
+import { useUsrRefferrerChain } from "@/components/usrPage/usrComponets/hook/useUsrRefferrerChain";
 
 export function User({
     openDomainQueryPage,
@@ -26,6 +28,7 @@ export function User({
     const { key } = useParams();
     const ifOtherUsr = useRef(false)
 
+    // 上上下下左右左右baba
     const { adminModel } = useKonamiLikeListener()
 
     const {publicKey: usr} = useWalletEnv()
@@ -56,6 +59,7 @@ export function User({
             prevSearchKey.current = currentKey;
             setUsrDomainLoaded(false)
             fetched.current = false
+            fetchedUsrChain.current = false
         }
     }, [searchKey]);
 
@@ -69,6 +73,10 @@ export function User({
     } = useUsrDomains(
         auctioningDomain, asPayerDomain, searchKey, setUsrDomainLoaded, fetched
     )
+
+
+    const fetchedUsrChain = useRef(false)
+    const {usrProfit, usrVolume} = useUsrRefferrerChain(searchKey, fetchedUsrChain)
 
     const [showUsrComponents, setShowUsrComponents] = useState<UsrComponents>(UsrComponents.Domain)
 
@@ -88,9 +96,14 @@ export function User({
                         />
             case UsrComponents.Auction:
                 return <UsrAuction 
-                    allAuctionName={auctioningDomain}
-                    ifCheckingOtherUsr={ifOtherUsr.current}
-                />
+                            allAuctionName={auctioningDomain}
+                            ifCheckingOtherUsr={ifOtherUsr.current}
+                        />
+            case UsrComponents.Profit:
+                return <UsrProfit
+                            usrProfit={usrProfit}
+                            usrVolume={usrVolume}
+                        />
         }
     }
 

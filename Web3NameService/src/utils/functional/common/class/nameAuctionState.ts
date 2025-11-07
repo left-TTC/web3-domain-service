@@ -2,14 +2,14 @@ import { type AccountInfo, PublicKey } from "@solana/web3.js";
 import { Numberu64 } from "../number/number64";
 
 
-export const NAME_STATE_LENGTH = 80;
+export const NAME_STATE_LENGTH = 49;
 
 
 export class NameAuctionState {
     highestBidder: PublicKey;
-    rentPayer: PublicKey;
     updateTime: Numberu64;
     highestPrice: Numberu64;
+    settled: boolean;
 
     constructor(nameStateInfo: AccountInfo<Buffer<ArrayBufferLike>>){
         const nameStateData = nameStateInfo.data;
@@ -21,12 +21,13 @@ export class NameAuctionState {
         }
 
         this.highestBidder = new PublicKey(nameStateData.subarray(0, 32));
-        this.rentPayer = new PublicKey(nameStateData.subarray(32, 64));
         this.updateTime = Numberu64.fromBuffer(
-            Buffer.from(nameStateData.subarray(64, 72))
+            Buffer.from(nameStateData.subarray(32, 40))
         );
         this.highestPrice = Numberu64.fromBuffer(
-            Buffer.from(nameStateData.subarray(72, 80))
+            Buffer.from(nameStateData.subarray(40, 48))
         );
+
+        this.settled = nameStateData[48] === 1;
     }
 }

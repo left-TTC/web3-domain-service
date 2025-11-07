@@ -5,18 +5,16 @@ import ChoosePayment, { PaymentMethod } from "./choosePayment"
 import { useState } from "react"
 import Crypto from "./paymentMethod/crypto"
 import Back from "@/components/common/functional/back"
-import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState"
 
 export interface DomainSettlementProps{
     // this the entire domain
     domainName: string,
     backToSearchResult: ()=>void,
     domainPrice: number | null,
-    domainInfo: NameRecordState | null,
 }
 
 const DomainSettlement: React.FC<DomainSettlementProps> = ({
-    domainName, backToSearchResult, domainPrice, domainInfo
+    domainName, backToSearchResult, domainPrice
 }) => {    
 
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.Crypto);
@@ -40,7 +38,6 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
                 <Crypto 
                     domainName={domainName}
                     domainPrice={domainPrice!}
-                    domainInfo={domainInfo}
                 />
             </div>
         </div>

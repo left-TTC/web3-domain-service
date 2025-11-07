@@ -1,7 +1,5 @@
-import { SupportedMint } from "@/provider/priceProvider/priceProvider";
 import { returnProjectVault } from "@/utils/constants/constants";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
-import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
 import { createIncreaseInstruction, type CreateIncreaseInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createIncreaseInstruction";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
@@ -56,7 +54,6 @@ export async function increaseDomainBid(
         domainStateAccountKey: nameStateKey,
         systemAccount: SystemProgram.programId,
         feePayer: bidder,
-        pythFeedAccountKey: returnPythFeedAccount(SupportedMint.SOL),
         lastBidderKey: lastBidder,
         vault: returnProjectVault(),
         refferrerRecord: bidderRefferrerRecord,

@@ -12,14 +12,13 @@ export interface CreateDomainSettleBillsProps {
     nameStateRent: number,
     refferrerRecordRent: number,
     ifRentCalculating: boolean,
-    depositRatio: number,
     totalPrice: number,
 }
 
 
 const CreateDomainSettleBills: React.FC<CreateDomainSettleBillsProps> = ({
     confirmFunction, ifRefferverValid, price, solPrice, nameStateRent, 
-    refferrerRecordRent, ifRentCalculating, depositRatio, totalPrice
+    refferrerRecordRent, ifRentCalculating, totalPrice
 }) => {
 
     const {t} = useTranslation()
@@ -31,7 +30,7 @@ const CreateDomainSettleBills: React.FC<CreateDomainSettleBillsProps> = ({
                 <div className="registerrule">
                     <h1>{t("Startde")}</h1>
                 </div>
-                <h1>$ {(price/1e6 * depositRatio).toFixed(3)} ({solPrice? `${(price/1e6 * depositRatio * solPrice).toFixed(4)} SOL`:"Loading"})</h1>
+                <h1> {(price/1e9).toFixed(4)} SOL (${solPrice? `${(price/1e9 / solPrice).toFixed(2)}`:"Loading"})</h1>
             </div>
             <RentShow ifCalculating={ifRentCalculating} stateRent={nameStateRent} recordRent={refferrerRecordRent} />
 

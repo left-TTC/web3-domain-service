@@ -16,6 +16,11 @@
     font-size: 13.2px!important;
     color: white;
     margin: 0;
+    
+}
+
+.line-through{
+    text-decoration: line-through;
 }
 
 .settlebillsomeword h3{

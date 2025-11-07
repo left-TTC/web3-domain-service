@@ -107,7 +107,6 @@ export function Search() {
                     domainName={queryingDomain}
                     backToSearchResult={() =>setShowSaleDomain(false)}
                     domainPrice={domainStartPrice}
-                    domainInfo={queryDomainInfo}
                 />
             }
         </div>

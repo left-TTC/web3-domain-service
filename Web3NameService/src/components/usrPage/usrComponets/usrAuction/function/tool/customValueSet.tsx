@@ -52,7 +52,6 @@ const CustomValueSet: React.FC<CustomValueSetProps> = ({
                 <img src={attention} className="cutomValueAttetion" />
             </div>
             <div className={`customvalueinput ${inputActive? "inputactive":""}`}>
-                <h3>$</h3>
                 <input
                     className="customvaluesetinput"
                     step="0.01"
@@ -62,6 +61,7 @@ const CustomValueSet: React.FC<CustomValueSetProps> = ({
                     onClick={() => setInputActive(true)}
                     onBlur={() => setInputActive(false)}
                 />
+                <h3>SOL</h3>
             </div>
         </div>
     )

@@ -65,6 +65,10 @@
     background-color: #B5B9BF;
 }
 
+.thispricedelete{
+    text-decoration: line-through
+}
+
 @media (min-width: 1024px){
     
 }

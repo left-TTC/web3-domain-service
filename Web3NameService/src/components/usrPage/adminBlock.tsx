@@ -17,11 +17,9 @@ const AdminBlcok = () => {
     const solanaToast = useSolanaToast()
 
     const [ifProjectStarted, setIfProjectStarted] = useState(false)
-    const [ifReload, setIfReload] = useState(false)
 
     useEffect(() => {
         const checkProject = async() => {
-            console.log("checkProject")
             setIfProjectStarted(await checkIfProjectStart(connection))
         }
 
@@ -29,7 +27,6 @@ const AdminBlcok = () => {
     }, [])
 
     
-
     const startweb3Project = async() => {
         await startProject(
             connection, signTransaction, admin, solanaToast

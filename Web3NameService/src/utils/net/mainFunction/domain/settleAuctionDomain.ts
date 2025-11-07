@@ -1,9 +1,7 @@
-import { SupportedMint } from "@/provider/priceProvider/priceProvider";
 import { CENTRAL_STATE_REGISTER, returnProjectVault, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
-import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
 import { createSettleDomainInstruction, type CreateSettleDomainInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createSettleDomainInstruction";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
@@ -17,7 +15,9 @@ import { Connection, PublicKey, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction }
 export async function settleAuctionDomain(
     extireDomain: string,
     connection: Connection,
-    buyer: PublicKey,
+    // can be anyone on the refferrer chain
+    feePayer: PublicKey,
+    newNameOwner: PublicKey,
     customDomainPrice: number | null
 ): Promise<Transaction> {
     const settleAuctionDomainTransaction = new Transaction()
@@ -40,14 +40,7 @@ export async function settleAuctionDomain(
         getHashedName(nameAndRoot[0]), rootNameDomainKey
     )
 
-    const nameAccounInfo = await connection.getAccountInfo(nameAccountKey)
-    let nameOnwer: PublicKey = buyer;
-    if(nameAccounInfo){
-        const nameRecordState = new NameRecordState(nameAccounInfo)
-        nameOnwer = nameRecordState.owner;
-    }
-
-    const refferrerRecord = getRefferrerRecordKey(buyer);
+    const refferrerRecord = getRefferrerRecordKey(newNameOwner);
 
     const usrRecordInfo = await connection.getAccountInfo(refferrerRecord)
     if(!usrRecordInfo) throw new Error("usr must has an refferrer record account")
@@ -56,9 +49,10 @@ export async function settleAuctionDomain(
     let refferrerARecord: PublicKey | null,
         refferrerB: PublicKey | null,
         refferrerBRecord: PublicKey | null,
-        refferrerC: PublicKey | null;
+        refferrerC: PublicKey | null,
+        refferrerCRecord: PublicKey | null;
 
-    refferrerARecord = refferrerB = refferrerBRecord = refferrerC = null;
+    refferrerARecord = refferrerB = refferrerBRecord = refferrerC = refferrerCRecord = null;
 
     const vault = returnProjectVault()
 
@@ -72,10 +66,24 @@ export async function settleAuctionDomain(
         if(refferrerB.toBase58() != vault.toBase58()){
             refferrerBRecord = getRefferrerRecordKey(refferrerB)
 
-            const refferrerBInfo = await connection.getAccountInfo(refferrerARecord)
+            const refferrerBInfo = await connection.getAccountInfo(refferrerBRecord)
             if(!refferrerBInfo) throw new Error("B must has an refferrer record account")
             refferrerC = new RefferrerRecordState(refferrerBInfo).refferrer;
+
+            if (refferrerC.toBase58() != vault.toBase58()){
+                refferrerCRecord = getRefferrerRecordKey(refferrerC)
+            }
         }
+    }
+
+    let originNameOwnerKey = PublicKey.default;
+    let originNameOwnerRefferrerKey = PublicKey.default;
+
+    const nameStateInfo = await connection.getAccountInfo(nameAccountKey)
+    if(nameStateInfo){
+        const nameState = new NameRecordState(nameStateInfo)
+        originNameOwnerKey = nameState.owner;
+        originNameOwnerRefferrerKey = getRefferrerRecordKey(originNameOwnerKey)
     }
 
     const settleAcutionDomainAccounts: CreateSettleDomainInstructionAccounts = {
@@ -86,28 +94,39 @@ export async function settleAuctionDomain(
         domainStateAccountKey: nameStateKey,
         systemAccount: SystemProgram.programId,
         centralState: CENTRAL_STATE_REGISTER,
-        feePayer: buyer,
-        pythFeedAccountKey: returnPythFeedAccount(SupportedMint.SOL),
+        feePayer: feePayer,
         rentSysvar: SYSVAR_RENT_PUBKEY,
-        nameOwner: nameOnwer,
+        originNameOwner: originNameOwnerKey,
+        originNameOwnerRecord: originNameOwnerRefferrerKey,
+        vault: vault,
+        newNameOwner: newNameOwner,
         refferrerRecord: refferrerRecord,
         refferrerA: refferrerA,
         refferrerARecord: refferrerARecord,
         refferrerB: refferrerB, 
         refferrerBRecord: refferrerBRecord, 
-        refferrerC: refferrerC
+        refferrerC: refferrerC,
+        refferrerCRecord: refferrerCRecord,
     }
     console.log("rootDomainAccountKey", rootNameDomainKey.toBase58())
     console.log("name", nameAccountKey.toBase58())
     console.log("nameReverseKey", nameReverseKey.toBase58())
     console.log("nameStateKey", nameStateKey.toBase58())
-    console.log("nameOnwer", nameOnwer.toBase58())
+    console.log("newNameOnwer", newNameOwner.toBase58())
     console.log("refferrerRecord", refferrerRecord.toBase58())
     console.log("refferrerA", refferrerA.toBase58())
     console.log("refferrerARecord", refferrerARecord?.toBase58())
     console.log("refferrerB", refferrerB?.toBase58())
     console.log("refferrerBRecord", refferrerBRecord?.toBase58())
     console.log("refferrerC", refferrerC?.toBase58())
+    console.log("refferrerC", refferrerCRecord?.toBase58())
+    console.log("originNameOnwer", originNameOwnerKey.toBase58())
+    console.log("originNameOnwerRefferrer", originNameOwnerRefferrerKey.toBase58())
+
+    const valutInfo = await connection.getAccountInfo(vault)
+    if(valutInfo){
+        console.log("vault owner: ", valutInfo.owner.toBase58())
+    }
 
     settleAuctionDomainTransaction.add(
         createSettleDomainInstruction(

@@ -75,9 +75,11 @@ export async function showCheckSolBalance(
     const balance = await connection.getBalance(walletKey)
     console.log(balance)
     if(balance > targetAmount){
+        console.log("balance enough");
         transactionToastTool.update(id, TransactionState.Pending)
         return [id, true]
     }else{
+        console.log("no enough balance")
         transactionToastTool.update(id, TransactionState.NoEnoughBalance)
         return [id, false]
     }

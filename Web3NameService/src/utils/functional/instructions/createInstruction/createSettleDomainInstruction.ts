@@ -23,12 +23,16 @@ export interface CreateSettleDomainInstructionAccounts {
     centralState: PublicKey,
     /// buyer
     feePayer: PublicKey,
-    /// pyth feed account
-    pythFeedAccountKey: PublicKey,
     /// rent sysvar
     rentSysvar: PublicKey,
+    /// origin name owner
+    originNameOwner: PublicKey,
+    /// origin name owner refferrer record
+    originNameOwnerRecord: PublicKey,
+    /// project vault
+    vault: PublicKey,
     /// name account owner -- if init the name, this is unuseless
-    nameOwner: PublicKey,
+    newNameOwner: PublicKey,
     /// usr's refferrer record account
     refferrerRecord: PublicKey,
     /// usr's refferrer
@@ -41,6 +45,8 @@ export interface CreateSettleDomainInstructionAccounts {
     refferrerBRecord: PublicKey | null,
     /// B's refferrer -- C (if refferrerBRecord is exsited, this must be exsited too)
     refferrerC: PublicKey | null,
+    /// C's refferrer record account -- if C.key != vault
+    refferrerCRecord: PublicKey | null,
 }
 
 export function createSettleDomainInstruction(
@@ -69,17 +75,23 @@ export function createSettleDomainInstruction(
         { pubkey: transactionAccounts.name, isSigner: false, isWritable: true },
         { pubkey: transactionAccounts.reverse, isSigner: false, isWritable: true },
 
-        { pubkey: transactionAccounts.domainStateAccountKey, isSigner: false, isWritable: false },
+        { pubkey: transactionAccounts.domainStateAccountKey, isSigner: false, isWritable: true },
+
         { pubkey: transactionAccounts.systemAccount, isSigner: false, isWritable: false },
         { pubkey: transactionAccounts.centralState, isSigner: false, isWritable: false },
 
         { pubkey: transactionAccounts.feePayer, isSigner: true, isWritable: true },
 
-        { pubkey: transactionAccounts.pythFeedAccountKey, isSigner: false, isWritable: false },
         { pubkey: transactionAccounts.rentSysvar, isSigner: false, isWritable: false },
 
-        { pubkey: transactionAccounts.nameOwner, isSigner: false, isWritable: false },
-        { pubkey: transactionAccounts.refferrerRecord, isSigner: false, isWritable: false },
+        { pubkey: transactionAccounts.originNameOwner, isSigner: false, isWritable: true },
+        { pubkey: transactionAccounts.originNameOwnerRecord, isSigner: false, isWritable: true },
+
+        { pubkey: transactionAccounts.vault, isSigner: false, isWritable: true },
+
+        { pubkey: transactionAccounts.newNameOwner, isSigner: false, isWritable: false },
+        { pubkey: transactionAccounts.refferrerRecord, isSigner: false, isWritable: true },
+        
         { pubkey: transactionAccounts.refferrerA, isSigner: false, isWritable: true },
     ];
 
@@ -89,7 +101,7 @@ export function createSettleDomainInstruction(
         keys.push({
             pubkey: transactionAccounts.refferrerARecord,
             isSigner: false,
-            isWritable: false
+            isWritable: true
         })
     } else {
         keys.push({
@@ -119,7 +131,7 @@ export function createSettleDomainInstruction(
         keys.push({
             pubkey: transactionAccounts.refferrerBRecord,
             isSigner: false,
-            isWritable: false
+            isWritable: true
         })
     } else {
         keys.push({
@@ -133,6 +145,20 @@ export function createSettleDomainInstruction(
     if(canInsert && transactionAccounts.refferrerC){
         keys.push({
             pubkey: transactionAccounts.refferrerC,
+            isSigner: false,
+            isWritable: true
+        })
+    } else {
+        keys.push({
+            pubkey: PublicKey.default,
+            isSigner: false,
+            isWritable: false,
+        });
+    }
+
+    if(canInsert && transactionAccounts.refferrerCRecord){
+        keys.push({
+            pubkey: transactionAccounts.refferrerCRecord,
             isSigner: false,
             isWritable: true
         })

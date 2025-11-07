@@ -5,10 +5,7 @@ import { createStartDomainInstruction, type StartDomainInstructionAccounts } fro
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
-import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
-import { SupportedMint } from "@/provider/priceProvider/priceProvider";
 import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
-import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { Numberu64 } from "@/utils/functional/common/number/number64";
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { getNameStateRevserseKey } from "@/utils/functional/solana/getNameStateReverseKey";
@@ -50,8 +47,6 @@ export async function startWeb3DomainAuction(
     let domainPrice: Numberu64;
     const nameStateInfo = await connection.getAccountInfo(domainNameStateKey)
     if(nameStateInfo){
-        const nameStateRecord = new NameAuctionState(nameStateInfo)
-        nameStateRentPayer = nameStateRecord.rentPayer;
 
         const nameAccountInfo = await connection.getAccountInfo(domainNameAccountKey)
         if(nameAccountInfo){
@@ -65,7 +60,6 @@ export async function startWeb3DomainAuction(
         nameStateRentPayer = feePayer;
         domainPrice = new Numberu64(INIT_DOMAIN_PRICE)
     }
-    console.log("rent payer: ", nameStateRentPayer.toBase58())
 
     let superiorReferrerRecord: PublicKey | null = null
     if(refferrer.toBase58() != returnProjectVault().toBase58()){
@@ -82,11 +76,9 @@ export async function startWeb3DomainAuction(
         systemAccount: SystemProgram.programId,
         centralState: CENTRAL_STATE_REGISTER,
         feePayer: feePayer,
-        pythFeedAccount: returnPythFeedAccount(SupportedMint.SOL),
         rentSysvar: SYSVAR_RENT_PUBKEY,
         refferrerRecord: usrRefferrerRecord,
         vault: returnProjectVault(),
-        rentPayer: nameStateRentPayer,
         superiorReferrerRecord: superiorReferrerRecord,
     }
 

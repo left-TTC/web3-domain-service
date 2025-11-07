@@ -20,14 +20,18 @@ export function useFetchAllRentExemption(
     const [nameStateRent, setNameStateRent] = useState(0)
     const [calculating, setCalculating] = useState(true)
 
+    const [featched, setFeached] = useState(false)
+
     useEffect(() => {
         const fetchAllRent = async() => {
-            if(usr && rootDomain) {
+            if(usr && rootDomain && !featched) {
+                setFeached(true)
                 const refferrerAccountInfo = await connection.getAccountInfo(
                     getRefferrerRecordKey(usr)
                 )
                 if(!refferrerAccountInfo){
-                    setRefferrerRecordRent(await connection.getMinimumBalanceForRentExemption(32))
+                    const stateAccount = (await connection.getMinimumBalanceForRentExemption(48 + name.length + rootDomain.length + 1))
+                    setRefferrerRecordRent(stateAccount)
                 }
 
                 const domainAndRoot = cutDomain(name)

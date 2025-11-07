@@ -22,16 +22,12 @@ export interface StartDomainInstructionAccounts {
     centralState: PublicKey,
     /// rent and gas payer, also be the frist bidder
     feePayer: PublicKey,
-    /// pyth seed account
-    pythFeedAccount: PublicKey,
     /// rent sysvar
     rentSysvar: PublicKey,
     /// refferrer record -- the account that record usr's refferrer
     refferrerRecord: PublicKey,
     /// vault
     vault: PublicKey,
-    /// rent payer -- the name state account's rent exemption payer
-    rentPayer: PublicKey,
     /// superior referrer record -- the refferrer's refferrer record account
     superiorReferrerRecord: PublicKey | null, 
 }
@@ -67,12 +63,10 @@ export function createStartDomainInstruction(
         { pubkey: instructionAccounts.centralState, isSigner: false, isWritable: false },
 
         { pubkey: instructionAccounts.feePayer, isSigner: true, isWritable: true },
-        { pubkey: instructionAccounts.pythFeedAccount, isSigner: false, isWritable: false },
 
         { pubkey: instructionAccounts.rentSysvar, isSigner: false, isWritable: false },
         { pubkey: instructionAccounts.refferrerRecord, isSigner: false, isWritable: true },
         { pubkey: instructionAccounts.vault, isSigner: false, isWritable: true },
-        { pubkey: instructionAccounts.rentPayer, isSigner: false, isWritable: true },
     ];
 
     if (instructionAccounts.superiorReferrerRecord) {

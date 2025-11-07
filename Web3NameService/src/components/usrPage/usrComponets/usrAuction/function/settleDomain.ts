@@ -15,7 +15,7 @@ export async function settleDomain(
     domainNameState: NameAuctionState,
     extireDomain: string,
     totalLamports: number,
-    customDomainPrice: number | null // USD
+    customDomainPrice: number | null // SOL
 ): Promise<void>{
     if(!wallet || !signTransaction){
         solanaToast.show(TransactionState.NoConnect)
@@ -42,7 +42,7 @@ export async function settleDomain(
 
         settelDomainTransaction.add(
             await settleAuctionDomain(
-                extireDomain, connection, wallet, customDomainPrice
+                extireDomain, connection, wallet, domainNameState.highestBidder, customDomainPrice
             )
         )
 

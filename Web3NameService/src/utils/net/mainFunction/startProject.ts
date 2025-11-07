@@ -28,10 +28,13 @@ export async function startProject(
     if(!startProjectTransactionId[1])return
 
     try{
+
+        const start = "test"
+        
         const startProjectTransaction = new Transaction()
 
         const web3NameAccountKey = getNameAccountKey(
-            getHashedName("web3")
+            getHashedName(start)
         )
         console.log("name:", web3NameAccountKey.toBase58())
         const web3NameReverseAccountKey = getNameAccountKey(
@@ -52,7 +55,7 @@ export async function startProject(
             centralStateRegitser: CENTRAL_STATE_REGISTER,
         } 
 
-        startProjectTransaction.add(createStartProjectInstruction(transactionAccountsStructure));
+        startProjectTransaction.add(createStartProjectInstruction(transactionAccountsStructure, start));
 
         const { blockhash } = await connection.getLatestBlockhash()
         startProjectTransaction.recentBlockhash = blockhash

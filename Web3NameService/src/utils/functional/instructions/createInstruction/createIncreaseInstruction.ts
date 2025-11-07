@@ -16,8 +16,6 @@ export interface CreateIncreaseInstructionAccounts {
     systemAccount: PublicKey,
     /// bidder
     feePayer: PublicKey,
-    /// pyth feed account
-    pythFeedAccountKey: PublicKey,
     /// last bidder -- returm the deposit
     lastBidderKey: PublicKey,
     /// vault
@@ -54,8 +52,6 @@ export function createIncreaseInstruction(
         { pubkey: transactionAccounts.systemAccount, isSigner: false, isWritable: false },
 
         { pubkey: transactionAccounts.feePayer, isSigner: true, isWritable: true },
-
-        { pubkey: transactionAccounts.pythFeedAccountKey, isSigner: false, isWritable: false },
 
         { pubkey: transactionAccounts.lastBidderKey, isSigner: false, isWritable: true },
         { pubkey: transactionAccounts.vault, isSigner: false, isWritable: true },

@@ -66,11 +66,6 @@ const DomainAuctionStateShow: React.FC<DomainAuctionStateShowProps> = ({
                 </div>
                 <div className="rentintroduce">
                     <h1>{t("rentpayer")}:</h1>
-                    {nameAuctionState? (
-                        <a href="#">{cutString(nameAuctionState.rentPayer.toBase58(), 5, 5, "...")}</a>
-                    ):(
-                        <div className="rentloading" />
-                    )}
                 </div>
             </div>
             <div className="auctionState">

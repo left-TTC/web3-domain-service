@@ -9,7 +9,6 @@ import { animate } from "animejs";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import IncreasePriceSettleBills from "@/components/common/transaction/settlebills/increasePriceBills";
 import { toTokenPerUsd } from "@/utils/functional/common/number/toTokenPerUsd";
-import { getDomainDepositRatio } from "@/utils/functional/common/net/getDomainDepositRatio";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { increaseBidNum } from "./increaseBidNum";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
@@ -32,10 +31,14 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
     const {publicKey: bidder, signTransaction} = useWalletEnv()
     const solanaToast = useSolanaToast()
 
+    const [isUsrSelf, setIsUsrSelf] = useState(false)
+    useEffect(() => {
+        if(bidder?.toBase58() === nameState.highestBidder.toBase58()) setIsUsrSelf(true)
+    }, [bidder])
+
     const [chooseMint, setChooseMint] = useState<SupportedMint>(SupportedMint.SOL)
 
-    // init - $0.1
-    const [increaseBid, setIncreaseBid] = useState(100000)
+    const [increaseBid, setIncreaseBid] = useState(0.01)
     const [activeIndex, setActiveIndex] = useState<number | null>(0)
 
     const [ifUseCustom, setIfUseCustom] = useState(false)
@@ -60,30 +63,44 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
     }, [ifUseCustom])
 
     const chooseBid = [
-        100000, 500000, 1000000, 10000000, 20000000, 50000000
+        "1%", "5%", "10%", "20%", "50%", "100%"
     ]
+    const chooseIncrease = (increase: string) => {
+        switch(increase){
+            case chooseBid[0]:
+                setIncreaseBid(0.01)
+                break
+            case chooseBid[1]:
+                setIncreaseBid(0.05)
+                break
+            case chooseBid[2]:
+                setIncreaseBid(0.1)
+                break
+            case chooseBid[3]:
+                setIncreaseBid(0.2)
+                break
+            case chooseBid[4]:
+                setIncreaseBid(0.5)
+                break
+            case chooseBid[5]:
+                setIncreaseBid(1)
+                break
+            
+        }
+    }
 
-    const [totalFee, setTotalFee] = useState<number>(0)
+    const [solPrice, setSolPrice] = useState<number>(0)
     const [totalFeeSol, setTotalFeeSol] = useState<number | null>(null)
-    const [depositRatio, setDepositRatio] = useState<number | null>(null)
     useEffect(() => {
-        const totalDecimals = nameState.highestPrice.toNumber() + increaseBid
-        setTotalFee(totalDecimals)
-        if(expo && price){
-            const totalLamports = toTokenPerUsd(price, expo, SupportedMint.SOL);
-            setTotalFeeSol(totalLamports * totalDecimals / 1e6)
-        }
+        const totalLamports = nameState.highestPrice.toNumber() * (increaseBid + 1)
+        setTotalFeeSol(totalLamports)
+
+        if(expo && price) setSolPrice(toTokenPerUsd(price, expo, SupportedMint.SOL))
+        
     }, [increaseBid])
-    useEffect(() => {
-        const getDepositRatio = async() => {
-            setDepositRatio(await getDomainDepositRatio(
-                extireDomainName, connection
-            ))
-        }
-        getDepositRatio()
-    }, [])
 
     const increaseBidNumConfrim = async() => {
+        console.log("hoghest price: ", nameState.highestPrice.toNumber(), increaseBid)
         increaseBidNum(
             signTransaction,
             bidder,
@@ -91,8 +108,8 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
             connection,
             nameState,
             extireDomainName,
-            totalFeeSol! * 1e9,
-            totalFee,
+            totalFeeSol!,
+            nameState.highestPrice.toNumber()*(1+increaseBid),
             refferrerKey
         )
     } 
@@ -112,13 +129,13 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
                     <h3 className="bidincrementtitle">{t("bidincrement")}:</h3>
                     <div className="pricebidchoose">
                         <div className="autoChoose">
-                            {chooseBid.map((number, index) => (
+                            {chooseBid.map((percent, index) => (
                                 <button 
                                     key={index} 
                                     className={`bidbu ${activeIndex===index? "activeborder":""}`}
-                                    onClick={() => {setIncreaseBid(number); setActiveIndex(index); setIfUseCustom(false)}}
+                                    onClick={() => {chooseIncrease(percent); setActiveIndex(index); setIfUseCustom(false)}}
                                 >
-                                    <h3>$ {(number/1e6).toFixed(2)}</h3>
+                                    <h3>{percent}</h3>
                                 </button>
                             ))}
                         </div>
@@ -138,9 +155,9 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
                     <h3 className="bidincrementtitle">{t("domainprice")}:</h3>
                     <div className="pricecheck">
                         <div className="originandnextprice">
-                            <h3>$ {(nameState.highestPrice.toNumber()/1e6).toFixed(2)}</h3>
+                            <h3>{(nameState.highestPrice.toNumber()/1e9).toFixed(2)}</h3>
                             <h3>+</h3>
-                            <h3>$ {(increaseBid / 1e6).toFixed(2)}</h3>
+                            <h3>{(increaseBid * nameState.highestPrice.toNumber() / 1e9).toFixed(4)} SOL</h3>
                         </div>
                         <div className="pricecheckline" />
                     </div>
@@ -156,11 +173,11 @@ const IncreasePriceCrypto: React.FC<IncreasePriceCryptoProps> = ({
             </div>
             <IncreasePriceSettleBills 
                 confirmFunction={increaseBidNumConfrim} 
-                totalDecimals={totalFee}
-                totalLamports={totalFeeSol}
-                ratio={depositRatio}
+                solPrice={solPrice}
+                increaseNumber={increaseBid}
                 originalNumber={nameState.highestPrice.toNumber()}
                 ifRefferrerValid={refferrerValid}
+                ifUsrSelf={isUsrSelf}
             />
         </div>
     )

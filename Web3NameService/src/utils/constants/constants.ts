@@ -6,7 +6,7 @@ import { getHashedName } from "../functional/solana/getHashedName";
 export const HASH_PREFIX = "WEB3 Name Service";
 
 export const WEB3_NAME_SERVICE_ID = new PublicKey(
-    "BEUuE7dmW6yyTVhyecrHktKF1necQvfiZdFyBCBjCXQm"
+    "BjKdJYwPEUW51Fgjy6opBWCffpoGF5NFv7sZumBnbWZm"
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
@@ -14,7 +14,7 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "7WrKf6E5AHySxQjQ3fQBmhuw9VJMoPSXQo3qv8rdhpry"
+    "AiVEjCj7pihJFLoLjr2RxnJYTkVwr5Y4zftikEc5hb5z"
 );
 
 export const ADMIN = new PublicKey(
@@ -37,8 +37,8 @@ export const CREATE_ROOT_TARGET = 20000000;
 
 export const VAULT_ADMIN = 500000000; //lamports
 
-// $ 1.99
-export const INIT_DOMAIN_PRICE = 1990000
+// 0.01 sol
+export const INIT_DOMAIN_PRICE = 10000000;
 
 export const DEFAULT_CUSTOM_VALUE = 99999999;
 
@@ -53,15 +53,27 @@ export function getMintVault(mintType: MainMint): PublicKey{
     }
 }
 
+// export function returnProjectVault(): PublicKey {
+//     const seeds = [getHashedName("vault")];
+//     seeds.push(CENTRAL_STATE_REGISTER.toBuffer());
+//     seeds.push(CENTRAL_STATE_REGISTER.toBuffer());
+
+//     const [vaultKey, _] = PublicKey.findProgramAddressSync(
+//         seeds,
+//         WEB3_REGISTER_ID,
+//     )
+
+//     return vaultKey;
+// }
+
 export function returnProjectVault(): PublicKey {
-    const seeds = [getHashedName("vault")];
-    seeds.push(CENTRAL_STATE_REGISTER.toBuffer());
-    seeds.push(CENTRAL_STATE_REGISTER.toBuffer());
+    const VAULT_SEED = Buffer.from("vault");
 
+    // findProgramAddressSync 返回 [Pubkey, bump]
     const [vaultKey, _] = PublicKey.findProgramAddressSync(
-        seeds,
-        WEB3_REGISTER_ID,
-    )
+        [VAULT_SEED],
+        WEB3_REGISTER_ID
+    );
 
-    return vaultKey;
+    return  vaultKey ;
 }

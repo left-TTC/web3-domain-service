@@ -21,7 +21,8 @@ export function useAuctioningDomain(
     useEffect(() => {
         const fetchMyAuctioningDomain = async() => {
             try{
-                console.log("start fetch")
+                console.log("start fetch auctioning domain")
+                
                 const auctioningDomains = await findUsrBiddingDomain(
                     connection, usr
                 )

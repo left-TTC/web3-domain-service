@@ -37,7 +37,7 @@ const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
                 <div className="priceAndhighest">
                     <div className="auctionPrice">
                         <h1>{t("currentprice")}:</h1>
-                        <h2>$ {(auctionState.highestPrice.toNumber()/1e6).toFixed(2)}</h2>
+                        <h2>{(auctionState.highestPrice.toNumber()/1e9).toFixed(4)} SOL</h2>
                     </div>
                     <div className="biddershow">
                         <h1>{t("highestbidder")}:</h1>
@@ -54,7 +54,7 @@ const OnAuctionItem: React.FC<OnAuctionItemProps> = ({
                         customClassName="usepageitemclock" 
                     />
                 </div>
-                <button className={`increaseBU ${ifCheckingOtherUsr && "othercannotclinck"}`} onClick={() => setShowIncreaseBlock(true)}>
+                <button className={`increaseBU ${!ifCheckingOtherUsr && ""}`} onClick={() => setShowIncreaseBlock(true)}>
                     <h1>increase</h1>
                 </button>
             </div>

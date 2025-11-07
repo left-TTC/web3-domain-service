@@ -5,23 +5,21 @@ import "@/style/components/commonStyle/transaction/settleBills/settleDomainBills
 
 export interface SettleDomainBillsProps {
     confirmFunction: () => void,
-    domainPrice: number,
-    domainPriceLamports: number | null,
+    domainPriceLamports: number,
+    usdToSOL: number,
     rentExemption: number | null,
-    depositRatio: number | null,
-    totalLamports: number | null,
 }
 
 const SettleDomainBills: React.FC<SettleDomainBillsProps> = ({
-    confirmFunction, domainPrice, domainPriceLamports, rentExemption, depositRatio, totalLamports
+    confirmFunction, domainPriceLamports, usdToSOL, rentExemption
 }) => {
 
     const {t} = useTranslation()
 
     const [canBeConfirm, setCanBeConfirm] = useState(false)
     useEffect(() => {
-        if(totalLamports)setCanBeConfirm(true)
-    }, [totalLamports])
+        if(rentExemption)setCanBeConfirm(true)
+    }, [rentExemption])
 
     return(
         <div className="settleDoamintotal">
@@ -31,17 +29,9 @@ const SettleDomainBills: React.FC<SettleDomainBillsProps> = ({
                     <div className="registerrule settlebillsomeword">
                         <h3>{t("final")}:</h3>
                     </div>
-                    <h1>
-                        $ {(domainPrice/1e6).toFixed(2)}
-                        ({domainPriceLamports? `${(domainPriceLamports/1e9).toFixed(4)} SOL`:"Loading"})
-                    </h1>
-                </div>
-                <div className="registerfee settlebillsome">
-                    <div className="registerrule settlebillsomeword">
-                        <h3>{t("deposit")}({depositRatio? `${depositRatio*100}%`:".."}):</h3>
-                    </div>
-                    <h1>
-                        - {domainPriceLamports? `${(domainPriceLamports/1e10).toFixed(4)} SOL`:"Loading"}
+                    <h1 className="line-through">
+                        {(domainPriceLamports/1e9).toFixed(4)} SOL
+                        ($ {usdToSOL!=0? `${(domainPriceLamports/1e9/usdToSOL).toFixed(2)}`:"Loading"})
                     </h1>
                 </div>
                 <div className="registerfee settlebillsome">
@@ -55,7 +45,7 @@ const SettleDomainBills: React.FC<SettleDomainBillsProps> = ({
             <div className="cryptoconfirm">
                 <div className="cryptototal">
                     <h1>{t("total")}</h1>
-                    <h2>{totalLamports? `${(totalLamports/1e9).toFixed(4)} SOL`:"Checking"}</h2>
+                    <h2>{rentExemption? `${(rentExemption/1e9).toFixed(4)} SOL`:"Checking"}</h2>
                 </div>
                 <button className={`cryptoconfirmbutton ${canBeConfirm? "":"cannotclinck"}`} onClick={confirmFunction}>
                     <h1>{t("confirm")}</h1>

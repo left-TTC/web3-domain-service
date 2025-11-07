@@ -9,7 +9,7 @@ export async function checkIfProjectStart(
     connection: Connection
 ): Promise<boolean> {
 
-    const defualtDomain = "web3";
+    const defualtDomain = "test";
 
     const defulatName = getNameAccountKey(
         getHashedName(defualtDomain)

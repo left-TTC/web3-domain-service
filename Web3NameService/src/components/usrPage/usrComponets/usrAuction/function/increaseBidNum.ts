@@ -23,9 +23,12 @@ export async function increaseBidNum(
         return
     }
 
+    console.log("need: ", totalLamports);
+
     const increaseBidNumTransactionId = await showCheckSolBalance(
         solanaToast, wallet, connection, totalLamports
     )
+    console.log("checked");
 
     if(!increaseBidNumTransactionId[1])return
 
@@ -42,6 +45,7 @@ export async function increaseBidNum(
         increaseBidNumTransaction.recentBlockhash = blockhash
         increaseBidNumTransaction.feePayer = wallet
 
+        console.log("simulating")
         const simulationResult = await connection.simulateTransaction(increaseBidNumTransaction);
         console.log("simulate result", simulationResult);
 

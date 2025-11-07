@@ -19,13 +19,14 @@ const SettleAuction: React.FC<SettleAuctionProps> = ({
 
     const {t} = useTranslation()
 
-    const [showTheBills, setShowTheBills] = useState(true)
+    const [showTheBills, setShowTheBills] = useState(false)
     const [billsName, setBillsName] = useState<string[]>([])
     useEffect(() => {
         if(settlingDomain){
             setShowTheBills(true)
             const onSettleDomains = Array.from(settlingDomain.keys())
             setBillsName(onSettleDomains)
+            console.log("settling: ", onSettleDomains)
         }
     }, [settlingDomain])
 
@@ -48,7 +49,7 @@ const SettleAuction: React.FC<SettleAuctionProps> = ({
                         {billsName.map((billName, index) => (
                             <OnSettlementItem 
                                 key={index}
-                                itemName={"test.domain"} 
+                                itemName={billName} 
                                 settleState={settlingDomain!.get(billName)!}
                                 ifCheckingOtherUsr={ifCheckingOtherUsr}
                             />
