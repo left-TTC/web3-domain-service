@@ -33,16 +33,16 @@ const UsrStateManage: React.FC<UsrStateManageProps> = ({
         switch (com) {
             case UsrComponents.Domain:
                 if(showingComponents === com){
-                    return domain;
-                }else return domainWhite
+                    return domainWhite;
+                }else return domain
             case UsrComponents.Auction:
                 if(showingComponents === com){
-                    return auction
-                }else return auctionWhite
+                    return auctionWhite
+                }else return auction
             case UsrComponents.Profit:
                 if(showingComponents === com){
-                    return dollar
-                }else return dollarwhite
+                    return dollarwhite
+                }else return dollar
         }
     }
 

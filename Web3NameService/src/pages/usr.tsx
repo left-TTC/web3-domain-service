@@ -35,14 +35,21 @@ export function User({
     const {connection} = useConnection()
 
     useEffect(() => {
-        if(key != undefined && usr?.toBase58() != key)ifOtherUsr.current=true
+        if(!usr) {
+            ifOtherUsr.current = true
+            return
+        }
+        if(key != undefined && usr.toBase58() != key){
+            ifOtherUsr.current=true
+            return
+        }
+        ifOtherUsr.current = false
     }, [key, usr])
 
     const [searchKey, setSearchKey] = useState<PublicKey | null>(null)
     useEffect(() => {
         if(ifOtherUsr.current){
             setSearchKey(new PublicKey(key!))
-            console.log("searchkey change")
         }else{
             setSearchKey(usr)
         }
@@ -73,7 +80,6 @@ export function User({
     } = useUsrDomains(
         auctioningDomain, asPayerDomain, searchKey, setUsrDomainLoaded, fetched
     )
-
 
     const fetchedUsrChain = useRef(false)
     const {usrProfit, usrVolume} = useUsrRefferrerChain(searchKey, fetchedUsrChain)

@@ -1,6 +1,5 @@
 import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
 import { PublicKey } from "@solana/web3.js";
-import { getHashedName } from "../functional/solana/getHashedName";
 
 
 export const HASH_PREFIX = "WEB3 Name Service";
@@ -14,7 +13,7 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "AiVEjCj7pihJFLoLjr2RxnJYTkVwr5Y4zftikEc5hb5z"
+    "2xf73UX5CKCMwUznykZthaxnx2yq1QYjuNojatTeGfT7"
 );
 
 export const ADMIN = new PublicKey(

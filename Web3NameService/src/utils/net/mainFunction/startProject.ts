@@ -29,7 +29,7 @@ export async function startProject(
 
     try{
 
-        const start = "test"
+        const start = "fmc"
         
         const startProjectTransaction = new Transaction()
 
@@ -104,7 +104,6 @@ export async function startProject(
     }catch(err){
         console.error("Transaction failed:", err);
 
-        // 捕获并打印完整日志
         if (err instanceof SendTransactionError) {
             const logs = err.getLogs(connection);
             console.error("=== Simulation Logs ===");

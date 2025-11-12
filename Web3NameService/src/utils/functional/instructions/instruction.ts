@@ -6,8 +6,10 @@ export enum Web3DomainRegistrarInstruction {
     StartName,
     IncreasePrice,
     SettleName,
+    Extract,
     StartProject,
     ConfirmRoot,
+    ExtractAdmin,
 }
 
 export enum Web3NameSeriviceInstruction {
