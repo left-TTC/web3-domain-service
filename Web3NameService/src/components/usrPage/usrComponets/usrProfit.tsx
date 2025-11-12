@@ -1,10 +1,9 @@
-import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import { extractUserProfit } from "./usrAuction/function/extractUserProfit";
-import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
-import { useConnection } from "@solana/wallet-adapter-react";
+
 import { useTranslation } from "react-i18next";
 
 import "@/style/components/usrPage/usrComponents/usrProfit.css"
+import WithDrawal from "./usrProfit/withDrawal";
+import UsrChain from "./usrProfit/usrChain";
 
 interface UsrProfitProps {
     usrProfit: number | null,
@@ -17,9 +16,7 @@ const UsrProfit: React.FC<UsrProfitProps> = ({
 
     const {t} = useTranslation()
     
-    const {publicKey: user, signTransaction} = useWalletEnv()
-    const solanaToast = useSolanaToast()
-    const {connection} = useConnection()
+    
 
     return (
         <div className="usrprofit">
@@ -27,16 +24,16 @@ const UsrProfit: React.FC<UsrProfitProps> = ({
                 <h1>{t("profit")}</h1>
             </div>
             <div className="linedomain" />
-            <div className="profitandvolume">
-                <h1>profit: {usrProfit? `${(usrProfit / 1e9).toFixed(4)} SOL`:"0"}</h1>
-                <h2>volume: {usrVolume? `${(usrVolume / 1e9).toFixed(4)} SOL`:"0"}</h2>
-            </div>
+            
+            <WithDrawal
+                usrProfit={usrProfit}
+                usrVolume={usrVolume}
+            />
 
-            <button onClick={() => extractUserProfit(signTransaction,
-                user, solanaToast, connection
-            )}>
-                extract 0.01 SOL
-            </button>
+            <UsrChain
+
+            />
+            
         </div>
     )
 }
