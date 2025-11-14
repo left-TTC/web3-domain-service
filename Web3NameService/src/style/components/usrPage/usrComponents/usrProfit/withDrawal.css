@@ -1,0 +1,83 @@
+
+
+.profitwithdrawal{
+    padding: 20px;
+    width: calc(100% - 40px);
+    margin-top: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 100px;
+}
+
+.profitandvolume{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    position: relative;
+}
+
+.profitShow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profitimgcon{
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profiticon{
+    width: 40px;
+}
+.volumeicon{
+    width: 32px;
+}
+
+.profitwordcon{
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.profitwordcon h1 {
+    color: white;
+    margin: 0;
+    font-size: 22px;
+}
+.profitwordcon h2 {
+    color: white;
+    margin: 0;
+    font-size: 22px;
+}
+
+.profitwithdrawalline{
+    width: 100%;
+    background-color: aliceblue;
+    height: 2px;
+    filter: blur(1px);
+    margin-bottom: 20px;
+}
+
+.extractbu{
+    background-color: #B4FC75;
+    position: absolute;
+    right: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.extractbu h1{
+    color: black;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
