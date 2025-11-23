@@ -21,24 +21,28 @@ const UsrBackground: React.FC<UsrBackgroundProps> = ({
 
     return(
         <div className="usrback">
-            {searchKey? (
-                (showSearchFrist)? (
-                    <SearchYourFrist openDomainQueryPage={openDomainQueryPage}/>
+            
+            <div style={{zIndex:"1"}} className="usrbacka">
+                {searchKey? (
+                    (showSearchFrist)? (
+                        <SearchYourFrist openDomainQueryPage={openDomainQueryPage}/>
+                    ):(
+                        <UsrIndex usr={searchKey} />
+                    )
                 ):(
-                    <UsrIndex usr={searchKey} />
-                )
-            ):(
-                <ConnectWalletFrist />
-            )}
+                    <ConnectWalletFrist />
+                )}
 
-            {searchKey &&
-                <div className="manageposition">
-                    <UsrStateManage 
-                        showingComponents={showingComponents}
-                        setShowUsrComponent={setShowUsrComponent}
-                    />
-                </div>
-            }
+                {searchKey &&
+                    <div className="manageposition">
+                        <UsrStateManage 
+                            showingComponents={showingComponents}
+                            setShowUsrComponent={setShowUsrComponent}
+                        />
+                    </div>
+                }
+            </div>
+            <img src="/background/usr/aaa.png" className="usrbacki" />
         </div>
     )
 }

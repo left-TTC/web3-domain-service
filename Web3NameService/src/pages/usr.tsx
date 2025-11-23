@@ -15,7 +15,6 @@ import { useParams } from "react-router-dom";
 import { PublicKey } from "@solana/web3.js";
 import { useUsrDomains } from "@/components/usrPage/usrComponets/hook/useUsrDomains";
 import { useKonamiLikeListener } from "@/components/usrPage/usrComponets/hook/openAdminBlock";
-import UsrProfit from "@/components/usrPage/usrComponets/usrProfit";
 import { useUsrRefferrerChain } from "@/components/usrPage/usrComponets/hook/useUsrRefferrerChain";
 
 export function User({
@@ -104,9 +103,6 @@ export function User({
                 return <UsrAuction 
                             allAuctionName={auctioningDomain}
                             ifCheckingOtherUsr={ifOtherUsr.current}
-                        />
-            case UsrComponents.Profit:
-                return <UsrProfit
                             usrProfit={usrProfit}
                             usrVolume={usrVolume}
                         />

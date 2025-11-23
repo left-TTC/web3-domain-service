@@ -186,7 +186,11 @@
     "domain": "Domains",
     "domaininauction": "Domain in Auction",
     "topSales": "Top Sales",
-    "auctions": "Auction",
+    "auctions": "Economy",
     "increase": "Increase",
-    "profit": "Profit And Referrer"
+    "profit": "Profit And Volume",
+    "Mysubordinate": "My subordinate",
+    "income": "Income",
+    "performance": "Performance",
+    "extract": "Extract"
 }

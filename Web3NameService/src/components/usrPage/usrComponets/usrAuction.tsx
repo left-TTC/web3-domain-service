@@ -8,14 +8,17 @@ import type { NameAuctionState } from "@/utils/functional/common/class/nameAucti
 import { getAuctionItemInfo } from "./usrAuction/function/tool/getAuctionItemInfo";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import WithDrawal from "./usrProfit/withDrawal";
 
 export interface UsrAuctionProps {
     allAuctionName: string[],
     ifCheckingOtherUsr: boolean,
+    usrProfit: number | null,
+    usrVolume: number | null,
 }
 
 const UsrAuction: React.FC<UsrAuctionProps> = ({
-    allAuctionName, ifCheckingOtherUsr
+    allAuctionName, ifCheckingOtherUsr, usrProfit, usrVolume
 }) => {
 
     const {t} = useTranslation()
@@ -43,7 +46,15 @@ const UsrAuction: React.FC<UsrAuctionProps> = ({
 
     return(
         <div className="usrAuction">
-            <div className="usrAuction">
+            <div className="mydomintitle">
+                <h1>{t("profit")}</h1>
+            </div>
+            <div className="linedomain" />
+            <WithDrawal
+                usrProfit={usrProfit}
+                usrVolume={usrVolume}
+            />
+            <div className="usrAuctiontitle">
                 <h1>{t("myauction")}</h1>
             </div>
             <div className="linedomain" />

@@ -1,12 +1,11 @@
-import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider"
-import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
-import { useConnection } from "@solana/wallet-adapter-react"
-import { extractUserProfit } from "../usrAuction/function/extractUserProfit"
 
 import "@/style/components/usrPage/usrComponents/usrProfit/withDrawal.css"
 
 import profit from "@/assets/profit.svg"
 import volume from "@/assets/volume.svg"
+import { useEffect, useState } from "react"
+import Extract from "./extractPage/extract"
+import { useTranslation } from "react-i18next"
 
 interface WithDrawalProps {
     usrProfit: number | null,
@@ -17,29 +16,33 @@ const WithDrawal: React.FC<WithDrawalProps> = ({
     usrProfit, usrVolume
 }) => {
 
-    const {publicKey: user, signTransaction} = useWalletEnv()
-    const solanaToast = useSolanaToast()
-    const {connection} = useConnection()
+    const {t} = useTranslation()
+
+    const [canExtract, setCanExtract] = useState(true)
+    const [showExtract, setShowExtract] = useState(false)
+
+    useEffect(() => {
+        if(!usrProfit){
+            return setCanExtract(false)
+        }else setCanExtract(true)
+    }, [])
 
     return (
         <div className="profitwithdrawal">
-            
             <div className="profitandvolume">
                 <div className="profitShow">
                     <div className="profitimgcon">
                         <img src={profit} className="profiticon" />
                     </div>
                     <div className="profitwordcon">
-                        <h1>profit: </h1>
+                        <h1>{t("income")}: </h1>
                         <h2>{usrProfit? `${(usrProfit / 1e9).toFixed(4)} SOL`:"0"}</h2>
                     </div>
                     <button 
-                        className="extractbu"
-                        onClick={() => extractUserProfit(signTransaction,
-                            user, solanaToast, connection
-                        )}
+                        className={`extractbu ${!canExtract && "cannotextract"}`}
+                        onClick={() => setShowExtract(true)}
                     >
-                        <h1>extract</h1>
+                        <h1>{t("extract")}</h1>
                     </button>
                 </div>
                 <div className="profitwithdrawalline" />
@@ -48,14 +51,24 @@ const WithDrawal: React.FC<WithDrawalProps> = ({
                         <img src={volume} className="volumeicon" />
                     </div>
                     <div className="profitwordcon">
-                        <h1>volume: </h1>
+                        <h1>{t("performance")}: </h1>
                         <h2>{usrVolume? `${(usrVolume / 1e9).toFixed(4)} SOL`:"0"}</h2>
                     </div>
+                    <button 
+                        className={`extractbu`}
+                    >
+                        <h1>{t("check")}</h1>
+                    </button>
                 </div>
                 <div className="profitwithdrawalline" />
             </div>
 
-            
+            {showExtract &&
+                <Extract
+                    totalSOL={usrProfit!}
+                    backFn={() => setShowExtract(false)}
+                />
+            }
         </div>
     )
 }

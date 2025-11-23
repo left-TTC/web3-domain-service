@@ -2,7 +2,7 @@
 
 .usrback{
     width: 100%;
-    background-color: #062548;
+    background-color: #001445;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,6 +16,13 @@
     position: absolute;
     bottom: 0;
     width: 1024px;
+}
+
+.usrbacki{
+    width: 3000px;
+    position: absolute;
+    z-index: 0;
+    opacity: 0.5;
 }
 
 
@@ -35,5 +42,9 @@
 @media (width < 640px){
     .usrback{
         height: 160px;
+    }
+
+    .usrbacki{
+        width: 1600px;
     }
 }

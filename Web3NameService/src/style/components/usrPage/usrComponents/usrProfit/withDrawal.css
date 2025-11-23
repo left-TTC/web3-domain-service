@@ -53,9 +53,9 @@
     font-size: 22px;
 }
 .profitwordcon h2 {
-    color: white;
+    color: #B4FC75;
     margin: 0;
-    font-size: 22px;
+    font-size: 19px;
 }
 
 .profitwithdrawalline{
@@ -64,6 +64,7 @@
     height: 2px;
     filter: blur(1px);
     margin-bottom: 20px;
+    opacity: 0.4;
 }
 
 .extractbu{
@@ -74,10 +75,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 120px;
+    margin-bottom: 10px;
 }
 .extractbu h1{
     color: black;
     margin: 0;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 0;
+}
+.extractbu:hover{
+    opacity: 0.8;
+}
+
+.cannotextract{
+    pointer-events: none;
+    background-color: #434C52;
+}
+.cannotextract h1{
+    color: rgb(137, 135, 135);
 }
