@@ -8,7 +8,6 @@ export enum Web3DomainRegistrarInstruction {
     SettleName,
     Extract,
     StartProject,
-    ConfirmRoot,
     ExtractAdmin,
 }
 

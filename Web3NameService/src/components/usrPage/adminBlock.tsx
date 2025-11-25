@@ -8,7 +8,6 @@ import { startProject } from "@/utils/net/mainFunction/startProject";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 import VaultManage from "./adminComponent/vaultManage";
-import RootConfirm from "./adminComponent/rootConfirm";
 
 const AdminBlcok = () => {
 
@@ -38,7 +37,6 @@ const AdminBlcok = () => {
             {ifProjectStarted? (
                 <div className="projectStartbl">
                     <VaultManage />
-                    <RootConfirm />
                 </div>
             ):(
                 <div className="startpjbl">

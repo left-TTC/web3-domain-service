@@ -6,6 +6,7 @@ import volume from "@/assets/volume.svg"
 import { useEffect, useState } from "react"
 import Extract from "./extractPage/extract"
 import { useTranslation } from "react-i18next"
+import CheckReferrerChain from "./extractPage/checkReferrerChain"
 
 interface WithDrawalProps {
     usrProfit: number | null,
@@ -19,7 +20,9 @@ const WithDrawal: React.FC<WithDrawalProps> = ({
     const {t} = useTranslation()
 
     const [canExtract, setCanExtract] = useState(true)
+
     const [showExtract, setShowExtract] = useState(false)
+    const [showCheck, setShowCheck] = useState(false)
 
     useEffect(() => {
         if(!usrProfit){
@@ -56,6 +59,7 @@ const WithDrawal: React.FC<WithDrawalProps> = ({
                     </div>
                     <button 
                         className={`extractbu`}
+                        onClick={() => setShowCheck(true)}
                     >
                         <h1>{t("check")}</h1>
                     </button>
@@ -67,6 +71,11 @@ const WithDrawal: React.FC<WithDrawalProps> = ({
                 <Extract
                     totalSOL={usrProfit!}
                     backFn={() => setShowExtract(false)}
+                />
+            }
+            {showCheck &&
+                <CheckReferrerChain
+                    backFn={() => setShowCheck(false)}
                 />
             }
         </div>
