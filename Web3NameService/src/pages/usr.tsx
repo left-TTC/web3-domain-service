@@ -16,6 +16,7 @@ import { PublicKey } from "@solana/web3.js";
 import { useUsrDomains } from "@/components/usrPage/usrComponets/hook/useUsrDomains";
 import { useKonamiLikeListener } from "@/components/usrPage/usrComponets/hook/openAdminBlock";
 import { useUsrRefferrerChain } from "@/components/usrPage/usrComponets/hook/useUsrRefferrerChain";
+import UsrIndex from "@/components/usrPage/usrIndex";
 
 export function User({
     openDomainQueryPage,
@@ -111,18 +112,7 @@ export function User({
 
     return(
         !adminModel? (
-            <div className="usrPage">
-                <UsrBackground 
-                    openDomainQueryPage={openDomainQueryPage}
-                    showingComponents={showUsrComponents}
-                    setShowUsrComponent={setShowUsrComponents}
-                    showSearchFrist={showSearchFrist}
-                    searchKey={searchKey}
-                />
-                <div className="usrpagecon">
-                    {getUsrComponent()}
-                </div>
-            </div>
+            <UsrIndex />
         ) : (
             <div className="usrPage">
                 <AdminBlcok />

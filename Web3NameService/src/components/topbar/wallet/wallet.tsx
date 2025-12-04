@@ -79,7 +79,7 @@ const Wallet: React.FC<WalletProps> = ({
             <button className="wallet" onClick={walletClick} ref={walletRef}>
                 {connected ?
                     (
-                        <div className="walletConnected">
+                        <div className="walletConnected border-white/10">
                             
                             <div className="walletusericon">
                                 <Identicon pubkey={publicKey!.toBase58()}/>
@@ -92,7 +92,7 @@ const Wallet: React.FC<WalletProps> = ({
                     ) :
                     (
                         <div className="walletconnect">
-                            <h1>{t("connect")}</h1>
+                            <h1 className="font-semibold">{t("connect")}</h1>
                             <img src={connectWallet} className="walletconnectimg" /> 
                         </div>
                     )

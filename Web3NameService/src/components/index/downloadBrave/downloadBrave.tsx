@@ -1,6 +1,5 @@
 
 
-import "@/style/components/index/downloadBrave/downloadBrave.css"
 import { useTranslation } from "react-i18next";
 
 const DownloadBrave = () => {

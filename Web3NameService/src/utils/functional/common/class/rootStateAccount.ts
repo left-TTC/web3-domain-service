@@ -7,6 +7,7 @@ export class rootStateAccount {
     rootSponsor: PublicKey; //32
     fundState: Numberu64;   //8
     creatingName: string;   
+    // add an supporter
 
     constructor(accountInfo: AccountInfo<Buffer<ArrayBufferLike>>){
         const accountData = accountInfo.data;

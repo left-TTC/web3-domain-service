@@ -1,104 +1,47 @@
 import { useTranslation } from "react-i18next";
 
-import "@/style/components/index/web3CoreUtilities/web3CoreUtilities.css"
-import { useEffect, useRef, useState } from "react";
-import { createIntersectionAnimation } from "@/utils/animate/createIntersectionAnimation";
-import { animate } from "animejs";
-import { upAnimation } from "@/utils/animate/upAnimate";
-import { downAnimation } from "@/utils/animate/downAnimate";
+import { Layers3, ShieldCheck, Zap } from "lucide-react";
 
 const Web3CoreUtilities = () => {
 
+    const primaryColor = '#B4FC75';
     const {t} = useTranslation()
 
-    const web3CoreUtilitiesTitle = useRef<HTMLHeadingElement | null>(null)
-    const lineoneRef = useRef<HTMLDivElement | null> (null)
-    const linetwoRef = useRef<HTMLDivElement | null> (null)
-    const lastYRef = useRef<number | null>(null);
-    const lastYRef1 = useRef<number | null>(null);
-    const lastYRef2 = useRef<number | null>(null);
-
-    const [showAnimation, setShowAnimation] = useState(true)
-    const [ifAllComponentsLoaded, setIfAllComponentsLoaded] = useState(false)
-
-    useEffect(() => {
-        const handleResize = () => {
-            const width = window.innerWidth;
-            if (width <= 1024) {
-            setShowAnimation(false);
-            } else {
-            setShowAnimation(true);
-            }
-        };
-
-        handleResize();
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    useEffect(() => {
-        if(web3CoreUtilitiesTitle.current && lineoneRef.current && linetwoRef.current){
-            setIfAllComponentsLoaded(true)
-        }
-    }, [web3CoreUtilitiesTitle.current, lineoneRef.current, linetwoRef.current])
-
-    useEffect(() => {
-        if(ifAllComponentsLoaded && showAnimation){
-            const web3CoreUtilitiesTitleUp = () => {
-                if(!web3CoreUtilitiesTitle.current) return
-                animate(web3CoreUtilitiesTitle.current, {
-                    scale: [0.6, 1],
-                    opacity: [0, 1],
-                    duration: 500,
-                })
-            }
-            const web3CoreUtilitiesTitleDown = () => {
-                if(!web3CoreUtilitiesTitle.current) return
-                animate(web3CoreUtilitiesTitle.current, {
-                    scale: [1, 0.6],
-                    opacity: [1, 0],
-                })
-            }
-            const web3Title = createIntersectionAnimation(
-                web3CoreUtilitiesTitleUp, web3CoreUtilitiesTitleDown, web3CoreUtilitiesTitle.current, lastYRef
-            )
-
-            const lineOneIntersectionObserve = createIntersectionAnimation(
-                upAnimation(lineoneRef.current, 100, {Min:0, Max:1}, 500),
-                downAnimation(lineoneRef.current, 100, {Min:0, Max:1}, 500),
-                lineoneRef.current, lastYRef1
-            )
-
-            const lineTwoIntersectionObserve = createIntersectionAnimation(
-                upAnimation(linetwoRef.current, 100, {Min:0, Max:1}, 500),
-                downAnimation(linetwoRef.current, 100, {Min:0, Max:1}, 500),
-                linetwoRef.current, lastYRef2
-            )
-
-            return () => {
-                web3Title?.disconnect()
-                lineOneIntersectionObserve?.disconnect()
-                lineTwoIntersectionObserve?.disconnect()
-            }
-        }
-    }, [ifAllComponentsLoaded])
-
     return(
-        <div className="web3coreutilities">
-            <h1 ref={web3CoreUtilitiesTitle}>{t("web3coreutilities")}</h1>
-            <div className="lineOnecore" ref={lineoneRef}>
-                <div className="columnBox">
-                    
-                </div>
-                <div className="columnBox">
-                    
-                </div>
-            </div>
-            <div className="linetowbox" ref={linetwoRef}>
+        <section className="mt-60">
+            <h2 className="mt-40 text-3xl md:text-4xl font-bold text-center mb-16">
+                为何选择 <span style={{ color: primaryColor }}>Web3 Domain Service </span>?
+            </h2>
 
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {[
+                { 
+                    icon: <ShieldCheck size={32} style={{ color: primaryColor }} />, 
+                    title: "永久所有权", 
+                    desc: "域名作为 NFT 存储在您的钱包中，完全抗审查，由您终身拥有，不受中心化机构控制。" 
+                },
+                { 
+                    icon: <Zap size={32} style={{ color: primaryColor }} />, 
+                    title: "超低 Gas 费", 
+                    desc: "基于 Solana 高性能网络，注册、转账和管理域名的成本极低，速度极快，几乎瞬间完成。" 
+                },
+                { 
+                    icon: <Layers3 size={32} style={{ color: primaryColor }} />, 
+                    title: "跨链兼容性", 
+                    desc: "不仅仅是 Solana 地址，一个域名可以解析到 ETH, BTC, Polygon 等多个链的地址，实现一站式支付。" 
+                },
+                ].map((feature, index) => (
+                    <div 
+                        key={index} 
+                        className="bg-[#111] border border-white/10 rounded-xl p-8 transition-all duration-300 hover:border-[#B4FC75]/50 hover:shadow-[0_0_25px_rgba(180,252,117,0.15)]"
+                    >
+                        <div className="mb-4">{feature.icon}</div>
+                        <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                        <p className="text-gray-400 text-sm">{feature.desc}</p>
+                    </div>
+                ))}
             </div>
-        </div>
+        </section>
     )
 }
 

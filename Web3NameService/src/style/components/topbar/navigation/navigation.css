@@ -7,10 +7,8 @@
     flex-direction: row;
     align-items: center;
     gap: 5px;
-    background-color: black;
     left: 30px;
 }
-
 
 .navigatebutton{
     background-color: black;
@@ -21,25 +19,27 @@
     padding: 0 10px;
     height: 50px;
 }
-
-.navigateobjectblock{
-    position: relative;
-}
-
 .navigatebutton h1{
     padding: 0;
     margin: 0;
-    color: white;
-    opacity: 0.8;
     font-weight: 600;
+    font-size: 16px !important;
 }
 
 .greenword h1{
     color: #B4FC75;
 }
 
+.navigateobjectblock{
+    position: relative;
+}
+
 .opensearchomit{
-    background-color: black;
+    background-color: #050505;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     height: 50px;
 }
 
@@ -54,10 +54,9 @@
     align-items: center;
     gap: 20px;
 }
-
 .opensearchomit h1{
     color: rgb(214, 234, 234);
-    font-family: 'Minecraftia', monospace;
+    font-size: 16px !important;
 }
 
 .topbarlinenavi{

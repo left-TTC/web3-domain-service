@@ -1,13 +1,11 @@
 
-
-import myDomain from "@/assets/mydomain.svg"
-import myDomainGreen from "@/assets/mydomaingreen.svg"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import "@/style/components/topbar/usr/myDomain.css"
 import { useNavigate } from "react-router-dom"
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
+import { LayoutDashboard } from "lucide-react"
 
 const MyDomain = () => {
 
@@ -20,9 +18,9 @@ const MyDomain = () => {
 
     const myDomainImg = () => {
         if(ifOnHover){
-            return myDomainGreen
+            return <LayoutDashboard size={20} style={{color: "#B4FC75"}}/>
         }
-        return myDomain
+        return <LayoutDashboard size={20} style={{color: "white"}}/>
     }
 
     const goToUsrPage = () => {
@@ -40,7 +38,7 @@ const MyDomain = () => {
             onMouseLeave={() => setIfOnHover(false)}
             onClick={() => goToUsrPage()}
         >
-            <img src={myDomainImg()} className="myDomainicon"/>
+            {myDomainImg()}
             <h1>{t("mydomain")}</h1>
         </button>
     )

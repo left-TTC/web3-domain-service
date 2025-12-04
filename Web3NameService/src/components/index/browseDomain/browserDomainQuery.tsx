@@ -1,17 +1,14 @@
 import { animate } from "animejs";
 import { useEffect, useRef, useState } from "react";
 
-import "@/style/components/index/browserDomain/browserDomainQuery.css"
 import { useTranslation } from "react-i18next";
 
-import exit from "@/assets/exit.svg"
-import query from "@/assets/query.svg"
-import enter from "@/assets/enter.svg"
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 
-import ChangeAndGoRoot, { type ChangeAndGoRootHandle } from "./changeAndGoRoot/changeAndGoRoot";
 import { useClinkQueryDomain } from "./functionalComponents/clinkQueryDomain";
-import { useClinkSetRoot } from "./functionalComponents/clinkSetRoot";
+import { Globe, X, Search, PlusCircle, ArrowRight } from "lucide-react";
+import { NiceSelect } from "./childComponents/selector";
+import { useNavigate } from "react-router-dom";
 
 export interface BrowserDomainQueryProps{
     ifShowTheQueryPage: boolean,
@@ -19,6 +16,7 @@ export interface BrowserDomainQueryProps{
     backOriginPosition: () => void | null,
 }
 
+const PRIMARY_COLOR = '#B4FC75'; 
 
 const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     ifShowTheQueryPage, setQueryPage, backOriginPosition
@@ -26,16 +24,19 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     const {t} = useTranslation();
 
     const browseDomainRef = useRef<HTMLDivElement | null> (null);
-    const compRef = useRef<ChangeAndGoRootHandle>(null);
-    const inputRef = useRef<HTMLInputElement | null> (null);
-    const queryRef = useRef<HTMLButtonElement | null> (null);
 
     const [shouldAnimate, setShouldAnimate] = useState(false);
     const [queryDomainValue, setQueryDomainValue] = useState("");
-    const [showChangeRoot, setShowChangeRoot] = useState(true);
     const [ifInputFocus, setIfInputFocus] = useState(false);
 
-    const { activeRootDomain } = useRootDomain();
+    const { activeRootDomain, rootDomains, setActiveRootDomain, } = useRootDomain();
+
+    const [selectedRoot, setSelectedRoot] = useState<string>(activeRootDomain? activeRootDomain:"")
+    useEffect(() => {
+        if(selectedRoot != activeRootDomain){
+            setActiveRootDomain(selectedRoot)
+        }
+    }, [selectedRoot])
 
     useEffect(() => {
         if(ifShowTheQueryPage){
@@ -43,14 +44,12 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
         }
     }, [ifShowTheQueryPage])
 
-    useEffect(() => {
-        inputRef.current?.focus(); 
-    }, []);
 
+    const { ClinkQuery } = useClinkQueryDomain(queryDomainValue, activeRootDomain)
     useEffect(() => {
         const handleQuery = (e: KeyboardEvent) => {
             if(e.key === "Enter" && ifInputFocus){
-               queryRef.current?.click(); 
+               ClinkQuery() 
             }
         }
 
@@ -87,66 +86,108 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
         }
     }
 
-
     const handDomainInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setQueryDomainValue(e.target.value)
     }
 
+    const navigate = useNavigate()
+    const goToCreateRoot = () => {
+        navigate("/auction/createRoot")
+    }
 
-    const { ClinkQuery } = useClinkQueryDomain(queryDomainValue, activeRootDomain)
-
-    const { ClinkSetRoot } = useClinkSetRoot(showChangeRoot, compRef, setShowChangeRoot)
 
     return(
-        <div className="queryPage" ref={browseDomainRef}>
-            <div className="queryblock">
-                <div className="titleandexit">
-                    <div className="querypagetitle">
-                        <h1>{t("chooseprefer")}</h1>
-                        <h2>{t("queryname")}</h2>
-                    </div>
-                    <button className="querypageexit" onClick={() => clickExitQueryPage()}>
-                        <img src={exit} className="querypageexiticon" />
+        <div
+            ref={browseDomainRef} 
+            className="fixed inset-0 z-[100] flex justify-center items-center p-4 animate-fade-in"
+        >
+            <div  className="absolute inset-0 bg-[#050505] backdrop-blur-xl transition-opacity" />
+
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-[#B4FC75] rounded-full opacity-[0.09] blur-[120px] mix-blend-screen animate-pulse-slow"/>
+                <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-purple-600 rounded-full opacity-[0.05] blur-[100px] mix-blend-screen"/>
+            </div>
+            <div className="relative w-full max-w-3xl flex flex-col gap-6 z-10 transform transition-all scale-100">
+            
+            <div className="bg-[#111] border border-white/10 rounded-3xl shadow-2xl  relative group mb-30">
+                
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#B4FC75]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
+
+                <div className="flex justify-between items-center px-8 py-6 border-b border-white/5">
+                    <h2 className="text-xl font-bold flex items-center gap-2 text-white">
+                        <Globe size={20} style={{ color: PRIMARY_COLOR }} /> 
+                        Domain Search
+                    </h2>
+                    <button 
+                        onClick={() => clickExitQueryPage()}
+                        className="p-2 rounded-fullhover:bg-white/10 text-gray-400 hover:text-black transition-colors"
+                    >
+                        <X size={20} />
                     </button>
                 </div>
-                
-                <div className="querypagecontent">
-                    <div className="querypagequery">
-                        <input 
-                            type="text"
-                            placeholder="Type in domain"
-                            value={queryDomainValue}
-                            onChange={handDomainInput}
-                            className="querypageinput"
-                            onFocus={() => setIfInputFocus(true)}
-                            ref={inputRef}
-                        />
-                        <div className="querypageenter">
-                            <img src={enter} className="querypagenetericon" />
-                            <h1>Enter</h1>
-                        </div>
-                        <button className="querypagesubmitbutton" ref={queryRef} onClick={() => ClinkQuery()}>
-                            <img src={query} className="querypagequericon2" />
-                        </button>
-                    </div>
 
-                    <div className="querypagechangeroot">
-                        <button className="querpagerootshow" onClick={() => ClinkSetRoot()}>
-                            <div className="querypageword">
-                                <h1>{t("active")}:</h1>
-                                <h2>{activeRootDomain}</h2>
+                <div className="p-8">
+                    <div className="flex flex-col md:flex-row gap-4">
+                        <div className="flex-grow relative group/input">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#B4FC75] to-purple-600 rounded-xl opacity-20 blur transition duration-500 group-hover/input:opacity-40"></div>
+                            <div className="relative flex items-center bg-[#0a0a0a] rounded-xl border border-white/10">
+                                <Search className="w-5 h-5 text-gray-500 ml-4" />
+                                <input 
+                                    type="text" 
+                                    placeholder={`Search for .${activeRootDomain} domain`} 
+                                    className="w-full bg-transparent border-none py-4 px-3 text-white text-lg placeholder-gray-500 focus:ring-0 outline-none font-mono font-bold"
+                                    onChange={(e) => handDomainInput(e)}
+                                    value={queryDomainValue}
+                                    autoFocus
+                                    onFocus={() => setIfInputFocus(true)}
+                                    onBlur={() => setIfInputFocus(false)}
+                                />
                             </div>
-                        </button>
+                        </div>
+
+                        <div className="relative md:w-40 group/select">
+                            <div className="absolute -inset-0.5 bg-white/10 rounded-xl opacity-0 group-hover/select:opacity-100 blur transition duration-300"></div>
+                            <div className="relative bg-[#0a0a0a] border-2 border-white/20 rounded-xl flex items-center h-full hover:border-[#B4FC75]/50 transition-colors">
+                                <NiceSelect
+                                    options={rootDomains}
+                                    value={selectedRoot}
+                                    onChange={(value) => setSelectedRoot(value)}                                  
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            
             </div>
 
-            {showChangeRoot &&
-                <ChangeAndGoRoot ref={compRef} setShowChangeRoot={setShowChangeRoot} showChangeRoot={showChangeRoot}/>
-            }
+            <div 
+                onClick={() => goToCreateRoot()}            
+                className="relative group cursor-pointer rounded-2xl mt-10"
+            >
+                <div className="absolute rounded-2xl inset-0 bg-gradient-to-r from-purple-900/60 to-black border-2 border-white/10 group-hover:border-purple-500/50 transition-colors duration-300"/>
                 
+                <div className="relative flex items-center justify-between p-6 md:px-8">
+                    <div className="flex items-center gap-5">
+                        <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+                            <PlusCircle size={24} className="text-purple-400" />
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                                自定义你的 Web3 宇宙
+                            </h3>
+                            <p className="text-sm text-gray-400 mt-0.5 font-normal">
+                                找不到心仪的 TLD？您可以发起提案创建新的根域名。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/5 group-hover:bg-purple-500 group-hover:text-black transition-all duration-300 transform group-hover:translate-x-1">
+                        <ArrowRight size={18} />
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>
     )
 }
 

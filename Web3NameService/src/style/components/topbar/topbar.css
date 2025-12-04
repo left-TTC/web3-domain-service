@@ -1,16 +1,5 @@
 
 
-.topbar{
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    top: 0;
-    background-color: #000000;
-    width: 100%;
-    z-index: 1000;
-    height: 70px;
-}
-
 .topbarwalletblcok{
     height: 100%;
     display: flex;

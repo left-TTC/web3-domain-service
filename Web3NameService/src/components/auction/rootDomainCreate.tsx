@@ -1,19 +1,16 @@
+import { getAndReturnNowPosition } from "@/utils/functional/show/page/getAndReturnNowPosition";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import CreatingRootShow from "./rootDomainCreate/creatingRootShow";
+import CreateRootPost from "./rootDomainCreate/createRootPost";
 
 
-import "@/style/components/auction/rootDomainCreate.css"
-import { useTranslation } from "react-i18next"
-import LaunchRootDomain from "./rootDomainCreate/launchRootDomain"
 
-import factory from "@/assets/factorys.svg"
-import SailingShip from "./rootDomainCreate/sailingShip"
-import LargeRound from "../common/show/largeRound"
-import { useState } from "react"
-import { getAndReturnNowPosition } from "@/utils/functional/show/page/getAndReturnNowPosition"
 
 export default function RootDomainCreate(){
 
     const {t} = useTranslation()
-
+    
     const [showLaunchSettle, setShowLaunchSettle] = useState(false)
     const [backFn, setBackFn] = useState<()=>void>(()=>{})
 
@@ -23,39 +20,19 @@ export default function RootDomainCreate(){
     }
 
     return(
-        <div className="RootDomainCreate">
-            <LargeRound />
-            <div className="rootdomaincreatecontent">
-                <div className="rootfactorytitle">
-                    <h1>{t("rootdomainfac")}</h1>
-                    <img src={factory} className="factoryicon" />
-                </div>
-                <div className="subrootfactorytitle">
-                    <h1>{t("lanunchnew")}</h1>
-                </div>
-                <div className="supportbl">
-                    <div className="sailt">
-                        <h1>{t("supportnow")}</h1>
-                    </div>
-                    <SailingShip 
-                        openLanunchSettleAndRecordPosition={openLanunchSettleAndRecordPosition}
-                    />
-                </div>
-                <div className="lanunchdomainor">
-                    <h1>or</h1>
-                </div>
-                <div className="sailt">
-                    <h1>{t("launchnew")}</h1>
-                </div>
-                <div className="launchrootfnbl">
-                    <LaunchRootDomain 
-                        showLaunchSettle={showLaunchSettle}
-                        setShowLaunchSettle={setShowLaunchSettle}
-                        openLanunchSettleAndRecordPosition={openLanunchSettleAndRecordPosition}
-                        backFn={backFn}
-                    />
-                </div>
+        <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#B4FC75] selection:text-black pb-24 relative overflow-x-hidden">
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-[#B4FC75] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.08]"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-900 rounded-full mix-blend-screen filter blur-[150px] opacity-[0.15]"></div>
             </div>
-        </div>  
+
+            <main className="max-w-7xl mx-auto px-6 pt-16 relative z-10 flex flex-col gap-20 mt-30">
+                <CreatingRootShow
+                    openLanunchSettleAndRecordPosition={openLanunchSettleAndRecordPosition}
+                />
+                <CreateRootPost />
+            </main>
+        </div>
     )
+
 }

@@ -4,14 +4,10 @@ import { useTranslation } from "react-i18next";
 
 import { useNavigate } from "react-router-dom";
 
-import home from "@/assets/homeimg.svg";
-import greenHome from "@/assets/homeimggreen.svg";
-import auction  from "@/assets/auction white.svg";
-import auctionGreen from "@/assets/auctiongreen.svg"
-import searchGreen from "@/assets/searchpixelGreen.svg"
-import search from "@/assets/pixelSearch.svg"
-import file from "@/assets/file.svg"
-import filegreen from "@/assets/filegreen.svg"
+import { 
+  Search
+} from 'lucide-react';
+
 
 import { useRef, useState } from "react";
 import MarketplaceDropDown from "./marketPlaceDropdown";
@@ -67,33 +63,11 @@ const Navigation: React.FC<NavigationProps> = ({
         } 
     }
 
-    const returnImg = (navigateObject: NavigationLists, ifHoverd: boolean) => {
-        if(ifHoverd){
-            switch(navigateObject){
-                case NavigationLists.Home:
-                    return greenHome
-                case NavigationLists.Auction:
-                    return auctionGreen
-                case NavigationLists.Docus:
-                    return filegreen
-            } 
-        }else{
-            switch(navigateObject){
-                case NavigationLists.Home:
-                    return home
-                case NavigationLists.Auction:
-                    return auction
-                case NavigationLists.Docus:
-                    return file
-            } 
-        }
-    }
-
     const returnSearchIcon = () => {
         if(ifSearchbarHover){
-            return searchGreen
+            return <Search style={{color: "#B4FC75"}}/>
         }
-        return search
+        return <Search style={{color: "rgb(214, 234, 234)"}}/>
     }
 
     const openSearchPage = () => {
@@ -105,6 +79,7 @@ const Navigation: React.FC<NavigationProps> = ({
 
     return(
         <div className="navigation">
+
             {Object.values(NavigationLists).map(navigateObject => (
                 <div className="navigateobjectblock" key={navigateObject}>
                     <button 
@@ -115,14 +90,7 @@ const Navigation: React.FC<NavigationProps> = ({
                         onMouseLeave={() => setHoveredId(null)}
                         ref={navigateObject===NavigationLists.Auction ? marketRef : null}
                     >
-                        {(hoveredId === navigateObject)? 
-                        (
-                            <img src={returnImg(navigateObject, true)} className="topbarhomeicon" />
-                        ):
-                        (
-                            <img src={returnImg(navigateObject, false)} className="topbarhomeicon" />
-                        )}
-                        <h1>{returnNavigateName(navigateObject)}</h1>
+                        <h1 className="text-gray-400">{returnNavigateName(navigateObject)}</h1>
                     </button>
                     {navigateObject===NavigationLists.Auction && showMarketType &&
                         <MarketplaceDropDown 
@@ -142,8 +110,8 @@ const Navigation: React.FC<NavigationProps> = ({
                 onMouseLeave={() => setIfSearchbarHover(false)}
                 onClick={() => openSearchPage()}
             >
-                <img src={returnSearchIcon()} className="pixelsearch" /> 
-                <h1>{t("serachDomain")}</h1>
+                {returnSearchIcon()}
+                <h1>{t("searchDomain")}</h1>
             </button>
         </div>
     )

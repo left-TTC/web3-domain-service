@@ -8,7 +8,6 @@
     align-items: center;
     background-color: black;
 }
-
 .topbarmydomain h1{
     color: white;
     padding: 0;
@@ -18,10 +17,6 @@
 
 .greenmydomain h1{
     color: #B4FC75;
-}
-
-.myDomainicon{
-    width: 25px;
 }
 
 .topbarmydomain h1{

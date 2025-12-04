@@ -1,31 +1,50 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite"; 
 import path from "path";
 
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-      buffer: "buffer",
-      process: "process/browser",
-    },
-  },
-  define: {
-    global: "globalThis", // 让 CJS 代码里的 global 可用
-    "process.env": {},
-  },
-  optimizeDeps: {
-    include: [
-      "buffer",
-      "process",
-      "@solana/spl-token",
-      "@solana/web3.js"
+    plugins: [
+        react(),
+        tailwindcss(), 
     ],
-    esbuildOptions: {
-      define: {
-        global: "globalThis",
-      },
+
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "./src"),
+            buffer: "buffer",
+            process: "process/browser",
+            stream: "stream-browserify",
+            zlib: "browserify-zlib",
+            crypto: "crypto-browserify",
+            util: "util",
+        },
     },
-  },
+
+    define: {
+        global: "globalThis",
+        "process.env": {},
+    },
+
+    optimizeDeps: {
+        include: [
+            "buffer",
+            "process",
+            "@solana/web3.js",
+            "@solana/spl-token",
+        ],
+        esbuildOptions: {
+            define: {
+                global: "globalThis",
+            },
+        },
+    },
+
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: undefined,
+            },
+        },
+    },
 });
