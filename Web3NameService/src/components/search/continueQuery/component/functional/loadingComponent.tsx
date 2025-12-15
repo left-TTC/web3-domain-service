@@ -1,4 +1,3 @@
-
 import "@/style/components/search/continueQuery/components/functional/loaingComponent.css"
 import { animate } from "animejs";
 import { useEffect, useRef } from "react";

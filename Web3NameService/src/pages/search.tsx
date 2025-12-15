@@ -1,4 +1,3 @@
-import ContinueQuery from "@/components/search/continueQuery/continueQuery";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
@@ -11,11 +10,11 @@ import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 
 import DomainSettlement from "@/components/search/domainSettlement/domainSettlement";
-import Back from "@/components/common/functional/back";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
-import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
+import DomainSearchResult from "@/components/search/continueQuery/domainSearchResult";
+import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
 
 export function Search() {
 
@@ -32,6 +31,8 @@ export function Search() {
     const [domainAuctionState, setDomainAuctionState] = useState<NameAuctionState | null>(null)
     
     const [isDomainInfoLoaded, setIsDomainInfoLoaded] = useState(false)
+
+    const [showSaleDomain, setShowSaleDomain] = useState(false)
     const [domainStartPrice, setDomainStartPrice] = useState<number | null>(null)
 
     useEffect(() => {
@@ -45,17 +46,15 @@ export function Search() {
         }
     }, [isDomainInfoLoaded])
 
-    const [showSaleDomain, setShowSaleDomain] = useState(false)
-
     useEffect(() => {
         setIsDomainInfoLoaded(false)
         setDomainBlock(cutDomain(queryingDomain));
     } ,[queryingDomain])
 
-
     useEffect(() => {
         const fetchDomainInfo = async() => {
             if((!domainBlock)) return;
+            if(isDomainInfoLoaded) return;
 
             const rootDomainKey = getNameAccountKey(getHashedName(domainBlock[1]))
             const accountInfo = await getQueryDomainInfo(domainBlock, rootDomainKey, connection);
@@ -90,18 +89,21 @@ export function Search() {
     }
 
     return(
-        <div className="SearchPage">
-            <div className="searchPageContent">
-                <Back backFun={() => backToIndex()} />
-                <ContinueQuery 
-                    domainName={queryingDomain} 
-                    domainInfo={queryDomainInfo}
-                    ifDomainInfoLoaded={isDomainInfoLoaded}
-                    openDomainSettle={() => setShowSaleDomain(true)}
-                    domainPrice={domainStartPrice}
-                    domainAuctionState={domainAuctionState}
-                />
-            </div>
+        <div>
+            {/* <ContinueQuery 
+                domainName={queryingDomain} 
+                domainInfo={queryDomainInfo}
+                ifDomainInfoLoaded={isDomainInfoLoaded}
+                openDomainSettle={() => setShowSaleDomain(true)}
+                domainPrice={domainStartPrice}
+                domainAuctionState={domainAuctionState}
+            /> */}
+            <DomainSearchResult
+                domainInfo={queryDomainInfo}
+                domainName={queryingDomain}
+                auctionState={domainAuctionState}
+                openSettlePage={() => setShowSaleDomain(true)}
+            />
             {showSaleDomain &&
                 <DomainSettlement 
                     domainName={queryingDomain}

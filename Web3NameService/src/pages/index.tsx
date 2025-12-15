@@ -3,7 +3,6 @@ import BrowserDomain from "@/components/index/browseDomain/browseDomain"
 import BrowserDomainQuery from "@/components/index/browseDomain/browserDomainQuery"
 import DomainUsrShow from "@/components/index/domainUsr/domainUsrShow"
 import Web3CoreUtilities from "@/components/index/web3CoreUtilities/web3CoreUtilities"
-import "@/style/pages/index.css"
 import { useState } from "react"
 
 export interface IndexProps {
