@@ -20,7 +20,7 @@ const DomainItem: React.FC<DomainItemProps> = ({
                 <Globe size={24} style={{ color: primaryColor }} />
                 <div>
                     <p className="text-xl font-bold text-white">{domainName}</p>
-                    <p className="text-xs text-gray-500 font-mono mt-1">
+                    <p className="text-xs text-gray-400 font-mono mt-1 font-normal">
                         记录: <span className="text-gray-300">{ipfs}</span>
                     </p>
                 </div>

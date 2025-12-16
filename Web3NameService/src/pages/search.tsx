@@ -1,7 +1,4 @@
 import { useLocation, useNavigate } from "react-router-dom";
-
-
-import "@/style/pages/search.css"
 import { useEffect, useState } from "react";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getQueryDomainInfo } from "@/utils/net/getQueryDomainInfo";
@@ -9,12 +6,13 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 
-import DomainSettlement from "@/components/search/domainSettlement/domainSettlement";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
 import DomainSearchResult from "@/components/search/continueQuery/domainSearchResult";
 import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
+import DomainSettlementModal, { SettleType } from "@/components/settle/settlement";
+import { getSearchDomainState, type SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
 
 export function Search() {
 
@@ -88,27 +86,27 @@ export function Search() {
         }
     }
 
+    const [resultState, setResultState] = useState<SearchDomainResult | null>(null)
+
+    useEffect(() => {
+        setResultState(getSearchDomainState(queryDomainInfo, domainAuctionState))
+    }, [queryDomainInfo, domainAuctionState])
+
     return(
         <div>
-            {/* <ContinueQuery 
-                domainName={queryingDomain} 
-                domainInfo={queryDomainInfo}
-                ifDomainInfoLoaded={isDomainInfoLoaded}
-                openDomainSettle={() => setShowSaleDomain(true)}
-                domainPrice={domainStartPrice}
-                domainAuctionState={domainAuctionState}
-            /> */}
             <DomainSearchResult
                 domainInfo={queryDomainInfo}
                 domainName={queryingDomain}
                 auctionState={domainAuctionState}
                 openSettlePage={() => setShowSaleDomain(true)}
+                resultState={resultState}
             />
             {showSaleDomain &&
-                <DomainSettlement 
-                    domainName={queryingDomain}
-                    backToSearchResult={() =>setShowSaleDomain(false)}
-                    domainPrice={domainStartPrice}
+                <DomainSettlementModal
+                    onClose={() => setShowSaleDomain(false)}
+                    opearationName={queryingDomain}
+                    actionType={SettleType.buy}
+                    basePrice={domainStartPrice!}
                 />
             }
         </div>

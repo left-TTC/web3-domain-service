@@ -1,8 +1,6 @@
 
 import "@/style/components/search/domainSettlement/domainSettlement.css"
 
-import ChoosePayment, { PaymentMethod } from "./choosePayment"
-import { useState } from "react"
 import Crypto from "./paymentMethod/crypto"
 import Back from "@/components/common/functional/back"
 
@@ -17,8 +15,6 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
     domainName, backToSearchResult, domainPrice
 }) => {    
 
-    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.Crypto);
-
     return(
         <div className="settlement">
             <div className="settlemetcon">
@@ -31,10 +27,10 @@ const DomainSettlement: React.FC<DomainSettlementProps> = ({
                 <div className="domainName">
                     <h1>{domainName}</h1>
                 </div>
-                <ChoosePayment 
+                {/* <ChoosePayment 
                     chooseMethod={setPaymentMethod} 
                     activingMethod={paymentMethod}
-                />
+                /> */}
                 <Crypto 
                     domainName={domainName}
                     domainPrice={domainPrice!}

@@ -26,14 +26,13 @@ export function useUsrDomains(
     const { rootDomains } = useRootDomain()
     const { connection } = useConnection()
 
-    const [domainNumber, setDomainNumber] = useState(0)
     const [showSearchFrist, setShowSearchFrist] = useState(false)
 
     useEffect(() => {
-        if(domainNumber === 1 && !auctioningDomain && !asPayerDomain){
+        if(!auctioningDomain && !asPayerDomain){
             setShowSearchFrist(true)
         }
-    }, [auctioningDomain, asPayerDomain, domainNumber])
+    }, [auctioningDomain, asPayerDomain])
 
     const [usrDomains, setUsrDomains] = useState<string[]>([])
     
@@ -60,7 +59,6 @@ export function useUsrDomains(
             )
             setUsrDomainLoaded(true)
             console.log("domains:", usrDomains)
-            setDomainNumber(usrDomains.length)
             setUsrDomains(usrDomains)
             setDomainStateMap(nameStateMap)
         }
@@ -127,7 +125,7 @@ export function useUsrDomains(
     }, [usrDomains, rootKeyMap])
 
     return {
-        domainNumber, showSearchFrist, isLoadingRecordData, recordLoaded,
+        showSearchFrist, isLoadingRecordData, recordLoaded,
         domainStateMap, recordMap, usrDomains, usrDomainOnSale
     }
 }

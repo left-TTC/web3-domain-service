@@ -1,5 +1,6 @@
 import { Gavel, List } from "lucide-react";
 import ManageContent, { MOCK_DOMAINS, MOCK_MY_AUCTIONS, MOCK_PENDING_SETTLEMENTS } from "./index/manageContent";
+import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 
 
 
@@ -8,10 +9,12 @@ const primaryColor = '#B4FC75';
 interface UsrManageProps {
     setActiveTab: React.Dispatch<React.SetStateAction<"mydomain" | "economy">>,
     activeTab: "mydomain" | "economy",
+    usrDomains: string[],
+    recordMap: Map<string, IPFSRecordState> | null,
 }
 
 const UsrManage: React.FC<UsrManageProps> = ({
-    setActiveTab, activeTab
+    setActiveTab, activeTab, usrDomains, recordMap,
 }) => {
 
 
@@ -37,8 +40,9 @@ const UsrManage: React.FC<UsrManageProps> = ({
 
             <ManageContent
                 activeTab={activeTab}
-                domainNum={11}
-                myDomains={MOCK_DOMAINS}
+                domainNum={usrDomains.length}
+                myDomains={usrDomains}
+                recordMap={recordMap}
                 myAuctions={MOCK_MY_AUCTIONS}
                 settlements={MOCK_PENDING_SETTLEMENTS}
             />

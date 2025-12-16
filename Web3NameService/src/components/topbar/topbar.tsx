@@ -37,7 +37,6 @@ const Topbar: React.FC<TopbarProps> = ({
                 </div>
             </div>
 
-            {/* fixed components */}
             {showWalletChooser &&
                 <WalletChooser setChooserOpen={setShowWalletChooser}/>
             }

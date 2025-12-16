@@ -1,13 +1,10 @@
 
-
-import "@/style/components/topbar/wallet/walletDropDownBox.css"
 import { useEffect, useRef } from "react";
 
-import change from "@/assets/changeWallet.svg"
-import disconnectWallet from "@/assets/disconnect.svg"
 import { useTranslation } from "react-i18next";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { animate } from "animejs";
+import { LogOut, RefreshCcw } from "lucide-react";
 
 export interface walletDropDownBoxProps{
     ifWalletDropDownShow: boolean,
@@ -16,9 +13,8 @@ export interface walletDropDownBoxProps{
     walletRef: React.RefObject<HTMLButtonElement | null>,
 }
 
-export interface WalletCommonBuuton{
-    img: string,
-    title: string,
+export interface WalletCommonButon{
+    icon: React.ReactNode,
     function: string,
 }
 
@@ -30,15 +26,13 @@ const WalletDropDownBox: React.FC<walletDropDownBoxProps> = ({walletRef, ifWalle
     const {t} = useTranslation();
     const {disconnect} = useWallet();
 
-    const walltButtonsMap: WalletCommonBuuton[] = [
+    const walltButtonsMap: WalletCommonButon[] = [
         {
-            img: change,
-            title: t("changeWallet"),
+            icon: <RefreshCcw size={16} />,
             function: "changeWallet",
         },
         {
-            img: disconnectWallet,
-            title: t("disconnect"),
+            icon: <LogOut size={16} />,
             function: "disconnect",
         }
     ]
@@ -106,13 +100,27 @@ const WalletDropDownBox: React.FC<walletDropDownBoxProps> = ({walletRef, ifWalle
     }
 
     return(
-        <div className="walletdropblock" ref={walletDropRef}>
-            {walltButtonsMap.map((button, index) => (
-                <button key={index} className="walletdropcommonbutton" onClick={() => commonButtonClick(button.function)}>
-                    <img src={button.img} alt={button.title} className="icon" />
-                    <span>{button.title}</span>
-                </button>
-            ))}
+        <div
+            ref={walletDropRef}
+            className="fixed top-22 z-50"
+        >
+            <div className="bg-[#0a0a0a] border-2 border-white/30 rounded-xl p-2 shadow-xl shadow-black/40 w-56">
+                {walltButtonsMap.map((button, index) => (
+                    <button
+                        key={index}
+                        onClick={() => commonButtonClick(button.function)}
+                        className="flex items-center gap-3 w-full px-3 py-2 rounded-xl text-sm text-gray-200 hover:bg-white/10 transition-colors"
+                    >
+                        <span className="text-gray-400">
+                            {button.icon}
+                        </span>
+
+                        <span className="font-medium">
+                            {button.function}
+                        </span>
+                    </button>
+                ))}
+            </div>
         </div>
     )
 }

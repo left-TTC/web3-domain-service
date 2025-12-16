@@ -1,8 +1,10 @@
-import { Activity, AlertCircle, Search, Send } from "lucide-react";
+import { Activity, AlertCircle, Search } from "lucide-react";
 import DomainItem from "./content/domainItem";
 import AuctionListItem, { type AuctionItem } from "./content/auctionlistItem";
 import type { SettlementItem } from "./content/settlementListItem";
 import SettlementListItem from "./content/settlementListItem";
+import { useState } from "react";
+import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 
 //test 
 export const MOCK_MY_AUCTIONS: AuctionItem[] = [
@@ -16,7 +18,7 @@ export const MOCK_PENDING_SETTLEMENTS: SettlementItem[] = [
 ];
 
 export const MOCK_DOMAINS: string[] = [
-    "aa.aa", "aa.ss", "as.asa", "skjad.ashdj"
+    "aa.aa", "aa.ss", "as.asa", "skjad.ashdj",  "skjsad.ashdj", "skajad.ashdj", "skjadf.ashdj", "saakjad.ashdj","skjadss.ashdj","skjaccd.ashdj","skjad.asvhdj","skjad.asahdj","skjad.ashddj","skjad.ashdjf","skjad.aaashdj"
 ];
 
 
@@ -26,30 +28,61 @@ interface ManageContentProps {
     myDomains: string[],
     myAuctions: AuctionItem[],
     settlements: SettlementItem[],
+    recordMap: Map<string, IPFSRecordState> | null,
 }
 
 const primaryColor = '#B4FC75'; 
+const PAGE_SIZE = 7;
 
 const ManageContent: React.FC<ManageContentProps> = ({
-    activeTab, domainNum, myDomains, myAuctions, settlements
+    activeTab, domainNum, myDomains, myAuctions, settlements, recordMap
 }) => {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(myDomains.length / PAGE_SIZE);
+
+    const currentDomains = myDomains.slice(
+        (currentPage - 1) * PAGE_SIZE,
+        currentPage * PAGE_SIZE
+    );
+    const goPrev = () => setCurrentPage(p => Math.max(1, p - 1));
+    const goNext = () => setCurrentPage(p => Math.min(totalPages, p + 1));
+
     
     if (activeTab === 'mydomain') {
         return (
             <div className="space-y-4">
                 <div className="flex justify-between items-center pb-4 border-b border-white/5">
                     <h3 className="text-2xl font-bold">我的域名 ({domainNum})</h3>
-                    <button className="text-sm text-[#B4FC75] hover:underline flex items-center gap-1">
-                        <Send size={16} /> 批量转移
-                    </button>
                 </div>
-                {myDomains.map(domain => (
+                {currentDomains.map(domain => (
                     <DomainItem 
                         key={domain}  
                         domainName={domain}
-                        ipfs="xxxxxxxxx"
+                        ipfs={recordMap?.get(domain)?.recordData ?? "未设置"}
                     />
                 ))}
+                {totalPages > 1 && (
+                    <div className="flex justify-center items-center gap-4 pt-4">
+                        <button
+                            className="px-3 py-1 rounded-lg border border-white/20 text-white/70 disabled:opacity-40"
+                            onClick={goPrev}
+                            disabled={currentPage === 1}
+                        >
+                            上一页
+                        </button>
+                        <span className="text-white/70">
+                            {currentPage} / {totalPages}
+                        </span>
+                        <button
+                            className="px-3 py-1 rounded-lg border border-white/20 text-white/70 disabled:opacity-40"
+                            onClick={goNext}
+                            disabled={currentPage === totalPages}
+                        >
+                            下一页
+                        </button>
+                    </div>
+                )}
                 <div className="text-center pt-8">
                     <button className="px-6 py-3 rounded-xl border border-[#B4FC75]/50 text-[#B4FC75] hover:bg-[#B4FC75]/10 transition-colors flex items-center mx-auto gap-2">
                         <Search size={18} /> 注册新域名

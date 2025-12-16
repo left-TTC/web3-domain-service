@@ -1,182 +1,151 @@
 import { PublicKey } from "@solana/web3.js";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
-import "@/style/components/commonStyle/transaction/refferrerVerify.css"
 import { useConnection } from "@solana/wallet-adapter-react";
-import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+
+import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
 import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
-
-import loading from "@/assets/loading.svg"
-import valid from "@/assets/valid.svg"
-import invalid from "@/assets/invalid.svg"
-
 import { ifStringPubkeyValid } from "@/utils/functional/common/ifStringPubkeyValid";
-import { returnProjectVault } from "@/utils/constants/constants";
 import { checkRefferrerValid } from "@/utils/functional/common/net/checkRefferrerValid";
-import { cutString } from "@/utils/functional/common/cutString";
+import { Users, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
-export interface RefferrerVerifyProps {
-    setRefferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>,
-    setReffererValid: React.Dispatch<React.SetStateAction<boolean>>,
-    ifRefferValid: boolean,
+interface Props {
+    setRefferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>;
+    setReffererValid: React.Dispatch<React.SetStateAction<boolean>>;
+    ifRefferValid: boolean;
 }
 
-const RefferrerVerify: React.FC<RefferrerVerifyProps> = ({
-    setRefferrerKey, setReffererValid, ifRefferValid
-}) => {
+const RefferrerVerify = ({
+    setRefferrerKey,
+    setReffererValid,
+    ifRefferValid,
+}: Props) => {
+    const { t } = useTranslation();
+    const { connection } = useConnection();
+    const { publicKey: buyer } = useWalletEnv();
 
-    const {t} = useTranslation()
-    const {connection} = useConnection()
-    const {publicKey: buyer} = useWalletEnv()
+    const [input, setInput] = useState("");
+    const [canCheck, setCanCheck] = useState(false);
+    const [isVerifying, setIsVerifying] = useState(false);
+    const [checked, setChecked] = useState(false);
 
-    const [refferrerValue, setRefferrerValue] = useState("");
-    const [isRefferrerFocus, setIsRefferrerFocus] = useState(false)
-    const [canReffererCheck, setCanReffererCheck] = useState(false)
+    const [fixedRefferrer, setFixedRefferrer] = useState<PublicKey | null>(null);
+    const [loadingFixed, setLoadingFixed] = useState(true);
 
-    const [ifLessThan640, setIfLessThan640] = useState(false)
-    useEffect(() => {
-        const handleResize = () => {
-            setIfLessThan640(window.innerWidth < 640);
-        };
-        
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    const handRefferrer = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(ifRefferValid && e.target.value != refferrerValue){
-            setReffererValid(false)
-            setIfRefferrerChecked(false)
+    const onChange = (v: string) => {
+        if (checked && v !== input) {
+            setChecked(false);
+            setReffererValid(false);
         }
-        setRefferrerValue(e.target.value)
-    }
+        setInput(v);
+    };
 
     useEffect(() => {
-        const checkIfAccount = async() => {
-            setIfRefferrerChecking(true)
-            if(await ifStringPubkeyValid(refferrerValue, connection)){
-                setCanReffererCheck(true)
-            }else setCanReffererCheck(false)
-            setIfRefferrerChecking(false)
-        }
-
-        checkIfAccount()
-    }, [refferrerValue])
-
-    const [fixedRefferrer, setFixRefferrer] = useState<PublicKey | null>()
-    const [loadingFixedRefferrer, setLoadingFixedRefferrer] = useState(true)
-
-    useEffect(() => {
-        const getFixedRefferrer = async() => {
-            if(!buyer) return
-
-            const refferrerRecordData = await connection.getAccountInfo(
-                getRefferrerRecordKey(buyer)
-            )
-            
-            if(!refferrerRecordData){
-                setFixRefferrer(null)
-                setLoadingFixedRefferrer(false)
-            }else{
-                const refferrerRecordState = new RefferrerRecordState(refferrerRecordData)
-                console.log("refferrer record: ", refferrerRecordState)
-                setFixRefferrer(refferrerRecordState.refferrer)
-                setRefferrerKey(refferrerRecordState.refferrer)
-                setLoadingFixedRefferrer(false)
-                setReffererValid(true)
+        let active = true;
+        (async () => {
+            setIsVerifying(true);
+            const ok = await ifStringPubkeyValid(input, connection);
+            if (active) {
+                setCanCheck(ok);
+                setIsVerifying(false);
             }
-        }
-
-        if(buyer) getFixedRefferrer()
-    }, [buyer])
-
-    const [ifRefferrerChecked, setIfRefferrerChecked] = useState(false)
-    const [ifRefferrerChecking, setIfRefferrerChecking] = useState(false)
-
-    const verifyReffer = async() => {
-        setIfRefferrerChecking(true)
-        const refferrer = new PublicKey(refferrerValue)
-
-        const ifValid = await checkRefferrerValid(refferrer, connection)
-        console.log(ifValid)
-        if (!ifValid) {
-            setIfRefferrerChecking(false)
-            setIfRefferrerChecked(true)
-            setReffererValid(false)
-        }else {
-            setIfRefferrerChecking(false)
-            setIfRefferrerChecked(true)
-            setReffererValid(true)
-            setRefferrerKey(refferrer)
-        }
-    }
+        })();
+        return () => {
+            active = false;
+        };
+    }, [input]);
 
     useEffect(() => {
-        if(ifRefferrerChecked && !ifRefferValid){
-            setTimeout(() => {
-                setIfRefferrerChecked(false)
-            }, 2000 )
-        }
-    }, [ifRefferrerChecked])
+        if (!buyer) return;
+        (async () => {
+            const info = await connection.getAccountInfo(
+                getRefferrerRecordKey(buyer)
+            );
+            if (!info) {
+                setFixedRefferrer(null);
+            } else {
+                const state = new RefferrerRecordState(info);
+                setFixedRefferrer(state.refferrer);
+                setRefferrerKey(state.refferrer);
+                setReffererValid(true);
+            }
+            setLoadingFixed(false);
+        })();
+    }, [buyer]);
 
-    return(
-        <div className={`refferrer`} onFocus={() => setIsRefferrerFocus(true)} onBlur={() => setIsRefferrerFocus(false)}>
-            {fixedRefferrer? (
-                <div className="inputbl">
-                    <div className="refferrerinput fixedRefferrershow">
-                        <h2>{fixedRefferrer.toBase58()}</h2>
-                    </div>
+    const verify = async () => {
+        setIsVerifying(true);
+        const pk = new PublicKey(input);
+        const ok = await checkRefferrerValid(pk, connection);
+        setChecked(true);
+        setIsVerifying(false);
+        setReffererValid(ok);
+        if (ok) setRefferrerKey(pk);
+    };
+
+    const referrerValid =
+        checked ? ifRefferValid : null;
+
+    return (
+        <div className="space-y-3">
+            <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                    <Users size={14} /> 推荐人
+                </h3>
+                <a className="text-xs text-[#B4FC75] hover:underline opacity-80">
+                    查看推荐政策
+                </a>
+            </div>
+
+            {fixedRefferrer ? (
+                <div className="bg-[#0a0a0a] border border-[#B4FC75]/30 rounded-xl py-3 px-4 font-mono text-sm text-[#B4FC75]">
+                    {fixedRefferrer.toBase58()}
                 </div>
-            ): (
-                <div className="inputbl">
-                    <input  
-                        type="text"
-                        placeholder={loadingFixedRefferrer? "Loading...":t("enterinvitation")}
-                        value={refferrerValue}
-                        onChange={handRefferrer}
-                        className={`refferrerinput ${isRefferrerFocus ? 'refferrerinputfocus' : ''}`}
+            ) : (
+                <div className="relative flex items-center">
+                    <input
+                        value={input}
+                        onChange={(e) => onChange(e.target.value)}
+                        placeholder={loadingFixed ? "Loading..." : t("enterinvitation")}
+                        className={`w-full bg-[#0a0a0a] border outline-none rounded-xl py-3 pl-4 pr-24 text-white font-mono text-sm placeholder-gray-600 transition-colors
+                            ${
+                                referrerValid === true
+                                    ? "border-[#B4FC75]"
+                                    : referrerValid === false
+                                    ? "border-red-500"
+                                    : "border-white/10 focus:border-[#B4FC75]/50"
+                            }`}
                     />
-                    {isRefferrerFocus && refferrerValue.length === 0 &&
-                        <div className="defaultrecommend" onMouseDown={() => setRefferrerValue(returnProjectVault().toBase58())}>
-                            {ifLessThan640? (
-                                <h4>{cutString(returnProjectVault().toBase58(), 8, 8, "...")}</h4>
-                            ):(
-                                <h4>{returnProjectVault().toBase58()}</h4>
-                            )}
-                            <div className="defaulticon">
-                                <h4>default</h4>
-                            </div>
-                        </div>
-                    }
+
+                    <button
+                        disabled={!canCheck || isVerifying || referrerValid === true}
+                        onClick={verify}
+                        className="absolute right-2 px-3 py-1.5 rounded-lg bg-white/10 text-xs text-white font-bold hover:bg-white/20 disabled:opacity-50"
+                    >
+                        {isVerifying ? (
+                            <Loader2 size={14} className="animate-spin" />
+                        ) : referrerValid === true ? (
+                            "已验证"
+                        ) : (
+                            "验证"
+                        )}
+                    </button>
                 </div>
             )}
-            <button 
-                className=
-                    {`refferrerverify 
-                        ${canReffererCheck ? 'refferrerverifyfocus' : 'cantclick'} 
-                        ${ifRefferrerChecked? (ifRefferValid? "":"checkError"):""}
-                    `}
-                onClick={() => verifyReffer()}
-            >
-                {ifRefferrerChecking? (
-                    <img src={loading} className="refferrerloading" />
-                ):(
-                    ifRefferrerChecked ? (
-                        ifRefferValid? (
-                            <img src={valid} className="refferrervalidimg" />
-                        ):(
-                            <img src={invalid} className="refferrervalidimg" />
-                        )
-                    ) : (
-                        <h2 className="verifyword">{t("verify")}</h2>
-                    )
-                )}
-            </button>
+
+            {referrerValid === true && (
+                <p className="text-xs text-[#B4FC75] flex items-center gap-1">
+                    <CheckCircle2 size={12} /> 推荐人有效
+                </p>
+            )}
+            {referrerValid === false && (
+                <p className="text-xs text-red-500 flex items-center gap-1">
+                    <AlertCircle size={12} /> 无效的推荐人地址
+                </p>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default RefferrerVerify;

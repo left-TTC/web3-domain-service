@@ -2,6 +2,7 @@ import type { NameRecordState } from "@/utils/functional/common/class/nameRecord
 import ContinueQuery from "./component/continueQuery";
 import DomainCard from "./component/domainCard";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import type { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
 
 
 interface DomainSearchResultProps {
@@ -9,11 +10,12 @@ interface DomainSearchResultProps {
     domainName: string,
     auctionState: NameAuctionState | null,
     openSettlePage: () => void,
+    resultState: SearchDomainResult | null,
 }
 
 
 const DomainSearchResult: React.FC<DomainSearchResultProps> = ({
-    domainInfo, domainName, auctionState, openSettlePage
+    domainInfo, domainName, auctionState, openSettlePage, resultState
 }) => {
 
     return (
@@ -28,6 +30,7 @@ const DomainSearchResult: React.FC<DomainSearchResultProps> = ({
                     domainName={domainName}
                     auctionState={auctionState}
                     openSettlePage={openSettlePage}
+                    resultState={resultState}
                 />
             </main>
         </div>

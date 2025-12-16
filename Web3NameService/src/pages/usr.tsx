@@ -75,7 +75,7 @@ export function User({
     const { asPayerDomain } = useAsPayerName(connection, searchKey)
 
     const {
-        domainNumber, showSearchFrist, isLoadingRecordData, recordLoaded,
+        showSearchFrist, isLoadingRecordData, recordLoaded,
         domainStateMap, recordMap, usrDomains, usrDomainOnSale
     } = useUsrDomains(
         auctioningDomain, asPayerDomain, searchKey, setUsrDomainLoaded, fetched
@@ -84,35 +84,42 @@ export function User({
     const fetchedUsrChain = useRef(false)
     const {usrProfit, usrVolume} = useUsrRefferrerChain(searchKey, fetchedUsrChain)
 
-    const [showUsrComponents, setShowUsrComponents] = useState<UsrComponents>(UsrComponents.Domain)
-
-    const getUsrComponent = () => {
-        switch(showUsrComponents){
-            case UsrComponents.Domain:
-                return <UsrDomain 
-                            domainNumber={domainNumber}
-                            ifCheckingOtherUsr={ifOtherUsr.current}
-                            usrDomains={usrDomains}
-                            recordMap={recordMap}
-                            recordLoaded={recordLoaded}
-                            usrDomainLoaded={usrDomainLoaded}
-                            domainStateMap={domainStateMap}
-                            isLoadingRecordData={isLoadingRecordData}
-                            onSaleDomains={usrDomainOnSale}
-                        />
-            case UsrComponents.Auction:
-                return <UsrAuction 
-                            allAuctionName={auctioningDomain}
-                            ifCheckingOtherUsr={ifOtherUsr.current}
-                            usrProfit={usrProfit}
-                            usrVolume={usrVolume}
-                        />
-        }
-    }
+    // const getUsrComponent = () => {
+    //     switch(showUsrComponents){
+    //         case UsrComponents.Domain:
+    //             return <UsrDomain 
+    //                         domainNumber={1}
+    //                         ifCheckingOtherUsr={ifOtherUsr.current}
+    //                         usrDomains={usrDomains}
+    //                         recordMap={recordMap}
+    //                         recordLoaded={recordLoaded}
+    //                         usrDomainLoaded={usrDomainLoaded}
+    //                         domainStateMap={domainStateMap}
+    //                         isLoadingRecordData={isLoadingRecordData}
+    //                         onSaleDomains={usrDomainOnSale}
+    //                     />
+    //         case UsrComponents.Auction:
+    //             return <UsrAuction 
+    //                         allAuctionName={auctioningDomain}
+    //                         ifCheckingOtherUsr={ifOtherUsr.current}
+    //                         usrProfit={usrProfit}
+    //                         usrVolume={usrVolume}
+    //                     />
+    //     }
+    // }
 
     return(
         !adminModel? (
-            <UsrIndex />
+            <UsrIndex 
+                useUsr={searchKey}
+                usrDomains={usrDomains}
+                ifCheckingOtherUsr={ifOtherUsr.current}
+                recordMap={recordMap}
+                domainStateMap={domainStateMap}
+                usrProfit={usrProfit}
+                usrVolume={usrVolume}
+                allAuctionName={auctioningDomain}
+            />
         ) : (
             <div className="usrPage">
                 <AdminBlcok />

@@ -1,29 +1,56 @@
-import { Code, Globe, User, Wallet, Zap } from "lucide-react"
+import { Globe, Share2, TrendingUp, User, Wallet } from "lucide-react"
 import { UsrStateCard } from "./index/statCard";
+import type { PublicKey } from "@solana/web3.js";
+import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
+import { useEffect, useState } from "react";
 
 
 const primaryColor = '#B4FC75'; 
 
-const UsrInfo = () => {
+interface UsrInfoProps {
+    checkUsr: PublicKey | null,
+    usrDomains: string[], 
+    ifCheckingOtherUsr: boolean,
+    domainStateMap: Map<string, NameRecordState> | null,
+    usrProfit: number | null,
+    usrVolume: number | null,
+}
 
+const UsrInfo: React.FC<UsrInfoProps> = ({
+    checkUsr, usrDomains, ifCheckingOtherUsr, domainStateMap, usrProfit, usrVolume
+}) => {
+
+    const [profitValue, setProfitValue] = useState("")
+    const [profitExtraValue, setProfitExtraValue] = useState("")
+
+    useEffect(() => {
+        if(usrProfit){
+            setProfitValue((usrProfit/1e9).toFixed(2) + " SOL")
+            if(usrProfit> 0.01001 * 1e9){
+                setProfitExtraValue(((usrProfit - 0.1*1e9)/1e9).toFixed(4) + " SOL")
+            }else setProfitExtraValue("未到体现门槛 0.01 SOL")
+        }else {
+            setProfitValue("Loading")
+        }
+    }, [usrProfit])
 
     return(
         <section className="animate-fade-in-down">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-white/10">
-                <h1 className="text-4xl font-bold mb-4 md:mb-0 flex items-center gap-3">
-                    <User size={32} style={{ color: primaryColor }} />
-                    usr name
-                </h1>
-                <div className="flex items-center text-sm font-mono text-gray-400 bg-[#111] px-4 py-2 rounded-lg border border-white/10">
+                <div className="ml-8 text-xl font-bold mb-4 md:mb-0 flex items-center gap-3">
+                    <User size={40} style={{ color: primaryColor }} />
+                    {checkUsr?.toBase58()}
+                </div>
+                <div className="flex items-center text-sm font-mono text-gray-300 bg-[#111] px-4 py-2 rounded-lg border border-white/10">
                     <Wallet size={16} className="mr-2" />
                     wallet address
                 </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <UsrStateCard icon={Globe} label="拥有的域名" value={`2 个`} />
-                <UsrStateCard icon={Code} label="链上资产估值" value={`0 SOL`} />
-                <UsrStateCard icon={Zap} label="主域名状态" value="已设置" />
+                <UsrStateCard canClink={false} icon={Globe} label="拥有的域名" value={usrDomains.length} />
+                <UsrStateCard canClink={!ifCheckingOtherUsr} icon={TrendingUp} label="收益" value={profitValue} extraValue={profitExtraValue}/>
+                <UsrStateCard canClink={!ifCheckingOtherUsr} icon={Share2} label="推广" value="获取更多收益" />
             </div>
         </section>
     )

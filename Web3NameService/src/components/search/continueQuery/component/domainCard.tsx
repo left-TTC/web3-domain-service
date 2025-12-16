@@ -1,8 +1,7 @@
 import { Globe, Share2 } from "lucide-react"
 import SearchResult from "../result/searchResult"
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState"
-import { useEffect, useState } from "react"
-import { getSearchDomainState, type SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState"
+import { type SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState"
 import StatusBadge from "./domainShow/statuBadge"
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState"
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider"
@@ -13,19 +12,14 @@ interface DomainCardProps {
     domainName: string,
     auctionState: NameAuctionState | null,
     openSettlePage: () => void,
+    resultState: SearchDomainResult | null,
 }
 
 const DomainCard: React.FC<DomainCardProps> = ({
-    domainInfo, domainName, auctionState, openSettlePage
+    domainInfo, domainName, auctionState, openSettlePage, resultState
 }) => {
 
     const {activeRootDomain} = useRootDomain()
-
-    const [resultState, setResultState] = useState<SearchDomainResult | null>(null)
-
-    useEffect(() => {
-        setResultState(getSearchDomainState(domainInfo, auctionState))
-    }, [domainInfo])
 
     return(
         <div className="bg-[#111] border border-white/10 rounded-3xl p-1 shadow-2xl max-w-2xl mx-auto animate-fade-in-up mt-16">

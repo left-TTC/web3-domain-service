@@ -1,15 +1,9 @@
 
-import "@/style/components/topbar/navigation/marketPlaceDropdown.css"
-
-import diamond from "@/assets/diamond.svg"
-import coin from "@/assets/coin.svg"
-import champion from "@/assets/champion.svg"
-
 import { useTranslation } from "react-i18next"
-import Attention from "@/components/common/show/attention"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type ReactNode } from "react"
 import { animate } from "animejs"
 import { useNavigate } from "react-router-dom"
+import { Compass, Gavel, PlusSquare } from "lucide-react"
 
 export enum MarketChoose {
     DomainRecommend = "DomainRecommend",
@@ -42,17 +36,6 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
         }
     }
 
-    const returnWord = (type: MarketChoose) => {
-        switch(type){
-            case MarketChoose.DomainRecommend:
-                return t("findrecommend")
-            case MarketChoose.AuctionHouse:
-                return t("findAuction")
-            case MarketChoose.CreateRootDomain:
-                return t("findcreate")
-        }
-    }
-
     const marketplaceRef = useRef<HTMLDivElement | null>(null)
     const [ifloaded, setIdloaded] = useState(false)
 
@@ -75,7 +58,6 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
             const target = event.target as Node
 
             if(marketButtonRef.current){
-                console.log(1)
                 if(marketplaceRef.current && !marketButtonRef.current.contains(target) && !marketplaceRef.current.contains(target)){
                     setAnimate(true)
                     console.log("yes")
@@ -83,7 +65,7 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
             }
         }
 
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -119,16 +101,35 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
         }
     }, [ifAnimateDown])
 
+    const marketIconMap: Record<MarketChoose, ReactNode> = {
+        [MarketChoose.DomainRecommend]: <Compass size={18} />,
+        [MarketChoose.AuctionHouse]: <Gavel size={18} />,
+        [MarketChoose.CreateRootDomain]: <PlusSquare size={18} />,
+    };
+
     return(
-        <div className="marketdown" ref={marketplaceRef}>
-            <div className="marketdowncontent">
-                {Object.values(MarketChoose).map(marketType => (
-                    <div className="marketchoosebubl" key={marketType}>
-                        <button className="marketchoosebu" onClick={() => marketNavi(marketType)}>
-                            <img src={returnImg(marketType)} className="markettypeimg" />
-                            <h1>{returnTitle(marketType)}</h1>
+        <div
+            ref={marketplaceRef}
+            className="absolute top-20 z-950 opacity-0"
+        >
+            <div className="bg-[#0a0a0a] border border-white/30 rounded-2xl p-4 shadow-xl shadow-black/40 space-y-3 min-w-[250px]">
+                {Object.values(MarketChoose).map((marketType) => (
+                    <div
+                        key={marketType}
+                        className="flex items-center justify-between gap-3"
+                    >
+                        <button
+                            onClick={() => marketNavi(marketType)}
+                            className="flex items-center gap-3 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors w-full text-left"
+                        >
+                            <span className="text-[#B4FC75]">
+                                {marketIconMap[marketType]}
+                            </span>
+
+                            <span className="text-sm font-bold text-white">
+                                {returnTitle(marketType)}
+                            </span>
                         </button>
-                        <Attention word={returnWord(marketType)}/>
                     </div>
                 ))}
             </div>
@@ -138,14 +139,3 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
 
 
 export default MarketplaceDropDown;
-
-const returnImg = (type: MarketChoose) => {
-    switch(type){
-        case MarketChoose.DomainRecommend:
-            return diamond
-        case MarketChoose.AuctionHouse:
-            return coin
-        case MarketChoose.CreateRootDomain:
-            return champion
-    }
-}
