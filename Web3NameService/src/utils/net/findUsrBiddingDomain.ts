@@ -11,11 +11,12 @@ import { NameAuctionStateReverse } from "../functional/common/class/nameAuctionS
 export async function findUsrBiddingDomain(
     connection: Connection,
     usr: PublicKey | null,
-): Promise<(string[])> {
+): Promise<{
+    priceMap: Record<string, number>;
+    stateMap: Map<string, NameAuctionState>;
+}> {
 
-    if(!usr) throw new Error("no wallet")
-
-    // find usr's auctioning domain
+    if (!usr) throw new Error("no wallet");
 
     const filters = [
         { dataSize: 49 },
@@ -27,46 +28,53 @@ export async function findUsrBiddingDomain(
         },
     ];
 
-    const biddingDomainAccounts = await connection.getProgramAccounts(
-        WEB3_REGISTER_ID, {filters}
-    )
+    const programAccounts = await connection.getProgramAccounts(
+        WEB3_REGISTER_ID,
+        { filters }
+    );
+    const validStates: {
+        pubkey: PublicKey;
+        state: NameAuctionState;
+    }[] = [];
 
-    let validAccounts: PublicKey[] = []
-    for(const biddingAccount of biddingDomainAccounts){
-        const accountState = new NameAuctionState(biddingAccount.account)
+    for (const acc of programAccounts) {
+        const state = new NameAuctionState(acc.account);
+        const timeState = getDomainTimeState(state);
 
-        console.log("check one")
-        const timeState = getDomainTimeState(accountState)
-
-        switch(timeState){
-            case DomainState.Auctioning:
-                validAccounts.push(biddingAccount.pubkey)
-                break;
-            case DomainState.Settling:
-                validAccounts.push(biddingAccount.pubkey)
-                break;
-            default: break
+        if (
+            timeState === DomainState.Auctioning ||
+            timeState === DomainState.Settling
+        ) {
+            validStates.push({
+                pubkey: acc.pubkey,
+                state,
+            });
         }
     }
 
-    console.log("valid accounts length: ", validAccounts.length)
+    const reverseKeys = validStates.map(v =>
+        getNameStateRevserseKey(getHashedName(v.pubkey.toBase58()))
+    );
 
-    let biddingDomain: string[] = []
-    let reverseKeys: PublicKey[] = []
-    for(const key of validAccounts){
-        const reverseAccount = getNameStateRevserseKey(getHashedName(key.toBase58()))
-        reverseKeys.push(reverseAccount)
-    }
+    const infos = await connection.getMultipleAccountsInfo(reverseKeys);
 
-    const infos = await connection.getMultipleAccountsInfo(reverseKeys)
-    for(const info of infos){
-        if(info){
-            const nameAcutionRevserse = new NameAuctionStateReverse(info)
-            biddingDomain.push(nameAcutionRevserse.domainName)
-        }
-    }
+    const priceMap: Record<string, number> = {};
+    const stateMap = new Map<string, NameAuctionState>();
 
-    console.log("bidding: ", biddingDomain)
+    infos.forEach((info, index) => {
+        if (!info) return;
 
-    return biddingDomain;
+        const reverse = new NameAuctionStateReverse(info);
+        const domain = reverse.domainName;
+        const state = validStates[index].state;
+
+        priceMap[domain] = state.highestPrice.toNumber();
+        stateMap.set(domain, state);
+    });
+
+    return {
+        priceMap,
+        stateMap,
+    };
 }
+

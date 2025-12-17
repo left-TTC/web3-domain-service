@@ -1,16 +1,12 @@
 import { Activity, AlertCircle, Search } from "lucide-react";
 import DomainItem from "./content/domainItem";
-import AuctionListItem, { type AuctionItem } from "./content/auctionlistItem";
+import AuctionListItem from "./content/auctionlistItem";
 import type { SettlementItem } from "./content/settlementListItem";
 import SettlementListItem from "./content/settlementListItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
-
-//test 
-export const MOCK_MY_AUCTIONS: AuctionItem[] = [
-    { id: 101, name: "super-dao.sol", currentPrice: 15.0, myBid: 15.0, endTime: "2h 45m", status: 'winning' },
-    { id: 102, name: "pixel-art.sol", currentPrice: 8.5, myBid: 6.0, endTime: "10m 30s", status: 'outbid' },
-];
+import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import type { PublicKey } from "@solana/web3.js";
 
 export const MOCK_PENDING_SETTLEMENTS: SettlementItem[] = [
     { id: 201, name: "meta-login.sol", amount: 0, }, 
@@ -23,19 +19,21 @@ export const MOCK_DOMAINS: string[] = [
 
 
 interface ManageContentProps {
-    activeTab: "mydomain" | "economy",
+    activeTab: "mydomain" | "auction",
     domainNum: number,
     myDomains: string[],
-    myAuctions: AuctionItem[],
-    settlements: SettlementItem[],
+    myAuctions: Map<string, NameAuctionState> | null,
+    settlements: Map<string, NameAuctionState> | null,
     recordMap: Map<string, IPFSRecordState> | null,
+    localAuctionName: Record<string, number>,
+    searchKey: PublicKey | null,
 }
 
 const primaryColor = '#B4FC75'; 
 const PAGE_SIZE = 7;
 
 const ManageContent: React.FC<ManageContentProps> = ({
-    activeTab, domainNum, myDomains, myAuctions, settlements, recordMap
+    activeTab, domainNum, myDomains, myAuctions, settlements, recordMap, localAuctionName, searchKey
 }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -47,6 +45,14 @@ const ManageContent: React.FC<ManageContentProps> = ({
     );
     const goPrev = () => setCurrentPage(p => Math.max(1, p - 1));
     const goNext = () => setCurrentPage(p => Math.min(totalPages, p + 1));
+
+    const [auctionItems, setAuctionItems] = useState<string[]>([])
+    const [settleItems, setSettleItems] = useState<string[]>([])
+
+    useEffect(() => {
+        if(myAuctions) setAuctionItems(Array.from(myAuctions.keys()))
+        if(settlements) setSettleItems(Array.from(settlements.keys()))
+    }, [myAuctions, settlements])
 
     
     if (activeTab === 'mydomain') {
@@ -98,13 +104,18 @@ const ManageContent: React.FC<ManageContentProps> = ({
                     <div className="flex justify-between items-center pb-2 border-b border-white/5">
                         <h3 className="text-xl font-bold flex items-center gap-2 text-white">
                             <Activity size={20} style={{ color: primaryColor }} /> 
-                            进行中的拍卖 ({myAuctions.length})
+                            进行中的拍卖 ({auctionItems.length})
                         </h3>
                     </div>
                     
-                    {myAuctions.length > 0 ? (
-                        myAuctions.map(auction => (
-                            <AuctionListItem key={auction.id} item={auction} />
+                    {auctionItems.length > 0 ? (
+                        auctionItems.map(auctionname => (
+                            <AuctionListItem 
+                                item={myAuctions!.get(auctionname)!} 
+                                name={auctionname}    
+                                localAuctionName={localAuctionName}
+                                searchKey={searchKey}
+                            />
                         ))
                     ) : (
                         <div className="text-center py-8 text-gray-500 bg-black/20 rounded-xl">
@@ -117,14 +128,17 @@ const ManageContent: React.FC<ManageContentProps> = ({
                     <div className="flex justify-between items-center pb-2 border-b border-white/5">
                         <h3 className="text-xl font-bold flex items-center gap-2 text-white">
                             <AlertCircle size={20} className="text-yellow-400" /> 
-                            等待结算 ({settlements.length})
+                            等待结算 ({settleItems.length})
                         </h3>
                         <span className="text-xs text-gray-500">结束后需手动领取资产</span>
                     </div>
 
-                    {settlements.length > 0 ? (
-                        settlements.map(item => (
-                            <SettlementListItem key={item.id} item={item} />
+                    {settleItems.length > 0 ? (
+                        settleItems.map(itemName => (
+                            <SettlementListItem 
+                                item={settlements!.get(itemName)!} 
+                                name={itemName}    
+                            />
                         ))
                     ) : (
                         <div className="text-center py-8 text-gray-500 bg-black/20 rounded-xl">

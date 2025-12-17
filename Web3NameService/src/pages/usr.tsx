@@ -1,13 +1,9 @@
 
 
 import "@/style/pages/usr.css"
-import UsrBackground from "@/components/usrPage/usrBackground";
 import { useEffect, useRef, useState } from "react";
-import UsrDomain from "@/components/usrPage/usrComponets/usrDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import AdminBlcok from "@/components/usrPage/adminBlock";
-import { UsrComponents } from "@/components/usrPage/usrBack/usrStateManage";
-import UsrAuction from "@/components/usrPage/usrComponets/usrAuction";
 import { useAuctioningDomain } from "@/components/usrPage/function/useAuctioningDomain";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useAsPayerName } from "@/components/usrPage/function/useAsPayerName";
@@ -71,14 +67,14 @@ export function User({
     }, [searchKey]);
 
     // contains all the domains that currently being liquidated and auctioned
-    const { auctioningDomain } = useAuctioningDomain(connection, searchKey)
+    const { auctioningDomain, auctionState, ifFromRpc } = useAuctioningDomain(connection, searchKey)
     const { asPayerDomain } = useAsPayerName(connection, searchKey)
 
     const {
-        showSearchFrist, isLoadingRecordData, recordLoaded,
+        isLoadingRecordData, recordLoaded,
         domainStateMap, recordMap, usrDomains, usrDomainOnSale
     } = useUsrDomains(
-        auctioningDomain, asPayerDomain, searchKey, setUsrDomainLoaded, fetched
+        searchKey, setUsrDomainLoaded, fetched
     )
 
     const fetchedUsrChain = useRef(false)
@@ -119,6 +115,9 @@ export function User({
                 usrProfit={usrProfit}
                 usrVolume={usrVolume}
                 allAuctionName={auctioningDomain}
+                ifAuctionFromRpc={ifFromRpc}
+                auctionState={auctionState}
+                searchKey={searchKey}
             />
         ) : (
             <div className="usrPage">

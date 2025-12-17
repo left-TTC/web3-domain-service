@@ -1,22 +1,30 @@
 import { Gavel, List } from "lucide-react";
-import ManageContent, { MOCK_DOMAINS, MOCK_MY_AUCTIONS, MOCK_PENDING_SETTLEMENTS } from "./index/manageContent";
+import ManageContent from "./index/manageContent";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
+import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import { useSortSettleAndAuction } from "./hook/useSortSettleAndAuction";
+import type { PublicKey } from "@solana/web3.js";
 
 
 
 const primaryColor = '#B4FC75'; 
 
 interface UsrManageProps {
-    setActiveTab: React.Dispatch<React.SetStateAction<"mydomain" | "economy">>,
-    activeTab: "mydomain" | "economy",
+    setActiveTab: React.Dispatch<React.SetStateAction<"mydomain" | "auction">>,
+    activeTab: "mydomain" | "auction",
     usrDomains: string[],
     recordMap: Map<string, IPFSRecordState> | null,
+    allAuctionName: Record<string, number>,
+    ifLoadedAuctionState: boolean,
+    auctionState: Map<string, NameAuctionState> | null,
+    searchKey: PublicKey | null,
 }
 
 const UsrManage: React.FC<UsrManageProps> = ({
-    setActiveTab, activeTab, usrDomains, recordMap,
+    setActiveTab, activeTab, usrDomains, recordMap, ifLoadedAuctionState, allAuctionName, auctionState, searchKey
 }) => {
 
+    const { onAuctionItems, onSettleItems } = useSortSettleAndAuction(auctionState, ifLoadedAuctionState, allAuctionName)
 
     return(
         <section className="bg-[#111] border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl shadow-black/50">
@@ -24,7 +32,7 @@ const UsrManage: React.FC<UsrManageProps> = ({
                 {['mydomain', 'economy'].map((tab) => (
                 <button
                     key={tab}
-                    onClick={() => setActiveTab(tab as 'mydomain' | 'economy')}
+                    onClick={() => setActiveTab(tab as 'mydomain' | 'auction')}
                     className={`py-3 px-6 text-lg font-semibold transition-colors duration-200 flex items-center gap-2 ${
                     activeTab === tab
                         ? 'border-b-4 text-white'
@@ -43,8 +51,10 @@ const UsrManage: React.FC<UsrManageProps> = ({
                 domainNum={usrDomains.length}
                 myDomains={usrDomains}
                 recordMap={recordMap}
-                myAuctions={MOCK_MY_AUCTIONS}
-                settlements={MOCK_PENDING_SETTLEMENTS}
+                myAuctions={onAuctionItems}
+                settlements={onSettleItems}
+                localAuctionName={allAuctionName}
+                searchKey={searchKey}
             />
 
         </section>

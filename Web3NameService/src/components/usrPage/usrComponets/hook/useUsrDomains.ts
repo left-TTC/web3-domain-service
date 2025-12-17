@@ -16,8 +16,6 @@ import { useEffect, useRef, useState } from "react";
 
 
 export function useUsrDomains(
-    auctioningDomain: string[],
-    asPayerDomain: PublicKey[],
     searchKey: PublicKey | null,
     setUsrDomainLoaded: React.Dispatch<React.SetStateAction<boolean>>,
     fetched: React.RefObject<boolean>
@@ -25,14 +23,6 @@ export function useUsrDomains(
 
     const { rootDomains } = useRootDomain()
     const { connection } = useConnection()
-
-    const [showSearchFrist, setShowSearchFrist] = useState(false)
-
-    useEffect(() => {
-        if(!auctioningDomain && !asPayerDomain){
-            setShowSearchFrist(true)
-        }
-    }, [auctioningDomain, asPayerDomain])
 
     const [usrDomains, setUsrDomains] = useState<string[]>([])
     
@@ -125,7 +115,7 @@ export function useUsrDomains(
     }, [usrDomains, rootKeyMap])
 
     return {
-        showSearchFrist, isLoadingRecordData, recordLoaded,
+        isLoadingRecordData, recordLoaded,
         domainStateMap, recordMap, usrDomains, usrDomainOnSale
     }
 }

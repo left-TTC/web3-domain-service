@@ -4,6 +4,7 @@ import UsrManage from './usrComponets/usrManage';
 import type { PublicKey } from '@solana/web3.js';
 import type { IPFSRecordState } from '@/utils/functional/common/class/ipfsRecordState';
 import type { NameRecordState } from '@/utils/functional/common/class/nameRecordState';
+import type { NameAuctionState } from '@/utils/functional/common/class/nameAuctionState';
 
 interface UsrIndexProps{
     useUsr: PublicKey | null,
@@ -13,14 +14,19 @@ interface UsrIndexProps{
     domainStateMap: Map<string, NameRecordState> | null,
     usrProfit: number | null,
     usrVolume: number | null,
-    allAuctionName: string[],
+    allAuctionName: Record<string, number>,
+    ifAuctionFromRpc: boolean,
+    auctionState: Map<string, NameAuctionState> | null,
+    searchKey: PublicKey | null,
 }
 
 export default function UsrIndex(
-    { useUsr, usrDomains, ifCheckingOtherUsr, recordMap, domainStateMap, usrProfit, usrVolume, allAuctionName }: UsrIndexProps 
+    { useUsr, usrDomains, ifCheckingOtherUsr, recordMap, domainStateMap, usrProfit, usrVolume, allAuctionName,
+        ifAuctionFromRpc, auctionState, searchKey
+    }: UsrIndexProps 
 ) {
     
-    const [activeTab, setActiveTab] = useState<'mydomain' | 'economy'>('mydomain');
+    const [activeTab, setActiveTab] = useState<'mydomain' | 'auction'>('mydomain');
  
     return (
         <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#B4FC75] selection:text-black pb-24 relative overflow-x-hidden">
@@ -43,6 +49,10 @@ export default function UsrIndex(
                     setActiveTab={setActiveTab}
                     usrDomains={usrDomains}
                     recordMap={recordMap}
+                    allAuctionName={allAuctionName}
+                    ifLoadedAuctionState={ifAuctionFromRpc}
+                    auctionState={auctionState}
+                    searchKey={searchKey}
                 />
             </main>
 

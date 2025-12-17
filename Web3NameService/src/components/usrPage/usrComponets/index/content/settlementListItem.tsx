@@ -1,3 +1,4 @@
+import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { CheckCircle } from "lucide-react";
 
 
@@ -9,12 +10,13 @@ export interface SettlementItem {
 }
 
 interface SettlementListItemProps {
-    item: SettlementItem
+    name: string,
+    item: NameAuctionState
 }
 
 
 const SettlementListItem: React.FC<SettlementListItemProps> = ({
-    item
+    item, name
 }) => {
 
     return(
@@ -24,7 +26,7 @@ const SettlementListItem: React.FC<SettlementListItemProps> = ({
                     <CheckCircle size={20} />
                 </div>
                 <div>
-                    <p className="text-lg font-bold text-white">{item.name}</p>
+                    <p className="text-lg font-bold text-white">{name}</p>
                     <p className="text-xs text-gray-400 mt-1">
                         '竞拍成功，等待领取 NFT'
                     </p>
