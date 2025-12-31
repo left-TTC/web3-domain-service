@@ -1,21 +1,11 @@
 import { Activity, AlertCircle, Search } from "lucide-react";
 import DomainItem from "./content/domainItem";
 import AuctionListItem from "./content/auctionlistItem";
-import type { SettlementItem } from "./content/settlementListItem";
 import SettlementListItem from "./content/settlementListItem";
 import { useEffect, useState } from "react";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import type { PublicKey } from "@solana/web3.js";
-
-export const MOCK_PENDING_SETTLEMENTS: SettlementItem[] = [
-    { id: 201, name: "meta-login.sol", amount: 0, }, 
-    { id: 202, name: "banana-coin.sol", amount: 4.2, }, 
-];
-
-export const MOCK_DOMAINS: string[] = [
-    "aa.aa", "aa.ss", "as.asa", "skjad.ashdj",  "skjsad.ashdj", "skajad.ashdj", "skjadf.ashdj", "saakjad.ashdj","skjadss.ashdj","skjaccd.ashdj","skjad.asvhdj","skjad.asahdj","skjad.ashddj","skjad.ashdjf","skjad.aaashdj"
-];
 
 
 interface ManageContentProps {

@@ -89,6 +89,11 @@ export function useCalculateAllFees(
                     total += usePrice;
                     setTotalFee(total)
                     setFees(feeItems)
+                    break
+
+                case SettleType.root:
+                    // need add
+                    setTotalFee(usePrice) 
             }
 
             setCalculating(false)

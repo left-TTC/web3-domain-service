@@ -11,12 +11,20 @@ import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionSta
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
 import DomainSearchResult from "@/components/search/continueQuery/domainSearchResult";
 import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
-import DomainSettlementModal, { SettleType } from "@/components/settle/settlement";
+import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
 import { getSearchDomainState, type SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
+import { startDomain } from "@/components/search/domainSettlement/functionComponents/transaction/startDomain";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import type { PublicKey } from "@solana/web3.js";
+import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
+import { useAtom } from "jotai";
+import { biddingDomain } from "@/components/usrPage/function/useAuctioningDomain";
 
 export function Search() {
 
     const location = useLocation();
+    const {publicKey: usr, signTransaction} = useWalletEnv()
+    const {rootDomains} = useRootDomain()
 
     const {connection} = useConnection();
     const navigate = useNavigate();
@@ -92,6 +100,28 @@ export function Search() {
         setResultState(getSearchDomainState(queryDomainInfo, domainAuctionState))
     }, [queryDomainInfo, domainAuctionState])
 
+    
+    const [refferrerKey, setRefferrerKey] = useState<PublicKey | null>(null);
+
+    const [_, setAuctioningDomain] = useAtom(biddingDomain)
+    const createNameState = async ({ totalFee }: DomainSettlementConfirmPayload) => {
+        return await startDomain(
+            queryingDomain,
+            refferrerKey!,
+            usr,
+            rootDomains,
+            totalFee,
+            connection,
+            signTransaction,
+            () => {
+                setAuctioningDomain(prev => ({
+                    ...prev,
+                    [queryingDomain]: domainStartPrice,
+                })), console.log("add", queryingDomain, "to cache")
+            }
+        )
+    }
+
     return(
         <div>
             <DomainSearchResult
@@ -107,6 +137,8 @@ export function Search() {
                     opearationName={queryingDomain}
                     actionType={SettleType.buy}
                     basePrice={domainStartPrice!}
+                    onConfirm={createNameState}
+                    setRefferrerKey={setRefferrerKey}
                 />
             }
         </div>

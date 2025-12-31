@@ -1,11 +1,19 @@
 import { Plus, Rocket, ShieldCheck, Terminal, TrendingUp, Zap } from "lucide-react";
-import { useState } from "react";
 
 const primaryColor = '#B4FC75'; 
 
-const CreateRootPost = () => {
+interface CreateRootPostProps {
+    newRoot: string,
+    setNewRoot: React.Dispatch<React.SetStateAction<string>>,
+    initialSol: number,
+    setInitialSol: React.Dispatch<React.SetStateAction<number>>,
+    showSettle: () => void,
+}
 
-    const [newRoot, setNewRoot] = useState("")
+const CreateRootPost: React.FC<CreateRootPostProps> = ({
+    newRoot, setNewRoot, initialSol, setInitialSol, showSettle
+}) => {
+
 
     return (
         <section className="relative mt-12">
@@ -29,16 +37,16 @@ const CreateRootPost = () => {
                             
                             <ul className="space-y-4">
                                 {[
-                                { icon: <Terminal size={18} />, text: "完全去中心化治理" },
-                                { icon: <ShieldCheck size={18} />, text: "抗审查的所有权记录" },
-                                { icon: <TrendingUp size={18} />, text: "初始发起者获得 5% 版税" }
+                                    { icon: <Terminal size={18} />, text: "完全去中心化治理" },
+                                    { icon: <ShieldCheck size={18} />, text: "抗审查的所有权记录" },
+                                    { icon: <TrendingUp size={18} />, text: "初始发起者获得 5% 版税" }
                                 ].map((feature, idx) => (
-                                <li key={idx} className="flex items-center gap-4 text-sm font-medium text-gray-300">
-                                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[#B4FC75]">
-                                    {feature.icon}
-                                    </div>
-                                    {feature.text}
-                                </li>
+                                    <li key={idx} className="flex items-center gap-4 text-sm font-medium text-gray-300">
+                                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[#B4FC75]">
+                                        {feature.icon}
+                                        </div>
+                                        {feature.text}
+                                    </li>
                                 ))}
                             </ul>
                         </div>
@@ -54,8 +62,8 @@ const CreateRootPost = () => {
                                     type="text" 
                                     value={newRoot}
                                     onChange={(e) => setNewRoot(e.target.value.toLowerCase().replace(/[^a-z0-9]/g, ''))}
-                                    placeholder="solana"
-                                    className="w-full bg-[#050505] border border-white/20 rounded-xl py-4 pl-8 pr-4 text-3xl font-bold font-mono text-white focus:outline-none focus:border-[#B4FC75] transition-colors placeholder-gray-700"
+                                    placeholder="web3"
+                                    className="w-full bg-[#050505] border-2 border-white/20 rounded-xl py-4 pl-8 pr-4 text-3xl font-bold font-mono text-white focus:outline-none focus:border-[#B4FC75] transition-colors placeholder-gray-700"
                                     maxLength={10}
                                 />
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
@@ -66,29 +74,36 @@ const CreateRootPost = () => {
                             <div className="grid grid-cols-2 gap-4 mb-6">
                                 <div>
                                     <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Initial Bid (SOL)</label>
-                                    <input type="number" placeholder="100" className="w-full bg-[#050505] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#B4FC75] focus:outline-none transition-colors" />
-                                </div>
-                                <div>
-                                    <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Duration</label>
-                                    <select className="w-full bg-[#050505] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#B4FC75] focus:outline-none transition-colors appearance-none">
-                                        <option>7 Days</option>
-                                        <option>14 Days</option>
-                                        <option>30 Days</option>
-                                    </select>
+                                    <input
+                                        type="number"
+                                        placeholder="100"
+                                        value={initialSol === 0 ? '' : initialSol}
+                                        onChange={(e) => {
+                                        const value = e.target.value
+                                        setInitialSol(value === '' ? 0 : Number(value))
+                                        }}
+                                        className="
+                                            w-full bg-[#050505]
+                                            border border-white/20 rounded-lg
+                                            px-4 py-3 text-white
+                                            focus:border-[#B4FC75] focus:outline-none
+                                            transition-colors
+                                            appearance-none
+                                            [&::-webkit-inner-spin-button]:appearance-none
+                                            [&::-webkit-outer-spin-button]:appearance-none"
+                                    />
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 rounded-xl font-bold text-lg text-black hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-[#B4FC75]/20 flex items-center justify-center gap-2"
+                            <button
+                                onClick={() => showSettle()} 
+                                className="w-full py-4 rounded-xl font-bold text-lg text-black hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-[#B4FC75]/20 flex items-center justify-center gap-2"
                                 style={{ backgroundColor: primaryColor }}
                             >
                                 <Zap size={20} fill="black" />
                                 Initialize Proposal
                             </button>
-                            
-                            <p className="text-center text-xs text-gray-600 mt-4">
-                                需要支付 0.5 SOL 的协议交互费
-                            </p>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

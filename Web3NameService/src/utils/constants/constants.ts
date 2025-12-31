@@ -1,4 +1,4 @@
-import { MainMint } from "@/components/search/domainSettlement/paymentMethod/crypto";
+
 import { PublicKey } from "@solana/web3.js";
 
 
@@ -41,16 +41,6 @@ export const INIT_DOMAIN_PRICE = 10000000;
 
 export const DEFAULT_CUSTOM_VALUE = 99999999;
 
-export function getMintVault(mintType: MainMint): PublicKey{
-    switch(mintType){
-        case MainMint.SOL:
-            return new PublicKey("HM92LvSe6gwrLeXfJ1koV5pVmZgC6NE5L9hC1yQTMb2q")
-        case MainMint.USDC:
-            return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
-        case MainMint.USDT:
-            return new PublicKey("2EvcDramkDpHfxk6EDxFfheKSFpoEyTjFJVNpGuBos8K")
-    }
-}
 
 // export function returnProjectVault(): PublicKey {
 //     const seeds = [getHashedName("vault")];

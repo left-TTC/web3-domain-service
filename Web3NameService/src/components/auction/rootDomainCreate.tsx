@@ -1,22 +1,41 @@
-import { getAndReturnNowPosition } from "@/utils/functional/show/page/getAndReturnNowPosition";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import CreatingRootShow from "./rootDomainCreate/creatingRootShow";
 import CreateRootPost from "./rootDomainCreate/createRootPost";
+import DomainSettlementModal, { SettleType } from "../settle/settlement";
+import { tryToCreateRootDomain } from "./rootDomainCreate/launch/functionalComponents/tryToCreateRootDomain";
+import { useConnection } from "@solana/wallet-adapter-react";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import { TransactionState } from "@/provider/fixedToastProvider/fixedToastProvider";
 
 
 
 
 export default function RootDomainCreate(){
-
-    const {t} = useTranslation()
     
+    const {connection} = useConnection()
+    const {publicKey, signTransaction} = useWalletEnv()
+
     const [showLaunchSettle, setShowLaunchSettle] = useState(false)
-    const [backFn, setBackFn] = useState<()=>void>(()=>{})
+
+    const [newRoot, setNewRoot] = useState("")
+    const [initialSol, setInitialSol] = useState(0)
 
     const openLanunchSettleAndRecordPosition = () => {
-        setBackFn(() => getAndReturnNowPosition(false))
         setShowLaunchSettle(true)
+    }
+
+    const createRootState = async() => {
+        if(initialSol > 0 && newRoot.length > 0){
+            return await tryToCreateRootDomain(
+                newRoot,
+                initialSol,
+                connection,
+                signTransaction,
+                publicKey
+            )
+        }else{
+            return TransactionState.Error
+        }
     }
 
     return(
@@ -30,8 +49,24 @@ export default function RootDomainCreate(){
                 <CreatingRootShow
                     openLanunchSettleAndRecordPosition={openLanunchSettleAndRecordPosition}
                 />
-                <CreateRootPost />
+                <CreateRootPost 
+                    newRoot={newRoot}
+                    setNewRoot={setNewRoot}
+                    initialSol={initialSol}
+                    setInitialSol={setInitialSol}
+                    showSettle={() => setShowLaunchSettle(true)}
+                />
             </main>
+
+            {showLaunchSettle && 
+                <DomainSettlementModal
+                    opearationName={newRoot}
+                    actionType={SettleType.root}
+                    basePrice={initialSol * 1e9}
+                    onClose={() => setShowLaunchSettle(false)}
+                    onConfirm={createRootState}
+                />
+            }
         </div>
     )
 

@@ -1,4 +1,4 @@
-import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { startWeb3DomainAuction } from "@/utils/net/mainFunction/domain/startWeb3DomainAuction";
@@ -12,38 +12,34 @@ export async function startDomain(
     buyer: PublicKey | null,
     
     RootDomain: string[] | null,
-    totalFee: number, //lamports
-    solanaToast: SolanaToastContextType,
+    totalFee: number,
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
     addDomainToCache: () => void,
-): Promise<void> {
+): Promise<TransactionState> {
 
     const domainAndRoot = cutDomain(entireDomain)
 
     console.log("total fee: ",totalFee)
 
     if(!buyer || !signTransaction){
-        solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
-        return
+        return TransactionState.NoConnect
     }
     if(!RootDomain){
-        solanaToast.show(TransactionState.Error)
         console.log("root error")
-        return
+        return TransactionState.Error
     }else{
         if(!RootDomain.includes(domainAndRoot[1])){
-            solanaToast.show(TransactionState.Error)
             console.log("root error")
-            return
+            return TransactionState.Error
         }
     }
 
     const startDomainTransactionId = await showCheckSolBalance  (
-        solanaToast, buyer, connection, totalFee
+        buyer, connection, totalFee
     )
-    if(!startDomainTransactionId[1])return
+    if(!startDomainTransactionId)return TransactionState.NoEnoughBalance
 
     try{
         const tryStartDomainTransaction = await startWeb3DomainAuction(
@@ -59,7 +55,7 @@ export async function startDomain(
         tryStartDomainTransaction.feePayer = buyer
 
         const simulationResult = await connection.simulateTransaction(tryStartDomainTransaction);
-        console.log("simulate result", simulationResult);
+        console.log("simulate result", simulationResult.context);
 
         if(simulationResult.value.err === null){
             const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
@@ -93,23 +89,26 @@ export async function startDomain(
             }
 
             if(String(txResult).includes("success")){
-                solanaToast.show(TransactionState.Success)
+                return TransactionState.Success
             }
 
             addDomainToCache()
         }else{
             console.log("simulate fail")
+            return TransactionState.Error
         }
 
     }catch(err){
          console.error("Transaction failed:", err);
 
-        // 捕获并打印完整日志
         if (err instanceof SendTransactionError) {
             const logs = err.getLogs(connection);
             console.error("=== Simulation Logs ===");
             console.error(logs);
         }
 
+        return TransactionState.Error
     }
+
+    return TransactionState.Success
 }
