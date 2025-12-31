@@ -34,7 +34,7 @@ const DomainCard: React.FC<DomainCardProps> = ({
                         <div>
                             <h2 className="text-3xl md:text-4xl font-bold text-white font-mono tracking-tight">{domainName}</h2>
                             <div className="flex items-center gap-2 mt-2 text-gray-500 text-xs uppercase tracking-wider">
-                                <span className="bg-white/5 px-2 py-0.5 rounded">Root: {activeRootDomain}</span>
+                                <span className="bg-white/5 px-2 py-0.5 rounded font-bold">Root: {activeRootDomain}</span>
                             </div>
                         </div>
                     </div>

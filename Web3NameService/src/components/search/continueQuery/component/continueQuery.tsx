@@ -1,6 +1,7 @@
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
+import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { Search } from "lucide-react"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface ContinueQueryProps {
@@ -16,7 +17,11 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
     const navigate = useNavigate();
     const {activeRootDomain} = useRootDomain();
 
-    const [searchTerm, setSearchTerm] = useState(searchingName);
+    const [searchTerm, setSearchTerm] = useState("");
+    useEffect(() => {
+        const name = cutDomain(searchingName)[0]
+        setSearchTerm(name)
+    }, [searchTerm])
 
     const clickQueryDomain = () => {
         if(searchTerm === "") return;

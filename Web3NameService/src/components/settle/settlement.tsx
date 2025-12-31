@@ -90,7 +90,7 @@ export default function DomainSettlementModal({
                     <div className="flex items-center justify-between px-4 py-3 bg-[#B4FC75]/5 border border-[#B4FC75]/20 rounded-xl text-sm">
                         <div className="flex items-center gap-2 text-[#B4FC75]">
                             <Wallet size={16} />
-                            <span className="font-mono">8x92...kL2p</span>
+                            <span className="font-mono">{}</span>
                         </div>
                         <div className="flex items-center gap-1 text-gray-400">
                             <ShieldCheck size={14} />
