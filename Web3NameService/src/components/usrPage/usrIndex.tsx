@@ -53,6 +53,7 @@ export default function UsrIndex(
                     ifLoadedAuctionState={ifAuctionFromRpc}
                     auctionState={auctionState}
                     searchKey={searchKey}
+                    domainStateMap={domainStateMap}
                 />
             </main>
 

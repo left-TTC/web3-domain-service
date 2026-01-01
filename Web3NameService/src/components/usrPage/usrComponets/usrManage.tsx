@@ -4,6 +4,7 @@ import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecord
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { useSortSettleAndAuction } from "./hook/useSortSettleAndAuction";
 import type { PublicKey } from "@solana/web3.js";
+import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 
 
 
@@ -18,10 +19,12 @@ interface UsrManageProps {
     ifLoadedAuctionState: boolean,
     auctionState: Map<string, NameAuctionState> | null,
     searchKey: PublicKey | null,
+    domainStateMap: Map<string, NameRecordState> | null,
 }
 
 const UsrManage: React.FC<UsrManageProps> = ({
-    setActiveTab, activeTab, usrDomains, recordMap, ifLoadedAuctionState, allAuctionName, auctionState, searchKey
+    setActiveTab, activeTab, usrDomains, recordMap, ifLoadedAuctionState, 
+    allAuctionName, auctionState, searchKey, domainStateMap
 }) => {
 
     const { onAuctionItems, onSettleItems } = useSortSettleAndAuction(auctionState, ifLoadedAuctionState, allAuctionName)
@@ -55,6 +58,7 @@ const UsrManage: React.FC<UsrManageProps> = ({
                 settlements={onSettleItems}
                 localAuctionName={allAuctionName}
                 searchKey={searchKey}
+                domainStateMap={domainStateMap}
             />
 
         </section>

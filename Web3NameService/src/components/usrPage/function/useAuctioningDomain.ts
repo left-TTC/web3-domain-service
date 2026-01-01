@@ -21,6 +21,8 @@ export function useAuctioningDomain(
 
     const [ifFromRpc, setIfFromRpc] = useState(false)
     const [auctionState, setAuctionState] = useState<Map<string, NameAuctionState> | null>(null)
+
+    console.log(auctioningDomain)
     
     useEffect(() => {
         // change to new device or delete the cache 

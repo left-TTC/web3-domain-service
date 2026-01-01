@@ -100,17 +100,14 @@ export function Search() {
         setResultState(getSearchDomainState(queryDomainInfo, domainAuctionState))
     }, [queryDomainInfo, domainAuctionState])
 
-    
-    const [refferrerKey, setRefferrerKey] = useState<PublicKey | null>(null);
-
     const [_, setAuctioningDomain] = useAtom(biddingDomain)
-    const createNameState = async ({ totalFee }: DomainSettlementConfirmPayload) => {
+    const createNameState = async ({ totalFee, refferrerKey }: DomainSettlementConfirmPayload) => {
         return await startDomain(
             queryingDomain,
             refferrerKey!,
             usr,
             rootDomains,
-            totalFee,
+            totalFee!,
             connection,
             signTransaction,
             () => {
@@ -138,7 +135,6 @@ export function Search() {
                     actionType={SettleType.buy}
                     basePrice={domainStartPrice!}
                     onConfirm={createNameState}
-                    setRefferrerKey={setRefferrerKey}
                 />
             }
         </div>

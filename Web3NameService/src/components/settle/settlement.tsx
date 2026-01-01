@@ -1,6 +1,6 @@
 import { ArrowRight, CreditCard, Loader2, ShieldCheck, Wallet } from "lucide-react";
 import { useState } from "react";
-import RefferrerVerify from "../common/transaction/refferrerVerify";
+import RefferrerVerify from "./components/refferrerVerify";
 import type { PublicKey } from "@solana/web3.js";
 import DomainHero from "./components/domainHero";
 import SettleHead from "./components/settleHead";
@@ -8,18 +8,23 @@ import FeeItems from "./components/feeItems";
 import { useCalculateAllFees } from "./components/function/useCalculateAllFee";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
-import { cutString } from "@/utils/functional/common/cutString";
 import type { TransactionState } from "@/provider/fixedToastProvider/fixedToastProvider";
+import WalletView from "./components/walletView";
+import AuctionBidMultiplier from "./components/auctionBidMultiplier";
+import CustomPriceInput from "./components/customPriceInput";
 
 export enum SettleType {
     buy,
-    set,
     root,
     settle,
+    increase,
 }
 
 export interface DomainSettlementConfirmPayload {
-    totalFee: number
+    totalFee?: number,
+    customValue?: number,
+    newPrice?: number,
+    refferrerKey?: PublicKey
 }
 
 interface DomainSettlementProps {
@@ -28,15 +33,13 @@ interface DomainSettlementProps {
     basePrice: number;
     onClose: () => void; 
     onConfirm: (payload: DomainSettlementConfirmPayload) => TransactionState | Promise<TransactionState>;
-    // on transfer in when type is buy
-    setRefferrerKey?: React.Dispatch<React.SetStateAction<PublicKey | null>>;
 }
 
 const PRIMARY_COLOR = '#B4FC75';
 
 export default function DomainSettlementModal({
     opearationName, actionType, basePrice, onClose,
-    onConfirm, setRefferrerKey
+    onConfirm
 }: DomainSettlementProps) {
 
     const {publicKey: usr} = useWalletEnv()
@@ -45,14 +48,19 @@ export default function DomainSettlementModal({
     const [isSuccess, setIsSuccess] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [ableToConfirm, setAbleToConfirm] = useState(false)
+    const [refferrerKey, setRefferrerKey] = useState<PublicKey | null>(null);
 
     const [ifRefferrerValid, setIfRefferrerValid] = useState(false)
+    const [currentPrice, setCurrentPrice] = useState(basePrice);
 
     const {fees, totalFee, calculating} = useCalculateAllFees(actionType, basePrice, opearationName, usr, activeRootDomain)
 
     const handlePayment = async() => {
         setIsProcessing(true);
-        await onConfirm({totalFee: totalFee});
+        await onConfirm({
+            totalFee: totalFee, refferrerKey: refferrerKey? refferrerKey:undefined,
+            customValue: currentPrice, newPrice: currentPrice
+        });
         setIsProcessing(false)
     };
 
@@ -71,36 +79,35 @@ export default function DomainSettlementModal({
                         title={opearationName}
                         type={actionType}
                     />
-
-                    {actionType === SettleType.buy &&
+                    {(actionType===SettleType.buy || actionType===SettleType.increase) &&
                         <RefferrerVerify 
                             setRefferrerKey={setRefferrerKey!}
                             setReffererValid={setIfRefferrerValid}
                             ifRefferValid={ifRefferrerValid}
                         />
                     }
+                    {actionType===SettleType.increase &&
+                        <AuctionBidMultiplier
+                            currentPrice={currentPrice}
+                            onUpdate={setCurrentPrice}
+                        />
+                    }
+                    {actionType===SettleType.settle &&
+                        <CustomPriceInput
+                            value={currentPrice}
+                            onChange={setCurrentPrice}
+                        />
+                    }
                     <div className="space-y-4 mb-8 mt-8">
                         <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2 uppercase tracking-wide">
                             <CreditCard size={14} /> 账单明细
                         </h3>
-                        
                         <FeeItems
                             feeItems={fees}
                             total={totalFee}
                         />
                     </div>
-
-                    <div className="flex items-center justify-between px-4 py-3 bg-[#B4FC75]/5 border border-[#B4FC75]/20 rounded-xl text-sm">
-                        <div className="flex items-center gap-2 text-[#B4FC75]">
-                            <Wallet size={16} />
-                            <span className="font-mono">{usr? cutString(usr?.toBase58(), 5, 5, "..."):"Loading..."}</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-gray-400">
-                            <ShieldCheck size={14} />
-                            安全连接
-                        </div>
-                    </div>
-
+                    <WalletView />
                 </div>
 
                 <div className="p-6 border-t border-white/5 bg-[#0a0a0a]">

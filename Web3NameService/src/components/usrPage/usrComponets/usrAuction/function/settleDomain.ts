@@ -1,7 +1,6 @@
-import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
 import { CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
-import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { settleAuctionDomain } from "@/utils/net/mainFunction/domain/settleAuctionDomain";
 import { Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
@@ -10,32 +9,23 @@ import { Transaction, type Connection, type PublicKey, type VersionedTransaction
 export async function settleDomain(
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
     wallet: PublicKey | null,
-    solanaToast: SolanaToastContextType,
     connection: Connection,
     domainNameState: NameAuctionState,
     extireDomain: string,
-    totalLamports: number,
     customDomainPrice: number | null // SOL
-): Promise<void>{
+): Promise<TransactionState>{
     if(!wallet || !signTransaction){
-        solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
-        return
+        return TransactionState.NoConnect
     }
 
     if(domainNameState.highestBidder.toBase58() != wallet.toBase58()){
-        solanaToast.show(TransactionState.Error)
         console.log("wallet error")
-        return
+        return TransactionState.Error
     }
 
     console.log("central state register", CENTRAL_STATE_REGISTER.toBase58())
 
-    const settelDomainTransactionId = await showCheckSolBalance(
-            solanaToast, wallet, connection, totalLamports
-        )
-    
-    if(!settelDomainTransactionId[1])return
 
     try{
         const settelDomainTransaction = new Transaction()
@@ -84,13 +74,18 @@ export async function settleDomain(
                 console.log(txInfo.meta?.logMessages);
             }
 
-            if(String(txResult).includes("success")){
-                solanaToast.show(TransactionState.Success)
-            }
+            // if(String(txResult).includes("success")){
+            //     solanaToast.show(TransactionState.Success)
+            // }
+
+            return TransactionState.Success
         }else{
             console.log("simulate fail")
+            return TransactionState.Error
         }
     }catch(err){
         console.log("err: ", err)
     }
+
+    return TransactionState.Success
 }

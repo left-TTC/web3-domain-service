@@ -1,8 +1,12 @@
+import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
+import { TransactionState } from "@/provider/fixedToastProvider/fixedToastProvider";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import { useConnection } from "@solana/wallet-adapter-react";
 import type { PublicKey } from "@solana/web3.js";
 import { Gavel } from "lucide-react";
 import { useEffect, useState } from "react";
+import { increaseBidNum } from "../../usrAuction/function/increaseBidNum";
 
 
 interface AuctionListItemProps {
@@ -19,6 +23,9 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
 }) => {
 
     const [statu, setStatu] = useState<'winning' | 'outbid' | null>(null)
+
+    const {publicKey: bidder, signTransaction} = useWalletEnv()
+    const {connection} = useConnection()
     
     useEffect(() => {
         if(!searchKey) return
@@ -28,6 +35,29 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
     }, [searchKey])
 
     const myPrice = localAuctionName[name] ?? "未知"
+
+    const [showIncrease, setShowIncrease] = useState(false)
+    const increaseBid = async (
+        payload: DomainSettlementConfirmPayload
+    ): Promise<TransactionState> => {
+        const {totalFee, newPrice, refferrerKey} = payload
+
+        try{
+            return await increaseBidNum(
+                signTransaction,
+                bidder,
+                connection,
+                item,
+                name,
+                totalFee!,
+                newPrice!,
+                refferrerKey!,
+            )
+        }catch{
+            console.log("has error increase")
+            return TransactionState.Error
+        }
+    }
 
     return (
         <div className="flex items-center justify-between p-4 bg-black/40 rounded-lg border border-white/10 hover:border-[#B4FC75]/50 transition-colors">
@@ -59,12 +89,26 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
                 </p>
                 </div>
                 
-                <button className={`px-4 py-2 rounded-lg text-black text-xs font-bold hover:opacity-90 transition-opacity ${statu === 'outbid' ? 'animate-pulse' : ''}`}
+                <button
+                    onClick={() => setShowIncrease(true)} 
+                    className={`px-4 py-2 rounded-lg text-black text-xs font-bold hover:opacity-90 transition-opacity ${statu === 'outbid' ? 'animate-pulse' : ''}`}
                     style={{ backgroundColor: statu === 'outbid' ? '#ef4444' : primaryColor, color: statu === 'outbid' ? 'white' : 'black' }}
                 >
                     {statu === 'outbid' ? '加价' : '查看'}
                 </button>
+
+
             </div>
+
+            {showIncrease && 
+                <DomainSettlementModal
+                    onClose={() => setShowIncrease(false)}
+                    actionType={SettleType.increase}
+                    basePrice={item.highestPrice.toNumber()}
+                    onConfirm={increaseBid}
+                    opearationName={name}
+                />
+            }
         </div>
     )
 }

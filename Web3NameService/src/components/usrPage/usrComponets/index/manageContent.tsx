@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import type { PublicKey } from "@solana/web3.js";
+import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 
 
 interface ManageContentProps {
@@ -17,13 +18,15 @@ interface ManageContentProps {
     recordMap: Map<string, IPFSRecordState> | null,
     localAuctionName: Record<string, number>,
     searchKey: PublicKey | null,
+    domainStateMap: Map<string, NameRecordState> | null,
 }
 
 const primaryColor = '#B4FC75'; 
 const PAGE_SIZE = 7;
 
 const ManageContent: React.FC<ManageContentProps> = ({
-    activeTab, domainNum, myDomains, myAuctions, settlements, recordMap, localAuctionName, searchKey
+    activeTab, domainNum, myDomains, myAuctions, settlements, 
+    recordMap, localAuctionName, searchKey, domainStateMap
 }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -43,7 +46,6 @@ const ManageContent: React.FC<ManageContentProps> = ({
         if(myAuctions) setAuctionItems(Array.from(myAuctions.keys()))
         if(settlements) setSettleItems(Array.from(settlements.keys()))
     }, [myAuctions, settlements])
-
     
     if (activeTab === 'mydomain') {
         return (
@@ -55,7 +57,8 @@ const ManageContent: React.FC<ManageContentProps> = ({
                     <DomainItem 
                         key={domain}  
                         domainName={domain}
-                        ipfs={recordMap?.get(domain)?.recordData ?? "未设置"}
+                        ipfsState={recordMap?.get(domain) ?? null}
+                        nameState={domainStateMap?.get(domain) ?? null}
                     />
                 ))}
                 {totalPages > 1 && (
@@ -99,8 +102,9 @@ const ManageContent: React.FC<ManageContentProps> = ({
                     </div>
                     
                     {auctionItems.length > 0 ? (
-                        auctionItems.map(auctionname => (
+                        auctionItems.map((auctionname, index) => (
                             <AuctionListItem 
+                                key={index}
                                 item={myAuctions!.get(auctionname)!} 
                                 name={auctionname}    
                                 localAuctionName={localAuctionName}
@@ -124,8 +128,9 @@ const ManageContent: React.FC<ManageContentProps> = ({
                     </div>
 
                     {settleItems.length > 0 ? (
-                        settleItems.map(itemName => (
+                        settleItems.map((itemName, index) => (
                             <SettlementListItem 
+                                key={index}
                                 item={settlements!.get(itemName)!} 
                                 name={itemName}    
                             />

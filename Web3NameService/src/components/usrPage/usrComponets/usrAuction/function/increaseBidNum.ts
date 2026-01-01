@@ -1,6 +1,5 @@
-import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
-import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { increaseDomainBid } from "@/utils/net/mainFunction/domain/increaseDomainBid";
 import { Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
@@ -8,29 +7,20 @@ import { Transaction, type Connection, type PublicKey, type VersionedTransaction
 export async function increaseBidNum(
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
     wallet: PublicKey | null,
-    solanaToast: SolanaToastContextType,
     connection: Connection,
     domainNameState: NameAuctionState,
     extireDomain: string,
     totalLamports: number,
     newDomainPrice: number,
     refferrerKey: PublicKey | null,
-): Promise<void> {
+): Promise<TransactionState> {
 
     if(!wallet || !signTransaction || !refferrerKey){
-        solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
-        return
+        return TransactionState.NoConnect
     }
 
     console.log("need: ", totalLamports);
-
-    const increaseBidNumTransactionId = await showCheckSolBalance(
-        solanaToast, wallet, connection, totalLamports
-    )
-    console.log("checked");
-
-    if(!increaseBidNumTransactionId[1])return
 
     try{
         const increaseBidNumTransaction = new Transaction()
@@ -80,13 +70,17 @@ export async function increaseBidNum(
                 console.log(txInfo.meta?.logMessages);
             }
 
-            if(String(txResult).includes("success")){
-                solanaToast.show(TransactionState.Success)
-            }
+            // if(String(txResult).includes("success")){
+            //     solanaToast.show(TransactionState.Success)
+            // }
+
+            return TransactionState.Success
         }else{
             console.log("simulate fail")
         }
     }catch(err){
-
+        return TransactionState.Error
     }
+
+    return TransactionState.Success
 }

@@ -23,11 +23,14 @@ export function useSortSettleAndAuction(
 
     const fetched = useRef(false)
 
-    useEffect(() => {
+    useEffect(() => { 
+        console.log("allauction name: ", allAuctionName)
+        if (!allAuctionName || Object.keys(allAuctionName).length === 0) return
         if(fetched.current) return
         (async () => {
             if(ifLoadedAuctionState){
                 //don't need to load info again
+                console.log("don't need load again")
                 fetched.current = true
 
                 if(!auctionState) return //no items
@@ -51,6 +54,7 @@ export function useSortSettleAndAuction(
             }else{
                 //need to fetch auction info again
                 fetched.current = true
+                console.log("need load again")
 
                 const domains: string[] = Object.keys(allAuctionName);
 
@@ -65,6 +69,8 @@ export function useSortSettleAndAuction(
                     accounts.push(key)
                 }
 
+                console.log("auctions domains", domains)
+
                 const infos = await connection.getMultipleAccountsInfo(accounts)
                 infos.forEach((info, index) => {
                     if(!info) return
@@ -76,6 +82,7 @@ export function useSortSettleAndAuction(
                             break
                         case DomainState.Settling:
                             settleItems.set(domains[index], state)
+                            break
                     }
                 })
 
@@ -83,7 +90,10 @@ export function useSortSettleAndAuction(
                 setOnSettleItems(settleItems)
             }
         })()
-    })
+    }, [allAuctionName])
+
+    console.log("auction", onAuctionItems)
+    console.log("settle", onSettleItems)
 
     return { onAuctionItems, onSettleItems }
 }

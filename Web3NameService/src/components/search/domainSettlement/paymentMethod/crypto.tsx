@@ -6,10 +6,9 @@ import { useTranslation } from "react-i18next";
 
 
 import { useEffect, useState } from "react";
-import MintChooser from "@/components/common/transaction/mintChooser";
 import CreateDomainSettleBills from "@/components/common/transaction/settlebills/createDomainSettleBills";
 import type { PublicKey } from "@solana/web3.js";
-import RefferrerVerify from "@/components/common/transaction/refferrerVerify";
+import RefferrerVerify from "@/components/settle/components/refferrerVerify";
 import { SupportedMint, usePrice } from "@/provider/priceProvider/priceProvider";
 
 import rootAttention from "@/assets/attention.svg"
@@ -98,10 +97,10 @@ const Crypto: React.FC<CryptoProps> = ({
                 <div className="settlewirdbl">
                     <h3>{t("settlementInfo")}</h3>
                 </div>
-                <MintChooser 
+                {/* <MintChooser 
                     activeMint={activeMint} 
                     setActiveMint={setWillUseMint}
-                />
+                /> */}
                 <div className="priceBlock">
                     <h3>{t("startingp")}:</h3>
                     <h2>{(domainPrice / 1e9).toFixed(4)} SOL</h2>
