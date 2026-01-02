@@ -2,10 +2,10 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { DollarSign, FileCode, Loader2, X, Zap } from "lucide-react";
 import { useState } from "react";
-import { setCustomPrice } from "../usrPage/usrComponets/usrDomain/setpage/com/settleComponent/function/setCustomPrice";
+import { setCustomPrice } from "./components/setCustomPrice";
 import { useConnection } from "@solana/wallet-adapter-react";
 import type { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
-import { setIPFS } from "../usrPage/usrComponets/usrDomain/setpage/com/settleComponent/function/setIPFS";
+import { setIPFS } from "./components/setIPFS";
 import { IPFSOperation } from "@/utils/net/mainFunction/usrOperation/setDomainIPFSRecord";
 
 export enum DomainSetType {

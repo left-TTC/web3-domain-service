@@ -1,7 +1,7 @@
 import DomainSetModel, { DomainSetType } from "@/components/settle/domainSetModel";
 import { UseProtocol, type IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
-import { Activity, ChevronLeft, Database, DollarSign, ExternalLink, FileCode, Globe, Info, Save, Settings, ShieldCheck} from "lucide-react";
+import { Activity, ChevronLeft, Database, ExternalLink, Globe, Info, Save, Settings, ShieldCheck} from "lucide-react";
 import { useState } from "react";
 
 

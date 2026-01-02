@@ -6,7 +6,7 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import type { PublicKey } from "@solana/web3.js";
 import { Gavel } from "lucide-react";
 import { useEffect, useState } from "react";
-import { increaseBidNum } from "../../usrAuction/function/increaseBidNum";
+import { increaseBidNum } from "../function/increaseBidNum";
 
 
 interface AuctionListItemProps {

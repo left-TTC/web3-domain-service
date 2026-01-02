@@ -2,7 +2,7 @@ import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload 
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { CheckCircle } from "lucide-react";
 import { useState } from "react";
-import { settleDomain } from "../../usrAuction/function/settleDomain";
+import { settleDomain } from "../function/settleDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useConnection } from "@solana/wallet-adapter-react";
 import type { TransactionState } from "@/provider/fixedToastProvider/fixedToastProvider";
