@@ -1,6 +1,5 @@
-import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
-import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { IPFSOperation, setDomainIPFS } from "@/utils/net/mainFunction/usrOperation/setDomainIPFSRecord";
 import { SendTransactionError, type Connection, type PublicKey, type Transaction, type VersionedTransaction } from "@solana/web3.js";
 
@@ -9,23 +8,17 @@ import { SendTransactionError, type Connection, type PublicKey, type Transaction
 export async function setIPFS(
     cid: string | null,
     operation: IPFSOperation,
-    totalLamports: number,
     extireDomain: string,
     usr: PublicKey | null,
     RootDomain: string[] | null,
-    solanaToast: SolanaToastContextType,
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
-): Promise<void> {
+): Promise<TransactionState> {
 
     const domainAndRoot = cutDomain(extireDomain)
 
     console.log("create record for: ", extireDomain)
-    console.log("will use ", totalLamports/1e9, " SOL")
     switch(operation){
-        case IPFSOperation.Delete:
-            console.log("delete record")
-            break
         case IPFSOperation.Init:
             console.log("init record")
             break
@@ -35,26 +28,18 @@ export async function setIPFS(
     }
 
     if(!usr || !signTransaction){
-        solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
-        return
+        return TransactionState.NoConnect
     }
     if(!RootDomain){
-        solanaToast.show(TransactionState.Error)
         console.log("root error")
-        return
+        return TransactionState.Error
     }else{
         if(!RootDomain.includes(domainAndRoot[1])){
-            solanaToast.show(TransactionState.Error)
             console.log("root error")
-            return
+            return TransactionState.Error
         }
     }
-
-    const trySetIPFSTransactionId = await showCheckSolBalance(
-        solanaToast, usr, connection, totalLamports
-    )
-    if(!trySetIPFSTransactionId[1])return
 
     try{
         const trySetIPFSTransaction = setDomainIPFS(
@@ -100,7 +85,7 @@ export async function setIPFS(
             }
 
             if(String(txResult).includes("success")){
-                solanaToast.show(TransactionState.Success)
+                return TransactionState.Success
             }
 
         }else{
@@ -116,4 +101,6 @@ export async function setIPFS(
             console.error(logs);
         }
     }
+
+    return TransactionState.Success
 }

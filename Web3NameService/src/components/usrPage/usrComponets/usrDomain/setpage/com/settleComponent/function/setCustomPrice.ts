@@ -11,35 +11,25 @@ export async function setCustomPrice(
     setDomain: string,
     usr: PublicKey | null,
     RootDomain: string[] | null,
-    solanaToast: SolanaToastContextType,
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
-): Promise<void> {
+): Promise<TransactionState> {
 
     const domainAndRoot = cutDomain(setDomain)
 
-
     if(!usr || !signTransaction){
-        solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
-        return
+        return TransactionState.NoConnect
     }
     if(!RootDomain){
-        solanaToast.show(TransactionState.Error)
         console.log("root error")
-        return
+        return TransactionState.Error
     }else{
         if(!RootDomain.includes(domainAndRoot[1])){
-            solanaToast.show(TransactionState.Error)
             console.log("root error")
-            return
+            return TransactionState.Error
         }
     }
-
-    const trySetValueTransactionId = await showCheckSolBalance(
-        solanaToast, usr, connection, 10000
-    )
-    if(!trySetValueTransactionId[1])return
 
     try{
         const trySetValueTransaction = setDomainCustomPrice(
@@ -87,7 +77,7 @@ export async function setCustomPrice(
             }
 
             if(String(txResult).includes("success")){
-                solanaToast.show(TransactionState.Success)
+                return TransactionState.Success
             }
 
         }else{
@@ -102,5 +92,9 @@ export async function setCustomPrice(
             console.error("=== Simulation Logs ===");
             console.error(logs);
         }
+
+        TransactionState.Error
     }
+
+    return TransactionState.Success
 }

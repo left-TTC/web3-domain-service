@@ -1,6 +1,7 @@
-import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
+import DomainSetModel, { DomainSetType } from "@/components/settle/domainSetModel";
+import { UseProtocol, type IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
-import { Activity, ChevronLeft, DollarSign, ExternalLink, FileCode, Globe, Info, Settings, ShieldCheck} from "lucide-react";
+import { Activity, ChevronLeft, Database, DollarSign, ExternalLink, FileCode, Globe, Info, Save, Settings, ShieldCheck} from "lucide-react";
 import { useState } from "react";
 
 
@@ -17,9 +18,20 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
     closeFn, IPFSState, nameState, domainName
 }) => {
     const [tempPrice, setTempPrice] = useState(nameState?.customPrice.toNumber() || 0);
-    const [tempCid, setTempCid] = useState(IPFSState?.recordData || '');
+    const [tempCid, setTempCid] = useState('');
+    const [selectedProtocol, setSelectedProtocol] = useState<UseProtocol>(UseProtocol.IPFS);
 
-    
+    const [newValue, setNewValue] = useState<string | number>("")
+    const [showSetModel, setShowSetModel] = useState(false)
+
+    const rewritePrice = () => {
+        setNewValue(tempPrice)
+        setShowSetModel(true)
+    }
+    const rewriteCid = () => {
+        setNewValue(tempCid)
+        setShowSetModel(true)
+    }
 
     return (
         <div className="fixed inset-0 z-50 bg-[#050505] overflow-y-auto">
@@ -47,8 +59,16 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
                             <label className="text-xs font-bold text-gray-500 uppercase">市场标价 (SOL)</label>
                             <div className="flex gap-3">
                                 <div className="relative flex-1 group">
-                                    <DollarSign size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#B4FC75]" />
+                                    <div className="
+                                        absolute left-4 top-1/2 -translate-y-1/2
+                                        text-xs font-mono font-bold
+                                        text-gray-500
+                                        group-focus-within:text-[#B4FC75]
+                                    ">
+                                        SOL
+                                    </div>
                                     <input 
+                                        placeholder={String(nameState?.customPrice.toNumber() || 0)}
                                         type="number"
                                         value={tempPrice}
                                         onChange={(e) => setTempPrice(parseFloat(e.target.value))}
@@ -56,7 +76,7 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
                                     />
                                 </div>
                                 <button 
-                                    onClick={() => {}}
+                                    onClick={() => rewritePrice()}
                                     className="px-6 rounded-xl bg-white/10 border border-white/10 text-sm font-bold hover:bg-white/20 transition-all"
                                 >
                                     更新价格
@@ -65,32 +85,45 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-xs font-bold text-gray-500 uppercase">IPFS 内容部署 (CID)</label>
-                            <div className="flex gap-3">
-                            <div className="relative flex-1 group">
-                                <FileCode size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#B4FC75]" />
-                                <input 
-                                    type="text"
-                                    value={tempCid}
-                                    onChange={(e) => setTempCid(e.target.value)}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 font-mono text-sm text-white focus:outline-none focus:border-[#B4FC75]/50"
-                                    placeholder="Qm..."
-                                />
+                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">内容寻址与部署 (Content Resolver)</label>
+                
+                        <div className="flex p-1 bg-white/5 rounded-xl border border-white/5 w-fit">
+                            {Object.values(UseProtocol).map(p => (
+                                <button
+                                    key={p}
+                                    onClick={() => setSelectedProtocol(p)}
+                                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedProtocol === p ? 'bg-white/10 text-[#B4FC75]' : 'text-gray-500 hover:text-gray-300'}`}
+                                >
+                                    {p.toUpperCase()}
+                                </button>
+                            ))}
                             </div>
-                            <button 
-                                onClick={() => {}}
-                                className="px-6 rounded-xl bg-white/10 border border-white/10 text-sm font-bold hover:bg-white/20 transition-all"
-                            >
-                                更新记录
-                            </button>
+
+                            <div className="flex flex-col gap-3">
+                                <div className="relative flex-1 group">
+                                    <Database size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#B4FC75]" />
+                                    <input 
+                                        type="text"
+                                        value={tempCid}
+                                        onChange={(e) => setTempCid(e.target.value)}
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl py-4 pl-10 pr-4 font-mono text-sm text-white focus:outline-none focus:border-[#B4FC75]/50"
+                                        placeholder={selectedProtocol === 'ipfs' ? "输入 Qm... 或 ba..." : "输入动态 IPNS ID 或 Hash"}
+                                    />
+                                </div>
+                                <button 
+                                    onClick={() => rewriteCid()}
+                                    className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-[#B4FC75] font-bold hover:bg-white/10 transition-all text-sm flex items-center justify-center gap-2"
+                                >
+                                    <Save size={16} /> 更新 {selectedProtocol.toUpperCase()} 记录
+                                </button>
                             </div>
                         </div>
                         </div>
 
-                        <div className="p-4 bg-yellow-500/5 border border-yellow-500/20 rounded-xl flex gap-3 items-start">
-                            <Info size={16} className="text-yellow-500 mt-0.5" />
+                        <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl flex gap-3 items-start">
+                            <Info size={16} className="text-blue-400 mt-0.5" />
                             <p className="text-xs text-gray-400 leading-relaxed">
-                                每次修改记录都会触发一次 Solana 链上交互。请确保您的钱包中有足够的 SOL 用于支付网络燃料费。
+                                <span className="text-white font-bold">IPFS</span> 适用于静态内容，<span className="text-white font-bold">IPNS</span> 允许您在不更改解析地址的情况下更新内容。选择适合您 DApp 部署需求的协议。
                             </p>
                         </div>
                     </div>
@@ -103,16 +136,16 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
                                     <Globe size={24} />
                                 </div>
                                 <h4 className="text-2xl font-bold mb-1">{domainName}</h4>
-                                <p className="text-xs text-gray-500 font-mono mb-6">SOLANA NAME SERVICE</p>
+                                <p className="text-xs text-gray-500 font-mono mb-6">WEB3 NAME SERVICE</p>
                                 
-                                <div className="space-y-3 pt-4 border-t border-white/5">
-                                    <div className="flex justify-between text-xs">
-                                        <span className="text-gray-500">当前价值</span>
-                                        <span className="text-white font-mono">{tempPrice || '未定价'} SOL</span>
+                                <div className="space-y-4 pt-6 border-t border-white/5">
+                                    <div className="space-y-1">
+                                        <p className="text-[10px] font-bold text-gray-600 uppercase">当前解析服务</p>
+                                        <p className="text-xs text-[#B4FC75] font-mono">{selectedProtocol.toUpperCase()}</p>
                                     </div>
-                                    <div className="flex justify-between text-xs">
-                                        <span className="text-gray-500">状态</span>
-                                        <span className="text-green-400 font-bold">活跃 (Active)</span>
+                                    <div className="space-y-1">
+                                        <p className="text-[10px] font-bold text-gray-600 uppercase">当前哈希</p>
+                                        <p className="text-[10px] text-white font-mono break-all opacity-80">{IPFSState?.recordData || '未配置'}</p>
                                     </div>
                                 </div>
                             </div>
@@ -124,8 +157,19 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
                         </div>
                     </div>
                 </div>
+
+                {showSetModel &&
+                    <DomainSetModel
+                        domainName={domainName}
+                        newValue={newValue}
+                        type={typeof newValue === 'number'? DomainSetType.Price : DomainSetType.Cid}
+                        onClose={() => setShowSetModel(false)}
+                        protocol={selectedProtocol}
+                        ifInitIpfs={IPFSState===null? true:false}
+                    />
+                }
             </div>
-        </div>
+        </div>  
     );
 };
 

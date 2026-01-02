@@ -2,7 +2,10 @@ import { PublicKey, type AccountInfo } from "@solana/web3.js";
 import { Numberu64 } from "../number/number64";
 import { NAME_RECORD_LENGTH } from "./nameRecordState";
 
-
+export enum UseProtocol {
+    IPFS = "ipfs",
+    IPNS = "ipns",
+}
 
 export class IPFSRecordState{
     parentName: PublicKey;
