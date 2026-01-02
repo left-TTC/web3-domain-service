@@ -1,11 +1,9 @@
-import { useTranslation } from "react-i18next";
 
 import { Layers3, ShieldCheck, Zap } from "lucide-react";
 
-const Web3CoreUtilities = () => {
+const primaryColor = '#B4FC75';
 
-    const primaryColor = '#B4FC75';
-    const {t} = useTranslation()
+const Web3CoreUtilities = () => {
 
     return(
         <section className="mt-60">

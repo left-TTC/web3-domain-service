@@ -1,8 +1,6 @@
 import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
 import type { SupportedMint } from "@/provider/priceProvider/priceProvider";
 import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
-import { handleTransactionError } from "@/utils/functional/error/transactionError";
-import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { addFuelForRoot } from "@/utils/net/mainFunction/rootDomain/addFuelForRoot";
 import { SendTransactionError, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
@@ -30,12 +28,6 @@ export async function tryToAddFuel(
         console.log("wallet error")
         return
     }
-
-    const tryToAddFuelTransactionId = await showCheckSolBalance(
-        solanaToast, wallet, connection, fuelQuantity
-    )
-
-    if(!tryToAddFuelTransactionId[1]) return
 
     try{
         const tryToAddFuelTransaction = new Transaction()
@@ -106,7 +98,5 @@ export async function tryToAddFuel(
             console.error("=== Simulation Logs ===");
             console.error(logs);
         }
-
-        handleTransactionError(String(err), solanaToast, tryToAddFuelTransactionId[0]);
     }
 }

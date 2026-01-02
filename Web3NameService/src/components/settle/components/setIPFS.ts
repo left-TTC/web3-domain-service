@@ -1,4 +1,5 @@
 import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
+import type { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { IPFSOperation, setDomainIPFS } from "@/utils/net/mainFunction/usrOperation/setDomainIPFSRecord";
 import { SendTransactionError, type Connection, type PublicKey, type Transaction, type VersionedTransaction } from "@solana/web3.js";
@@ -12,6 +13,7 @@ export async function setIPFS(
     usr: PublicKey | null,
     RootDomain: string[] | null,
     connection: Connection,
+    useProtocol: UseProtocol,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
 ): Promise<TransactionState> {
 
@@ -43,7 +45,7 @@ export async function setIPFS(
 
     try{
         const trySetIPFSTransaction = setDomainIPFS(
-            extireDomain, usr, cid, operation
+            extireDomain, usr, cid, operation, useProtocol
         )
 
         const { blockhash } = await connection.getLatestBlockhash()

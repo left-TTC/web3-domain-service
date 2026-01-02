@@ -13,7 +13,6 @@ export enum DomainSetType {
     Cid,
 } 
 
-const primaryColor = '#B4FC75';
 
 interface DomainSetModelProps {
     domainName: string;
@@ -60,7 +59,8 @@ const DomainSetModel: React.FC<DomainSetModelProps> = ({
             usr, 
             rootDomains, 
             connection, 
-            signTransaction
+            protocol,
+            signTransaction,
         )
     }
 

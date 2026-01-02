@@ -1,7 +1,20 @@
 import type { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
 import { Gavel, Lock, Sparkles, Tag } from "lucide-react";
+import type { JSX } from "react";
 
-const config = {
+// Define the type for each config item
+type ConfigItem = {
+    bg: string;
+    text: string;
+    label: string;
+    icon: JSX.Element;
+};
+
+// Define the allowed keys
+type DomainStatus = 0 | 1 | 2 | 3;
+
+// Config object with explicit typing
+const config: Record<DomainStatus, ConfigItem> = {
     0: {
         bg: "bg-[#B4FC75]",
         text: "text-black",
@@ -29,7 +42,6 @@ const config = {
 };
 
 const StatusBadge = ({ status }: { status: SearchDomainResult | null }) => {
-    
     if (status === null) {
         return (
             <div className="relative inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider overflow-hidden bg-zinc-800">
@@ -40,7 +52,8 @@ const StatusBadge = ({ status }: { status: SearchDomainResult | null }) => {
         );
     }
 
-    const style = config[status];
+    // Ensure status is treated as DomainStatus
+    const style = config[status as DomainStatus];
 
     return (
         <div

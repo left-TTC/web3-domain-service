@@ -17,7 +17,7 @@ const DomainHero: React.FC<DomainHeroProps> = ({
                 return "Target Domain";
             case SettleType.settle:
                 return "Target Domain";
-            case SettleType.set:
+            case SettleType.root:
                 return "Target Domain";
         }
     }

@@ -15,7 +15,6 @@ const SettleHead: React.FC<SettleHeadProps> = ({
         switch (type) {
             case SettleType.buy: return { title: '启动竞拍', desc: 'Minting New Root Domain' };
             case SettleType.settle: return { title: '结算', desc: 'Secondary Market Purchase' };
-            case SettleType.set: return { title: '设置域名', desc: 'Extending Registration' };
             default: return { title: '交易结算', desc: 'Transaction Settlement' };
         }
     };

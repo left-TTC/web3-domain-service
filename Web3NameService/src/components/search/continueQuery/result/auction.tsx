@@ -13,6 +13,7 @@ const Auction: React.FC<AuctionProps> = ({
     domainInfo, auctionState, openSettlePage
 }) => {
     
+    console.log(typeof domainInfo)
 
     return(
         <div className="bg-purple-900/20 border border-purple-500/30 rounded-xl p-6 relative overflow-hidden">

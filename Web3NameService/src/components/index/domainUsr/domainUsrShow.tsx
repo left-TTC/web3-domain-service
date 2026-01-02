@@ -1,12 +1,10 @@
 
 
 import { Code } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { StateCard } from "./stateCard";
 
 const DomainUsrShow = () => {
 
-    const {t} = useTranslation()
     const primaryColor = '#B4FC75'; 
 
     return (

@@ -12,7 +12,7 @@ const Unintialized: React.FC<UnintializedProps> = ({
     domainInfo, openSettlePage
 }) => {
     
-
+    console.log(typeof domainInfo)
 
     return(
         <div className="bg-[#B4FC75]/10 border border-[#B4FC75]/20 rounded-xl p-6">

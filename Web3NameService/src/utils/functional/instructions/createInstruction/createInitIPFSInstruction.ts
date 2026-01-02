@@ -3,6 +3,7 @@ import type { RecordType } from "../../solana/getRecordKey";
 import { Web3RecordsInstruction } from "../instruction";
 import { Numberu32 } from "../../common/number/number32";
 import { WEB3_RECORDS_ID } from "@/utils/constants/constants";
+import { UseProtocol } from "../../common/class/ipfsRecordState";
 
 
 export interface IPFSInstructionAccounts {
@@ -24,11 +25,13 @@ export function createInitIPFSInstruction(
     instructionAccounts: IPFSInstructionAccounts,
     cid: string,
     recordType: RecordType,
+    useProtocol: UseProtocol,
 ): TransactionInstruction {
     const buffers = [
         Buffer.from(Uint8Array.from([Web3RecordsInstruction.AllocateAndPostRecord])),
         new Numberu32(Buffer.from(recordType).length).toBuffer(),
         Buffer.from(recordType),
+        Buffer.from([useProtocol === UseProtocol.IPFS? 0:1]),
         new Numberu32(Buffer.from(cid).length).toBuffer(),
         Buffer.from(cid)
     ]

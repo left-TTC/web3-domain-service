@@ -15,7 +15,6 @@ import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload 
 import { getSearchDomainState, type SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
 import { startDomain } from "@/components/search/domainSettlement/functionComponents/transaction/startDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import type { PublicKey } from "@solana/web3.js";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { useAtom } from "jotai";
 import { biddingDomain } from "@/components/usrPage/function/useAuctioningDomain";
@@ -93,6 +92,7 @@ export function Search() {
             navigate("./index")
         }
     }
+    console.log(backToIndex)
 
     const [resultState, setResultState] = useState<SearchDomainResult | null>(null)
 

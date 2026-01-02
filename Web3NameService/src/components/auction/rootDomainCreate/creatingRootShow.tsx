@@ -77,7 +77,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
 
                             <h3 className="text-3xl font-bold mb-1 tracking-tight">{item.creatingName}</h3>
                             <p className="text-sm text-gray-500 mb-6 flex items-center gap-1">
-                                由 <span className="text-white underline decoration-dotted">{cutString(item.rootSponsor.toBase58(), 3, 0, "...")}</span> 发起
+                                由 <span className="text-white underline decoration-dotted font-normal">{cutString(item.rootSponsor.toBase58(), 5, 5, "...")}</span> 发起
                             </p>
 
                             <div className="mb-4">

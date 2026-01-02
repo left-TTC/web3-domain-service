@@ -9,7 +9,7 @@ export const WEB3_NAME_SERVICE_ID = new PublicKey(
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
-    "67rgrXvFjXRmWXGcMZjtgp6Ys3KwjagssKmSNbfWaAQu"
+    "HrCpvHz4VzcRuezVyiLnEShh6ECQ1ALuXq6Vkg9xeuz9"
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
@@ -42,23 +42,10 @@ export const INIT_DOMAIN_PRICE = 10000000;
 export const DEFAULT_CUSTOM_VALUE = 99999999;
 
 
-// export function returnProjectVault(): PublicKey {
-//     const seeds = [getHashedName("vault")];
-//     seeds.push(CENTRAL_STATE_REGISTER.toBuffer());
-//     seeds.push(CENTRAL_STATE_REGISTER.toBuffer());
-
-//     const [vaultKey, _] = PublicKey.findProgramAddressSync(
-//         seeds,
-//         WEB3_REGISTER_ID,
-//     )
-
-//     return vaultKey;
-// }
 
 export function returnProjectVault(): PublicKey {
     const VAULT_SEED = Buffer.from("vault");
 
-    // findProgramAddressSync 返回 [Pubkey, bump]
     const [vaultKey, _] = PublicKey.findProgramAddressSync(
         [VAULT_SEED],
         WEB3_REGISTER_ID

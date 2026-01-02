@@ -1,4 +1,5 @@
 import { CENTRAL_STATE_RECORDS, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
+import type { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { createInitIPFSInstruction, type IPFSInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createInitIPFSInstruction";
 import { createResetIPFSInstruction } from "@/utils/functional/instructions/createInstruction/createResetIPFSInstruction";
@@ -17,7 +18,8 @@ export function setDomainIPFS(
     extireDomain: string,
     usr: PublicKey,
     cid: string | null,
-    operation: IPFSOperation
+    operation: IPFSOperation,
+    useProtocol: UseProtocol,
 ): Transaction {
 
     const nameAndRoot = cutDomain(extireDomain)
@@ -45,16 +47,19 @@ export function setDomainIPFS(
     if(cid){
         switch (operation){
             case IPFSOperation.Init:
+                console.log("init the record account")
                 IPFSOperationTransaction.add(createInitIPFSInstruction(
-                    accounts, cid, RecordType.IPFS
+                    accounts, cid, RecordType.IPFS, useProtocol
                 ))
                 break;
             case IPFSOperation.Reset:
+                console.log("reset the record account")
                 IPFSOperationTransaction.add(createResetIPFSInstruction(
-                    accounts, cid, RecordType.IPFS
+                    accounts, cid, RecordType.IPFS, useProtocol
                 ))
                 break
-            default: 
+            default:  
+                console.log("no other operation")
                 break
         }
     }else{

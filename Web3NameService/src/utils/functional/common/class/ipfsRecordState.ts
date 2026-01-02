@@ -12,6 +12,7 @@ export class IPFSRecordState{
     owner: PublicKey;
     class: PublicKey;
     updateTime: Numberu64;
+    type: UseProtocol;
     recordData: string | null;
     length: number;
 
@@ -31,7 +32,14 @@ export class IPFSRecordState{
             Buffer.from(recordData.subarray(96, NAME_RECORD_LENGTH))
         );
 
-        const recordContentBuffer = recordData.subarray(NAME_RECORD_LENGTH, recordData.length)
+        const typeBuffer = recordData.subarray(NAME_RECORD_LENGTH, NAME_RECORD_LENGTH + 1)[0]
+        if(typeBuffer === 0){
+            this.type = UseProtocol.IPFS
+        }else{
+            this.type = UseProtocol.IPNS
+        }
+
+        const recordContentBuffer = recordData.subarray(NAME_RECORD_LENGTH + 5, recordData.length)
         const isAllZero = recordContentBuffer.every(byte => byte === 0);
 
         let recordContent: string | null = null;

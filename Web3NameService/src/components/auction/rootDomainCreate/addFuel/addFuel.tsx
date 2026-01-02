@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettlement/choosePayment";
-import AddFuelCrypto from "./pay/addFuelcrypto";
 import Back from "@/components/common/functional/back";
 
 export interface AddFuelProps {
@@ -38,10 +37,10 @@ const AddFuel: React.FC<AddFuelProps> = ({
                     chooseMethod={setPayMethod} 
                     activingMethod={payMethod}
                 />
-                <AddFuelCrypto 
+                {/* <AddFuelCrypto 
                     addingAccountState={addingRootInfo}
                     creatingRootName={addingRootInfo.creatingName}    
-                />
+                /> */}
             </div>
         </div>
     )

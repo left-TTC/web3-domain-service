@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { SettleType } from "../../settlement";
 import type { PublicKey } from "@solana/web3.js";
 import { useConnection } from "@solana/wallet-adapter-react";
@@ -45,6 +45,7 @@ export function useCalculateAllFees(
             let feeItems: FeeItem[] = []
             let total = 0
 
+            setFeached(true)
             switch(type){
                 case SettleType.buy:
                     const usrRefferrerInfo = await connection.getAccountInfo(
@@ -95,7 +96,7 @@ export function useCalculateAllFees(
                     // need add
                     setTotalFee(usePrice) 
             }
-
+            
             setCalculating(false)
         })()
     }, [usr, rootDomain])

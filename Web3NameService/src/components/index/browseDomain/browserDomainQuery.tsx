@@ -1,7 +1,7 @@
 import { animate } from "animejs";
 import { useEffect, useRef, useState } from "react";
 
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 
@@ -21,7 +21,8 @@ const PRIMARY_COLOR = '#B4FC75';
 const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
     ifShowTheQueryPage, setQueryPage, backOriginPosition
 }) => {
-    const {t} = useTranslation();
+
+    // const {t} = useTranslation();
 
     const browseDomainRef = useRef<HTMLDivElement | null> (null);
 

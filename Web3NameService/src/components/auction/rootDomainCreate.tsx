@@ -62,7 +62,7 @@ export default function RootDomainCreate(){
                 <DomainSettlementModal
                     opearationName={newRoot}
                     actionType={SettleType.root}
-                    basePrice={initialSol * 1e9}
+                    basePrice={initialSol * 1e8}
                     onClose={() => setShowLaunchSettle(false)}
                     onConfirm={createRootState}
                 />

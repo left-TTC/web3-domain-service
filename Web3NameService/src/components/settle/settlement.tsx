@@ -1,4 +1,4 @@
-import { ArrowRight, CreditCard, Loader2, ShieldCheck, Wallet } from "lucide-react";
+import { ArrowRight, CreditCard, Loader2} from "lucide-react";
 import { useState } from "react";
 import RefferrerVerify from "./components/refferrerVerify";
 import type { PublicKey } from "@solana/web3.js";
@@ -35,7 +35,7 @@ interface DomainSettlementProps {
     onConfirm: (payload: DomainSettlementConfirmPayload) => TransactionState | Promise<TransactionState>;
 }
 
-const PRIMARY_COLOR = '#B4FC75';
+// const PRIMARY_COLOR = '#B4FC75';
 
 export default function DomainSettlementModal({
     opearationName, actionType, basePrice, onClose,
@@ -45,15 +45,15 @@ export default function DomainSettlementModal({
     const {publicKey: usr} = useWalletEnv()
     const {activeRootDomain} = useRootDomain()
 
-    const [isSuccess, setIsSuccess] = useState(false);
+    // const [isSuccess, setIsSuccess] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
-    const [ableToConfirm, setAbleToConfirm] = useState(false)
+    // const [ableToConfirm, setAbleToConfirm] = useState(false)
     const [refferrerKey, setRefferrerKey] = useState<PublicKey | null>(null);
 
     const [ifRefferrerValid, setIfRefferrerValid] = useState(false)
     const [currentPrice, setCurrentPrice] = useState(basePrice);
 
-    const {fees, totalFee, calculating} = useCalculateAllFees(actionType, basePrice, opearationName, usr, activeRootDomain)
+    const {fees, totalFee} = useCalculateAllFees(actionType, basePrice, opearationName, usr, activeRootDomain)
 
     const handlePayment = async() => {
         setIsProcessing(true);

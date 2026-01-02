@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from "react";
 
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { animate } from "animejs";
 import { LogOut, RefreshCcw } from "lucide-react";
@@ -23,7 +23,7 @@ const WalletDropDownBox: React.FC<walletDropDownBoxProps> = ({walletRef, ifWalle
 
     const walletDropRef = useRef<HTMLDivElement | null>(null);
 
-    const {t} = useTranslation();
+    // const {t} = useTranslation();
     const {disconnect} = useWallet();
 
     const walltButtonsMap: WalletCommonButon[] = [

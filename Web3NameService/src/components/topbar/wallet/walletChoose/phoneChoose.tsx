@@ -1,11 +1,11 @@
 
 
 import type { DetectWalletParams } from "@/utils/functional/wallet/detectPhoneWallet";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import OptionalButton from "./optionalButton/optionalButton";
 import { useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
-import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+// import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 
 export interface PhoneChooseProps {
     availablePhoneWallets: DetectWalletParams[],
@@ -15,9 +15,9 @@ const PhoneChoose: React.FC<PhoneChooseProps> = ({
     availablePhoneWallets
 }) => {
 
-    const {t} = useTranslation()
+    // const {t} = useTranslation()
 
-    const {connect} = useWalletEnv()
+    // const {connect} = useWalletEnv()
 
     //animate get more options
     const walletChooseRef = useRef<HTMLDivElement | null>(null)
@@ -69,6 +69,7 @@ const PhoneChoose: React.FC<PhoneChooseProps> = ({
     const availablePhoneWalletsLast = availablePhoneWallets.slice(4, availablePhoneWallets.length - 1)
 
     const onClickWallet = async (wallet: DetectWalletParams) => {
+        console.log(typeof wallet)
         const provider = (window as any).phantom.solana;
 
         if (provider && provider.isPhantom) { 

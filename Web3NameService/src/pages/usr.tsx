@@ -6,7 +6,6 @@ import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import AdminBlcok from "@/components/usrPage/adminBlock";
 import { useAuctioningDomain } from "@/components/usrPage/function/useAuctioningDomain";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { useAsPayerName } from "@/components/usrPage/function/useAsPayerName";
 import { useParams } from "react-router-dom";
 import { PublicKey } from "@solana/web3.js";
 import { useUsrDomains } from "@/components/usrPage/usrComponets/hook/useUsrDomains";
@@ -15,7 +14,7 @@ import { useUsrRefferrerChain } from "@/components/usrPage/usrComponets/hook/use
 import UsrIndex from "@/components/usrPage/usrIndex";
 
 export function User({
-    openDomainQueryPage,
+    // openDomainQueryPage,
 }: {
     openDomainQueryPage: () => void;
 }) {
@@ -51,7 +50,7 @@ export function User({
         }
     }, [ifOtherUsr.current, usr, key])
 
-    const [usrDomainLoaded, setUsrDomainLoaded] = useState(false)
+    const [_, setUsrDomainLoaded] = useState(false)
     const fetched = useRef(false)
 
     const prevSearchKey = useRef<string | null>(null);
@@ -60,7 +59,7 @@ export function User({
             const currentKey = searchKey.toBase58();
         if (prevSearchKey.current !== currentKey) {
             prevSearchKey.current = currentKey;
-            setUsrDomainLoaded(false)
+            // setUsrDomainLoaded(false)
             fetched.current = false
             fetchedUsrChain.current = false
         }
@@ -68,11 +67,12 @@ export function User({
 
     // contains all the domains that currently being liquidated and auctioned
     const { auctioningDomain, auctionState, ifFromRpc } = useAuctioningDomain(connection, searchKey)
-    const { asPayerDomain } = useAsPayerName(connection, searchKey)
+    // const { asPayerDomain } = useAsPayerName(connection, searchKey)
 
     const {
-        isLoadingRecordData, recordLoaded,
-        domainStateMap, recordMap, usrDomains, usrDomainOnSale
+        // isLoadingRecordData, recordLoaded,
+        domainStateMap, recordMap, usrDomains,
+        //  usrDomainOnSale
     } = useUsrDomains(
         searchKey, setUsrDomainLoaded, fetched
     )

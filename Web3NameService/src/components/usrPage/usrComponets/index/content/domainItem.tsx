@@ -24,10 +24,15 @@ const DomainItem: React.FC<DomainItemProps> = ({
             <div className="flex items-center gap-4">
                 <Globe size={24} style={{ color: primaryColor }} />
                 <div>
-                    <p className="text-xl font-bold text-white">{domainName}</p>
-                    <p className="text-xs text-gray-400 font-mono mt-1 font-normal">
-                        记录: <span className="text-gray-300">{ipfsState? (ipfsState.recordData? ipfsState.recordData : "未设置") : "未设置"}</span>
-                    </p>
+                    <p className="text-xl font-bold">{domainName}</p>
+                    <div className="flex items-center gap-3 mt-1">
+                        <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] font-mono text-gray-400 uppercase">
+                            {ipfsState?.type ?? ""}
+                        </span>
+                        <p className="text-[11px] text-gray-500 font-mono truncate max-w-[150px]">
+                            {ipfsState?.recordData ?? "未设置"}
+                        </p>
+                    </div>
                 </div>
             </div>
 

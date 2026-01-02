@@ -17,8 +17,6 @@ export interface InitiateRootInstructionAccounts {
     vault: PublicKey,
     /// The rent sysvar account
     rentSysvar: PublicKey,
-    /// The Pyth feed account
-    pythFeedAccount: PublicKey,
 }
 
 
@@ -42,7 +40,6 @@ export function createLaunchRootDomainInstruction(
 
         { pubkey: transactionAccounts.vault, isSigner: false, isWritable: true },
         { pubkey: transactionAccounts.rentSysvar, isSigner: false, isWritable: false },
-        { pubkey: transactionAccounts.pythFeedAccount, isSigner: false, isWritable: false },
     ];
 
     return new TransactionInstruction({

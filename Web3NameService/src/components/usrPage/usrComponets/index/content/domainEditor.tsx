@@ -141,7 +141,7 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
                                 <div className="space-y-4 pt-6 border-t border-white/5">
                                     <div className="space-y-1">
                                         <p className="text-[10px] font-bold text-gray-600 uppercase">当前解析服务</p>
-                                        <p className="text-xs text-[#B4FC75] font-mono">{selectedProtocol.toUpperCase()}</p>
+                                        <p className="text-xs text-[#B4FC75] font-mono">{(IPFSState?.type ?? "无").toUpperCase()}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-[10px] font-bold text-gray-600 uppercase">当前哈希</p>

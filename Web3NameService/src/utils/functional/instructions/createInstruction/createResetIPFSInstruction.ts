@@ -6,6 +6,7 @@ import { Web3RecordsInstruction } from "../instruction";
 import { Numberu32 } from "../../common/number/number32";
 import { WEB3_RECORDS_ID } from "@/utils/constants/constants";
 import type { IPFSInstructionAccounts } from "./createInitIPFSInstruction";
+import { UseProtocol } from "../../common/class/ipfsRecordState";
 
 
 
@@ -13,13 +14,15 @@ export function createResetIPFSInstruction(
     instructionAccounts: IPFSInstructionAccounts,
     newCid: string,
     recordType: RecordType,
+    useProtocol: UseProtocol,
 ): TransactionInstruction {
     const buffers = [
         Buffer.from(Uint8Array.from([Web3RecordsInstruction.EditRecord])),
         new Numberu32(Buffer.from(recordType).length).toBuffer(),
         Buffer.from(recordType),
+        Buffer.from([useProtocol === UseProtocol.IPFS? 0x00:0x01]),
         new Numberu32(Buffer.from(newCid).length).toBuffer(),
-        Buffer.from(newCid)
+        Buffer.from(newCid),
     ]
 
     const data = Buffer.concat(buffers)

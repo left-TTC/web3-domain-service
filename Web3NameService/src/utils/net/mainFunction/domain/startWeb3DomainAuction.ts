@@ -43,7 +43,6 @@ export async function startWeb3DomainAuction(
     const usrRefferrerRecord = getRefferrerRecordKey(feePayer)
     console.log("usr refferrer record ", usrRefferrerRecord.toBase58())
 
-    let nameStateRentPayer: PublicKey;
     let domainPrice: Numberu64;
     const nameStateInfo = await connection.getAccountInfo(domainNameStateKey)
     if(nameStateInfo){
@@ -57,7 +56,6 @@ export async function startWeb3DomainAuction(
             domainPrice = new Numberu64(INIT_DOMAIN_PRICE)
         }
     }else{
-        nameStateRentPayer = feePayer;
         domainPrice = new Numberu64(INIT_DOMAIN_PRICE)
     }
 

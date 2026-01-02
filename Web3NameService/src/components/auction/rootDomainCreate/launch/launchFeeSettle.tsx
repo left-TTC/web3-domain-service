@@ -5,7 +5,6 @@ import ChoosePayment, { PaymentMethod } from "@/components/search/domainSettleme
 import "@/style/components/auction/rootDomainCreate/launch/launchFeeSettle.css"
 import type React from "react";
 import { useState } from "react";
-import LaunchFeeCrypto from "./launchFeeCrypto/launchFeeCrypto";
 import { useTranslation } from "react-i18next";
 
 
@@ -29,7 +28,7 @@ const LaunchFeeSettle: React.FC<LaunchFeeSettleProps> = ({
                     <h2>{t("createroot")}</h2>
                 </div>
                 <ChoosePayment chooseMethod={setPayMethod} activingMethod={payMethod} />
-                <LaunchFeeCrypto />
+                {/* <LaunchFeeCrypto /> */}
             </div>
         </div>
     )

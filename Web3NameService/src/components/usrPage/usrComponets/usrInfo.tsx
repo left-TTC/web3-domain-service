@@ -17,7 +17,10 @@ interface UsrInfoProps {
 }
 
 const UsrInfo: React.FC<UsrInfoProps> = ({
-    checkUsr, usrDomains, ifCheckingOtherUsr, domainStateMap, usrProfit, usrVolume
+    checkUsr, usrDomains, ifCheckingOtherUsr, 
+    // domainStateMap, 
+    usrProfit, 
+    // usrVolume
 }) => {
 
     const [profitValue, setProfitValue] = useState("")

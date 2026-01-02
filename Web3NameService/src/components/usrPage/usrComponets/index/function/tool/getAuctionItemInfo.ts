@@ -10,7 +10,7 @@ import { PublicKey, type Connection } from "@solana/web3.js";
 export async function getAuctionItemInfo(
     connection: Connection,
     itemNames: string[],
-    usrKey: PublicKey,
+    // usrKey: PublicKey,
 ): Promise<Map<string, NameAuctionState>[]> {
     const settleMap = new Map();
     const onAuctionMap = new Map();
