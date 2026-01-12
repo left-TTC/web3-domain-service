@@ -3,11 +3,10 @@ import { useTranslation } from "react-i18next"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { animate } from "animejs"
 import { useNavigate } from "react-router-dom"
-import { Compass, Gavel, PlusSquare } from "lucide-react"
+import { Compass, PlusSquare } from "lucide-react"
 
 export enum MarketChoose {
     DomainRecommend = "DomainRecommend",
-    AuctionHouse = "AuctionHouse",
     CreateRootDomain = "CreateRootDomain",
 }
 
@@ -29,8 +28,6 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
         switch(type){
             case MarketChoose.DomainRecommend:
                 return t("redommend")
-            case MarketChoose.AuctionHouse:
-                return t("auctionhouse")
             case MarketChoose.CreateRootDomain:
                 return t("launchroot")
         }
@@ -78,10 +75,6 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
                 navigate("/auction/recommend")
                 setAnimate(true)
                 break
-            case MarketChoose.AuctionHouse:
-                navigate("/auction/resale")
-                setAnimate(true)
-                break
             case MarketChoose.CreateRootDomain:
                 navigate("/auction/createRoot")
                 setAnimate(true)
@@ -103,7 +96,6 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
 
     const marketIconMap: Record<MarketChoose, ReactNode> = {
         [MarketChoose.DomainRecommend]: <Compass size={18} />,
-        [MarketChoose.AuctionHouse]: <Gavel size={18} />,
         [MarketChoose.CreateRootDomain]: <PlusSquare size={18} />,
     };
 

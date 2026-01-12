@@ -5,9 +5,6 @@ import { getNameAccountKey } from "../functional/solana/getNameAccountKey";
 import { getHashedName } from "../functional/solana/getHashedName";
 
 
-
-
-
 export async function findCreatingRoot(
     connection: Connection
 ): Promise<rootStateAccount[]> {

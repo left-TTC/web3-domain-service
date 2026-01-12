@@ -1,141 +1,38 @@
-import "@/style/components/auction/domainRecommend.css";
-import { useTranslation } from "react-i18next";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useConnection } from "@solana/wallet-adapter-react";
 
-import FilterButton from "./domainRecommend/bar/filterButton";
-import SortButton, { RecommendSortWay } from "./domainRecommend/bar/sortButton";
-import RefreshButton from "./domainRecommend/bar/refreshButton";
-import EyeBack from "./domainRecommend/bar/eyeBack";
-import CartButton from "./domainRecommend/bar/cartButton";
-import RecommendDomainShow from "./domainRecommend/recommendDomainShow";
-import CheckingRootDomain from "./domainRecommend/bar/checkingRootDomain";
-import DomainGeneratingShow from "./domainRecommend/domainGeneratingShow";
-import LargeRound from "../common/show/largeRound";
-import { startWithTop } from "../index/browseDomain/functionalComponents/startWithTop";
-import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
-import { generateRandomStringsFromDictionary } from "@/utils/functional/common/net/generateRandomStringsFromDictionary";
-import { useAuctionStore } from "../store/auctionRecommendStore";
-import { sortMapDomains } from "./domainRecommend/bar/tool/sortMapDomains";
+import AuctionRecommend from './domainRecommend/auctionRecommend';
+import AuctionHistory from './domainRecommend/auctionHistory';
+import { useEffect, useState } from 'react';
+import { createMockState, NameAuctionState } from '@/utils/functional/common/class/nameAuctionState';
+
 
 export default function DomainRecommend() {
-    startWithTop();
-    const { t } = useTranslation();
-    const { activeRootDomain, rootDomains } = useRootDomain();
-    const { connection } = useConnection();
-
-    const store = useAuctionStore();
-    const loaded = useRef(false);
+  
+    const [hotStates, setHotStates] = useState<NameAuctionState[]>([])
+    const [hotItemsName, setHotItemsName] = useState<string[]>([])
 
     useEffect(() => {
-        if (!store.data.checkingRoot && activeRootDomain) {
-            store.setData({ checkingRoot: activeRootDomain, lastRoot: activeRootDomain });
-        }
-    }, [activeRootDomain]);
+        setHotItemsName(["solana.sol", "solana.sol", "solana.sol", "solana.sol", "solana.sol", "solana.sol", "solana.sol", "solana.sol"])
+        const mockState = createMockState()
+        setHotStates(new Array(8).fill(mockState));
+    }, [])
 
-    const stableRootDomains = useMemo(() => rootDomains, [rootDomains.length]);
-
-    useEffect(() => {
-        const fetchDomains = async () => {
-            loaded.current = true;
-            store.setData({ ifDomainGenerated: false });
-
-            const randomMap = await generateRandomStringsFromDictionary(
-                store.data.needDomainLength,
-                21,
-                rootDomains,
-                store.data.checkingRoot,
-                connection,
-                store.data.mustConatData
-            );
-
-            store.setData({
-                recommendDomainAndInfoMap: randomMap,
-                ifDomainGenerated: true,
-            });
-        };
-
-        if (!store.data.recommendDomainAndInfoMap && !loaded.current && rootDomains.length != 0 && store.data.checkingRoot != "") {
-            fetchDomains();
-        }
-    }, [store.data.checkingRoot, stableRootDomains, store.data.ifDomainGenerated]);
-
-    useEffect(() => {
-        if (store.data.lastRoot !== store.data.checkingRoot) {
-            loaded.current = false;
-            store.setData({ lastRoot: store.data.checkingRoot });
-        }
-    }, [store.data.checkingRoot]);
-
-    const refresh = () => {
-        store.setData({ ifDomainGenerated: false, recommendDomainAndInfoMap: null });
-        loaded.current = false
-    }
-
-    const [domainArray, setDomainArray] = useState<string[]>([])
-    const [domainSortWay, setDomainSortWay] = useState<RecommendSortWay>(RecommendSortWay.AtoZ)
-    useEffect(() => {
-        const map = store.data.recommendDomainAndInfoMap
-        if(map && map.size > 0){
-            setDomainArray(sortMapDomains(map, domainSortWay))
-        }
-    }, [domainSortWay, store.data.recommendDomainAndInfoMap])
 
     return (
-        <div className="Recommendpage">
-            <LargeRound />
-            <div className="recommendpagecontent">
-                <div className="recommendpagetitle">
-                    <h1>{t("domainrecommend")}</h1>
-                    <h2>{t("seziefuture")}</h2>
-                </div>
+        <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#B4FC75] selection:text-black pb-24">
 
-                <div className="recommendpagebar">
-                    <div className="recommendbarleft">
-                        <FilterButton 
-                            refresh={() => refresh()}
-                        />
-                        <SortButton 
-                            setSortWay={setDomainSortWay}
-                            nowWay={domainSortWay}
-                        />
-                    </div>
-                    <div className="recommendright">
-                        <EyeBack />
-                        <div className="eyeright">
-                            <div className="mysort">
-                                <RefreshButton
-                                    refreshRecommendDomain={() => refresh()}
-                                />
-                                <CartButton />
-                            </div>
-                            <CheckingRootDomain
-                                checkingRoot={store.data.checkingRoot}
-                                setReloadFlag={() => refresh()}
-                            />
-                        </div>
-                    </div>
-                </div>
+            <main className="max-w-7xl mx-auto px-6 pt-36 space-y-24">
+                <AuctionRecommend hotItems={hotStates} itemNames={hotItemsName}/>
+                <AuctionHistory />
+            </main>
 
-                <div className="recommendDomains">
-                    {store.data.ifDomainGenerated && store.data.recommendDomainAndInfoMap
-                        ? domainArray.map((domain, index) => (
-                              <div className="recommenddomainbl" key={index}>
-                                  <RecommendDomainShow
-                                      showDomain={domain + "." + store.data.checkingRoot}
-                                      domainDecimal={store.data.recommendDomainAndInfoMap!.get(domain)!}
-                                  />
-                              </div>
-                          ))
-                        : Array(21)
-                            .fill(0)
-                            .map((_, index) => (
-                                <div className="recommenddomainbl" key={index}>
-                                    <DomainGeneratingShow />
-                                </div>
-                            ))}
+            <footer className="max-w-7xl mx-auto px-6 mt-32 border-t border-white/5 pt-12 pb-12 text-center">
+                <div className="flex justify-center gap-8 mb-8 text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em]">
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">隐私政策</a>
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">服务条款</a>
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">数据 API</a>
                 </div>
-            </div>
+                <p className="text-gray-700 text-[10px] font-mono tracking-widest uppercase">去中心化资产发现系统 © 2024 DECENTRALIZED ASSET DISCOVERY</p>
+            </footer>
         </div>
     );
 }

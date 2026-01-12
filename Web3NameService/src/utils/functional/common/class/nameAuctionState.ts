@@ -31,3 +31,49 @@ export class NameAuctionState {
         this.settled = nameStateData[48] === 1;
     }
 }
+
+
+
+// for test
+export function createMockState(
+    overrides?: Partial<{
+        highestBidder: PublicKey;
+        updateTime: bigint;
+        highestPrice: bigint;
+        settled: boolean;
+    }>
+): NameAuctionState {
+    
+    const highestBidder =
+        overrides?.highestBidder ?? PublicKey.default;
+    const updateTime =
+        overrides?.updateTime ?? 0n;
+    const highestPrice =
+        overrides?.highestPrice ?? 0n;
+    const settled =
+        overrides?.settled ?? false;
+
+    const buffer = Buffer.alloc(NAME_STATE_LENGTH);
+
+    highestBidder.toBuffer().copy(buffer, 0);
+
+    new Numberu64(updateTime)
+        .toBuffer()
+        .copy(buffer, 32);
+
+    new Numberu64(highestPrice)
+        .toBuffer()
+        .copy(buffer, 40);
+
+    buffer[48] = settled ? 1 : 0;
+
+    const mockAccountInfo: AccountInfo<Buffer> = {
+        data: buffer,
+        executable: false,
+        lamports: 0,
+        owner: PublicKey.default,
+        rentEpoch: 0,
+    };
+
+    return new NameAuctionState(mockAccountInfo);
+}
