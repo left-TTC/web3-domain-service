@@ -102,7 +102,7 @@ const WalletDropDownBox: React.FC<walletDropDownBoxProps> = ({walletRef, ifWalle
     return(
         <div
             ref={walletDropRef}
-            className="fixed top-22 z-50"
+            className="fixed top-22 z-50 right-10"
         >
             <div className="bg-[#0a0a0a] border-2 border-white/30 rounded-xl p-2 shadow-xl shadow-black/40 w-56">
                 {walltButtonsMap.map((button, index) => (

@@ -10,7 +10,6 @@ export async function startDomain(
     entireDomain: string,
     refferrerKey: PublicKey,
     buyer: PublicKey | null,
-    
     RootDomain: string[] | null,
     totalFee: number,
     connection: Connection,

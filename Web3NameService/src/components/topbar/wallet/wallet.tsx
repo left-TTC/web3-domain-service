@@ -4,14 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 
-import array from "@/assets/array.svg"
-import connectWallet from "@/assets/connectwallet.svg"
-
-import "@/style/components/topbar/wallet/wallet.css"
 import { cutString } from "@/utils/functional/common/cutString";
 import { animate } from "animejs";
 import WalletDropDownBox from "./walletDropDownBox";
-import Identicon from "@/components/common/show/usr/identicon";
+import { PixelAvatar } from "@/components/common/show/genIcon";
+import { ChevronDown, Wallet2 } from "lucide-react";
 
 export interface WalletProps{
     ifShowDropBox: boolean,
@@ -28,20 +25,16 @@ const Wallet: React.FC<WalletProps> = ({
     
     const arrayRef = useRef<HTMLDivElement | null> (null);
 
-    //wallet's function
     const {
-        //function to connect wallet`
-        connect,
         connected,
         publicKey,
-        wallet,
     } = useWalletEnv();
 
     const [walletAddress, setWalletAddress] = useState<string>("");
     
     useEffect(() => {
         if(publicKey){
-            setWalletAddress(cutString(publicKey.toBase58(), 5, 5));
+            setWalletAddress(cutString(publicKey.toBase58(), 5, 5, "..."));
         }
     }, [publicKey]);
 
@@ -66,34 +59,30 @@ const Wallet: React.FC<WalletProps> = ({
         if(connected){
             setDropBox(prev => !prev);
         }else{
-            if(!wallet){
-                setWalletChooser(true);
-                return;
-            }
-            connect()
+            setWalletChooser(true);
         }
     }
 
     return(
-        <div className="walletpackage">
-            <button className="wallet" onClick={walletClick} ref={walletRef}>
+        <div className="relative h-[60%] flex items-center">
+            <button className={`flex relative items-center h-full rounded-lg overflow-hidden ${connected && "border-[2px] border-white/30"}`} onClick={walletClick} ref={walletRef}>
                 {connected ?
                     (
-                        <div className="walletConnected border-white/10">
+                        <div className="flex row justify-between items-center gap-[10px] md:gap-[20px] sm:px-[20px] py-[5px]">
                             
-                            <div className="walletusericon">
-                                <Identicon pubkey={publicKey!.toBase58()}/>
-                            </div>
-                            <h1>{walletAddress}</h1>
-                            <div className="walletarray" ref={arrayRef}>
-                                <img src={array} className="arrayicon"/>
+                            <PixelAvatar text={publicKey!.toBase58()} size={20}/>
+                            <div className="row gap-[8px] items-center hidden md:flex">
+                                <h3 className="text-white text-[16px] opacity-80 font-normal">{walletAddress}</h3>
+                                <div className="bg-[#434C52] rounded-full" ref={arrayRef}>
+                                    <ChevronDown className="w-3 h-3 text-white" />
+                                </div>
                             </div>
                         </div>
                     ) :
                     (
-                        <div className="walletconnect">
-                            <h1 className="font-semibold">{t("connect")}</h1>
-                            <img src={connectWallet} className="walletconnectimg" /> 
+                        <div className="flex row justify-between items-center gap-[10px] md:gap-[10px] bg-[#B4FC75] w-full h-full px-[20px] py-[5px] hover:opacity-80">
+                            <h3 className="text-black text-[16px] opacity-80 font-bold hidden lg:flex">{t("connect")}</h3>
+                            <Wallet2 className="w-5 h-5 text-black" />
                         </div>
                     )
                 }      

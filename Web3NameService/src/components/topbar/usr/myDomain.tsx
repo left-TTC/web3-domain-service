@@ -2,7 +2,6 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import "@/style/components/topbar/usr/myDomain.css"
 import { useNavigate } from "react-router-dom"
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 import { LayoutDashboard } from "lucide-react"
@@ -33,13 +32,13 @@ const MyDomain = () => {
 
     return(
         <button 
-            className={`topbarmydomain ${ifOnHover? "greenmydomain":""}`}
+            className="flex row sm:p-[10px] gap-[10px] items-center"
             onMouseEnter={() => setIfOnHover(true)}    
             onMouseLeave={() => setIfOnHover(false)}
             onClick={() => goToUsrPage()}
         >
             {myDomainImg()}
-            <h1>{t("mydomain")}</h1>
+            <h3 className={`${ifOnHover? "text-[#B4FC75]":"text-white"} font-500 text-[14px] hidden md:flex`}>{t("mydomain")}</h3>
         </button>
     )
 }

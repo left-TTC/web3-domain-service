@@ -1,29 +1,15 @@
-import { ArrowUpRight, BarChart3, Star } from "lucide-react";
+import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import { cutString } from "@/utils/functional/common/cutString";
+import { BarChart3, Inbox } from "lucide-react";
 
 interface AuctionHistoryProps {
-
+    topItem: NameAuctionState[],
+    itemName: string[],
 }
-
-interface TopSaleDomain {
-    name: string;
-    salePriceSOL: number;
-    date: string;
-    buyer: string;
-}
-
-
-const MOCK_TOP_SALES: TopSaleDomain[] = [
-    { name: "wallet.sol", salePriceSOL: 5000.0, date: "2023-11-12", buyer: "7xR...9wP" },
-    { name: "bank.sol", salePriceSOL: 2800.0, date: "2023-12-05", buyer: "Ax2...Klm" },
-    { name: "play.sol", salePriceSOL: 1500.0, date: "2024-01-02", buyer: "D5s...tYq" },
-    { name: "earn.sol", salePriceSOL: 950.0, date: "2024-01-08", buyer: "BfG...32z" },
-    { name: "chat.sol", salePriceSOL: 820.0, date: "2023-10-20", buyer: "Kk9...pLm" },
-    { name: "web3.sol", salePriceSOL: 750.0, date: "2024-01-10", buyer: "QwE...11x" },
-];
 
 
 const AuctionHistory: React.FC<AuctionHistoryProps> = ({
-    
+    topItem, itemName
 }) => {
     
 
@@ -35,18 +21,13 @@ const AuctionHistory: React.FC<AuctionHistoryProps> = ({
                         <BarChart3 size={12} /> 历史里程碑
                     </div>
                     <h2 className="text-4xl font-bold tracking-tight">全网最高成交金额</h2>
-                    <p className="text-gray-500 max-w-lg">见证 Solana 生态中最具价值的顶级域名成交纪录，数据通过链上实时验证。</p>
+                    <p className="text-gray-400 font-normal">见证 Solana 生态中最具价值的顶级域名成交纪录，数据通过链上实时验证。</p>
                 </div>
-                
-                <button className="px-8 py-4 rounded-2xl border border-white/10 font-bold text-sm hover:bg-white/5 transition-all flex items-center gap-2 group">
-                    查看完整排行榜 <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {MOCK_TOP_SALES.map((sale, idx) => (
-                    <div key={sale.name} className="relative group cursor-default">
-                        {/* 排名数字 */}
+                {topItem.map((item, idx) => (
+                    <div key={idx} className="relative group cursor-default">
                         <div className="absolute -top-4 -left-4 w-10 h-10 bg-[#0a0a0a] rounded-full flex items-center justify-center font-mono font-bold border border-white/10 group-hover:border-[#B4FC75] group-hover:text-[#B4FC75] transition-all z-10">
                             {idx + 1}
                         </div>
@@ -54,22 +35,22 @@ const AuctionHistory: React.FC<AuctionHistoryProps> = ({
                         <div className="bg-black/40 border border-white/5 rounded-3xl p-6 hover:bg-black/60 transition-all h-full flex flex-col justify-between">
                             <div className="flex justify-between items-start mb-6">
                                 <div>
-                                    <h4 className="text-xl font-bold font-mono text-white mb-1 group-hover:text-[#B4FC75] transition-colors">{sale.name}</h4>
-                                    <p className="text-[10px] text-gray-600 font-mono tracking-widest uppercase">成交时间: {sale.date}</p>
+                                    <h4 className="text-xl font-bold font-mono text-white mb-1 group-hover:text-[#B4FC75] transition-colors">{itemName[idx]}</h4>
+                                    <p className="text-[11px] text-gray-500 font-mono tracking-widest uppercase font-normal">成交时间: {item.updateTime.toNumber()}</p>
                                 </div>
-                                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-[#B4FC75] transition-colors">
-                                    <Star size={18} />
-                                </div>
+                                <button className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-[#B4FC75] transition-colors">
+                                    <Inbox size={18} />
+                                </button>
                             </div>
 
                             <div className="flex items-end justify-between pt-4 border-t border-white/5">
                                 <div>
                                     <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">最终成交价</p>
-                                    <p className="text-2xl font-mono font-bold text-white leading-none">{sale.salePriceSOL.toLocaleString()} <span className="text-sm text-[#B4FC75] ml-0.5">SOL</span></p>
+                                    <p className="text-2xl font-mono font-bold text-white leading-none">{item.highestPrice.toNumber()} <span className="text-sm text-[#B4FC75] ml-0.5">SOL</span></p>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-[10px] text-gray-500 uppercase font-bold mb-1 text-right">买家</p>
-                                    <p className="text-xs font-mono text-gray-400">{sale.buyer}</p>
+                                    <p className="text-[10px] text-gray-500 uppercase font-bold mb-1 text-right">owner</p>
+                                    <p className="text-xs font-mono text-gray-400">{cutString(item.highestBidder.toBase58(), 3, 3, "...")}</p>
                                 </div>
                             </div>
                         </div>
@@ -79,10 +60,10 @@ const AuctionHistory: React.FC<AuctionHistoryProps> = ({
 
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 pt-10 border-t border-white/5">
                 {[
-                    { label: "平均成交价", value: "142.5 SOL" },
-                    { label: "总成交额 (24h)", value: "52,042 SOL" },
                     { label: "最高持有人", value: "SOL_Capital" },
-                    { label: "全网总域名数", value: "1.2M+" }
+                    { label: "全网总域名数", value: "1.2M+" },
+                    { label: "个人最高流水", value: "142.5 SOL" },
+                    { label: "创造者", value: "52,042 SOL" },
                 ].map((stat, index) => (
                     <div key={index} className="text-center md:text-left">
                         <p className="text-[10px] text-gray-500 uppercase font-bold mb-1 tracking-wider">{stat.label}</p>

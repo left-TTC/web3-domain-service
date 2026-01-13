@@ -6,14 +6,12 @@ import { useEffect, useState } from "react";
 import "@/style/components/usrPage/adminBlock.css"
 import { startProject } from "@/utils/net/mainFunction/startProject";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import { useSolanaToast } from "@/provider/fixedToastProvider/fixedToastProvider";
 import VaultManage from "./adminComponent/vaultManage";
 
 const AdminBlcok = () => {
 
     const {connection} = useConnection()
     const {publicKey: admin, signTransaction} = useWalletEnv()
-    const solanaToast = useSolanaToast()
 
     const [ifProjectStarted, setIfProjectStarted] = useState(false)
 
@@ -28,7 +26,7 @@ const AdminBlcok = () => {
     
     const startweb3Project = async() => {
         await startProject(
-            connection, signTransaction, admin, solanaToast
+            connection, signTransaction, admin
         )
     }
 

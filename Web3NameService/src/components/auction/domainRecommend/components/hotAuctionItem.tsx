@@ -2,6 +2,7 @@ import { Award, Clock } from "lucide-react";
 import CardContainer from "./cardContainer";
 import { useState } from "react";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import { CountDownTimer } from "@/components/common/show/countdownTimer";
 
 
 
@@ -18,7 +19,7 @@ const HotAuctionItem: React.FC<HotAuctionItemProps> = ({
     const [canParticipate, setCanParticipate] = useState(true)
     const [remainTime, setRemainTime] = useState(0)
 
-
+    
 
     return (
         <CardContainer highlight={idx === 0}>
@@ -35,13 +36,19 @@ const HotAuctionItem: React.FC<HotAuctionItemProps> = ({
                     <p className="text-[10px] text-gray-500 uppercase font-bold mb-1">当前最高价</p>
                     <p className="text-3xl font-mono font-bold text-[#B4FC75]">{item.highestPrice.toNumber().toFixed(2)} <span className="text-xs ml-1">SOL</span></p>
                 </div>
-                <div className="flex justify-between items-center px-2">
-                    <span className="text-xs text-gray-500 flex items-center gap-1.5"><Clock size={12}/> 剩余时间</span>
-                    <span className="text-xs font-bold font-mono text-white">{item.updateTime.toNumber()}</span>
-                </div>
+                <CountDownTimer initialMinutes={1} onFinish={() => setCanParticipate(false)}/>
             </div>
 
-            <button className="w-full py-4 rounded-2xl font-bold text-black bg-[#B4FC75] hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-[#B4FC75]/10">
+            <button 
+                disabled={!canParticipate}
+                className="w-full py-4 rounded-2xl font-bold text-black bg-[#B4FC75] hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-[#B4FC75]/10 disabled:bg-gray-200
+                    disabled:text-gray-400
+                    disabled:cursor-not-allowed
+                    disabled:pointer-events-none
+                    disabled:shadow-none
+                    disabled:hover:opacity-100
+                    disabled:active:scale-100"
+                >
                 立即参与竞价
             </button>
         </CardContainer>

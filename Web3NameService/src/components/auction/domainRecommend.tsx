@@ -4,7 +4,6 @@ import AuctionHistory from './domainRecommend/auctionHistory';
 import { useEffect, useState } from 'react';
 import { createMockState, NameAuctionState } from '@/utils/functional/common/class/nameAuctionState';
 
-
 export default function DomainRecommend() {
   
     const [hotStates, setHotStates] = useState<NameAuctionState[]>([])
@@ -22,7 +21,7 @@ export default function DomainRecommend() {
 
             <main className="max-w-7xl mx-auto px-6 pt-36 space-y-24">
                 <AuctionRecommend hotItems={hotStates} itemNames={hotItemsName}/>
-                <AuctionHistory />
+                <AuctionHistory topItem={new Array(6).fill(createMockState())} itemName={hotItemsName}/>
             </main>
 
             <footer className="max-w-7xl mx-auto px-6 mt-32 border-t border-white/5 pt-12 pb-12 text-center">

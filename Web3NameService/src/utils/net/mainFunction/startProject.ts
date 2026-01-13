@@ -1,4 +1,4 @@
-import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
+
 import { CENTRAL_STATE_REGISTER, returnProjectVault, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
 import { createStartProjectInstruction, type StartProjectInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createStartProjectInstruction";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
@@ -12,11 +12,9 @@ export async function startProject(
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
     admin: PublicKey | null,
-    solanaToast: SolanaToastContextType,
 ): Promise<void> {
 
     if(!admin || !signTransaction){
-        solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
         return
     }
@@ -89,9 +87,6 @@ export async function startProject(
                 console.log(txInfo.meta?.logMessages);
             }
 
-            if(String(txResult).includes("success")){
-                solanaToast.show(TransactionState.Success)
-            }
         }else{
             console.log("simulate fail")
         }
