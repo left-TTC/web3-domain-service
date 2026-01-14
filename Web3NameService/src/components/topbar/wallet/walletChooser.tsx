@@ -23,10 +23,29 @@ const WalletChooser: React.FC<WalletChooserProps> = ({setChooserOpen}) => {
         setAvailableWallets(detectPhoneWallet())
     }, [])
 
-    const clickChooseWallet = (wallet: Wallet) => {
-        select(wallet.adapter.name);
-        connect()
-        setChooserOpen(false)
+    const clickChooseWallet = async(wallet: Wallet) => {
+        // select(wallet.adapter.name);
+        info.showModal({
+            title: "wallet test",
+            content: "try to connect" + " " + wallet.adapter.name,
+            type: "info",
+        })
+        try{
+            await wallet.adapter.connect()
+            info.showModal({
+                title: "wallet test",
+                content: "success",
+                type: "success",
+            })
+        }catch(err){
+            info.showModal({
+                title: "wallet test",
+                content: "err" + " " + err,
+                type: "error",
+            })
+        }
+        // connect()
+        // setChooserOpen(false)
     }
 
     const ifWalletDetect = (wallet: Wallet | DetectWalletParams) => {
