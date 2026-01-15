@@ -1,4 +1,4 @@
-import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
+// import { TransactionState } from "@/utils/functional/instructions/transactionState";
 import { CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
 import { extractUserProfitTransaction } from "@/utils/net/mainFunction/usrOperation/extractUsrProfit";
 import { Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
@@ -8,11 +8,10 @@ import { Transaction, type Connection, type PublicKey, type VersionedTransaction
 export async function extractUserProfit(
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
     wallet: PublicKey | null,
-    solanaToast: SolanaToastContextType,
     connection: Connection,
 ): Promise<void>{
     if(!wallet || !signTransaction){
-        solanaToast.show(TransactionState.NoConnect)
+        // solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
         return
     }
@@ -67,9 +66,9 @@ export async function extractUserProfit(
                 console.log(txInfo.meta?.logMessages);
             }
 
-            if(String(txResult).includes("success")){
-                solanaToast.show(TransactionState.Success)
-            }
+            // if(String(txResult).includes("success")){
+            //     solanaToast.show(TransactionState.Success)
+            // }
         }else{
             console.log("simulate fail")
         }

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getQueryDomainInfo } from "@/utils/net/getQueryDomainInfo";
@@ -26,9 +26,9 @@ export function Search() {
     const {rootDomains} = useRootDomain()
 
     const {connection} = useConnection();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const { queryingDomain, ifRecommendPage } = location.state || {};
+    const { queryingDomain } = location.state || {};
 
     const [domainBlock, setDomainBlock] = useState<string[] | null> (null)
     const [queryDomainInfo, setQueryDomainInfo] = useState<NameRecordState | null>(null)
@@ -84,15 +84,14 @@ export function Search() {
 
     }, [domainBlock])
 
-    const backToIndex = () => {
-        console.log("recommend page: ", ifRecommendPage)
-        if(ifRecommendPage){
-            navigate("/auction/recommend")
-        }else{
-            navigate("./index")
-        }
-    }
-    console.log(backToIndex)
+    // const backToIndex = () => {
+    //     console.log("recommend page: ", ifRecommendPage)
+    //     if(ifRecommendPage){
+    //         navigate("/auction/recommend")
+    //     }else{
+    //         navigate("./index")
+    //     }
+    // }
 
     const [resultState, setResultState] = useState<SearchDomainResult | null>(null)
 

@@ -1,42 +1,31 @@
-import { TransactionState, type SolanaToastContextType } from "@/provider/fixedToastProvider/fixedToastProvider";
-import type { SupportedMint } from "@/provider/priceProvider/priceProvider";
-import { returnPythFeedAccount } from "@/utils/functional/common/net/getPythFeedAccount";
-import { addFuelForRoot } from "@/utils/net/mainFunction/rootDomain/addFuelForRoot";
+import { TransactionState } from "@/utils/functional/instructions/transactionState";
+import { stakeSolForRoot } from "@/utils/net/mainFunction/rootDomain/addFuelForRoot";
 import { SendTransactionError, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
 
 
-export async function tryToAddFuel(
+export async function tryToStakeRoot(
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
     wallet: PublicKey | null,
-    solanaToast: SolanaToastContextType,
-    //usd
-    fuelQuantity: number | null,
-    creatingRootName: string,
-    tokenQuantity: number,
-    useMint: SupportedMint,
-    // need a common toast
-): Promise<void> {
-    if(!fuelQuantity || tokenQuantity === 0){
-        solanaToast.show(TransactionState.Error)
-        return
+    fuelQuantity: number | undefined,
+    creatingRootName: string | null,
+): Promise<TransactionState> {
+
+    if(!fuelQuantity || !creatingRootName){
+        return TransactionState.Error
     }
 
     if(!wallet || !signTransaction){
-        solanaToast.show(TransactionState.NoConnect)
         console.log("wallet error")
-        return
+        return TransactionState.NoConnect
     }
 
     try{
         const tryToAddFuelTransaction = new Transaction()
 
-        const pythFeedAccountKey = returnPythFeedAccount(useMint)
-
-        const addFuelAndOtherTransaction = addFuelForRoot(
+        const addFuelAndOtherTransaction = stakeSolForRoot(
             wallet,
-            pythFeedAccountKey,
             creatingRootName,
             fuelQuantity,
         )
@@ -81,22 +70,22 @@ export async function tryToAddFuel(
                 console.log(txInfo.meta?.logMessages);
             }
 
-            if(String(txResult).includes("success")){
-                solanaToast.show(TransactionState.Success)
-            }
+            return TransactionState.Success
         }else{
             console.log("simulate fail")
+            return TransactionState.Fail
         }
 
         
     }catch (err: any) {
         console.error("Transaction failed:", err);
 
-        // 捕获并打印完整日志
         if (err instanceof SendTransactionError) {
             const logs = err.getLogs(connection);
             console.error("=== Simulation Logs ===");
             console.error(logs);
         }
+
+        return TransactionState.Fail
     }
 }

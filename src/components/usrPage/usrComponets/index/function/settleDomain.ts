@@ -1,4 +1,4 @@
-import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/utils/functional/instructions/transactionState";
 import { CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { settleAuctionDomain } from "@/utils/net/mainFunction/domain/settleAuctionDomain";

@@ -2,10 +2,10 @@ import { useState } from "react";
 import CreatingRootShow from "./rootDomainCreate/creatingRootShow";
 import CreateRootPost from "./rootDomainCreate/createRootPost";
 import DomainSettlementModal, { SettleType } from "../settle/settlement";
-import { tryToCreateRootDomain } from "./rootDomainCreate/launch/functionalComponents/tryToCreateRootDomain";
+import { tryToCreateRootDomain } from "./rootDomainCreate/launch/tryToCreateRootDomain";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
-import { TransactionState } from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState } from "@/utils/functional/instructions/transactionState";
 
 
 
@@ -20,10 +20,6 @@ export default function RootDomainCreate(){
     const [newRoot, setNewRoot] = useState("")
     const [initialSol, setInitialSol] = useState(0)
 
-    const openLanunchSettleAndRecordPosition = () => {
-        setShowLaunchSettle(true)
-    }
-
     const createRootState = async() => {
         if(initialSol > 0 && newRoot.length > 0){
             return await tryToCreateRootDomain(
@@ -34,6 +30,7 @@ export default function RootDomainCreate(){
                 publicKey
             )
         }else{
+            console.log("init should > 0")
             return TransactionState.Error
         }
     }
@@ -46,9 +43,7 @@ export default function RootDomainCreate(){
             </div>
 
             <main className="max-w-7xl mx-auto px-6 pt-16 relative z-10 flex flex-col gap-20 mt-30">
-                <CreatingRootShow
-                    openLanunchSettleAndRecordPosition={openLanunchSettleAndRecordPosition}
-                />
+                <CreatingRootShow />
                 <CreateRootPost 
                     newRoot={newRoot}
                     setNewRoot={setNewRoot}
@@ -62,7 +57,7 @@ export default function RootDomainCreate(){
                 <DomainSettlementModal
                     opearationName={newRoot}
                     actionType={SettleType.root}
-                    basePrice={initialSol * 1e8}
+                    basePrice={initialSol * 1e9}
                     onClose={() => setShowLaunchSettle(false)}
                     onConfirm={createRootState}
                 />

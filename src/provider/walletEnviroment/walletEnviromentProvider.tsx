@@ -1,7 +1,6 @@
 
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { clusterApiUrl } from '@solana/web3.js';
 import { createContext, useContext, useMemo } from 'react';
 
 type WalletEnvContextType = {
@@ -9,15 +8,29 @@ type WalletEnvContextType = {
     endpoint: string;
 };
 
-
 const WalletEnvContext = createContext<WalletEnvContextType | null>(null);
 
 export const WalletEnvironmentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
-    //use net:
-    const network = WalletAdapterNetwork.Devnet;
-    //endpoint
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+    // //use net:
+    // const network = WalletAdapterNetwork.Devnet;
+    // //endpoint
+    // const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+
+    const network = import.meta.env.VITE_SOLANA_NETWORK === 'devnet'
+        ? WalletAdapterNetwork.Devnet
+        : WalletAdapterNetwork.Mainnet;
+
+    const endpoint = useMemo(() => {
+        const useHelius = false
+
+        const rpc =  import.meta.env.VITE_SOLANA_DEV_RPC
+            ?? 'https://api.devnet.solana.com';
+        
+        console.log("use helius rpc: ", rpc)
+        return useHelius? rpc:'https://api.devnet.solana.com'
+
+    }, []);
 
     const wallets = useMemo(() => [
         //automatically detect wallet

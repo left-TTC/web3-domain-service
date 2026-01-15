@@ -8,7 +8,7 @@ import FeeItems from "./components/feeItems";
 import { useCalculateAllFees } from "./components/function/useCalculateAllFee";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
-import type { TransactionState } from "@/provider/fixedToastProvider/fixedToastProvider";
+import type { TransactionState } from "@/utils/functional/instructions/transactionState";
 import WalletView from "./components/walletView";
 import AuctionBidMultiplier from "./components/auctionBidMultiplier";
 import CustomPriceInput from "./components/customPriceInput";
@@ -24,6 +24,7 @@ export interface DomainSettlementConfirmPayload {
     totalFee?: number,
     customValue?: number,
     newPrice?: number,
+    stakeSol?: number,
     refferrerKey?: PublicKey
 }
 
@@ -39,7 +40,7 @@ interface DomainSettlementProps {
 
 export default function DomainSettlementModal({
     opearationName, actionType, basePrice, onClose,
-    onConfirm
+    onConfirm,
 }: DomainSettlementProps) {
 
     const {publicKey: usr} = useWalletEnv()
@@ -55,11 +56,13 @@ export default function DomainSettlementModal({
 
     const {fees, totalFee} = useCalculateAllFees(actionType, basePrice, opearationName, usr, activeRootDomain)
 
+    const stakeSol = 200_000_000
+
     const handlePayment = async() => {
         setIsProcessing(true);
         await onConfirm({
             totalFee: totalFee, refferrerKey: refferrerKey? refferrerKey:undefined,
-            customValue: currentPrice, newPrice: currentPrice
+            customValue: currentPrice, newPrice: currentPrice, stakeSol
         });
         setIsProcessing(false)
     };

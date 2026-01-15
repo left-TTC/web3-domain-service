@@ -31,8 +31,8 @@ export const [CENTRAL_STATE_REGISTER] = PublicKey.findProgramAddressSync(
 );
 
 // usd
-export const ADVANCED_STORAGE = 5000000;
-export const CREATE_ROOT_TARGET = 20000000;
+export const ADVANCED_STORAGE = 50_000_000;
+export const CREATE_ROOT_TARGET = 200_000_000;
 
 export const VAULT_ADMIN = 500000000; //lamports
 

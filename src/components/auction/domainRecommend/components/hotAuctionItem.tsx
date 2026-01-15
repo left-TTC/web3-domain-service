@@ -1,4 +1,4 @@
-import { Award, Clock } from "lucide-react";
+import { Award } from "lucide-react";
 import CardContainer from "./cardContainer";
 import { useState } from "react";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
@@ -17,7 +17,7 @@ const HotAuctionItem: React.FC<HotAuctionItemProps> = ({
 }) => {
 
     const [canParticipate, setCanParticipate] = useState(true)
-    const [remainTime, setRemainTime] = useState(0)
+    // const [remainTime, setRemainTime] = useState(0)
 
     
 

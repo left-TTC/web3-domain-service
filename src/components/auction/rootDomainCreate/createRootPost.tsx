@@ -31,7 +31,7 @@ const CreateRootPost: React.FC<CreateRootPostProps> = ({
                                 </span>
                                 铸造新根域
                             </h2>
-                            <p className="text-gray-400 mb-8 leading-relaxed">
+                            <p className="text-gray-400 mb-8 leading-relaxed font-normal">
                                 没有找到想要的顶级域名？您可以发起一个新的提案。如果该域名符合 Solana 命名规范且在 7 天内筹集到足够的初始质押金，它将被永久写入根服务器。
                             </p>
                             
@@ -76,7 +76,7 @@ const CreateRootPost: React.FC<CreateRootPostProps> = ({
                                     <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Initial Bid (SOL)</label>
                                     <input
                                         type="number"
-                                        placeholder="100"
+                                        placeholder="SOL"
                                         value={initialSol === 0 ? '' : initialSol}
                                         onChange={(e) => {
                                         const value = e.target.value

@@ -1,4 +1,4 @@
-import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/utils/functional/instructions/transactionState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { startWeb3DomainAuction } from "@/utils/net/mainFunction/domain/startWeb3DomainAuction";

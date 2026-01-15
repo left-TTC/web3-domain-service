@@ -1,25 +1,61 @@
+import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { CREATE_ROOT_TARGET } from "@/utils/constants/constants";
-import type { rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
+import { rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import { cutString } from "@/utils/functional/common/cutString";
 import { findCreatingRoot } from "@/utils/net/findCreatingRoot";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { ArrowRight, Globe, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { tryToStakeRoot } from "./addFuel/tryToStakeSol";
+import { TransactionState } from "@/utils/functional/instructions/transactionState";
 
 const primaryColor = '#B4FC75';
 
 interface CreatingRootShowProps {
-    openLanunchSettleAndRecordPosition: () => void
+    
 }
 
 const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
-    openLanunchSettleAndRecordPosition
+    
 }) => {
 
     const {connection} = useConnection();
+    const {publicKey: feePayer, signTransaction} = useWalletEnv()
     
     const [sailingRootDomains, setSailingRootDomains] = useState<rootStateAccount[]> ([])
     const creatingLoaded = useRef(false)
+
+    const [showStake, setShowStake] = useState(false)
+    const [stakeRoot, setStakeRoot] = useState<string | null>(null)
+
+    const stakeSol = (item: rootStateAccount) => {
+        setShowStake(true)
+        setStakeRoot(item.creatingName)
+    }
+
+    const tryStakeRoot = async(
+        payload: DomainSettlementConfirmPayload,
+    ) => {
+        const {stakeSol} = payload
+
+        try{
+            if(feePayer){
+                return await tryToStakeRoot(
+                    connection,
+                    signTransaction,
+                    feePayer,
+                    stakeSol,
+                    stakeRoot,
+                )
+            }else{
+                return TransactionState.Error
+            }
+        }catch(err){
+            console.log(err)
+            return TransactionState.Error
+        }
+    }
 
     useEffect(() => {
         const getAllCreatingRootDomains = async() => {
@@ -47,19 +83,18 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                         Root Domain <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Governance & Launch</span>
                     </h1>
                     <p className="text-gray-400 max-w-2xl text-lg">
-                        支持您最喜爱的顶级域名（TLD）。当筹款达到目标时，该根域名将在 Solana 链上被激活并生成 NFT 权益。
+                        支持您最喜爱的顶级域名(TLD).当筹款达到目标时,该根域名将在 Solana 链上被激活并生成 NFT 权益。
                     </p>
                 </div>
                 
-                {/* 统计数据 */}
                 <div className="flex gap-8 border-l border-white/10 pl-8">
                     <div>
                         <p className="text-gray-500 text-sm font-mono uppercase">Total Value Locked</p>
-                        <p className="text-2xl font-bold font-mono" style={{ color: primaryColor }}>142,059 SOL</p>
+                        <p className="text-2xl font-bold font-mono" style={{ color: primaryColor }}>xxx SOL</p>
                     </div>
                     <div>
                         <p className="text-gray-500 text-sm font-mono uppercase">Active TLDs</p>
-                        <p className="text-2xl font-bold text-white">14</p>
+                        <p className="text-2xl font-bold text-white">x</p>
                     </div>
                 </div>
             </div>
@@ -82,14 +117,14 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
 
                             <div className="mb-4">
                                 <div className="flex justify-between text-sm mb-2 font-mono">
-                                <span className="text-white">{item.fundState.toLocaleString()} SOL</span>
-                                <span className="text-gray-500">of {CREATE_ROOT_TARGET.toLocaleString()}</span>
+                                    <span className="text-white">{(item.fundState.toNumber() / 1e9).toLocaleString()} SOL</span>
+                                    <span className="text-gray-400">of {(CREATE_ROOT_TARGET / 1e9).toLocaleString()} SOL</span>
                                 </div>
                                 <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-                                <div 
-                                    className="h-full rounded-full transition-all duration-1000 ease-out"
-                                    style={{ width: `${progress}%`, backgroundColor: primaryColor }}
-                                ></div>
+                                    <div 
+                                        className="h-full rounded-full transition-all duration-1000 ease-out"
+                                        style={{ width: `${progress}%`, backgroundColor: primaryColor }}
+                                    />
                                 </div>
                             </div>
 
@@ -99,8 +134,9 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                                     100 支持者
                                 </div>
                                 <button 
-                                    onClick={() => openLanunchSettleAndRecordPosition()}
-                                    className="text-sm font-bold hover:underline decoration-2 underline-offset-4 decoration-[#B4FC75] flex items-center gap-1 transition-all">
+                                    onClick={() => stakeSol(item)}
+                                    className="text-sm font-bold hover:underline decoration-2 underline-offset-4 decoration-[#B4FC75] flex items-center gap-1 transition-all"
+                                >
                                     Stake SOL <ArrowRight size={14} />
                                 </button>
                             </div>
@@ -108,6 +144,16 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                     )
                 })}
             </div>
+
+            {showStake && 
+                <DomainSettlementModal
+                    onClose={() => {setShowStake(false); setStakeRoot(null)}}
+                    onConfirm={tryStakeRoot}
+                    basePrice={0}
+                    actionType={SettleType.root}
+                    opearationName={stakeRoot!}
+                />
+            }
         </section>
     )
 }

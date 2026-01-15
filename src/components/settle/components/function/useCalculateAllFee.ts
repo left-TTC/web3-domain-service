@@ -24,8 +24,6 @@ export function useCalculateAllFees(
     rootDomain: string | null, 
 ){
 
-    console.log("use price: ", usePrice)
-
     const {connection} = useConnection()
 
     const [fees, setFees] = useState<FeeItem[]>([])

@@ -1,4 +1,4 @@
-import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/utils/functional/instructions/transactionState";
 import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { launchRootDomain } from "@/utils/net/mainFunction/rootDomain/launchRootDomain";    
 import { SendTransactionError, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";

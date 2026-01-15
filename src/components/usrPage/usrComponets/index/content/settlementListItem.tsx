@@ -5,7 +5,7 @@ import { useState } from "react";
 import { settleDomain } from "../function/settleDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useConnection } from "@solana/wallet-adapter-react";
-import type { TransactionState } from "@/provider/fixedToastProvider/fixedToastProvider";
+import type { TransactionState } from "@/utils/functional/instructions/transactionState";
 
 
 
@@ -61,7 +61,7 @@ const SettlementListItem: React.FC<SettlementListItemProps> = ({
             <div className="flex items-center gap-4">
                 <button 
                     onClick={() => setSettle(true)}
-                    className="px-4 py-2 rounded-lg border border-[#B4FC75] text-[#B4FC75] text-xs font-bold hover:bg-[#B4FC75] hover:text-black transition-all flex items-center gap-1"
+                    className="px-4 py-2 rounded-lg border-[2px] border-[#B4FC75] text-[#B4FC75] text-xs font-bold hover:bg-[#B4FC75] hover:text-black transition-all flex items-center gap-1"
                 >
                     领取域名
                 </button>

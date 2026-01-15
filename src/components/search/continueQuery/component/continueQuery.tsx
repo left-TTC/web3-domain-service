@@ -21,7 +21,7 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
     useEffect(() => {
         const name = cutDomain(searchingName)[0]
         setSearchTerm(name)
-    }, [searchTerm])
+    }, [])
 
     const clickQueryDomain = () => {
         if(searchTerm === "") return;

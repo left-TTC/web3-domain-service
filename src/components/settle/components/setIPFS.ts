@@ -1,4 +1,4 @@
-import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/utils/functional/instructions/transactionState";
 import type { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { IPFSOperation, setDomainIPFS } from "@/utils/net/mainFunction/usrOperation/setDomainIPFSRecord";

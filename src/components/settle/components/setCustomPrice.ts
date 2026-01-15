@@ -1,4 +1,4 @@
-import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/utils/functional/instructions/transactionState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { setDomainCustomPrice } from "@/utils/net/mainFunction/usrOperation/setDomainCustomPrice";
 import { SendTransactionError, type Connection, type PublicKey, type Transaction, type VersionedTransaction } from "@solana/web3.js";

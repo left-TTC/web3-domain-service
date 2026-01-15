@@ -7,6 +7,7 @@ import { WEB3_REGISTER_ID } from "@/utils/constants/constants";
 
 
 export interface CreateRootInstructionAccounts {
+    nameService: PublicKey,
     /// system account
     systemAccount: PublicKey,
     /// The vault account     
@@ -17,8 +18,9 @@ export interface CreateRootInstructionAccounts {
     rootStateAccount: PublicKey,
     /// registar program's central state
     centralState: PublicKey,
-    /// The Pyth feed account
-    pythFeedAccount: PublicKey,
+    rootNameAccount: PublicKey,
+    rootReverse: PublicKey,
+    rentSysvar: PublicKey,
 }
 
 export function createAddFuelInstruction(
@@ -39,6 +41,7 @@ export function createAddFuelInstruction(
     const data = Buffer.concat(buffers)
 
     const keys = [
+        { pubkey: transactionAccounts.nameService, isSigner: false, isWritable: false },
         { pubkey: transactionAccounts.systemAccount, isSigner: false, isWritable: false },
 
         { pubkey: transactionAccounts.vault, isSigner: false, isWritable: true },
@@ -47,7 +50,9 @@ export function createAddFuelInstruction(
 
         { pubkey: transactionAccounts.centralState, isSigner: false, isWritable: false },
 
-        { pubkey: transactionAccounts.pythFeedAccount, isSigner: false, isWritable: false },
+        { pubkey: transactionAccounts.rootNameAccount, isSigner: false, isWritable: true },
+        { pubkey: transactionAccounts.rootReverse, isSigner: false, isWritable: true },
+        { pubkey: transactionAccounts.rentSysvar, isSigner: false, isWritable: false },
     ];
 
     return new TransactionInstruction({

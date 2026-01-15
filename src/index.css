@@ -5,7 +5,8 @@
 
 
 :root {
-    --font-fira: 'Fira Mono', monospace;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'Fira Mono', monospace;
     line-height: 1.5;
     font-weight: 200;
 
@@ -33,6 +34,7 @@ body {
     display: flex;
     justify-content: center;
     min-width: 320px;
+    font-family: var(--font-sans);
     min-height: 100vh;
 }
 

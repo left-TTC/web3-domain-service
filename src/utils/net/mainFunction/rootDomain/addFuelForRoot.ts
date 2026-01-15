@@ -1,15 +1,15 @@
-import { CENTRAL_STATE_REGISTER,  returnProjectVault } from "@/utils/constants/constants";
+import { CENTRAL_STATE_REGISTER,  returnProjectVault, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
 import { createAddFuelInstruction, type CreateRootInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createAddFuelInstruction";
 import { getRootStateKey } from "@/utils/functional/solana/getRootStateKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
-import { SystemProgram, Transaction, type PublicKey } from "@solana/web3.js";
+import { SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, type PublicKey } from "@solana/web3.js";
+import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 
 
 
 
-export function addFuelForRoot(
+export function stakeSolForRoot(
     feePayer: PublicKey,
-    pythFeedAccount: PublicKey,
     rootDomain: string,
     add: number,
 ): Transaction{
@@ -21,13 +21,19 @@ export function addFuelForRoot(
         getHashedName(rootDomain)
     )
 
+    const rootNameAccount = getNameAccountKey(getHashedName(rootDomain))
+    const rootReverse = getNameAccountKey(getHashedName(rootNameAccount.toBase58()), CENTRAL_STATE_REGISTER)
+
     const transactionAccounts: CreateRootInstructionAccounts = {
+        nameService: WEB3_NAME_SERVICE_ID,
         systemAccount: SystemProgram.programId,
         vault: vault,
         feePayer: feePayer,
         rootStateAccount: rootStateAccountKey,
         centralState: CENTRAL_STATE_REGISTER,
-        pythFeedAccount: pythFeedAccount,
+        rootNameAccount: rootNameAccount,
+        rootReverse: rootReverse,
+        rentSysvar: SYSVAR_RENT_PUBKEY,
     }
 
     console.log(rootDomain)

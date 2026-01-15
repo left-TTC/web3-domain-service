@@ -1,4 +1,4 @@
-import { TransactionState} from "@/provider/fixedToastProvider/fixedToastProvider";
+import { TransactionState} from "@/utils/functional/instructions/transactionState";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { increaseDomainBid } from "@/utils/net/mainFunction/domain/increaseDomainBid";
 import { Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";

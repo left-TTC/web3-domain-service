@@ -4,8 +4,7 @@ import "@/style/components/topbar/wallet/walletChoose.css"
 import { detectPhoneWallet, type DetectWalletParams } from "@/utils/functional/wallet/detectPhoneWallet";
 import { useEffect, useState } from "react";
 import { ShieldCheck, X } from "lucide-react";
-import { useWallet, type Wallet } from "@solana/wallet-adapter-react";
-import { useGlobalModal } from "@/components/common/show/info";
+import { useConnection, useWallet, type Wallet } from "@solana/wallet-adapter-react";
 
 export interface WalletChooserProps{
     setChooserOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -14,7 +13,7 @@ export interface WalletChooserProps{
 const WalletChooser: React.FC<WalletChooserProps> = ({setChooserOpen}) => {
 
     const { wallets, select, connect } = useWallet();
-    const info = useGlobalModal()
+    const {connection} = useConnection()
 
     const [availableWallets, setAvailableWallets] = useState<DetectWalletParams[]>([])
 
@@ -24,28 +23,10 @@ const WalletChooser: React.FC<WalletChooserProps> = ({setChooserOpen}) => {
     }, [])
 
     const clickChooseWallet = async(wallet: Wallet) => {
-        // select(wallet.adapter.name);
-        info.showModal({
-            title: "wallet test",
-            content: "try to connect" + " " + wallet.adapter.name,
-            type: "info",
-        })
-        try{
-            await wallet.adapter.connect()
-            info.showModal({
-                title: "wallet test",
-                content: "success",
-                type: "success",
-            })
-        }catch(err){
-            info.showModal({
-                title: "wallet test",
-                content: "err" + " " + err,
-                type: "error",
-            })
-        }
-        // connect()
-        // setChooserOpen(false)
+        console.log(connection.rpcEndpoint)
+        select(wallet.adapter.name);
+        connect()
+        setChooserOpen(false)
     }
 
     const ifWalletDetect = (wallet: Wallet | DetectWalletParams) => {
