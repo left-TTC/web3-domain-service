@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Clock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface CountDownTimerProps {
     initialMinutes: number;
@@ -10,6 +11,9 @@ export function CountDownTimer({
     initialMinutes,
     onFinish,
 }: CountDownTimerProps) {
+
+    const {t} = useTranslation()
+
     const endTimeRef = useRef<number>(
         Date.now() + initialMinutes * 60_000
     );
@@ -56,8 +60,8 @@ export function CountDownTimer({
 
     return (
         <div className="flex justify-between items-center px-2">
-            <span className="text-xs text-gray-500 flex items-center gap-1.5">
-                <Clock size={12} /> 剩余时间
+            <span className="text-xs text-gray-500 flex items-center gap-1.5 uppercase">
+                <Clock size={12} /> {t("remainTime")}
             </span>
             <span className="text-xs font-bold font-mono text-white">
                 {hours}h {minutes}m

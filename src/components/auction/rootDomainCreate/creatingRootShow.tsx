@@ -79,10 +79,10 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                         </span>
                         LIVE AUCTIONS
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                    <h3 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                         Root Domain <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Governance & Launch</span>
-                    </h1>
-                    <p className="text-gray-400 max-w-2xl text-lg">
+                    </h3>
+                    <p className="text-gray-400 max-w-2xl text-[12px] md:text-lg">
                         支持您最喜爱的顶级域名(TLD).当筹款达到目标时,该根域名将在 Solana 链上被激活并生成 NFT 权益。
                     </p>
                 </div>
@@ -103,15 +103,15 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                 {sailingRootDomains.map((item) => {
                     const progress = (item.fundState.toNumber() / CREATE_ROOT_TARGET) * 100;
                     return (
-                        <div key={item.creatingName} className="group relative bg-[#111] border border-white/10 rounded-2xl p-6 hover:border-[#B4FC75]/50 transition-all duration-300 hover:-translate-y-1">
-                            <div className="flex justify-between items-start mb-6">
+                        <div key={item.creatingName} className="group relative bg-[#111] border border-white/10 rounded-2xl p-5 md:p-6 hover:border-[#B4FC75]/50 transition-all duration-300 hover:-translate-y-1">
+                            <div className="flex justify-between items-start mb-1 md:mb-4">
                                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#B4FC75] group-hover:text-black transition-colors duration-300">
-                                <Globe size={20} />
+                                    <Globe size={20} />
                                 </div>
                             </div>
 
-                            <h3 className="text-3xl font-bold mb-1 tracking-tight">{item.creatingName}</h3>
-                            <p className="text-sm text-gray-500 mb-6 flex items-center gap-1">
+                            <h3 className="text-3xl font-bold mb-1 tracking-tight">.{item.creatingName}</h3>
+                            <p className="text-sm text-gray-400 mb-4 md:mb-6 flex items-center gap-1">
                                 由 <span className="text-white underline decoration-dotted font-normal">{cutString(item.rootSponsor.toBase58(), 5, 5, "...")}</span> 发起
                             </p>
 

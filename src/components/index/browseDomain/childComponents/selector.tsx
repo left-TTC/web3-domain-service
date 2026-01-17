@@ -34,7 +34,7 @@ export const NiceSelect: React.FC<NiceSelectProps> = ({
             <div
                 className="
                     bg-[#111]/70 border border-white/10 rounded-xl
-                    px-4 py-3 text-white font-mono text-lg cursor-pointer
+                    px-3 md:px-4 py-2 md:py-3 text-white font-mono text-[16px] md:text-lg cursor-pointer
                     flex justify-between items-center
                     hover:border-white/20 transition-all
                     backdrop-blur-md

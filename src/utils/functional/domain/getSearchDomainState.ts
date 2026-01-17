@@ -8,7 +8,8 @@ export enum SearchDomainResult {
     auction,
     settling,
     listed,
-    set
+    set,
+    loading
 }
 
 

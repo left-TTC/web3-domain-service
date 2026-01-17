@@ -1,14 +1,17 @@
 
 import { Layers3, ShieldCheck, Zap } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const primaryColor = '#B4FC75';
 
 const Web3CoreUtilities = () => {
 
+    const {t} = useTranslation()
+
     return(
-        <section className="mt-60">
-            <h2 className="mt-40 text-3xl md:text-4xl font-bold text-center mb-16">
-                为何选择 <span style={{ color: primaryColor }}>Web3 Domain Service </span>?
+        <section className="mt-20 md:mt-70">
+            <h2 className="text-[25px] md:text-3xl md:text-4xl font-bold text-center mb-10 md:mb-16">
+                {t("whytchoose")} <span style={{ color: primaryColor }}>Web3 Domain Service </span>?
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -19,14 +22,14 @@ const Web3CoreUtilities = () => {
                     desc: "域名作为 NFT 存储在您的钱包中，完全抗审查，由您终身拥有，不受中心化机构控制。" 
                 },
                 { 
-                    icon: <Zap size={32} style={{ color: primaryColor }} />, 
-                    title: "超低 Gas 费", 
-                    desc: "基于 Solana 高性能网络，注册、转账和管理域名的成本极低，速度极快，几乎瞬间完成。" 
-                },
-                { 
                     icon: <Layers3 size={32} style={{ color: primaryColor }} />, 
                     title: "跨链兼容性", 
                     desc: "不仅仅是 Solana 地址，一个域名可以解析到 ETH, BTC, Polygon 等多个链的地址，实现一站式支付。" 
+                },
+                { 
+                    icon: <Zap size={32} style={{ color: primaryColor }} />, 
+                    title: "超低 Gas 费", 
+                    desc: "基于 Solana 高性能网络，注册、转账和管理域名的成本极低，速度极快，几乎瞬间完成。" 
                 },
                 ].map((feature, index) => (
                     <div 

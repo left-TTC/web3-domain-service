@@ -8,7 +8,7 @@ const DomainUsrShow = () => {
     const primaryColor = '#B4FC75'; 
 
     return (
-        <section className="bg-[#111] mt-50 border border-white/10 rounded-3xl p-10 md:p-16">
+        <section className="bg-[#111] mt-20 md:mt-50 border border-white/10 rounded-3xl p-10 md:p-16">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 
                 <div className="lg:col-span-2">

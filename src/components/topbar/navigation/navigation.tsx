@@ -38,11 +38,11 @@ const Navigation: React.FC<NavigationProps> = ({
     const returnNavigateName = (navigateObject: NavigationLists) => {
         switch(navigateObject){
             case NavigationLists.Home:
-                return t("home");
+                return t("Home");
             case NavigationLists.Auction:
-                return t("auction");
+                return t("Marketplace");
             case NavigationLists.Docus:
-                return t("docus");
+                return t("Docus");
         }
     }
 
@@ -59,7 +59,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 }
                 break
             case NavigationLists.Docus:
-                return t("docus");
+                return t("Docus");
         } 
     }
 

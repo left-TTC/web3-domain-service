@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { getQueryDomainInfo } from "@/utils/net/getQueryDomainInfo";
@@ -12,23 +12,24 @@ import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
 import DomainSearchResult from "@/components/search/continueQuery/domainSearchResult";
 import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
 import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
-import { getSearchDomainState, type SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
+import { getSearchDomainState, SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
 import { startDomain } from "@/components/search/domainSettlement/functionComponents/transaction/startDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { useAtom } from "jotai";
 import { biddingDomain } from "@/components/usrPage/function/useAuctioningDomain";
+import { useGlobalModal } from "@/components/common/show/info";
+import { TransactionState } from "@/utils/functional/instructions/transactionState";
 
 export function Search() {
 
-    const location = useLocation();
     const {publicKey: usr, signTransaction} = useWalletEnv()
     const {rootDomains} = useRootDomain()
 
     const {connection} = useConnection();
-    // const navigate = useNavigate();
 
-    const { queryingDomain } = location.state || {};
+    const [searchParams] = useSearchParams();
+    const queryingDomain = searchParams.get("q");
 
     const [domainBlock, setDomainBlock] = useState<string[] | null> (null)
     const [queryDomainInfo, setQueryDomainInfo] = useState<NameRecordState | null>(null)
@@ -43,7 +44,6 @@ export function Search() {
     useEffect(() => {
         if(isDomainInfoLoaded){
             if(queryDomainInfo){
-                // means the domain has already initialized
                 setDomainStartPrice(queryDomainInfo.customPrice.toNumber())
             }else{
                 setDomainStartPrice(INIT_DOMAIN_PRICE)
@@ -51,9 +51,23 @@ export function Search() {
         }
     }, [isDomainInfoLoaded])
 
+    const info = useGlobalModal()
+    const navigate = useNavigate()
+
     useEffect(() => {
-        setIsDomainInfoLoaded(false)
-        setDomainBlock(cutDomain(queryingDomain));
+        if(queryingDomain){
+            setIsDomainInfoLoaded(false)
+            setDomainBlock(cutDomain(queryingDomain));
+        }else{
+            info.showModal({
+                title: "Query error",
+                content: "The querying domain is null",
+                type: "error",
+                onCancel: () => {navigate(`/index`)},
+                onConfirm: () => {navigate(`/index`)}
+            })
+            
+        }
     } ,[queryingDomain])
 
     useEffect(() => {
@@ -84,16 +98,7 @@ export function Search() {
 
     }, [domainBlock])
 
-    // const backToIndex = () => {
-    //     console.log("recommend page: ", ifRecommendPage)
-    //     if(ifRecommendPage){
-    //         navigate("/auction/recommend")
-    //     }else{
-    //         navigate("./index")
-    //     }
-    // }
-
-    const [resultState, setResultState] = useState<SearchDomainResult | null>(null)
+    const [resultState, setResultState] = useState<SearchDomainResult | null>(SearchDomainResult.loading)
 
     useEffect(() => {
         setResultState(getSearchDomainState(queryDomainInfo, domainAuctionState))
@@ -101,8 +106,10 @@ export function Search() {
 
     const [_, setAuctioningDomain] = useAtom(biddingDomain)
     const createNameState = async ({ totalFee, refferrerKey }: DomainSettlementConfirmPayload) => {
+        if (domainStartPrice === null) return TransactionState.Error;
+        if (!queryingDomain) return TransactionState.Error;
         return await startDomain(
-            queryingDomain,
+            queryingDomain!,
             refferrerKey!,
             usr,
             rootDomains,
@@ -120,17 +127,20 @@ export function Search() {
 
     return(
         <div>
-            <DomainSearchResult
-                domainInfo={queryDomainInfo}
-                domainName={queryingDomain}
-                auctionState={domainAuctionState}
-                openSettlePage={() => setShowSaleDomain(true)}
-                resultState={resultState}
-            />
+            {queryingDomain && 
+                <DomainSearchResult
+                    domainInfo={queryDomainInfo}
+                    domainName={queryingDomain}
+                    auctionState={domainAuctionState}
+                    openSettlePage={() => setShowSaleDomain(true)}
+                    resultState={resultState}
+                    setResultState={setResultState}
+                />
+            }
             {showSaleDomain &&
                 <DomainSettlementModal
                     onClose={() => setShowSaleDomain(false)}
-                    opearationName={queryingDomain}
+                    opearationName={queryingDomain!}
                     actionType={SettleType.buy}
                     basePrice={domainStartPrice!}
                     onConfirm={createNameState}

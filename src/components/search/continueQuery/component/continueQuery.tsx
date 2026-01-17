@@ -1,18 +1,23 @@
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
+import { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
 import { Search } from "lucide-react"
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 interface ContinueQueryProps {
-    searchingName: string
+    searchingName: string,
+    setResultState: React.Dispatch<React.SetStateAction<SearchDomainResult | null>>,
 }
 
 const PRIMARY_COLOR = '#B4FC75';
 
 const ContinueQuery: React.FC<ContinueQueryProps> = ({
-    searchingName
+    searchingName, setResultState
 }) => {
+
+    const {t} = useTranslation()
 
     const navigate = useNavigate();
     const {activeRootDomain} = useRootDomain();
@@ -26,6 +31,7 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
     const clickQueryDomain = () => {
         if(searchTerm === "") return;
 
+        setResultState(SearchDomainResult.loading)
         let queryingDomain
         if(searchTerm.includes(".")){
             queryingDomain = searchTerm;
@@ -33,19 +39,15 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
             queryingDomain = searchTerm + "." + activeRootDomain;
         }
 
-        navigate("/search", {
-            state: {
-                queryingDomain: queryingDomain,
-            }
-        })
+        navigate(`/search?q=${encodeURIComponent(queryingDomain)}`);
     }
 
     return(
         <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold mb-6">域名查询</h1>
+            <h3 className="text-[20px] md:text-4xl font-bold mb-6 md:mb-12">{t("search")}</h3>
             <div className="relative group max-w-2xl mx-auto">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-[#B4FC75] to-green-900 rounded-xl opacity-20 blur group-hover:opacity-40 transition duration-500"></div>
-                <div className="relative flex items-center bg-[#111] border border-white/10 rounded-xl p-2">
+                <div className="relative flex items-center bg-[#111] border border-white/10 rounded-xl p-1 md:p-2">
                     <Search className="ml-4 text-gray-500" />
                     <input 
                         type="text" 

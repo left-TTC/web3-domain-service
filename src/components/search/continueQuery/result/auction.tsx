@@ -21,28 +21,24 @@ const Auction: React.FC<AuctionProps> = ({
             
             <div className="grid grid-cols-2 gap-4 mb-6 relative z-10">
                 <div>
-                    <p className="text-xs text-purple-300 uppercase mb-1">当前最高出价</p>
-                    <p className="text-3xl font-mono font-bold text-white">{(auctionState!.highestPrice.toNumber() / 1e9).toFixed(4)} SOL</p>
+                    <p className="text-xs text-purple-300 uppercase mb-1 font-bold">当前最高出价</p>
+                    <p className="text-[13px] md:text-3xl font-mono font-bold text-white">{(auctionState!.highestPrice.toNumber() / 1e9).toFixed(4)} SOL</p>
                 </div>
                 <div className="text-right">
-                    <p className="text-xs text-purple-300 uppercase mb-1">剩余时间</p>
-                    <p className="text-3xl font-mono font-bold text-white flex items-center justify-end gap-2">
+                    <p className="text-xs text-purple-300 uppercase mb-1 font-bold">剩余时间</p>
+                    <p className="text-[13px] md:text-3xl font-mono font-bold text-white flex items-center justify-end gap-2">
                         <Clock size={24} className="text-purple-400 animate-pulse" />
                         1
                     </p>
                 </div>
             </div>
 
-            <div className="w-full h-1.5 bg-gray-700 rounded-full mb-6 overflow-hidden">
-                <div className="h-full bg-purple-500 w-[75%] rounded-full"></div>
-            </div>
-
             <button 
                 onClick={() => openSettlePage()}    
-                className="w-full py-3.5 rounded-xl font-bold text-white bg-purple-600 hover:bg-purple-500 transition-all shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2"
+                className="text-[13px] md:text-[15px] w-full py-3.5 rounded-xl font-bold text-white bg-purple-600 hover:bg-purple-500 transition-all shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2"
             >
                 <Gavel size={18} /> 参与竞价
-            </button>`
+            </button>
         </div>
     )
 }

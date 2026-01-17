@@ -80,30 +80,6 @@ export function User({
     const fetchedUsrChain = useRef(false)
     const {usrProfit, usrVolume} = useUsrRefferrerChain(searchKey, fetchedUsrChain)
 
-    // const getUsrComponent = () => {
-    //     switch(showUsrComponents){
-    //         case UsrComponents.Domain:
-    //             return <UsrDomain 
-    //                         domainNumber={1}
-    //                         ifCheckingOtherUsr={ifOtherUsr.current}
-    //                         usrDomains={usrDomains}
-    //                         recordMap={recordMap}
-    //                         recordLoaded={recordLoaded}
-    //                         usrDomainLoaded={usrDomainLoaded}
-    //                         domainStateMap={domainStateMap}
-    //                         isLoadingRecordData={isLoadingRecordData}
-    //                         onSaleDomains={usrDomainOnSale}
-    //                     />
-    //         case UsrComponents.Auction:
-    //             return <UsrAuction 
-    //                         allAuctionName={auctioningDomain}
-    //                         ifCheckingOtherUsr={ifOtherUsr.current}
-    //                         usrProfit={usrProfit}
-    //                         usrVolume={usrVolume}
-    //                     />
-    //     }
-    // }
-
     return(
         !adminModel? (
             <UsrIndex 

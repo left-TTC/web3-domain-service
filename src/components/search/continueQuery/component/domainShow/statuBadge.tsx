@@ -1,4 +1,4 @@
-import type { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
+import { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
 import { Gavel, Lock, Sparkles, Tag } from "lucide-react";
 import type { JSX } from "react";
 
@@ -36,13 +36,13 @@ const config: Record<DomainStatus, ConfigItem> = {
     3: {
         bg: "bg-[#f97316]",
         text: "text-white",
-        label: "挂售中 / Listed",
+        label: "可购买 / Listed",
         icon: <Tag size={14} />,
     },
 };
 
 const StatusBadge = ({ status }: { status: SearchDomainResult | null }) => {
-    if (status === null) {
+    if (status === null || status === SearchDomainResult.loading) {
         return (
             <div className="relative inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider overflow-hidden bg-zinc-800">
                 <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/40 to-transparent" />

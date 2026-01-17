@@ -1,13 +1,31 @@
 
 
 {
-    "chooseWallet": "Connect a wallet on Solana to continue",
-    "changeWallet": "Change Wallet",
-    "disconnect": "Disconnect",
+    "Home": "Home",
+    "Marketplace": "Marketplace",
+    "Docus": "Docus",
+    "mydomain": "My Domain",
     "connect": "Connect Wallet",
-    "get": "Get your",
-    "permanent": "permanent domain",
-    "startquery": "Start Web3 Domain Query",
+    "disconnect": "Disconnect",
+    "changeWallet": "Change Wallet",
+    "registerDomain": "Register decentralized domain names on Solana.",
+    "domaincondition": "Supports lengths from 1 to 32 characters; uppercase letters are not supported.",
+    "whytchoose": "Why choose",
+    "cutomweb3": "Customize your Web3 universe",
+    "notld": "Can't find your preferred TLD?",
+    "newroot": "You can submit a proposal to create a new root domain.",
+    "domainsearch": "Domain Search",
+    "liveauction": "The live auction is in progress",
+    "livehigh": "Real-time high-price auction",
+    "nowhighest": "Current highest price",
+    "remainTime": "Remain time",
+    "participatein": "Participate in",
+    "milestone": "milestone",
+    "transactionhight": "Highest transaction amount",
+    "witness": "Witness the record-breaking sale of the most valuable top-level domain in the Solana ecosystem, with data verified in real-time on the blockchain.",
+    "transactiontime": "Transaction time",
+
+
     "search": "Search Result",
     "available": "Domain Available",
     "unavailable": "Domain Unavailable",
@@ -28,9 +46,9 @@
     "confirm": "Confirm",
     "wait": "Just a moment please",
     "walletconfirm": "Please confirm this transaction in your wallet",
-    "home": "Home",
-    "auction": "Marketplace",
-    "docus": "Docus",
+    
+    
+    
     "quickbuy": "Quick Start",
     "add": "Add",
     "redommend": "Domain Recommend",
@@ -57,7 +75,7 @@
     "attention": "Attention",
     "ihelpyou": "You can send me the domain name now and I will help you check it",
     "searchDomain": "Search Domain...",
-    "mydomain": "My Domain",
+    
     "justcreate": "Everything is possible, Just Do it!",
     "usedomain": "How to Use Web3 Domain",
     "web3coreutilities": "Web3 Core Utilities",

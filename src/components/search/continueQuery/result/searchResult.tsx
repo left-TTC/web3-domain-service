@@ -21,10 +21,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
     switch(resultState){
         case SearchDomainResult.uninitialized:
             return(
-                <Unintialized 
-                    domainInfo={domainInfo} 
-                    openSettlePage={openSettlePage}
-                />
+                <Unintialized openSettlePage={openSettlePage} />
             )
         case SearchDomainResult.auction:
             return(
@@ -45,7 +42,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
                     openSettlePage={openSettlePage}
                 />
             )
-        case null:
+        default :
             return(
                 <Loading />
             )

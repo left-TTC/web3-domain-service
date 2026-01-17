@@ -19,12 +19,12 @@ export default function DomainRecommend() {
     return (
         <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#B4FC75] selection:text-black pb-24">
 
-            <main className="max-w-7xl mx-auto px-6 pt-36 space-y-24">
+            <main className="max-w-7xl mx-auto px-6 pt-28 md:pt-36 space-y-24">
                 <AuctionRecommend hotItems={hotStates} itemNames={hotItemsName}/>
                 <AuctionHistory topItem={new Array(6).fill(createMockState())} itemName={hotItemsName}/>
             </main>
 
-            <footer className="max-w-7xl mx-auto px-6 mt-32 border-t border-white/5 pt-12 pb-12 text-center">
+            <footer className="max-w-7xl mx-auto px-6 mt-16 sm:mt-32 border-t border-white/5 pt-12 pb-12 text-center">
                 <div className="flex justify-center gap-8 mb-8 text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em]">
                     <a href="#" className="hover:text-[#B4FC75] transition-colors">隐私政策</a>
                     <a href="#" className="hover:text-[#B4FC75] transition-colors">服务条款</a>

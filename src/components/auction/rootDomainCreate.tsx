@@ -42,7 +42,7 @@ export default function RootDomainCreate(){
                 <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-900 rounded-full mix-blend-screen filter blur-[150px] opacity-[0.15]"></div>
             </div>
 
-            <main className="max-w-7xl mx-auto px-6 pt-16 relative z-10 flex flex-col gap-20 mt-30">
+            <main className="max-w-7xl mx-auto px-6  md:pt-16 relative z-10 flex flex-col gap-20 mt-30">
                 <CreatingRootShow />
                 <CreateRootPost 
                     newRoot={newRoot}

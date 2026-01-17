@@ -22,18 +22,18 @@ const DomainCard: React.FC<DomainCardProps> = ({
     const {activeRootDomain} = useRootDomain()
 
     return(
-        <div className="bg-[#111] border border-white/10 rounded-3xl p-1 shadow-2xl max-w-2xl mx-auto animate-fade-in-up mt-16">
+        <div className="bg-[#111] border border-white/10 rounded-3xl p-1 shadow-2xl max-w-2xl mx-auto animate-fade-in-up mt-10 md:mt-16">
             
-            <div className="bg-[#0a0a0a] rounded-[22px] p-6 md:p-8">
+            <div className="bg-[#0a0a0a] rounded-[22px] p-5 md:p-8">
                 
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-5 md:mb-8">
                     <div className="flex items-center gap-4">
                         <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-gray-300 border border-white/10">
                             <Globe size={32} />
                         </div>
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-white font-mono tracking-tight">{domainName}</h2>
-                            <div className="flex items-center gap-2 mt-2 text-gray-500 text-xs uppercase tracking-wider">
+                            <h2 className="text-xl md:text-3xl md:text-4xl font-bold text-white font-mono tracking-tight">{domainName}</h2>
+                            <div className="flex items-center gap-2 mt-2 text-gray-500 text-[10px] md:text-xs uppercase tracking-wider">
                                 <span className="bg-white/5 px-2 py-0.5 rounded font-bold">Root: {activeRootDomain}</span>
                             </div>
                         </div>
@@ -41,7 +41,7 @@ const DomainCard: React.FC<DomainCardProps> = ({
                     <StatusBadge status={resultState} />
                 </div>
 
-                <div className="mb-8">
+                <div className="mb-3 md:mb-5">
                     <SearchResult
                         resultState={resultState}
                         domainInfo={domainInfo}
@@ -50,12 +50,10 @@ const DomainCard: React.FC<DomainCardProps> = ({
                     />
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-6">
-                    <div className="text-center md:text-left border-l border-white/5 pl-4">
-                        <button className="text-xs text-gray-500 hover:text-[#B4FC75] transition-colors flex items-center gap-1 justify-center md:justify-start w-full h-full">
-                            <Share2 size={12}/> 分享此域名
-                        </button>
-                    </div>
+                <div className="flex pl-4 w-full pt-2">
+                    <button className="text-xs text-gray-500 font-bold hover:text-[#B4FC75] transition-colors flex items-center gap-1 justify-left md:justify-start w-full h-full">
+                        <Share2 size={12}/> 分享此域名
+                    </button>
                 </div>
 
             </div>

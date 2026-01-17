@@ -15,11 +15,7 @@ export function useClinkQueryDomain(
         if(ifDomainLegal(queryDomainValue)){
             const queryingDomain = queryDomainValue + "." + activeRootDomain;
 
-            navigate("/search", {
-                state: {
-                    queryingDomain: queryingDomain,
-                }
-            })
+            navigate(`/search?q=${encodeURIComponent(queryingDomain)}`);
         }else{
             //need add component
             console.log("inllegal domain")

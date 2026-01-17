@@ -21,15 +21,15 @@ const Index: React.FC<IndexProps> = ({
         <div className="min-h-screen bg-[#050505] text-white selection:bg-[#B4FC75] selection:text-black pb-24 pl-10 pr-10 relative overflow-x-hidden">
             
             <div className="fixed inset-0 pointer-events-none z-0">
-                <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#B4FC75] rounded-full mix-blend-screen filter blur-[100px] opacity-[0.10]"></div>
-                <div className="absolute bottom-[-10%] right-[-5%] w-[400px] h-[400px] bg-purple-900 rounded-full mix-blend-screen filter blur-[100px] opacity-[0.15]"></div>
+                <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#B4FC75] rounded-full mix-blend-screen filter blur-[100px] opacity-[0.10]"/>
+                <div className="absolute bottom-[-10%] right-[-5%] w-[400px] h-[400px] bg-purple-900 rounded-full mix-blend-screen filter blur-[100px] opacity-[0.15]"/>
             </div>
             
             <BrowserDomain 
                 setQueryPage={setDomainQuery}
                 setBackFn={setGetBackPositionFn}    
             />
-            {/* fixed content */}
+            
             {ifShowDomain &&
                 <BrowserDomainQuery 
                     ifShowTheQueryPage={ifShowDomain} 
