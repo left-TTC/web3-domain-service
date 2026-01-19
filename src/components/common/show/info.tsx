@@ -8,7 +8,7 @@ import {
   Bell,
 } from 'lucide-react';
 
-type ModalType = 'info' | 'success' | 'warning' | 'error';
+export type ModalType = 'info' | 'success' | 'warning' | 'error';
 
 interface ModalOptions {
     title: string;

@@ -11,7 +11,7 @@ interface DomainSearchResultProps {
     auctionState: NameAuctionState | null,
     openSettlePage: () => void,
     resultState: SearchDomainResult | null,
-    setResultState: React.Dispatch<React.SetStateAction<SearchDomainResult | null>>,
+    setResultState: React.Dispatch<React.SetStateAction<SearchDomainResult>>,
 }
 
 

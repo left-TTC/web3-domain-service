@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 interface ContinueQueryProps {
     searchingName: string,
-    setResultState: React.Dispatch<React.SetStateAction<SearchDomainResult | null>>,
+    setResultState: React.Dispatch<React.SetStateAction<SearchDomainResult>>,
 }
 
 const PRIMARY_COLOR = '#B4FC75';
@@ -32,6 +32,7 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
         if(searchTerm === "") return;
 
         setResultState(SearchDomainResult.loading)
+        {() => {}}
         let queryingDomain
         if(searchTerm.includes(".")){
             queryingDomain = searchTerm;

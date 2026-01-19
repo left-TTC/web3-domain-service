@@ -13,7 +13,7 @@ import DomainSearchResult from "@/components/search/continueQuery/domainSearchRe
 import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
 import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
 import { getSearchDomainState, SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
-import { startDomain } from "@/components/search/domainSettlement/functionComponents/transaction/startDomain";
+import { startDomain } from "@/components/search/continueQuery/result/function/startDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { useAtom } from "jotai";
@@ -70,42 +70,36 @@ export function Search() {
         }
     } ,[queryingDomain])
 
+    const [resultState, setResultState] = useState<SearchDomainResult>(SearchDomainResult.loading)
     useEffect(() => {
-        const fetchDomainInfo = async() => {
+        (async () => {
             if((!domainBlock)) return;
             if(isDomainInfoLoaded) return;
+            console.log("check info")
+            setIsDomainInfoLoaded(true)
 
             const rootDomainKey = getNameAccountKey(getHashedName(domainBlock[1]))
             const accountInfo = await getQueryDomainInfo(domainBlock, rootDomainKey, connection);
 
             const nameAuctionStateKey = getNameStateKey(getHashedName(domainBlock[0]), rootDomainKey)
+            console.log(nameAuctionStateKey.toBase58())
             const auctionStateInfo = await connection.getAccountInfo(nameAuctionStateKey)
             if(auctionStateInfo){
-                try{
-                    setDomainAuctionState(new NameAuctionState(auctionStateInfo))
-                }catch(err){
-                    console.log(err)
-                }
+                const auctionState = new NameAuctionState(auctionStateInfo)
+                setDomainAuctionState(auctionState)
+                setResultState(getSearchDomainState(accountInfo[0], auctionState))
             }else{
                 setDomainAuctionState(null)
+                setResultState(getSearchDomainState(accountInfo[0], domainAuctionState))
             }
 
-            setIsDomainInfoLoaded(true)
             setQueryDomainInfo(accountInfo[0])
-        }
+        })()
+    }, [domainBlock, isDomainInfoLoaded])
 
-        fetchDomainInfo()
-
-    }, [domainBlock])
-
-    const [resultState, setResultState] = useState<SearchDomainResult | null>(SearchDomainResult.loading)
-
-    useEffect(() => {
-        setResultState(getSearchDomainState(queryDomainInfo, domainAuctionState))
-    }, [queryDomainInfo, domainAuctionState])
 
     const [_, setAuctioningDomain] = useAtom(biddingDomain)
-    const createNameState = async ({ totalFee, refferrerKey }: DomainSettlementConfirmPayload) => {
+    const createNameState = async ({ usrBalance, totalFee, refferrerKey }: DomainSettlementConfirmPayload) => {
         if (domainStartPrice === null) return TransactionState.Error;
         if (!queryingDomain) return TransactionState.Error;
         return await startDomain(
@@ -114,6 +108,7 @@ export function Search() {
             usr,
             rootDomains,
             totalFee!,
+            usrBalance!,
             connection,
             signTransaction,
             () => {
@@ -124,6 +119,12 @@ export function Search() {
             }
         )
     }
+
+    const startSuccess = () => {
+        setIsDomainInfoLoaded(false)
+        setResultState(SearchDomainResult.loading)
+        setShowSaleDomain(false)
+    };
 
     return(
         <div>
@@ -144,6 +145,7 @@ export function Search() {
                     actionType={SettleType.buy}
                     basePrice={domainStartPrice!}
                     onConfirm={createNameState}
+                    onInfoOk={startSuccess}
                 />
             }
         </div>

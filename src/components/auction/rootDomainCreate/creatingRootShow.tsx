@@ -7,7 +7,7 @@ import { findCreatingRoot } from "@/utils/net/findCreatingRoot";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { ArrowRight, Globe, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { tryToStakeRoot } from "./addFuel/tryToStakeSol";
+import { tryToStakeRoot } from "./stake/tryToStakeSol";
 import { TransactionState } from "@/utils/functional/instructions/transactionState";
 
 const primaryColor = '#B4FC75';
@@ -150,7 +150,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                     onClose={() => {setShowStake(false); setStakeRoot(null)}}
                     onConfirm={tryStakeRoot}
                     basePrice={0}
-                    actionType={SettleType.root}
+                    actionType={SettleType.addRoot}
                     opearationName={stakeRoot!}
                 />
             }

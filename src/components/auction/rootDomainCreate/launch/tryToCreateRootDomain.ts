@@ -1,13 +1,11 @@
 import { TransactionState} from "@/utils/functional/instructions/transactionState";
-import { showCheckSolBalance } from "@/utils/functional/show/checkBalanceToast";
 import { launchRootDomain } from "@/utils/net/mainFunction/rootDomain/launchRootDomain";    
-import { SendTransactionError, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
+import { Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
 
 
 
 export async function tryToCreateRootDomain(
     rootDomainName: string,
-    totalFee: number, 
     connection: Connection,
     signTransaction: (<T extends Transaction | VersionedTransaction>(transaction: T) => Promise<T>) | undefined,
     wallet: PublicKey | null,
@@ -20,75 +18,39 @@ export async function tryToCreateRootDomain(
         return TransactionState.NoConnect
     }
 
-    const createRootStateTransactionId = await showCheckSolBalance(
-        wallet, connection, totalFee
-    )
-    if(!createRootStateTransactionId) return TransactionState.Error
-
     try{
         const tryCreateRootDomainTransaction = await launchRootDomain(
             rootDomainName, wallet
         )
 
-        const { blockhash } = await connection.getLatestBlockhash()
+        const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash("processed")
         tryCreateRootDomainTransaction.recentBlockhash = blockhash
         tryCreateRootDomainTransaction.feePayer = wallet
 
-        const simulationResult = await connection.simulateTransaction(tryCreateRootDomainTransaction);
-        console.log("simulate result", simulationResult);
+        const signedTx = await signTransaction(tryCreateRootDomainTransaction)
+        const signature = await connection.sendRawTransaction(
+            signedTx.serialize()
+        );
 
-        if(simulationResult.value.err === null){
-            console.log("simulate ok, continue")
+        const result = await connection.confirmTransaction(
+            {
+                signature,
+                blockhash,
+                lastValidBlockHeight,
+            },
+            "confirmed"
+        );
 
-            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash()
-            tryCreateRootDomainTransaction.recentBlockhash = blockhash
-            tryCreateRootDomainTransaction.feePayer = wallet
+        console.log("Tx confirm result:", result);
 
-            const signedTransaction = await signTransaction(tryCreateRootDomainTransaction)
-
-            const transaction = await connection.sendRawTransaction(signedTransaction.serialize(), {
-                    skipPreflight: true,
-                });
-
-                const txResult = await connection.confirmTransaction(
-                    {
-                        signature: transaction,
-                        blockhash,
-                        lastValidBlockHeight,
-                    },
-                    "confirmed"
-                );
-
-                console.log("Tx signature:", transaction);
-                console.log("Tx confirm result:", txResult);
-
-                const txInfo = await connection.getTransaction(transaction, {
-                    commitment: "confirmed",
-                    maxSupportedTransactionVersion: 0,
-                });
-
-                if (txInfo) {
-                    console.log("=== Transaction Logs ===");
-                    console.log(txInfo.meta?.logMessages);
-                }
-
-                if(String(txResult).includes("success")){
-                    return TransactionState.Success
-                }
-        }else{
-            console.log("simulate fail")
+        if (result.value.err) {
+            return TransactionState.Error;
         }
+
+        return TransactionState.Success;
         
     }catch(err){
         console.error("Transaction failed:", err);
-
-        // 捕获并打印完整日志
-        if (err instanceof SendTransactionError) {
-            const logs = err.getLogs(connection);
-            console.error("=== Simulation Logs ===");
-            console.error(logs);
-        }    
+        return TransactionState.Error 
     }
-
-    return TransactionState.Success
 }

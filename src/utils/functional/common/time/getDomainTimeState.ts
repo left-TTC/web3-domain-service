@@ -25,11 +25,9 @@ export function getDomainTimeState(
     }
     
     if((updateTime + AUCTION_TIME) > nowTime) {
-        console.log("auction")
+        console.log("auctioning")
         return DomainState.Auctioning
     }
-
-    console.log(domainState)
 
     if (!domainState.settled) {
         return DomainState.Settling

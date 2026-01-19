@@ -5,6 +5,8 @@ import DomainSettlementModal, { SettleType } from "../settle/settlement";
 import { tryToCreateRootDomain } from "./rootDomainCreate/launch/tryToCreateRootDomain";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import { useGlobalModal } from "../common/show/info";
+import { ifRootValid } from "@/utils/functional/domain/ifDomainLegal";
 import { TransactionState } from "@/utils/functional/instructions/transactionState";
 
 
@@ -14,24 +16,28 @@ export default function RootDomainCreate(){
     
     const {connection} = useConnection()
     const {publicKey, signTransaction} = useWalletEnv()
+    const info = useGlobalModal()
 
     const [showLaunchSettle, setShowLaunchSettle] = useState(false)
 
     const [newRoot, setNewRoot] = useState("")
-    const [initialSol, setInitialSol] = useState(0)
 
     const createRootState = async() => {
-        if(initialSol > 0 && newRoot.length > 0){
+        if(ifRootValid(newRoot)){
             return await tryToCreateRootDomain(
                 newRoot,
-                initialSol,
                 connection,
                 signTransaction,
                 publicKey
             )
         }else{
             console.log("init should > 0")
-            return TransactionState.Error
+            info.showModal({
+                title: "Invalid root name",
+                content: "root name should be all lowercase and no space",
+                type: "error"
+            })
+            return TransactionState.Ignore
         }
     }
 
@@ -47,8 +53,6 @@ export default function RootDomainCreate(){
                 <CreateRootPost 
                     newRoot={newRoot}
                     setNewRoot={setNewRoot}
-                    initialSol={initialSol}
-                    setInitialSol={setInitialSol}
                     showSettle={() => setShowLaunchSettle(true)}
                 />
             </main>
@@ -56,8 +60,8 @@ export default function RootDomainCreate(){
             {showLaunchSettle && 
                 <DomainSettlementModal
                     opearationName={newRoot}
-                    actionType={SettleType.root}
-                    basePrice={initialSol * 1e9}
+                    actionType={SettleType.createRoot}
+                    basePrice={0}
                     onClose={() => setShowLaunchSettle(false)}
                     onConfirm={createRootState}
                 />

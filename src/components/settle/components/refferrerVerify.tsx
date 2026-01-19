@@ -88,19 +88,20 @@ const RefferrerVerify = ({
         checked ? ifRefferValid : null;
 
     return (
-        <div className="space-y-3">
+        <div className="space-y-3 mb-3 md:mb-6">
             <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                <h3 className="text-[12px] md:text-sm font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
                     <Users size={14} /> 推荐人
                 </h3>
-                <a className="text-xs text-[#B4FC75] hover:underline opacity-80">
+                <a className="text-[10px] md:text-xs text-[#B4FC75] hover:underline opacity-80">
                     查看推荐政策
                 </a>
             </div>
 
             {fixedRefferrer ? (
-                <div className="bg-[#0a0a0a] border border-[#B4FC75]/30 rounded-xl py-3 px-4 font-mono text-sm text-[#B4FC75]">
+                <div className="bg-[#0a0a0a] border border-[#B4FC75]/30 rounded-xl py-3 px-4 font-mono text-[9px] md:text-[13px] text-[#B4FC75]">
                     {fixedRefferrer.toBase58()}
+                    {/* DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx */}
                 </div>
             ) : (
                 <div className="relative flex items-center">
@@ -108,13 +109,13 @@ const RefferrerVerify = ({
                         value={input}
                         onChange={(e) => onChange(e.target.value)}
                         placeholder={loadingFixed ? "Loading..." : t("enterinvitation")}
-                        className={`w-full bg-[#0a0a0a] border outline-none rounded-xl py-3 pl-4 pr-24 text-white font-mono text-sm placeholder-gray-600 transition-colors
+                        className={`w-full bg-[#0a0a0a] border-[2px] outline-none rounded-xl py-3 pl-4 pr-24 text-white font-mono text-[9px] md:text-[13px] placeholder-gray-500 transition-colors
                             ${
                                 referrerValid === true
                                     ? "border-[#B4FC75]"
                                     : referrerValid === false
                                     ? "border-red-500"
-                                    : "border-white/10 focus:border-[#B4FC75]/50"
+                                    : "border-white/10 focus:border-[#B4FC75]/80"
                             }`}
                     />
 
@@ -135,12 +136,12 @@ const RefferrerVerify = ({
             )}
 
             {referrerValid === true && (
-                <p className="text-xs text-[#B4FC75] flex items-center gap-1">
+                <p className="text-[9px] md:text-[13px] text-[#B4FC75] flex items-center gap-1 font-bold">
                     <CheckCircle2 size={12} /> 推荐人有效
                 </p>
             )}
             {referrerValid === false && (
-                <p className="text-xs text-red-500 flex items-center gap-1">
+                <p className="text-[9px] md:text-[13px] text-red-500 flex items-center gap-1 font-bold">
                     <AlertCircle size={12} /> 无效的推荐人地址
                 </p>
             )}

@@ -2,7 +2,7 @@ import type { Connection, PublicKey } from "@solana/web3.js";
 
 
 
-export async function showCheckSolBalance(
+export async function checkSolBalance(
     walletKey: PublicKey,
     connection: Connection, 
     targetAmount: number,

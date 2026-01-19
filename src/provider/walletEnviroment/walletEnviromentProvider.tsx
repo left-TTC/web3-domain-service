@@ -37,13 +37,13 @@ export const WalletEnvironmentProvider: React.FC<{ children: React.ReactNode }> 
     ], [network]);
 
     return(
-        <ConnectionProvider endpoint={endpoint}>
+        // <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletEnvContext.Provider value={{network, endpoint}}>
                     {children}
                 </WalletEnvContext.Provider>
             </WalletProvider>
-        </ConnectionProvider>
+        // </ConnectionProvider>
     )
 
 }

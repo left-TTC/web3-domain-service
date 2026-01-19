@@ -6,13 +6,11 @@ const primaryColor = '#B4FC75';
 interface CreateRootPostProps {
     newRoot: string,
     setNewRoot: React.Dispatch<React.SetStateAction<string>>,
-    initialSol: number,
-    setInitialSol: React.Dispatch<React.SetStateAction<number>>,
     showSettle: () => void,
 }
 
 const CreateRootPost: React.FC<CreateRootPostProps> = ({
-    newRoot, setNewRoot, initialSol, setInitialSol, showSettle
+    newRoot, setNewRoot, showSettle
 }) => {
 
     const isPhone = getDeviceTypeByUA()
@@ -58,7 +56,7 @@ const CreateRootPost: React.FC<CreateRootPostProps> = ({
                                 Root Name to Mint
                             </label>
                             
-                            <div className="relative mb-4 md:mb-6 group">
+                            <div className="relative mb-4 md:mb-16 group">
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-3xl font-bold text-gray-600 font-mono">.</span>
                                 <input 
                                     type="text" 
@@ -70,31 +68,6 @@ const CreateRootPost: React.FC<CreateRootPostProps> = ({
                                 />
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
                                     {newRoot && <span className="text-[#B4FC75] text-xs font-mono bg-[#B4FC75]/10 px-2 py-1 rounded">AVAILABLE</span>}
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4 mb-4 md:mb-6">
-                                <div>
-                                    <label className="text-[11px] md:text-xs font-bold text-gray-500 uppercase mb-1 block">Initial Bid (SOL)</label>
-                                    <input
-                                        type="number"
-                                        placeholder="SOL"
-                                        value={initialSol === 0 ? '' : initialSol}
-                                        onChange={(e) => {
-                                        const value = e.target.value
-                                        setInitialSol(value === '' ? 0 : Number(value))
-                                        }}
-                                        className="
-                                            placeholder:text-[12px] md:placeholder:text-[16px] text-[12px] md:text-[16px]
-                                            w-full bg-[#050505]
-                                            border border-white/20 rounded-lg
-                                            px-4 py-2 md:py-3 text-white
-                                            focus:border-[#B4FC75] focus:outline-none
-                                            transition-colors
-                                            appearance-none
-                                            [&::-webkit-inner-spin-button]:appearance-none
-                                            [&::-webkit-outer-spin-button]:appearance-none"
-                                    />
                                 </div>
                             </div>
 
