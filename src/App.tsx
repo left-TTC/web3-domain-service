@@ -7,6 +7,7 @@ import DomainRecommend from './components/auction/domainRecommend';
 import RootDomainCreate from './components/auction/rootDomainCreate';
 import { useState } from 'react';
 import { User } from './pages/usr';
+import { DownLaodPage } from './pages/downLoad';
 
 
 
@@ -23,12 +24,12 @@ function App() {
                     <Route path='*' element={<Index ifShowDomain={showBrowserDomainQuery} setDomainQuery={setShowBrowserDomainQuery}/>} />
                     <Route path='/search' element={<Search />} />
                     <Route path='/usr' element={<User openDomainQueryPage={() => setShowBrowserDomainQuery(true)} />} />
-                    <Route path='/usr/:key' element={<User openDomainQueryPage={() => setShowBrowserDomainQuery(true)} />} />
 
                     {/** Auction Page */}
                     <Route path='/auction/recommend' element={<DomainRecommend />} />
                     <Route path='/auction/createRoot' element={<RootDomainCreate />} />
 
+                    <Route path='/download' element={<DownLaodPage />} />
                 </Route>
             </Routes>
         </Router>

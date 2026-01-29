@@ -2,6 +2,7 @@
 import BrowserDomain from "@/components/index/browseDomain/browseDomain"
 import BrowserDomainQuery from "@/components/index/browseDomain/browserDomainQuery"
 import DomainUsrShow from "@/components/index/domainUsr/domainUsrShow"
+import DownloadKilo from "@/components/index/downloadBrave/downloadKilo"
 import Web3CoreUtilities from "@/components/index/web3CoreUtilities/web3CoreUtilities"
 import { useState } from "react"
 
@@ -38,8 +39,17 @@ const Index: React.FC<IndexProps> = ({
                 />
             }
 
+            
             <Web3CoreUtilities />
             <DomainUsrShow />
+
+            <div className="h-[300px] flex items-center justify-center border-b border-white/5 mt-[200px]">
+                <div className="text-center">
+                    <h3 className="text-[120px] font-black italic tracking-tighter mb-4 opacity-10">KILO HUB</h3>
+                    <p className="text-gray-500 tracking-[0.5em] uppercase text-sm font-normal">向下滚动探索新工具</p>
+                </div>
+            </div>
+            <DownloadKilo />
             
         </div>
     )

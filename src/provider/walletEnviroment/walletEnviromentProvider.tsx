@@ -12,11 +12,6 @@ const WalletEnvContext = createContext<WalletEnvContextType | null>(null);
 
 export const WalletEnvironmentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
-    // //use net:
-    // const network = WalletAdapterNetwork.Devnet;
-    // //endpoint
-    // const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
     const network = import.meta.env.VITE_SOLANA_NETWORK === 'devnet'
         ? WalletAdapterNetwork.Devnet
         : WalletAdapterNetwork.Mainnet;
@@ -32,18 +27,16 @@ export const WalletEnvironmentProvider: React.FC<{ children: React.ReactNode }> 
 
     }, []);
 
-    const wallets = useMemo(() => [
-        //automatically detect wallet
-    ], [network]);
+    const wallets = useMemo(() => [], [network]);
 
     return(
-        // <ConnectionProvider endpoint={endpoint}>
+        <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletEnvContext.Provider value={{network, endpoint}}>
                     {children}
                 </WalletEnvContext.Provider>
             </WalletProvider>
-        // </ConnectionProvider>
+         </ConnectionProvider>
     )
 
 }

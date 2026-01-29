@@ -3,7 +3,7 @@
 {
     "Home": "Home",
     "Marketplace": "Marketplace",
-    "Docus": "Docus",
+    "Docus": "DownLoad",
     "mydomain": "My Domain",
     "connect": "Connect Wallet",
     "disconnect": "Disconnect",
@@ -24,6 +24,7 @@
     "transactionhight": "Highest transaction amount",
     "witness": "Witness the record-breaking sale of the most valuable top-level domain in the Solana ecosystem, with data verified in real-time on the blockchain.",
     "transactiontime": "Transaction time",
+    "downloadHub": "DownLoad Hub",
 
 
     "search": "Search Result",

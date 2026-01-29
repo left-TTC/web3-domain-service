@@ -1,16 +1,16 @@
 import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { CREATE_ROOT_TARGET } from "@/utils/constants/constants";
-import { rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
-import { cutString } from "@/utils/functional/common/cutString";
+import { createMockRootStateAccount, rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import { findCreatingRoot } from "@/utils/net/findCreatingRoot";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { ArrowRight, Globe, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { tryToStakeRoot } from "./stake/tryToStakeSol";
 import { TransactionState } from "@/utils/functional/instructions/transactionState";
+import StakeItem from "./stake/stakeItem";
+import StakeHero from "./stake/stakeHero";
+import StakeItemSkeleton from "./stake/StakeItemSkeleton";
 
-const primaryColor = '#B4FC75';
 
 interface CreatingRootShowProps {
     
@@ -24,6 +24,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
     const {publicKey: feePayer, signTransaction} = useWalletEnv()
     
     const [sailingRootDomains, setSailingRootDomains] = useState<rootStateAccount[]> ([])
+    const [loading, setLoading] = useState(true);
     const creatingLoaded = useRef(false)
 
     const [showStake, setShowStake] = useState(false)
@@ -61,89 +62,77 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
         const getAllCreatingRootDomains = async() => {
             if(creatingLoaded.current)return
             creatingLoaded.current = true
-            const allRoots = await findCreatingRoot(connection)
-            setSailingRootDomains(allRoots);
+            setLoading(true);
+            try {
+                const allRoots = await findCreatingRoot(connection);
+                setSailingRootDomains(allRoots);
+            } finally {
+                setLoading(false);
+            };
         }
 
         getAllCreatingRootDomains()
     }, [])
 
+    const PAGE_SIZE = 8;
+    const [page, setPage] = useState(1);
+
+    const TestMock = createMockRootStateAccount()
+    const tests = [TestMock ,TestMock, TestMock, TestMock, TestMock, TestMock,TestMock,TestMock,TestMock]
+
+    const totalPages = Math.ceil(tests.length / PAGE_SIZE);
+    const pagedItems = tests.slice(
+        (page - 1) * PAGE_SIZE,
+        page * PAGE_SIZE
+    );
+
     return(
         <section className="animate-fade-in-up">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-                <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#B4FC75]/30 bg-[#B4FC75]/5 text-[#B4FC75] text-xs font-mono mb-4">
-                        <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B4FC75] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B4FC75]"></span>
-                        </span>
-                        LIVE AUCTIONS
-                    </div>
-                    <h3 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-                        Root Domain <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Governance & Launch</span>
-                    </h3>
-                    <p className="text-gray-400 max-w-2xl text-[12px] md:text-lg">
-                        支持您最喜爱的顶级域名(TLD).当筹款达到目标时,该根域名将在 Solana 链上被激活并生成 NFT 权益。
-                    </p>
-                </div>
-                
-                <div className="flex gap-8 border-l border-white/10 pl-8">
-                    <div>
-                        <p className="text-gray-500 text-sm font-mono uppercase">Total Value Locked</p>
-                        <p className="text-2xl font-bold font-mono" style={{ color: primaryColor }}>xxx SOL</p>
-                    </div>
-                    <div>
-                        <p className="text-gray-500 text-sm font-mono uppercase">Active TLDs</p>
-                        <p className="text-2xl font-bold text-white">x</p>
-                    </div>
-                </div>
-            </div>
+            <StakeHero />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {sailingRootDomains.map((item) => {
-                    const progress = (item.fundState.toNumber() / CREATE_ROOT_TARGET) * 100;
+                {loading ? 
+                    Array.from({ length: 8 }).map((_, i) => (
+                        <StakeItemSkeleton key={i} />
+                    ))
+                : pagedItems.map((item) => {
+                    const progress =
+                    (item.fundState.toNumber() / CREATE_ROOT_TARGET) * 100;
+
                     return (
-                        <div key={item.creatingName} className="group relative bg-[#111] border border-white/10 rounded-2xl p-5 md:p-6 hover:border-[#B4FC75]/50 transition-all duration-300 hover:-translate-y-1">
-                            <div className="flex justify-between items-start mb-1 md:mb-4">
-                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#B4FC75] group-hover:text-black transition-colors duration-300">
-                                    <Globe size={20} />
-                                </div>
-                            </div>
-
-                            <h3 className="text-3xl font-bold mb-1 tracking-tight">.{item.creatingName}</h3>
-                            <p className="text-sm text-gray-400 mb-4 md:mb-6 flex items-center gap-1">
-                                由 <span className="text-white underline decoration-dotted font-normal">{cutString(item.rootSponsor.toBase58(), 5, 5, "...")}</span> 发起
-                            </p>
-
-                            <div className="mb-4">
-                                <div className="flex justify-between text-sm mb-2 font-mono">
-                                    <span className="text-white">{(item.fundState.toNumber() / 1e9).toLocaleString()} SOL</span>
-                                    <span className="text-gray-400">of {(CREATE_ROOT_TARGET / 1e9).toLocaleString()} SOL</span>
-                                </div>
-                                <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-                                    <div 
-                                        className="h-full rounded-full transition-all duration-1000 ease-out"
-                                        style={{ width: `${progress}%`, backgroundColor: primaryColor }}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                                <div className="flex items-center gap-2 text-xs text-gray-400">
-                                    <Users size={14} />
-                                    100 支持者
-                                </div>
-                                <button 
-                                    onClick={() => stakeSol(item)}
-                                    className="text-sm font-bold hover:underline decoration-2 underline-offset-4 decoration-[#B4FC75] flex items-center gap-1 transition-all"
-                                >
-                                    Stake SOL <ArrowRight size={14} />
-                                </button>
-                            </div>
-                        </div>
-                    )
+                        <StakeItem
+                            key={item.creatingName}
+                            clink={() => stakeSol(item)}
+                            item={item}
+                            progress={progress}
+                        />
+                    );
                 })}
             </div>
+
+            {totalPages > 1 && (
+                <div className="mt-10 flex justify-center items-center gap-4">
+                        <button
+                        disabled={page === 1}
+                        onClick={() => setPage(p => p - 1)}
+                        className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 disabled:opacity-40"
+                    >
+                        Prev
+                    </button>
+
+                    <span className="text-sm text-gray-500">
+                        {page} / {totalPages}
+                    </span>
+
+                    <button
+                        disabled={page === totalPages}
+                        onClick={() => setPage(p => p + 1)}
+                        className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 disabled:opacity-40"
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
 
             {showStake && 
                 <DomainSettlementModal

@@ -5,11 +5,14 @@ import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 import { LayoutDashboard } from "lucide-react"
+import { useGlobalModal } from "@/components/common/show/info"
 
 const MyDomain = () => {
 
     const {t}= useTranslation()
     const navigate = useNavigate()
+
+    const info = useGlobalModal()
 
     const {publicKey} = useWalletEnv()
 
@@ -24,9 +27,13 @@ const MyDomain = () => {
 
     const goToUsrPage = () => {
         if(publicKey){
-            navigate(`./usr/${publicKey}`)
+            navigate(`./usr?k=${publicKey}`)
         }else{
-            navigate(`./usr/`)
+            info.showModal({
+                title: "No Wallet",
+                type: "warning",
+                content: "Please connect wallet frist",
+            })
         }
     }
 

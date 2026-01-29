@@ -19,17 +19,19 @@ const DomainItem: React.FC<DomainItemProps> = ({
 
     const [showEditor, setShowEditor] = useState(false)
 
+    const ifMd = window.innerWidth >= 768;
+
     return(
         <div className="flex items-center justify-between p-4 bg-black/40 rounded-lg border border-white/10 hover:border-[#B4FC75]/50 transition-colors">
             <div className="flex items-center gap-4">
-                <Globe size={24} style={{ color: primaryColor }} />
+                <Globe size={ifMd? 24:15} style={{ color: primaryColor }} />
                 <div>
-                    <p className="text-xl font-bold">{domainName}</p>
+                    <p className="text-[13px] md:text-xl font-bold">{domainName}</p>
                     <div className="flex items-center gap-3 mt-1">
                         <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] font-mono text-gray-400 uppercase">
                             {ipfsState?.type ?? ""}
                         </span>
-                        <p className="text-[11px] text-gray-500 font-mono truncate max-w-[150px]">
+                        <p className="text-[11px] text-gray-500 font-mono truncate max-w-[150px] hidden md:flex">
                             {ipfsState?.recordData ?? "未设置"}
                         </p>
                     </div>
@@ -39,7 +41,7 @@ const DomainItem: React.FC<DomainItemProps> = ({
             <div className="flex items-center gap-6">
                 <button 
                     onClick={() => setShowEditor(true)}
-                    className="px-3 py-1.5 rounded-full text-black text-sm font-bold flex items-center gap-1 hover:opacity-90 transition-opacity"
+                    className="px-4 sm:px-3 py-2 sm:py-1.5 rounded-full text-black text-[11px] sm:text-sm font-bold flex items-center gap-1 hover:opacity-90 transition-opacity"
                     style={{ backgroundColor: primaryColor }}
                 >
                     管理 <Settings size={14} />

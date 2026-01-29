@@ -15,7 +15,7 @@ import MarketplaceDropDown from "./marketPlaceDropdown";
 export enum NavigationLists{
     Home = "Home",
     Auction = "Marketplace",
-    Docus = "Docus",
+    DownLoad = "DownLoad",
 }
 
 export interface NavigationProps {
@@ -41,8 +41,8 @@ const Navigation: React.FC<NavigationProps> = ({
                 return t("Home");
             case NavigationLists.Auction:
                 return t("Marketplace");
-            case NavigationLists.Docus:
-                return t("Docus");
+            case NavigationLists.DownLoad:
+                return t("DownLoad");
         }
     }
 
@@ -58,8 +58,8 @@ const Navigation: React.FC<NavigationProps> = ({
                     setMarketDropAnimate(true)
                 }
                 break
-            case NavigationLists.Docus:
-                return t("Docus");
+            case NavigationLists.DownLoad:
+                navigate('/download');
         } 
     }
 

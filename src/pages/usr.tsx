@@ -1,12 +1,10 @@
 
-
-import "@/style/pages/usr.css"
 import { useEffect, useRef, useState } from "react";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import AdminBlcok from "@/components/usrPage/adminBlock";
 import { useAuctioningDomain } from "@/components/usrPage/function/useAuctioningDomain";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { PublicKey } from "@solana/web3.js";
 import { useUsrDomains } from "@/components/usrPage/usrComponets/hook/useUsrDomains";
 import { useKonamiLikeListener } from "@/components/usrPage/usrComponets/hook/openAdminBlock";
@@ -19,8 +17,8 @@ export function User({
     openDomainQueryPage: () => void;
 }) {
 
-    // get the params from url
-    const { key } = useParams();
+    const [searchParams] = useSearchParams();
+    const key = searchParams.get("k")
     const ifOtherUsr = useRef(false)
 
     // 上上下下左右左右baba
@@ -96,9 +94,7 @@ export function User({
                 searchKey={searchKey}
             />
         ) : (
-            <div className="usrPage">
-                <AdminBlcok />
-            </div>
+            <AdminBlcok />
         )
     )
 }

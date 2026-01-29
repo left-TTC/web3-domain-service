@@ -4,7 +4,7 @@ import AuctionListItem from "./content/auctionlistItem";
 import SettlementListItem from "./content/settlementListItem";
 import { useEffect, useState } from "react";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
-import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import { createMockState, NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import type { PublicKey } from "@solana/web3.js";
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 
@@ -46,12 +46,17 @@ const ManageContent: React.FC<ManageContentProps> = ({
         if(myAuctions) setAuctionItems(Array.from(myAuctions.keys()))
         if(settlements) setSettleItems(Array.from(settlements.keys()))
     }, [myAuctions, settlements])
+
+    const ifMd = window.innerWidth >= 768;
+
+    const mock = createMockState()
+    const test = ["aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", ]
     
     if (activeTab === 'mydomain') {
         return (
             <div className="space-y-4">
                 <div className="flex justify-between items-center pb-4 border-b border-white/5">
-                    <h3 className="text-2xl font-bold">我的域名 ({domainNum})</h3>
+                    <h3 className="text-[12px] md:text-2xl font-bold">我的域名 ({domainNum})</h3>
                 </div>
                 {currentDomains.map(domain => (
                     <DomainItem 
@@ -82,8 +87,8 @@ const ManageContent: React.FC<ManageContentProps> = ({
                         </button>
                     </div>
                 )}
-                <div className="text-center pt-8">
-                    <button className="px-6 py-3 rounded-xl border border-[#B4FC75]/50 text-[#B4FC75] hover:bg-[#B4FC75]/10 transition-colors flex items-center mx-auto gap-2">
+                <div className="text-center pt-2 md:pt-8">
+                    <button className="fontg-normal text-[12px] md:text-[16px] px-6 py-3 rounded-xl border border-[#B4FC75]/50 text-[#B4FC75] hover:bg-[#B4FC75]/10 transition-colors flex items-center mx-auto gap-2">
                         <Search size={18} /> 注册新域名
                     </button>
                 </div>
@@ -94,25 +99,26 @@ const ManageContent: React.FC<ManageContentProps> = ({
             <div className="space-y-8 animate-fade-in">
             
                 <div className="space-y-4">
-                    <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                        <h3 className="text-xl font-bold flex items-center gap-2 text-white">
-                            <Activity size={20} style={{ color: primaryColor }} /> 
+                    <div className="flex justify-between items-center pb-1 md:pb-2 border-b border-white/5">
+                        <h3 className="text-[12px] sm:text-xl font-bold flex items-center gap-2 text-white">
+                            <Activity size={ifMd? 20:12} style={{ color: primaryColor }} /> 
                             进行中的拍卖 ({auctionItems.length})
                         </h3>
                     </div>
                     
-                    {auctionItems.length > 0 ? (
-                        auctionItems.map((auctionname, index) => (
+                    {test.length > 0 ? (
+                        test.map((auctionname, index) => (
                             <AuctionListItem 
                                 key={index}
-                                item={myAuctions!.get(auctionname)!} 
+                                // item={myAuctions!.get(auctionname)!} 
+                                item={mock}
                                 name={auctionname}    
                                 localAuctionName={localAuctionName}
                                 searchKey={searchKey}
                             />
                         ))
                     ) : (
-                        <div className="text-center py-8 text-gray-500 bg-black/20 rounded-xl">
+                        <div className="text-[12px] md:text-[18px] text-center py-5 md:py-8 text-gray-500 bg-black/20 rounded-xl">
                             暂无参与的拍卖
                         </div>
                     )}
@@ -120,11 +126,11 @@ const ManageContent: React.FC<ManageContentProps> = ({
 
                 <div className="space-y-4">
                     <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                        <h3 className="text-xl font-bold flex items-center gap-2 text-white">
-                            <AlertCircle size={20} className="text-yellow-400" /> 
+                        <h3 className="text-[12px] sm:text-xl font-bold flex items-center gap-2 text-white">
+                            <AlertCircle size={ifMd? 20:12} className="text-yellow-400" /> 
                             等待结算 ({settleItems.length})
                         </h3>
-                        <span className="text-xs text-gray-500">结束后需手动领取资产</span>
+                        <span className="text-[10px] md:text-xs text-gray-500 font-normal">结束后需手动领取资产</span>
                     </div>
 
                     {settleItems.length > 0 ? (
@@ -136,7 +142,7 @@ const ManageContent: React.FC<ManageContentProps> = ({
                             />
                         ))
                     ) : (
-                        <div className="text-center py-8 text-gray-500 bg-black/20 rounded-xl">
+                        <div className="text-[12px] md:text-[18px] text-center py-5 md:py-8 text-gray-500 bg-black/20 rounded-xl">
                             没有待结算的项目
                         </div>
                     )}

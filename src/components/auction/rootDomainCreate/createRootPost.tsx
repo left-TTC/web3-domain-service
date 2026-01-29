@@ -16,7 +16,7 @@ const CreateRootPost: React.FC<CreateRootPostProps> = ({
     const isPhone = getDeviceTypeByUA()
 
     return (
-        <section className="relative mt-0 md:mt-10">
+        <section className="relative mt-0 md:mt-10 pb-30">
             <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#B4FC75]/30 to-transparent -z-10"/>
 
             <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl md:rounded-3xl p-1 md:p-2 max-w-5xl mx-auto shadow-2xl shadow-black/50">

@@ -35,7 +35,7 @@ export default function UsrIndex(
                 <div className="absolute top-[-10%] left-[30%] w-[400px] h-[400px] bg-[#B4FC75] rounded-full mix-blend-screen filter blur-[100px] opacity-[0.08]"/>
             </div>
 
-            <main className="max-w-7xl mx-auto px-6 pt-12 relative z-10 flex flex-col gap-16 mt-20">
+            <main className="max-w-7xl mx-auto px-6 pt-7 md:pt-12 relative z-10 flex flex-col gap-10 md:gap-16 mt-20">
                 <UsrInfo 
                     checkUsr={useUsr}
                     usrDomains={usrDomains}

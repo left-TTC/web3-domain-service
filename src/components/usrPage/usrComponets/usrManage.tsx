@@ -29,21 +29,23 @@ const UsrManage: React.FC<UsrManageProps> = ({
 
     const { onAuctionItems, onSettleItems } = useSortSettleAndAuction(auctionState, ifLoadedAuctionState, allAuctionName)
 
+    const ifMd = window.innerWidth >= 768;
+
     return(
-        <section className="bg-[#111] border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl shadow-black/50">
-            <div className="flex border-b border-white/10 mb-8">
+        <section className="bg-[#111] border border-white/10 rounded-3xl p-4 md:p-8 shadow-2xl shadow-black/50">
+            <div className="flex border-b border-white/10 mb-4 md:mb-8">
                 {['mydomain', 'economy'].map((tab) => (
                 <button
                     key={tab}
                     onClick={() => setActiveTab(tab as 'mydomain' | 'auction')}
-                    className={`py-3 px-6 text-lg font-semibold transition-colors duration-200 flex items-center gap-2 ${
+                    className={`py-2 md:py-3 px-3 md:px-6 text-[10px] md:text-lg font-semibold transition-colors duration-200 flex items-center gap-2 ${
                     activeTab === tab
                         ? 'border-b-4 text-white'
                         : 'text-gray-500 hover:text-white/80'
                     }`}
                     style={{ borderColor: activeTab === tab ? primaryColor : 'transparent' }}
                 >
-                    {tab === 'mydomain' ? <List size={20} /> : <Gavel size={20} />}
+                    {tab === 'mydomain' ? <List size={ifMd? 20: 14} /> : <Gavel size={ifMd? 20: 14} />}
                     {tab === 'mydomain' ? '域名管理' : '我的拍卖 & 结算'}
                 </button>
                 ))}
