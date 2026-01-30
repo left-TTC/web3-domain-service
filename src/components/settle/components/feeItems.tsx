@@ -35,8 +35,8 @@ const FeeItems: React.FC<FeeItemsProps> = ({
             <div className="h-px bg-white/10 my-1 md:my-2"></div>
             
             <div className="flex justify-between items-center">
-                <span className="text-[14px] md:text-[16px] text-white font-bold">总计 (Total)</span>
-                <span className="text-[16px] md:text-2xl font-mono font-bold text-[#B4FC75]">{(total/1e9).toFixed(4)} SOL</span>
+                <span className="text-[12px] md:text-[16px] text-white font-bold">总计 (Total)</span>
+                <span className="text-[13px] md:text-2xl font-mono font-bold text-[#B4FC75]">{(total/1e9).toFixed(4)} SOL</span>
             </div>
         </div>
     )

@@ -22,12 +22,12 @@ const SettleHead: React.FC<SettleHeadProps> = ({
     const header = getHeaderInfo();
 
     return(
-        <div className="px-8 py-3 md:py-6 border-b border-white/5 flex justify-between items-start">
+        <div className="px-8 py-2 md:py-6 border-b border-white/5 flex justify-between items-start">
             <div>
-                <h2 className="text-[15px] md:text-xl font-bold text-white flex items-center gap-2">
+                <h2 className="text-[13px] md:text-xl font-bold text-white flex items-center gap-2">
                     {header.title}
                 </h2>
-                <p className="text-[11px] md:text-xs text-gray-500 font-mono mt-1 uppercase tracking-wider">{header.desc}</p>
+                <p className="text-[10px] md:text-xs text-gray-500 font-mono mt-1 uppercase tracking-wider">{header.desc}</p>
             </div>
             <button 
                 onClick={onClose}

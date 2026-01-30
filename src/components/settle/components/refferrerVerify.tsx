@@ -87,11 +87,13 @@ const RefferrerVerify = ({
     const referrerValid =
         checked ? ifRefferValid : null;
 
+    const ifMd = window.innerWidth >= 768;
+
     return (
         <div className="space-y-3 mb-3 md:mb-6">
             <div className="flex items-center justify-between">
-                <h3 className="text-[12px] md:text-sm font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
-                    <Users size={14} /> 推荐人
+                <h3 className="text-[11px] md:text-sm font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                    <Users size={ifMd? 14:12} /> 推荐人
                 </h3>
                 <a className="text-[10px] md:text-xs text-[#B4FC75] hover:underline opacity-80">
                     查看推荐政策

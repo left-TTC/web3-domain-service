@@ -44,15 +44,17 @@ const SettlementListItem: React.FC<SettlementListItemProps> = ({
         )
     }
 
+    const ifMd = window.innerWidth >= 768;
+
     return(
-        <div className="flex items-center justify-between p-4 bg-black/40 rounded-lg border border-white/10 border-l-4 border-l-[#B4FC75]">
+        <div className="flex items-center justify-between p-2 md:p-4 bg-black/40 rounded-lg border border-white/10 border-l-4 border-l-[#B4FC75]">
             <div className="flex items-center gap-4">
                 <div className="p-2 rounded-full bg-[#B4FC75]/20 text-[#B4FC75]">
-                    <CheckCircle size={20} />
+                    <CheckCircle size={ifMd? 20:12} />
                 </div>
                 <div>
-                    <p className="text-lg font-bold text-white">{name}</p>
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className="text-[13px] md:text-lg font-bold text-white">{name}</p>
+                    <p className="text-[11px] md:text-xs text-gray-400 mt-1 font-normal">
                         '竞拍成功，等待领取 NFT'
                     </p>
                 </div>
@@ -61,7 +63,7 @@ const SettlementListItem: React.FC<SettlementListItemProps> = ({
             <div className="flex items-center gap-4">
                 <button 
                     onClick={() => setSettle(true)}
-                    className="px-4 py-2 rounded-lg border-[2px] border-[#B4FC75] text-[#B4FC75] text-xs font-bold hover:bg-[#B4FC75] hover:text-black transition-all flex items-center gap-1"
+                    className="px-3 md:px-4 py-2 rounded-lg border-[2px] border-[#B4FC75] text-[#B4FC75] text-[10px] md:text-xs font-bold hover:bg-[#B4FC75] hover:text-black transition-all flex items-center gap-1"
                 >
                     领取域名
                 </button>

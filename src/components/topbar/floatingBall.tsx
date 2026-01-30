@@ -40,7 +40,7 @@ const FloatingBall: React.FC<FloatingBallProps> = ({
     }
     
     return(
-        <div className="fixed bottom-18 right-18 z-[100] flex flex-col items-end gap-4">
+        <div className="fixed bottom-54 md:bottom-18 right-8 md:right-18 z-[100] flex flex-col items-end gap-4">
         
             {!showBack && isMenuOpen && (
                 <div className="mb-2 bg-[#1a1a1a]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300">
@@ -72,7 +72,7 @@ const FloatingBall: React.FC<FloatingBallProps> = ({
                         setIsMenuOpen(!isMenuOpen);
                     }
                 }}
-                className={`group relative w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-[0_0_30px_rgba(180,252,117,0.15)] ${
+                className={`group relative w-12 md:w-16 h-12 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-[0_0_30px_rgba(180,252,117,0.15)] ${
                     showBack 
                     ? 'bg-white text-black hover:scale-110' 
                     : 'bg-[#B4FC75] text-black hover:shadow-[0_0_40px_rgba(180,252,117,0.4)]'

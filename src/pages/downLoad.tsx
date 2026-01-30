@@ -1,8 +1,6 @@
 import DownLoadIntroduce from "@/components/download/downLoadIntroduce";
 import DownLoadHero from "@/components/download/downLoadHero";
-import DownLoadNav from "@/components/download/downLoadNav";
 import { Globe } from "lucide-react";
-import { useState } from "react";
 import DownLoadContent from "@/components/download/downLoadContent";
 
 
@@ -10,14 +8,11 @@ import DownLoadContent from "@/components/download/downLoadContent";
 export function DownLaodPage(){
 
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
         <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#B4FC75] selection:text-black pb-24">
-        
-            <DownLoadNav setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} />
 
-            <main className="max-w-6xl mx-auto px-6">
+            <main className="max-w-6xl mx-auto">
                 <DownLoadHero />
                 <DownLoadContent />
                 <DownLoadIntroduce />

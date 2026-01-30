@@ -40,7 +40,7 @@ const CountdownTimer2: React.FC<CountdownTimer2Props> = ({ targetTimestamp, onFi
 
     return (
         <p className="text-xs text-gray-500 font-mono mt-1 flex items-center gap-2">
-            剩余时间: <span className="text-white">{formatTime(secondsLeft)}</span>
+            <h3 className='font-normal hidden sm:flex'>剩余时间:</h3> <span className="text-white">{formatTime(secondsLeft)}</span>
         </p>
     );
 };

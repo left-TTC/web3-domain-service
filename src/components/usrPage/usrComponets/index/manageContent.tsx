@@ -133,11 +133,12 @@ const ManageContent: React.FC<ManageContentProps> = ({
                         <span className="text-[10px] md:text-xs text-gray-500 font-normal">结束后需手动领取资产</span>
                     </div>
 
-                    {settleItems.length > 0 ? (
-                        settleItems.map((itemName, index) => (
+                    {test.length > 0 ? (
+                        test.map((itemName, index) => (
                             <SettlementListItem 
                                 key={index}
-                                item={settlements!.get(itemName)!} 
+                                // item={settlements!.get(itemName)!} 
+                                item={mock}
                                 name={itemName}    
                             />
                         ))

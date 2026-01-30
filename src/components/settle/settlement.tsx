@@ -109,8 +109,8 @@ export default function DomainSettlementModal({
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050505]/80 backdrop-blur-md animate-fade-in">
-            <div className="relative w-full max-w-lg bg-[#111] border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+        <div className="h-[100lvh] fixed inset-0 z-99 flex items-center justify-center p-4 bg-[#050505]/80 backdrop-blur-md animate-fade-in">
+            <div className="relative w-full max-w-lg bg-[#111] border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[100vh]">
                 <div className="h-1.5 w-full bg-gradient-to-r from-[#B4FC75] via-purple-500 to-[#B4FC75]" />
 
                 <SettleHead
@@ -143,8 +143,8 @@ export default function DomainSettlementModal({
                             action={actionType}
                         />
                     }
-                    <div className="space-y-4 mb-2 md:mb-8 mt-4 md:mt-8">
-                        <h3 className="text-[12px] md:text-sm font-bold text-gray-400 flex items-center gap-2 uppercase tracking-wide">
+                    <div className="space-y-3 md:space-y-4 mb-2 md:mb-8 mt-3 md:mt-8">
+                        <h3 className="text-[11px] md:text-sm font-bold text-gray-400 flex items-center gap-2 uppercase tracking-wide">
                             <CreditCard size={14} /> 账单明细
                         </h3>
                         <FeeItems
@@ -152,7 +152,7 @@ export default function DomainSettlementModal({
                             total={totalFee}
                         />
                     </div>
-                    <div className="flex items-center justify-between px-4 py-2 md:py-3 bg-[#B4FC75]/5 border border-[#B4FC75]/10 rounded-xl text-[11px] text-gray-500">
+                    <div className="flex items-center justify-between px-3 md:px-4 py-2 md:py-3 bg-[#B4FC75]/5 border border-[#B4FC75]/10 rounded-xl text-[9px] md:text-[11px] text-gray-500">
                         <div className="flex items-center gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-[#B4FC75] animate-pulse"/>
                             <span className="font-mono font-[600]">钱包余额: {usrBalance? (usrBalance/1e9).toFixed(4)+" SOL":"Checking"}</span>
@@ -165,7 +165,7 @@ export default function DomainSettlementModal({
                     <div className="grid grid-cols-3 gap-4">
                         <button 
                             onClick={onClose}
-                            className="col-span-1 py-3.5 rounded-xl font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-colors border border-white/10"
+                            className="text-[11px] md:text-[15px] col-span-1 py-3.5 rounded-xl font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-colors border border-white/10"
                             disabled={isProcessing}
                         >
                             取消
@@ -174,6 +174,7 @@ export default function DomainSettlementModal({
                             onClick={handlePayment}
                             disabled={isProcessing}
                             className={`
+                                text-[11px] md:text-[15px] 
                                 col-span-2 py-3.5 rounded-xl font-bold text-black bg-[#B4FC75] transition-all 
                                 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed
                                 ${!ableToConfirm ? "bg-gray-400 pointer-events-none cursor-default" : "hover:opacity-90"}
