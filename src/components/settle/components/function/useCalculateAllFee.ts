@@ -96,6 +96,7 @@ export function useCalculateAllFees(
                     break
 
                 case SettleType.increase:
+                    console.log("case increase")
                     if(refferrerKey != null && ifRefferrerValid){
                         const refferrerStateAccountFee = (await connection.getMinimumBalanceForRentExemption(REFFERRER_RECORD_LENGTH))
                         feeItems.push({

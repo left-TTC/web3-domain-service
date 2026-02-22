@@ -13,20 +13,21 @@ interface ManageContentProps {
     activeTab: "mydomain" | "auction",
     domainNum: number,
     myDomains: string[],
-    myAuctions: Map<string, NameAuctionState> | null,
-    settlements: Map<string, NameAuctionState> | null,
+    auctionItems: NameAuctionState[],
+    settleItems: NameAuctionState[],
     recordMap: Map<string, IPFSRecordState> | null,
     localAuctionName: Record<string, number>,
     searchKey: PublicKey | null,
     domainStateMap: Map<string, NameRecordState> | null,
+    allRecordState: Map<string, IPFSRecordState> | undefined
 }
 
 const primaryColor = '#B4FC75'; 
 const PAGE_SIZE = 7;
 
 const ManageContent: React.FC<ManageContentProps> = ({
-    activeTab, domainNum, myDomains, myAuctions, settlements, 
-    recordMap, localAuctionName, searchKey, domainStateMap
+    activeTab, domainNum, myDomains, auctionItems, settleItems, 
+    recordMap, localAuctionName, searchKey, domainStateMap, allRecordState
 }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -39,19 +40,11 @@ const ManageContent: React.FC<ManageContentProps> = ({
     const goPrev = () => setCurrentPage(p => Math.max(1, p - 1));
     const goNext = () => setCurrentPage(p => Math.min(totalPages, p + 1));
 
-    const [auctionItems, setAuctionItems] = useState<string[]>([])
-    const [settleItems, setSettleItems] = useState<string[]>([])
-
-    useEffect(() => {
-        if(myAuctions) setAuctionItems(Array.from(myAuctions.keys()))
-        if(settlements) setSettleItems(Array.from(settlements.keys()))
-    }, [myAuctions, settlements])
-
     const ifMd = window.innerWidth >= 768;
 
-    const mock = createMockState()
-    const test = ["aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", "aa.kilo", ]
-    
+    // const mock = createMockState()
+    // const test = [mock, mock, mock, mock, mock, mock, mock, mock, mock, mock]
+
     if (activeTab === 'mydomain') {
         return (
             <div className="space-y-4">
@@ -106,15 +99,15 @@ const ManageContent: React.FC<ManageContentProps> = ({
                         </h3>
                     </div>
                     
-                    {test.length > 0 ? (
-                        test.map((auctionname, index) => (
+                    {auctionItems.length > 0 ? (
+                        auctionItems.map((item, index) => (
                             <AuctionListItem 
                                 key={index}
-                                // item={myAuctions!.get(auctionname)!} 
-                                item={mock}
-                                name={auctionname}    
+                                item={item}
+                                name={item.getName()}    
                                 localAuctionName={localAuctionName}
                                 searchKey={searchKey}
+                                recordstate={allRecordState?.get(item.getName())}
                             />
                         ))
                     ) : (
@@ -133,13 +126,12 @@ const ManageContent: React.FC<ManageContentProps> = ({
                         <span className="text-[10px] md:text-xs text-gray-500 font-normal">结束后需手动领取资产</span>
                     </div>
 
-                    {test.length > 0 ? (
-                        test.map((itemName, index) => (
+                    {settleItems.length > 0 ? (
+                        settleItems.map((item, index) => (
                             <SettlementListItem 
                                 key={index}
-                                // item={settlements!.get(itemName)!} 
-                                item={mock}
-                                name={itemName}    
+                                item={item}
+                                name={item.getName()}    
                             />
                         ))
                     ) : (

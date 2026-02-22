@@ -21,5 +21,5 @@ export enum Web3NameSeriviceInstruction {
 export enum Web3RecordsInstruction {
     AllocateAndPostRecord,
     EditRecord,
-    DeleteRecord,
+    SetPreview,
 }

@@ -64,7 +64,7 @@ export function User({
     }, [searchKey]);
 
     // contains all the domains that currently being liquidated and auctioned
-    const { auctioningDomain, auctionState, ifFromRpc } = useAuctioningDomain(connection, searchKey)
+    const { auctioningDomains, auctionState, ifFromRpc } = useAuctioningDomain(connection, searchKey)
     // const { asPayerDomain } = useAsPayerName(connection, searchKey)
 
     const {
@@ -88,7 +88,7 @@ export function User({
                 domainStateMap={domainStateMap}
                 usrProfit={usrProfit}
                 usrVolume={usrVolume}
-                allAuctionName={auctioningDomain}
+                allAuctionName={auctioningDomains}
                 ifAuctionFromRpc={ifFromRpc}
                 auctionState={auctionState}
                 searchKey={searchKey}

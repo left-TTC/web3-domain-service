@@ -13,14 +13,14 @@ export async function getAllUsrDomains(
     rootDomainMap: Map<string, string>,
 ): Promise<[string[], Map<string, NameRecordState>]> {
 
-    const domains: string[] = []
-    const domainState: NameRecordState[] = []
+    const domains: string[] = [];
     const domainMap = new Map<string, NameRecordState>();
 
-    // get all the usr domain
+    // Get all user domains where owner matches walletKey
+    // owner is at offset 32, length 32
     const filters = [
         {
-            dataSize: 104,
+            dataSize: 137,
         },
         {
             memcmp: {
@@ -28,47 +28,43 @@ export async function getAllUsrDomains(
                 bytes: walletKey.toBase58(),
             },
         }
-    ]
+    ];
 
     const allUsrDomainAccounts = await connection.getProgramAccounts(
         WEB3_NAME_SERVICE_ID,
-        // need get account info
         { filters }
     );
 
-    // index is right
     const accountKeys = allUsrDomainAccounts.map((account) => account.pubkey);
-    const accountsInfo  = allUsrDomainAccounts.map((account) => account.account);
+    const accountsInfo = allUsrDomainAccounts.map((account) => account.account);
 
-    // get domain State
-    for (const info of accountsInfo){
-        console.log("info length: ", info.data.length)
-        domainState.push(new NameRecordState(info))
-    }
+    // Parse domain states
+    const domainStates = accountsInfo.map((info) => new NameRecordState(info));
 
-    // get domain name
+    // Get domain names from reverse accounts
     const domainReversesKeys = getMultipleReverseKeys(
-        accountKeys, CENTRAL_STATE_REGISTER
-    )
+        accountKeys,
+        CENTRAL_STATE_REGISTER
+    );
+
     const reverseDatas = await connection.getMultipleAccountsInfo(domainReversesKeys);
+
     if(reverseDatas){
-        for(const data of reverseDatas){
-            if(data){
-                const state = new ReverseKeyState(data)
-                const domainName = state.storagedData;
+        reverseDatas.forEach((data, index) => {
+            if(!data) return;
 
-                const thisNameState = domainState[reverseDatas.indexOf(data)]
+            const reverseState = new ReverseKeyState(data);
+            const domainName = reverseState.storagedData;
+            const nameState = domainStates[index];
 
-                const rootName = rootDomainMap.get(thisNameState.parentName.toBase58())
-                if (rootName) {
-                    const fullName = `${domainName}.${rootName}`;
-                    domains.push(fullName);
-                    domainMap.set(fullName, thisNameState);
-                }
+            const rootName = rootDomainMap.get(nameState.parentName.toBase58());
+            if (rootName) {
+                const fullName = `${domainName}.${rootName}`;
+                domains.push(fullName);
+                domainMap.set(fullName, nameState);
             }
-        }
+        });
     }
 
-    return [domains, domainMap]
-
+    return [domains, domainMap];
 }

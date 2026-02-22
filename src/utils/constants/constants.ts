@@ -1,11 +1,12 @@
 
 import { PublicKey } from "@solana/web3.js";
+import { Buffer } from "buffer";
 
 
 export const HASH_PREFIX = "WEB3 Name Service";
 
 export const WEB3_NAME_SERVICE_ID = new PublicKey(
-    "BjKdJYwPEUW51Fgjy6opBWCffpoGF5NFv7sZumBnbWZm"
+    "7864osdiV5r87pQnK8vzWEhstZ8S7JUo7bMMf1VhTHcS"
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
@@ -13,7 +14,7 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "2xf73UX5CKCMwUznykZthaxnx2yq1QYjuNojatTeGfT7"
+    "FebjdrGRLHocUXADP5QYPFfEkbYtRHMyobAL6wwkQe2d"
 );
 
 export const ADMIN = new PublicKey(
@@ -51,5 +52,5 @@ export function returnProjectVault(): PublicKey {
         WEB3_REGISTER_ID
     );
 
-    return  vaultKey ;
+    return vaultKey ;
 }

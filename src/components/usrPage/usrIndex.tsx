@@ -16,7 +16,7 @@ interface UsrIndexProps{
     usrVolume: number | null,
     allAuctionName: Record<string, number>,
     ifAuctionFromRpc: boolean,
-    auctionState: Map<string, NameAuctionState> | null,
+    auctionState: NameAuctionState[],
     searchKey: PublicKey | null,
 }
 

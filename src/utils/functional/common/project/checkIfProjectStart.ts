@@ -9,7 +9,7 @@ export async function checkIfProjectStart(
     connection: Connection
 ): Promise<boolean> {
 
-    const defualtDomain = "fmc";
+    const defualtDomain = "kilo";
 
     const defulatName = getNameAccountKey(
         getHashedName(defualtDomain)

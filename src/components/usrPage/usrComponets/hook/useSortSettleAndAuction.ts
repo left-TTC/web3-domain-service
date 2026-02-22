@@ -1,9 +1,12 @@
+import { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { DomainState, getDomainTimeState } from "@/utils/functional/common/time/getDomainTimeState";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
+import { getRecordKey, RecordType } from "@/utils/functional/solana/getRecordKey";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useEffect, useRef, useState } from "react";
@@ -11,41 +14,42 @@ import { useEffect, useRef, useState } from "react";
 
 
 export function useSortSettleAndAuction(
-    auctionState: Map<string, NameAuctionState> | null,
+    auctionState: NameAuctionState[],
     ifLoadedAuctionState: boolean,
-    allAuctionName: Record<string, number>,
+    allAuctionName: Record<string, number>
 ){
 
     const { connection } = useConnection()
 
-    const [onAuctionItems, setOnAuctionItems] = useState<Map<string, NameAuctionState> | null>(null)
-    const [onSettleItems, setOnSettleItems] = useState<Map<string, NameAuctionState> | null>(null)
+    const [onAuctionItems, setOnAuctionItems] = useState<NameAuctionState[]>([])
+    const [onSettleItems, setOnSettleItems] = useState<NameAuctionState[]>([])
+
+    const [allRecordState, setAllRecordState] = useState<Map<string, IPFSRecordState>>()
 
     const fetched = useRef(false)
+    const fetchRecord = useRef(false)
 
     useEffect(() => { 
-        console.log("allauction name: ", allAuctionName)
-        if (!allAuctionName || Object.keys(allAuctionName).length === 0) return
+        const domains: string[] = Object.keys(allAuctionName);
+        if (domains.length === 0) return
         if(fetched.current) return
+
         (async () => {
             if(ifLoadedAuctionState){
                 //don't need to load info again
                 console.log("don't need load again")
                 fetched.current = true
 
-                if(!auctionState) return //no items
-                const domains: string[] = Array.from(auctionState.keys());
-                let auctionItems = new Map<string, NameAuctionState>()
-                let settleItems = new Map<string, NameAuctionState>()
+                let auctionItems: NameAuctionState[] = []
+                let settleItems: NameAuctionState[] = []
 
-                for(const domain of domains){
-                    const thisState = auctionState.get(domain)!;
-                    switch(getDomainTimeState(thisState)){
+                for(const state of auctionState){
+                    switch(getDomainTimeState(state)){
                         case DomainState.Auctioning:
-                            auctionItems.set(domain, thisState)
-                            break
+                            auctionItems.push(state)
+                            break;
                         case DomainState.Settling:
-                            settleItems.set(domain, thisState)
+                            settleItems.push(state)
                     }
                 }
 
@@ -56,10 +60,8 @@ export function useSortSettleAndAuction(
                 fetched.current = true
                 console.log("need load again")
 
-                const domains: string[] = Object.keys(allAuctionName);
-
-                let auctionItems = new Map<string, NameAuctionState>()
-                let settleItems = new Map<string, NameAuctionState>()
+                let auctionItems: NameAuctionState[] = []
+                let settleItems: NameAuctionState[] = []
 
                 let accounts: PublicKey[] = []
                 for(const domain of domains){
@@ -69,19 +71,19 @@ export function useSortSettleAndAuction(
                     accounts.push(key)
                 }
 
-                console.log("auctions domains", domains)
+                console.log("auctions domains", allAuctionName)
 
                 const infos = await connection.getMultipleAccountsInfo(accounts)
-                infos.forEach((info, index) => {
+                infos.forEach((info, _) => {
                     if(!info) return
 
                     const state = new NameAuctionState(info)
                     switch(getDomainTimeState(state)){
                         case DomainState.Auctioning:
-                            auctionItems.set(domains[index], state)
+                            auctionItems.push(state)
                             break
                         case DomainState.Settling:
-                            settleItems.set(domains[index], state)
+                            settleItems.push(state)
                             break
                     }
                 })
@@ -90,10 +92,43 @@ export function useSortSettleAndAuction(
                 setOnSettleItems(settleItems)
             }
         })()
-    }, [allAuctionName])
+    }, [allAuctionName, connection, ifLoadedAuctionState, auctionState])
 
-    console.log("auction", onAuctionItems)
-    console.log("settle", onSettleItems)
+    useEffect(() => {
+        const domains: string[] = Object.keys(allAuctionName);
+        if (domains.length === 0) return
+        if(fetchRecord.current) return
 
-    return { onAuctionItems, onSettleItems }
+        (async () => {
+            fetchRecord.current = true
+            console.log("fetching record states")
+
+            const recordMap = new Map<string, IPFSRecordState>();
+            let recordKeys: PublicKey[] = []
+
+            for(const domain of domains){
+                const domainAndRoot = cutDomain(domain)
+                const nameAccountKey = getNameAccountKey(
+                    getHashedName(domainAndRoot[0]), null, getNameAccountKey(getHashedName(domainAndRoot[1]))
+                )
+                const recordKey = getRecordKey(nameAccountKey, RecordType.IPFS)
+                recordKeys.push(recordKey)
+            }
+
+            const recordInfos = await connection.getMultipleAccountsInfo(recordKeys)
+            recordInfos.forEach((info, index) => {
+                if(!info) return
+
+                const recordState = new IPFSRecordState(info)
+
+                const domain = domains[index]
+                recordMap.set(domain, recordState)
+            })
+
+            setAllRecordState(recordMap)
+            console.log("record states loaded", recordMap)
+        })()
+    }, [allAuctionName, connection])
+
+    return { onAuctionItems, onSettleItems, allRecordState }
 }

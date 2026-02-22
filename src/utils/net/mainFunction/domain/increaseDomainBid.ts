@@ -1,6 +1,6 @@
 import { returnProjectVault } from "@/utils/constants/constants";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
-import { createIncreaseInstruction, type CreateIncreaseInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createIncreaseInstruction";
+import { createIncreaseInstruction, type CreateIncreaseInstructionAccounts } from "@/utils/functional/instructions/createInstruction/registra/createIncreaseInstruction";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
@@ -29,6 +29,11 @@ export async function increaseDomainBid(
     )
     console.log("root Domain: ", rootDomainKey.toBase58())
 
+    const domainNameAccountKey = getNameAccountKey(
+        getHashedName(nameAndRoot[0]), null, rootDomainKey
+    )
+    console.log("domainNameAccountKey: ", domainNameAccountKey.toBase58())
+
     const nameStateKey = getNameStateKey(
         getHashedName(nameAndRoot[0]), rootDomainKey
     )
@@ -36,7 +41,7 @@ export async function increaseDomainBid(
 
     const bidderRefferrerRecord = getRefferrerRecordKey(bidder)
 
-    let superiorRefferrerRecord: PublicKey | null = null
+    let superiorReferrerRecord: PublicKey | null = null
     let rentSysvar: PublicKey | null = null
 
     const recordInfo = await connection.getAccountInfo(bidderRefferrerRecord)
@@ -45,24 +50,25 @@ export async function increaseDomainBid(
         const superInfo = await connection.getAccountInfo(refferrerSuperRecord)
         if(!superInfo) throw new Error("this refferrer has not refferrer too");
 
-        superiorRefferrerRecord = refferrerSuperRecord
+        superiorReferrerRecord = refferrerSuperRecord
         rentSysvar = SYSVAR_RENT_PUBKEY
     }
 
     const createIncreaseInstructionAccounts: CreateIncreaseInstructionAccounts = {
         rootDomainAccountKey: rootDomainKey,
         domainStateAccountKey: nameStateKey,
-        systemAccount: SystemProgram.programId,
+        systemProgram: SystemProgram.programId,
         feePayer: bidder,
-        lastBidderKey: lastBidder,
+        lastBidder: lastBidder,
         vault: returnProjectVault(),
-        refferrerRecord: bidderRefferrerRecord,
-        superiorRefferrerRecord: superiorRefferrerRecord,
-        rent: rentSysvar,
+        referrerRecordAccount: bidderRefferrerRecord,
+        lastOwner: PublicKey.default,
+        domainNameAccount: domainNameAccountKey,
+        superiorReferrerRecord: superiorReferrerRecord,
     }
 
     const instruction = createIncreaseInstruction(
-        createIncreaseInstructionAccounts, refferrerKey, bidIncrement, nameAndRoot[0]
+        createIncreaseInstructionAccounts, refferrerKey, bidIncrement, nameAndRoot[0], nameAndRoot[1]
     )
 
     return increaseDomainBidTransaction.add(instruction)

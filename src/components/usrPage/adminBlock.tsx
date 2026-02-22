@@ -2,16 +2,14 @@
 import { checkIfProjectStart } from "@/utils/functional/common/project/checkIfProjectStart";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useEffect, useState } from "react";
-
-import "@/style/components/usrPage/adminBlock.css"
-import { startProject } from "@/utils/net/mainFunction/startProject";
-import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import Header from "./adminComponent/header";
 import VaultManage from "./adminComponent/vaultManage";
+import VaultLog from "./adminComponent/vaultLog";
+import Vault from "./adminComponent/vault";
 
 const AdminBlcok = () => {
 
     const {connection} = useConnection()
-    const {publicKey: admin, signTransaction} = useWalletEnv()
 
     const [ifProjectStarted, setIfProjectStarted] = useState(false)
 
@@ -23,27 +21,17 @@ const AdminBlcok = () => {
         if(!ifProjectStarted) checkProject()
     }, [])
 
-    
-    const startweb3Project = async() => {
-        await startProject(
-            connection, signTransaction, admin
-        )
-    }
-
     return(
-        <div className="adminbl">
-            {ifProjectStarted? (
-                <div className="projectStartbl">
+        <div className="min-h-screen bg-[#0A0A0A] text-gray-100 p-4 md:p-8 font-sans">
+            <div className="max-w-7xl mx-auto">
+                <Header isProjectActive={ifProjectStarted} />
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
                     <VaultManage />
+                    <VaultLog />
                 </div>
-            ):(
-                <div className="startpjbl">
-                    <h1>Web3, Start up!!!</h1>
-                    <button className="startProject pixel" onClick={() => startweb3Project()}>
-                        <h1>Start</h1>
-                    </button>
-                </div>
-            )}
+                <Vault isProjectActive={ifProjectStarted}/>
+            </div>
+            
         </div>
     )
 }

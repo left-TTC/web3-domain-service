@@ -14,9 +14,7 @@ import i18n from './i18n.ts'
 import { RootDomainEnviromentProvider } from './provider/rootDomainEnviroment/rootDomainEnviromentProvider.tsx'
 import { ModalProvider } from "./components/common/show/info.tsx";
 
-if (typeof window !== "undefined") {
-    (window as any).Buffer = Buffer;
-}
+(window as any).Buffer = Buffer;
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>

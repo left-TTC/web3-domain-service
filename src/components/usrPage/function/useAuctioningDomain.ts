@@ -17,29 +17,35 @@ export function useAuctioningDomain(
     connection: Connection,
     usr: PublicKey | null
 ){
-    const [auctioningDomain, setAuctioningDomain] = useAtom(biddingDomain)
+    const [auctioningDomains, setAuctioningDomains] = useAtom(biddingDomain)
 
     const [ifFromRpc, setIfFromRpc] = useState(false)
-    const [auctionState, setAuctionState] = useState<Map<string, NameAuctionState> | null>(null)
+    const [auctionState, setAuctionState] = useState<NameAuctionState[]>([])
 
-    console.log(auctioningDomain)
+    console.log(auctioningDomains)
     
     useEffect(() => {
         // change to new device or delete the cache 
         // we can fetch one
-        if(auctioningDomain.length === 0 && usr){
+        if(auctioningDomains.length === 0 && usr){
             (async () => {
                 try{
                     console.log("start fetch auctioning domain")
                     
-                    const {priceMap: auctioningDomains, stateMap} = await findUsrBiddingDomain(
+                    const {validStates} = await findUsrBiddingDomain(
                         connection, usr
                     )
+
+                    const record = validStates.reduce<Record<string, number>>((state, item) => {
+                        state[item.getName()] = item.highestPrice.toNumber();
+                        return state
+                    }, {})
+
                     // should add new but change
-                    setAuctioningDomain(auctioningDomains)
-                    setAuctionState(stateMap)
+                    setAuctioningDomains(record) 
+                    setAuctionState(validStates)
                     setIfFromRpc(true)
-                    console.log(auctioningDomain)
+                    console.log(auctioningDomains)
                 }catch(err){
                     console.log(err)
                 }
@@ -47,5 +53,5 @@ export function useAuctioningDomain(
         }
     }, [usr])
 
-    return { auctioningDomain, auctionState, ifFromRpc }
+    return { auctioningDomains, auctionState, ifFromRpc }
 }

@@ -1,8 +1,8 @@
 import { CENTRAL_STATE_RECORDS, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
 import type { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
-import { createInitIPFSInstruction, type IPFSInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createInitIPFSInstruction";
-import { createResetIPFSInstruction } from "@/utils/functional/instructions/createInstruction/createResetIPFSInstruction";
+import { createInitIPFSInstruction, type IPFSInstructionAccounts } from "@/utils/functional/instructions/createInstruction/record/createInitIPFSInstruction";
+import { createResetIPFSInstruction } from "@/utils/functional/instructions/createInstruction/record/createResetIPFSInstruction";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getRecordKey, RecordType } from "@/utils/functional/solana/getRecordKey";

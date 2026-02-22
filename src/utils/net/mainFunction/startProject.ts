@@ -1,6 +1,6 @@
 
 import { CENTRAL_STATE_REGISTER, returnProjectVault, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
-import { createStartProjectInstruction, type StartProjectInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createStartProjectInstruction";
+import { createStartProjectInstruction, type StartProjectInstructionAccounts } from "@/utils/functional/instructions/createInstruction/registra/createStartProjectInstruction";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { SendTransactionError, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, type Connection, type PublicKey, type VersionedTransaction } from "@solana/web3.js";
@@ -20,9 +20,7 @@ export async function startProject(
     }
 
     try{
-
-        const start = "fmc"
-        
+        const start = "kilo"
         const startProjectTransaction = new Transaction()
 
         const web3NameAccountKey = getNameAccountKey(

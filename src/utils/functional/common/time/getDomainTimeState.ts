@@ -2,20 +2,17 @@ import type { NameAuctionState } from "../class/nameAuctionState";
 
 
 export enum DomainState {
-    Saling,
     Auctioning,
     Settling,
     Eroor
 }
 
-export const AUCTION_TIME = 150;
+export const AUCTION_TIME = 120;
 
 export function getDomainTimeState(
     domainState: NameAuctionState
 ): DomainState {
     const nowTime = Date.now() / 1000
-
-    console.log(domainState.settled);
 
     const updateTime = domainState.updateTime.toNumber();
 
@@ -29,9 +26,5 @@ export function getDomainTimeState(
         return DomainState.Auctioning
     }
 
-    if (!domainState.settled) {
-        return DomainState.Settling
-    }
-
-    return DomainState.Saling
+    return DomainState.Settling
 }

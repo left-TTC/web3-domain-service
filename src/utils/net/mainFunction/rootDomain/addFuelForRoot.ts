@@ -1,5 +1,5 @@
 import { CENTRAL_STATE_REGISTER,  returnProjectVault, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
-import { createAddFuelInstruction, type CreateRootInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createAddFuelInstruction";
+import { createAddFuelInstruction, type CreateRootInstructionAccounts } from "@/utils/functional/instructions/createInstruction/registra/createAddFuelInstruction";
 import { getRootStateKey } from "@/utils/functional/solana/getRootStateKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, type PublicKey } from "@solana/web3.js";

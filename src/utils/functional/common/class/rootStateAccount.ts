@@ -1,75 +1,67 @@
 import { PublicKey, type AccountInfo } from "@solana/web3.js";
 import { Numberu64 } from "../number/number64";
-import { NAME_STATE_LENGTH } from "./nameAuctionState";
 
-const MIN_LENGTH = 72;
+const MIN_LENGTH = 56; // 32 + 8 + 16
 
 export class rootStateAccount {
-    rootSponsor: PublicKey; //32
-    fundState: Numberu64;   //8
-    creatingName: string;   
-    // add an supporter
+    initiator: PublicKey;   // 32 bytes
+    amount: Numberu64;      // 8 bytes
+    name: string;           // 16 bytes
 
-    constructor(accountInfo: AccountInfo<Buffer<ArrayBufferLike>>){
+    constructor(accountInfo: AccountInfo<Buffer<ArrayBufferLike>>) {
         const accountData = accountInfo.data;
 
-        if(accountData.length != MIN_LENGTH){
-            throw new Error("funding Account Error");
+        if (accountData.length < MIN_LENGTH) {
+            throw new Error("Invalid RootStateRecord account");
         }
 
-        this.rootSponsor = new PublicKey(accountData.subarray(0, 32));
+        console.log(accountData)
 
-        this.fundState = Numberu64.fromBuffer(accountData.subarray(32, 40));
+        this.initiator = new PublicKey(accountData.subarray(0, 32));
 
-        const nameArray = accountData.subarray(40, 71)
+        this.amount = Numberu64.fromBuffer(accountData.subarray(32, 40));
+
+        const nameArray = accountData.subarray(40, 56);
         const trimmed = Array.from(nameArray).filter(b => b !== 0);
-        const name = Buffer.from(trimmed).toString("utf8");
-        this.creatingName = name
+        this.name = Buffer.from(trimmed).toString("utf8");
     }
 }
 
 // for test
 export function createMockRootStateAccount(
-  overrides?: Partial<{
-    rootSponsor: PublicKey;
-    fundState: bigint;
-    creatingName: string;
-  }>
+    overrides?: Partial<{
+        initiator: PublicKey;
+        amount: bigint;
+        name: string;
+    }>
 ): rootStateAccount {
-  const rootSponsor =
-    overrides?.rootSponsor ?? PublicKey.default;
+    const initiator = overrides?.initiator ?? PublicKey.default;
+    const amount = overrides?.amount ?? 0n;
+    const name = overrides?.name ?? "";
 
-  const fundState =
-    overrides?.fundState ?? 0n;
+    const buffer = Buffer.alloc(MIN_LENGTH);
 
-  const creatingName =
-    overrides?.creatingName ?? "";
+    // 0 - 32: initiator
+    initiator.toBuffer().copy(buffer, 0);
 
-  const buffer = Buffer.alloc(MIN_LENGTH);
+    // 32 - 40: amount (u64)
+    new Numberu64(amount).toBuffer().copy(buffer, 32);
 
-  // 0 - 32: rootSponsor
-  rootSponsor.toBuffer().copy(buffer, 0);
+    // 40 - 56: name (max 16 bytes)
+    const nameBuf = Buffer.from(name, "utf8");
+    if (nameBuf.length > 16) {
+        throw new Error("name too long (max 16 bytes)");
+    }
+    nameBuf.copy(buffer, 40);
 
-  // 32 - 40: fundState (u64)
-  new Numberu64(fundState)
-    .toBuffer()
-    .copy(buffer, 32);
+    const mockAccountInfo: AccountInfo<Buffer> = {
+        data: buffer,
+        executable: false,
+        lamports: 0,
+        owner: PublicKey.default,
+        rentEpoch: 0,
+    };
 
-  // 40 - 71: creatingName (max 31 bytes)
-  const nameBuf = Buffer.from(creatingName, "utf8");
-  if (nameBuf.length > 31) {
-    throw new Error("creatingName too long (max 31 bytes)");
-  }
-  nameBuf.copy(buffer, 40);
-
-  const mockAccountInfo: AccountInfo<Buffer> = {
-    data: buffer,
-    executable: false,
-    lamports: 0,
-    owner: PublicKey.default,
-    rentEpoch: 0,
-  };
-
-  return new rootStateAccount(mockAccountInfo);
+    return new rootStateAccount(mockAccountInfo);
 }
 

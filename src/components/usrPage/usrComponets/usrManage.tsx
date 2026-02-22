@@ -17,7 +17,7 @@ interface UsrManageProps {
     recordMap: Map<string, IPFSRecordState> | null,
     allAuctionName: Record<string, number>,
     ifLoadedAuctionState: boolean,
-    auctionState: Map<string, NameAuctionState> | null,
+    auctionState: NameAuctionState[],
     searchKey: PublicKey | null,
     domainStateMap: Map<string, NameRecordState> | null,
 }
@@ -27,7 +27,7 @@ const UsrManage: React.FC<UsrManageProps> = ({
     allAuctionName, auctionState, searchKey, domainStateMap
 }) => {
 
-    const { onAuctionItems, onSettleItems } = useSortSettleAndAuction(auctionState, ifLoadedAuctionState, allAuctionName)
+    const { onAuctionItems, onSettleItems, allRecordState } = useSortSettleAndAuction(auctionState, ifLoadedAuctionState, allAuctionName)
 
     const ifMd = window.innerWidth >= 768;
 
@@ -56,11 +56,12 @@ const UsrManage: React.FC<UsrManageProps> = ({
                 domainNum={usrDomains.length}
                 myDomains={usrDomains}
                 recordMap={recordMap}
-                myAuctions={onAuctionItems}
-                settlements={onSettleItems}
+                auctionItems={onAuctionItems}
+                settleItems={onSettleItems}
                 localAuctionName={allAuctionName}
                 searchKey={searchKey}
                 domainStateMap={domainStateMap}
+                allRecordState={allRecordState}
             />
 
         </section>

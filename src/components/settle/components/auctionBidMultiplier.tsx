@@ -12,6 +12,8 @@ const AuctionBidMultiplier: React.FC<AuctionBidMultiplierProps> = ({
 }) => {
     const multipliers = [0.05, 0.1, 0.25];
 
+    console.log("start: ", currentPrice)
+
     const startPrice = useRef(currentPrice);
 
     const calcNextBid = (rate: number) => {

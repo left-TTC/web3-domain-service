@@ -29,12 +29,12 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
 
     useEffect(() => {
         if(usrProfit){
-            setProfitValue((usrProfit/1e9).toFixed(2) + " SOL")
+            setProfitValue((usrProfit/1e9).toFixed(4) + " SOL")
             if(usrProfit> 0.01001 * 1e9){
                 setProfitExtraValue(((usrProfit - 0.1*1e9)/1e9).toFixed(4) + " SOL")
             }else setProfitExtraValue("未到体现门槛 0.01 SOL")
         }else {
-            setProfitValue("Loading")
+            setProfitValue("0 SOL")
         }
     }, [usrProfit])
 

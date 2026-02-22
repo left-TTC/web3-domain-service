@@ -1,5 +1,5 @@
 import { returnProjectVault } from "@/utils/constants/constants";
-import { createLaunchRootDomainInstruction, type InitiateRootInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createLanuchRootInstruction";
+import { createLaunchRootDomainInstruction, type InitiateRootInstructionAccounts } from "@/utils/functional/instructions/createInstruction/registra/createLanuchRootInstruction";
 import { getRootStateKey } from "@/utils/functional/solana/getRootStateKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";

@@ -2,7 +2,7 @@ import { CENTRAL_STATE_REGISTER, returnProjectVault, WEB3_NAME_SERVICE_ID } from
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
-import { createSettleDomainInstruction, type CreateSettleDomainInstructionAccounts } from "@/utils/functional/instructions/createInstruction/createSettleDomainInstruction";
+import { createSettleDomainInstruction, type CreateSettleDomainInstructionAccounts } from "@/utils/functional/instructions/createInstruction/registra/createSettleDomainInstruction";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
@@ -30,10 +30,6 @@ export async function settleAuctionDomain(
 
     const nameAccountKey = getNameAccountKey(
         getHashedName(nameAndRoot[0]), null, rootNameDomainKey
-    )
-
-    const nameReverseKey = getReverseKey(
-        nameAccountKey, CENTRAL_STATE_REGISTER
     )
 
     const nameStateKey = getNameStateKey(
@@ -90,12 +86,10 @@ export async function settleAuctionDomain(
         nameService: WEB3_NAME_SERVICE_ID,
         rootDomainAccountKey: rootNameDomainKey,
         name: nameAccountKey,
-        reverse: nameReverseKey,
         domainStateAccountKey: nameStateKey,
         systemAccount: SystemProgram.programId,
         centralState: CENTRAL_STATE_REGISTER,
         feePayer: feePayer,
-        rentSysvar: SYSVAR_RENT_PUBKEY,
         originNameOwner: originNameOwnerKey,
         originNameOwnerRecord: originNameOwnerRefferrerKey,
         vault: vault,
@@ -110,7 +104,6 @@ export async function settleAuctionDomain(
     }
     console.log("rootDomainAccountKey", rootNameDomainKey.toBase58())
     console.log("name", nameAccountKey.toBase58())
-    console.log("nameReverseKey", nameReverseKey.toBase58())
     console.log("nameStateKey", nameStateKey.toBase58())
     console.log("newNameOnwer", newNameOwner.toBase58())
     console.log("refferrerRecord", refferrerRecord.toBase58())

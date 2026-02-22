@@ -5,7 +5,7 @@ import { CENTRAL_STATE_RECORDS } from "@/utils/constants/constants";
 
 
 export enum RecordType {
-    IPFS = "IPFS"
+    IPFS = "DNS"
 }
 
 export function getRecordKey(

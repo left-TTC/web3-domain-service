@@ -9,11 +9,11 @@ import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
-import DomainSearchResult from "@/components/search/continueQuery/domainSearchResult";
+import DomainSearchResult from "@/components/search/domainSearchResult";
 import { INIT_DOMAIN_PRICE } from "@/utils/constants/constants";
 import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
 import { getSearchDomainState, SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
-import { startDomain } from "@/components/search/continueQuery/result/function/startDomain";
+import { startDomain } from "@/components/search/result/function/startDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { useAtom } from "jotai";
@@ -84,6 +84,7 @@ export function Search() {
             const nameAuctionStateKey = getNameStateKey(getHashedName(domainBlock[0]), rootDomainKey)
             console.log(nameAuctionStateKey.toBase58())
             const auctionStateInfo = await connection.getAccountInfo(nameAuctionStateKey)
+
             if(auctionStateInfo){
                 const auctionState = new NameAuctionState(auctionStateInfo)
                 setDomainAuctionState(auctionState)
@@ -97,6 +98,21 @@ export function Search() {
         })()
     }, [domainBlock, isDomainInfoLoaded])
 
+    //test console
+    useEffect(() => {
+        if(queryDomainInfo){
+            console.log("=== Domain Info ===");
+            console.log("parentName:", queryDomainInfo.parentName.toBase58());
+            console.log("owner:", queryDomainInfo.owner.toBase58());
+            console.log("class:", queryDomainInfo.class.toBase58());
+            console.log("previewer:", queryDomainInfo.previewer.toBase58());
+            console.log("isFrozen:", queryDomainInfo.isFrozen);
+            console.log("customPrice:", queryDomainInfo.customPrice.toString());
+        }
+        if(rootDomains){
+            console.log("root key: ",getNameAccountKey(getHashedName(rootDomains[0])).toBase58())
+        }
+    }, [queryDomainInfo])
 
     const [_, setAuctioningDomain] = useAtom(biddingDomain)
     const createNameState = async ({ usrBalance, totalFee, refferrerKey }: DomainSettlementConfirmPayload) => {
@@ -110,6 +126,7 @@ export function Search() {
             totalFee!,
             usrBalance!,
             connection,
+            queryDomainInfo,
             signTransaction,
             () => {
                 setAuctioningDomain(prev => ({

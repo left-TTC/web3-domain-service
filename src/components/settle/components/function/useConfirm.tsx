@@ -33,7 +33,7 @@ export function useConfirm(
         }else{
 
         }
-    }, [calculatingFees])
+    }, [calculatingFees, ifRefferrerValid])
 
     return { ableToConfirm }
 }
