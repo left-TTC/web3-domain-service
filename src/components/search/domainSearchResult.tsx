@@ -3,7 +3,6 @@ import ContinueQuery from "./component/continueQuery";
 import DomainCard from "./component/domainCard";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import type { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
-import { returnProjectVault } from "@/utils/constants/constants";
 
 
 interface DomainSearchResultProps {
@@ -19,8 +18,6 @@ interface DomainSearchResultProps {
 const DomainSearchResult: React.FC<DomainSearchResultProps> = ({
     domainInfo, domainName, auctionState, openSettlePage, resultState, setResultState
 }) => {
-
-    console.log("vault key: ", returnProjectVault().toBase58())
 
     return (
         <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#B4FC75] selection:text-black pb-24 relative overflow-x-hidden">

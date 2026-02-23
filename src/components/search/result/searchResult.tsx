@@ -12,11 +12,13 @@ interface SearchResultProps {
     resultState: SearchDomainResult | null,
     auctionState: NameAuctionState | null,
     openSettlePage: () => void,
+    domainName: string,
 }
 
 const SearchResult: React.FC<SearchResultProps> = ({
-    domainInfo, resultState, auctionState, openSettlePage
+    domainInfo, resultState, auctionState, openSettlePage, domainName
 }) => {
+
 
     switch(resultState){
         case SearchDomainResult.uninitialized:
@@ -27,8 +29,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
             return(
                 <Auction 
                     auctionState={auctionState}
-                    domainInfo={domainInfo} 
-                    openSettlePage={openSettlePage}
+                    domainName={domainName} 
                 />
             )
         case SearchDomainResult.settling:

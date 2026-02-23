@@ -5,6 +5,7 @@ import { type SearchDomainResult } from "@/utils/functional/domain/getSearchDoma
 import StatusBadge from "./domainShow/statuBadge"
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState"
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider"
+import { useTranslation } from "react-i18next"
 
 
 interface DomainCardProps {
@@ -20,6 +21,7 @@ const DomainCard: React.FC<DomainCardProps> = ({
 }) => {
 
     const {activeRootDomain} = useRootDomain()
+    const {t} = useTranslation()
 
     return(
         <div className="bg-[#111] border border-white/10 rounded-3xl p-1 shadow-2xl max-w-2xl mx-auto animate-fade-in-up mt-10 md:mt-16">
@@ -47,12 +49,13 @@ const DomainCard: React.FC<DomainCardProps> = ({
                         domainInfo={domainInfo}
                         auctionState={auctionState}
                         openSettlePage={openSettlePage}
+                        domainName={domainName}
                     />
                 </div>
 
                 <div className="flex pl-4 w-full pt-2">
                     <button className="text-xs text-gray-500 font-bold hover:text-[#B4FC75] transition-colors flex items-center gap-1 justify-left md:justify-start w-full h-full">
-                        <Share2 size={12}/> 分享此域名
+                        <Share2 size={12}/> {t("shareDomain")}
                     </button>
                 </div>
 

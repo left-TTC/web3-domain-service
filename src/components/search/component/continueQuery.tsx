@@ -2,7 +2,7 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
 import { Search } from "lucide-react"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +18,7 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
 }) => {
 
     const {t} = useTranslation()
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const navigate = useNavigate();
     const {activeRootDomain} = useRootDomain();
@@ -26,7 +27,23 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
     useEffect(() => {
         const name = cutDomain(searchingName)[0]
         setSearchTerm(name)
+        // Auto focus on input when component mounts
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
     }, [])
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // Remove any dots from input
+        const value = e.target.value.replace(/\./g, '');
+        setSearchTerm(value);
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            clickQueryDomain();
+        }
+    }
 
     const clickQueryDomain = () => {
         if(searchTerm === "") return;
@@ -51,17 +68,21 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
                 <div className="relative flex items-center bg-[#111] border border-white/10 rounded-xl p-1 md:p-2">
                     <Search className="ml-4 text-gray-500" />
                     <input 
+                        ref={inputRef}
                         type="text" 
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
                         className="w-full bg-transparent border-none focus:ring-0 text-white text-lg px-4 py-3 outline-none font-mono placeholder-gray-600 text-center"
+                        placeholder={t("searchDomain") || "Search Domain..."}
+                        autoFocus
                     />
                     <button 
                         onClick={() => clickQueryDomain()}
                         className="px-6 py-2.5 rounded-lg font-bold text-black transition-opacity hover:opacity-90 whitespace-nowrap"
                         style={{ backgroundColor: PRIMARY_COLOR }}
                     >
-                        搜索
+                        {t("search")}
                     </button>
                 </div>
             </div>

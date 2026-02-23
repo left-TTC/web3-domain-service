@@ -32,7 +32,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
 
     const stakeSol = (item: rootStateAccount) => {
         setShowStake(true)
-        setStakeRoot(item.creatingName)
+        setStakeRoot(item.name)
     }
 
     const tryStakeRoot = async(
@@ -97,11 +97,11 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                     ))
                 : pagedItems.map((item) => {
                     const progress =
-                    (item.fundState.toNumber() / CREATE_ROOT_TARGET) * 100;
+                    (item.amount.toNumber() / CREATE_ROOT_TARGET) * 100;
 
                     return (
                         <StakeItem
-                            key={item.creatingName}
+                            key={item.name}
                             clink={() => stakeSol(item)}
                             item={item}
                             progress={progress}

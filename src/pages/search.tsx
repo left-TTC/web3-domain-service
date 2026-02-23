@@ -25,21 +25,25 @@ export function Search() {
 
     const {publicKey: usr, signTransaction} = useWalletEnv()
     const {rootDomains} = useRootDomain()
-
+    const info = useGlobalModal()
+    const navigate = useNavigate()
     const {connection} = useConnection();
 
     const [searchParams] = useSearchParams();
     const queryingDomain = searchParams.get("q");
 
+    // the name and root 
     const [domainBlock, setDomainBlock] = useState<string[] | null> (null)
     const [queryDomainInfo, setQueryDomainInfo] = useState<NameRecordState | null>(null)
-
+    const [isDomainInfoLoaded, setIsDomainInfoLoaded] = useState(false)
     const [domainAuctionState, setDomainAuctionState] = useState<NameAuctionState | null>(null)
     
-    const [isDomainInfoLoaded, setIsDomainInfoLoaded] = useState(false)
-
+    // whether to open the settle page
     const [showSaleDomain, setShowSaleDomain] = useState(false)
+    // the domain price A. Init price B. usr's custom price
     const [domainStartPrice, setDomainStartPrice] = useState<number | null>(null)
+    // domain's sale state
+    const [resultState, setResultState] = useState<SearchDomainResult>(SearchDomainResult.loading)
 
     useEffect(() => {
         if(isDomainInfoLoaded){
@@ -50,9 +54,6 @@ export function Search() {
             }
         }
     }, [isDomainInfoLoaded])
-
-    const info = useGlobalModal()
-    const navigate = useNavigate()
 
     useEffect(() => {
         if(queryingDomain){
@@ -70,49 +71,45 @@ export function Search() {
         }
     } ,[queryingDomain])
 
-    const [resultState, setResultState] = useState<SearchDomainResult>(SearchDomainResult.loading)
+
     useEffect(() => {
         (async () => {
             if((!domainBlock)) return;
             if(isDomainInfoLoaded) return;
-            console.log("check info")
+            console.log("check domain info")
             setIsDomainInfoLoaded(true)
 
-            const rootDomainKey = getNameAccountKey(getHashedName(domainBlock[1]))
-            const accountInfo = await getQueryDomainInfo(domainBlock, rootDomainKey, connection);
+            try {
+                const rootDomainKey = getNameAccountKey(getHashedName(domainBlock[1]))
+                const accountInfo = await getQueryDomainInfo(domainBlock, rootDomainKey, connection);
 
-            const nameAuctionStateKey = getNameStateKey(getHashedName(domainBlock[0]), rootDomainKey)
-            console.log(nameAuctionStateKey.toBase58())
-            const auctionStateInfo = await connection.getAccountInfo(nameAuctionStateKey)
+                const nameAuctionStateKey = getNameStateKey(getHashedName(domainBlock[0]), rootDomainKey)
+                console.log(nameAuctionStateKey.toBase58())
+                const auctionStateInfo = await connection.getAccountInfo(nameAuctionStateKey)
 
-            if(auctionStateInfo){
-                const auctionState = new NameAuctionState(auctionStateInfo)
-                setDomainAuctionState(auctionState)
-                setResultState(getSearchDomainState(accountInfo[0], auctionState))
-            }else{
-                setDomainAuctionState(null)
-                setResultState(getSearchDomainState(accountInfo[0], domainAuctionState))
+                if(auctionStateInfo){
+                    const auctionState = new NameAuctionState(auctionStateInfo)
+                    setDomainAuctionState(auctionState)
+                    setResultState(getSearchDomainState(accountInfo[0], auctionState))
+                }else{
+                    setDomainAuctionState(null)
+                    setResultState(getSearchDomainState(accountInfo[0], domainAuctionState))
+                }
+
+                setQueryDomainInfo(accountInfo[0])
+            } catch (error) {
+                console.error("Error querying domain:", error);
+                info.showModal({
+                    title: "Domain Format Error",
+                    content: error instanceof Error ? error.message : "Invalid domain format. Only a.b format is supported (e.g., example.web3).",
+                    type: "error",
+                    onCancel: () => {navigate(`/index`)},
+                    onConfirm: () => {navigate(`/index`)}
+                });
+                setIsDomainInfoLoaded(false);
             }
-
-            setQueryDomainInfo(accountInfo[0])
         })()
     }, [domainBlock, isDomainInfoLoaded])
-
-    //test console
-    useEffect(() => {
-        if(queryDomainInfo){
-            console.log("=== Domain Info ===");
-            console.log("parentName:", queryDomainInfo.parentName.toBase58());
-            console.log("owner:", queryDomainInfo.owner.toBase58());
-            console.log("class:", queryDomainInfo.class.toBase58());
-            console.log("previewer:", queryDomainInfo.previewer.toBase58());
-            console.log("isFrozen:", queryDomainInfo.isFrozen);
-            console.log("customPrice:", queryDomainInfo.customPrice.toString());
-        }
-        if(rootDomains){
-            console.log("root key: ",getNameAccountKey(getHashedName(rootDomains[0])).toBase58())
-        }
-    }, [queryDomainInfo])
 
     const [_, setAuctioningDomain] = useAtom(biddingDomain)
     const createNameState = async ({ usrBalance, totalFee, refferrerKey }: DomainSettlementConfirmPayload) => {
@@ -132,7 +129,7 @@ export function Search() {
                 setAuctioningDomain(prev => ({
                     ...prev,
                     [queryingDomain]: domainStartPrice,
-                })), console.log("add", queryingDomain, "to cache")
+                }))
             }
         )
     }
@@ -159,7 +156,7 @@ export function Search() {
                 <DomainSettlementModal
                     onClose={() => setShowSaleDomain(false)}
                     opearationName={queryingDomain!}
-                    actionType={SettleType.buy}
+                    actionType={resultState===SearchDomainResult.settling? SettleType.increase:SettleType.buy}
                     basePrice={domainStartPrice!}
                     onConfirm={createNameState}
                     onInfoOk={startSuccess}
