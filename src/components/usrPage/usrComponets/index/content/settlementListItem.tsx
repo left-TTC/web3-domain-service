@@ -72,7 +72,7 @@ const SettlementListItem: React.FC<SettlementListItemProps> = ({
             {settle &&
                 <DomainSettlementModal
                     opearationName={name}
-                    actionType={SettleType.settle}
+                    actionType={SettleType.SETTLE}
                     basePrice={100000000}
                     onClose={() => setSettle(false)}
                     onConfirm={getDomain}

@@ -14,12 +14,14 @@ interface Props {
     setRefferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>;
     setReffererValid: React.Dispatch<React.SetStateAction<boolean>>;
     ifRefferValid: boolean;
+    setWetherCreateReferrer: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const RefferrerVerify = ({
     setRefferrerKey,
     setReffererValid,
     ifRefferValid,
+    setWetherCreateReferrer
 }: Props) => {
     const { t } = useTranslation();
     const { connection } = useConnection();
@@ -64,6 +66,7 @@ const RefferrerVerify = ({
             );
             if (!info) {
                 setFixedRefferrer(null);
+                setWetherCreateReferrer(true)
             } else {
                 const state = new RefferrerRecordState(info);
                 setFixedRefferrer(state.refferrer);
@@ -103,7 +106,6 @@ const RefferrerVerify = ({
             {fixedRefferrer ? (
                 <div className="bg-[#0a0a0a] border border-[#B4FC75]/30 rounded-xl py-3 px-4 font-mono text-[9px] md:text-[13px] text-[#B4FC75]">
                     {fixedRefferrer.toBase58()}
-                    {/* DWNSuxCniY8m11DazRoN3VqvDZK8Sps2wgoQHWx3t4Sx */}
                 </div>
             ) : (
                 <div className="relative flex items-center">

@@ -14,9 +14,9 @@ const CustomPriceInput: React.FC<SuccessViewProps> = ({
 
     const getInfo = () => {
         switch(action){
-            case SettleType.addRoot:
+            case SettleType.STAKEROOT:
                 return "stake for root name"
-            case SettleType.settle:
+            case SettleType.SETTLE:
                 return "custom domain price"
         }
     }

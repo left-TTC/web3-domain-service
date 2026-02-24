@@ -39,7 +39,7 @@ const MyDomain = () => {
 
     return(
         <button 
-            className="flex row sm:p-[10px] gap-[10px] items-center"
+            className="flex row sm:p-[10px] gap-[5px] items-center"
             onMouseEnter={() => setIfOnHover(true)}    
             onMouseLeave={() => setIfOnHover(false)}
             onClick={() => goToUsrPage()}

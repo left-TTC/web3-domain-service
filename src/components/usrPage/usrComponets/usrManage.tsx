@@ -32,7 +32,7 @@ const UsrManage: React.FC<UsrManageProps> = ({
     const ifMd = window.innerWidth >= 768;
 
     return(
-        <section className="bg-[#111] border border-white/10 rounded-3xl p-4 md:p-8 shadow-2xl shadow-black/50">
+        <section className="bg-[#111] border border-white/10 rounded-3xl p-4 md:p-8 shadow-2xl shadow-black/50 min-h-[420px]">
             <div className="flex border-b border-white/10 mb-4 md:mb-8">
                 {['mydomain', 'economy'].map((tab) => (
                 <button

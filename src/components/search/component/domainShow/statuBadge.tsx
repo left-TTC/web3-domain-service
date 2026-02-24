@@ -53,6 +53,10 @@ const StatusBadge = ({ status }: { status: SearchDomainResult | null }) => {
     }
 
     // Ensure status is treated as DomainStatus
+    if (!(status in config)) {
+        return null; // 或者 fallback UI
+    }
+
     const style = config[status as DomainStatus];
 
     return (

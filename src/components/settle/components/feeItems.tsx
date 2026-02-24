@@ -11,7 +11,7 @@ const FeeItems: React.FC<FeeItemsProps> = ({
     feeItems, total
 }) => {
 
-
+    console.log("total: ", total)
 
     return(
         <div className="bg-black/40 rounded-xl py-2 px-4 md:py-4 border border-white/5 space-y-3">

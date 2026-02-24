@@ -17,11 +17,11 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { useConfirm } from "./components/function/useConfirm";
 
 export enum SettleType {
-    buy,
-    createRoot,
-    addRoot,
-    settle,
-    increase,
+    STARTNAME,
+    CREATEROOT,
+    STAKEROOT,
+    SETTLE,
+    INCREASE,
 }
 
 export interface DomainSettlementConfirmPayload {
@@ -48,23 +48,34 @@ export default function DomainSettlementModal({
 }: DomainSettlementProps) {
 
     const {publicKey: usr, wallet} = useWalletEnv()
-    const {activeRootDomain} = useRootDomain()
+    const {rootDomains} = useRootDomain()
     const {connection} = useConnection()
-
     const info = useGlobalModal()
 
+    // whether the transaction is processing
     const [isProcessing, setIsProcessing] = useState(false);
     
+    // use when INCREASE or STARTNAME
+    const [whetherCreateReferrer, setWetherCreateReferrer] = useState(false)
     const [refferrerKey, setRefferrerKey] = useState<PublicKey | null>(null);
     const [ifRefferrerValid, setIfRefferrerValid] = useState(false);
 
-    // create root - extra add
-    // increase - new price
-    // add root - stake
-    // buy - start price
-    const [currentPrice, setCurrentPrice] = useState(basePrice);
-    const increaseOrigin = useRef(basePrice)
+    useEffect(() => {
+        if (
+            actionType !== SettleType.INCREASE &&
+            actionType !== SettleType.STARTNAME
+        ) {
+            setIfRefferrerValid(true);
+        }
+    }, [actionType]);
 
+    // CREATEROOT - extra add
+    // INCREASE - new price
+    // STAKEROOT - stake SOL
+    // STARTNAME - start price
+    const [currentPrice, setCurrentPrice] = useState(basePrice);
+
+    // get usr's balance
     const [usrBalance, setUsrBalance] = useState<number | null>(null)
     const gotBalance = useRef(false)
     useEffect(() => {
@@ -76,8 +87,9 @@ export default function DomainSettlementModal({
         })()
     }, [usr])
 
+    // calculate all the fees
     const {fees, totalFee, calculating} = useCalculateAllFees(
-        actionType, basePrice, opearationName, usr, activeRootDomain, refferrerKey, ifRefferrerValid, increaseOrigin.current
+        actionType, basePrice, opearationName, usr, rootDomains, currentPrice, whetherCreateReferrer, ifRefferrerValid, onClose
     )
 
     const {ableToConfirm} = useConfirm(0, calculating, actionType, ifRefferrerValid, basePrice===currentPrice)
@@ -123,20 +135,21 @@ export default function DomainSettlementModal({
                         title={opearationName}
                         type={actionType}
                     />
-                    {(actionType===SettleType.buy || actionType===SettleType.increase) &&
+                    {(actionType===SettleType.STARTNAME || actionType===SettleType.INCREASE) &&
                         <RefferrerVerify 
                             setRefferrerKey={setRefferrerKey}
                             setReffererValid={setIfRefferrerValid}
                             ifRefferValid={ifRefferrerValid}
+                            setWetherCreateReferrer={setWetherCreateReferrer}
                         />
                     }
-                    {actionType===SettleType.increase &&
+                    {actionType===SettleType.INCREASE &&
                         <AuctionBidMultiplier
                             currentPrice={currentPrice}
                             onUpdate={setCurrentPrice}
                         />
                     }
-                    {(actionType===SettleType.settle || actionType===SettleType.addRoot) &&
+                    {(actionType===SettleType.SETTLE || actionType===SettleType.STAKEROOT) &&
                         <CustomPriceInput
                             value={currentPrice}
                             onChange={setCurrentPrice}

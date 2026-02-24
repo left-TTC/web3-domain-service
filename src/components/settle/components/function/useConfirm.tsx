@@ -19,11 +19,11 @@ export function useConfirm(
         }
         if(model === 0){
             switch(action){
-                case SettleType.buy:
+                case SettleType.STARTNAME:
                     if(ifRefferrerValid){
                        return setAbleToConfirm(true)
                     }else return setAbleToConfirm(false)
-                case SettleType.increase:
+                case SettleType.INCREASE:
                     if(!ifAddBid){
                        return setAbleToConfirm(true)
                     }else return setAbleToConfirm(false)

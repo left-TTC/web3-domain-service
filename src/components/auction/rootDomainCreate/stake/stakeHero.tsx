@@ -1,11 +1,19 @@
 
 
+import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { useTranslation } from "react-i18next";
 const primaryColor = '#B4FC75';
 
-const StakeHero = () => {
+interface StakeHeroProps {
+    allStakeSol: number | null
+}
+
+const StakeHero: React.FC<StakeHeroProps> = ({
+    allStakeSol
+}) => {
 
     const {t} = useTranslation();
+    const {rootDomains} = useRootDomain()
 
     return(
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
@@ -28,11 +36,11 @@ const StakeHero = () => {
             <div className="flex gap-8 border-l border-white/10 pl-8">
                 <div>
                     <p className="text-gray-500 text-sm font-mono uppercase">Total Value Locked</p>
-                    <p className="text-2xl font-bold font-mono" style={{ color: primaryColor }}>xxx SOL</p>
+                    <p className="text-2xl font-bold font-mono" style={{ color: primaryColor }}>{allStakeSol!=null? `${allStakeSol.toFixed(0)} SOL`:"Loading"}</p>
                 </div>
                 <div>
                     <p className="text-gray-500 text-sm font-mono uppercase">Active TLDs</p>
-                    <p className="text-2xl font-bold text-white">x</p>
+                    <p className="text-2xl font-bold text-white">{rootDomains.length}</p>
                 </div>
             </div>
         </div>

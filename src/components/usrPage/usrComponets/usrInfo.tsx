@@ -4,6 +4,7 @@ import type { PublicKey } from "@solana/web3.js";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { useEffect, useState } from "react";
 import { cutString } from "@/utils/functional/common/cutString";
+import WithdrawModal from "@/components/settle/withdrawModel";
 
 
 const primaryColor = '#B4FC75'; 
@@ -32,13 +33,18 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
             setProfitValue((usrProfit/1e9).toFixed(4) + " SOL")
             if(usrProfit> 0.01001 * 1e9){
                 setProfitExtraValue(((usrProfit - 0.1*1e9)/1e9).toFixed(4) + " SOL")
-            }else setProfitExtraValue("未到体现门槛 0.01 SOL")
+            }else setProfitExtraValue("未到提现门槛 0.01 SOL")
         }else {
             setProfitValue("0 SOL")
         }
     }, [usrProfit])
 
     const ifMd = window.innerWidth >= 768;
+
+    const [openWithDraw, setOpenWithDraw] = useState(false)
+    const openWithDrawPage = () => {
+        setOpenWithDraw(true)
+    }
 
     return(
         <section className="animate-fade-in-down">
@@ -55,9 +61,16 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-6">
                 <UsrStateCard canClink={false} icon={Globe} label="拥有的域名" value={usrDomains.length} />
-                <UsrStateCard canClink={!ifCheckingOtherUsr} icon={TrendingUp} label="收益" value={profitValue} extraValue={profitExtraValue}/>
+                <UsrStateCard canClink={!ifCheckingOtherUsr} icon={TrendingUp} label="收益" value={profitValue} extraValue={profitExtraValue} clinck={() => openWithDrawPage()}/>
                 <UsrStateCard canClink={!ifCheckingOtherUsr} icon={Share2} label="推广" value="获取更多收益" />
             </div>
+
+            {openWithDraw &&
+                <WithdrawModal 
+                    availableBalance={(usrProfit! - 0.1*1e9)/1e9}
+                    onClose={() => setOpenWithDraw(false)}
+                />
+            }
         </section>
     )
 }

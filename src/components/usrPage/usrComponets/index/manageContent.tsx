@@ -2,9 +2,9 @@ import { Activity, AlertCircle, Search } from "lucide-react";
 import DomainItem from "./content/domainItem";
 import AuctionListItem from "./content/auctionlistItem";
 import SettlementListItem from "./content/settlementListItem";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
-import { createMockState, NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
+import {  NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import type { PublicKey } from "@solana/web3.js";
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 
@@ -42,8 +42,6 @@ const ManageContent: React.FC<ManageContentProps> = ({
 
     const ifMd = window.innerWidth >= 768;
 
-    // const mock = createMockState()
-    // const test = [mock, mock, mock, mock, mock, mock, mock, mock, mock, mock]
 
     if (activeTab === 'mydomain') {
         return (

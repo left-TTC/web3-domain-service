@@ -22,21 +22,21 @@ const StakeItem: React.FC<StakeItemProps> = ({
     const {t} = useTranslation();
 
     return(
-        <div key={item.creatingName} className="group relative bg-[#111] border border-white/10 rounded-2xl p-5 md:p-6 hover:border-[#B4FC75]/50 transition-all duration-300 hover:-translate-y-1">
+        <div key={item.name} className="group relative bg-[#111] border border-white/10 rounded-2xl p-5 md:p-6 hover:border-[#B4FC75]/50 transition-all duration-300 hover:-translate-y-1">
             <div className="flex justify-between items-start mb-1 md:mb-4">
                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#B4FC75] group-hover:text-black transition-colors duration-300">
                     <Globe size={20} />
                 </div>
             </div>
 
-            <h3 className="text-3xl font-bold mb-1 tracking-tight">.{item.creatingName}</h3>
+            <h3 className="text-3xl font-bold mb-1 tracking-tight">.{item.name}</h3>
             <p className="text-sm text-gray-400 mb-4 md:mb-6 flex items-center gap-1">
-                由 <span className="text-white underline decoration-dotted font-normal">{cutString(item.rootSponsor.toBase58(), 5, 5, "...")}</span> 发起
+                由 <span className="text-white underline decoration-dotted font-normal">{cutString(item.initiator.toBase58(), 5, 5, "...")}</span> 发起
             </p>
 
             <div className="mb-4">
                 <div className="flex justify-between text-sm mb-2 font-mono">
-                    <span className="text-white">{(item.fundState.toNumber() / 1e9).toLocaleString()} SOL</span>
+                    <span className="text-white">{(item.amount.toNumber() / 1e9).toLocaleString()} SOL</span>
                     <span className="text-gray-400">of {(CREATE_ROOT_TARGET / 1e9).toLocaleString()} SOL</span>
                 </div>
                 <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">

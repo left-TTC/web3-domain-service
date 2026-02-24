@@ -156,7 +156,7 @@ export function Search() {
                 <DomainSettlementModal
                     onClose={() => setShowSaleDomain(false)}
                     opearationName={queryingDomain!}
-                    actionType={resultState===SearchDomainResult.settling? SettleType.increase:SettleType.buy}
+                    actionType={resultState===SearchDomainResult.settling? SettleType.INCREASE:SettleType.STARTNAME}
                     basePrice={domainStartPrice!}
                     onConfirm={createNameState}
                     onInfoOk={startSuccess}

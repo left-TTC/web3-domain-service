@@ -14,7 +14,7 @@ export async function checkRefferrerValid(
         getRefferrerRecordKey(refferrer)
     )
 
-    if(!refferrerRefferrerRecocordData || refferrerRefferrerRecocordData.data.length != 56){
+    if(!refferrerRefferrerRecocordData){
         // means this refferr is not init
         return false
     }

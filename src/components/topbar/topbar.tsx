@@ -1,4 +1,5 @@
 import Wallet from "./wallet/wallet";
+import RpcSettings from "./navigation/rpcSettings";
 
 import { useRef, useState } from "react";
 import WalletChooser from "./wallet/walletChooser";
@@ -21,12 +22,13 @@ const Topbar: React.FC<TopbarProps> = ({
     const walletRef = useRef<HTMLButtonElement | null>(null);
     
     return(
-        <div className={`w-full h-20 border-b border-white/20 backdrop-blur-xl flex items-center justify-center px-4 md:px-6 fixed top-0 z-50 bg-[#050505]/80 ${!show && "hidden"}`}>
+        <div className={`w-full h-20 border-b border-white/20 backdrop-blur-xl flex items-center justify-center px-2 sm:px-4 md:px-6 fixed top-0 z-50 bg-[#050505]/80 ${!show && "hidden"}`}>
             <div className="relative w-full flex flex-row items-center h-full">
                 <Navigation openDomainQueryPage={openDomainQueryPage}/>
-                <div className="h-full absolute flex row right-[0px] md:right-[20px] items-center">
+                <div className="h-full absolute flex row right-[0px] lg:right-[15px] items-center gap-0">
+                    <RpcSettings />
                     <MyDomain />
-                    <div className="w-[1px] h-[50px] bg-white mx-[10px] md:mx-[20px] opacity-60 filter blur-[1px]" />
+                    <div className="w-[1px] h-[50px] bg-white mx-[5px] md:mx-[10px] opacity-60 filter blur-[1px]" />
                     <Wallet 
                         ifShowDropBox={showWalletDrop} 
                         setDropBox={setShowWalletDrop} 

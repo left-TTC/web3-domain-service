@@ -1,7 +1,7 @@
 import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { CREATE_ROOT_TARGET } from "@/utils/constants/constants";
-import { createMockRootStateAccount, rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
+import { rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
 import { findCreatingRoot } from "@/utils/net/findCreatingRoot";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useEffect, useRef, useState } from "react";
@@ -10,6 +10,7 @@ import { TransactionState } from "@/utils/functional/instructions/transactionSta
 import StakeItem from "./stake/stakeItem";
 import StakeHero from "./stake/stakeHero";
 import StakeItemSkeleton from "./stake/StakeItemSkeleton";
+import StakeEmpty from "./stake/stakeEmpty";
 
 
 interface CreatingRootShowProps {
@@ -23,6 +24,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
     const {connection} = useConnection();
     const {publicKey: feePayer, signTransaction} = useWalletEnv()
     
+    const [allStakeSol, setAllStakeSol] = useState<number | null>(null)
     const [sailingRootDomains, setSailingRootDomains] = useState<rootStateAccount[]> ([])
     const [loading, setLoading] = useState(true);
     const creatingLoaded = useRef(false)
@@ -64,8 +66,9 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
             creatingLoaded.current = true
             setLoading(true);
             try {
-                const allRoots = await findCreatingRoot(connection);
-                setSailingRootDomains(allRoots);
+                const {allStake, unInitializedStates} = await findCreatingRoot(connection);
+                setAllStakeSol(allStake)
+                setSailingRootDomains(unInitializedStates);
             } finally {
                 setLoading(false);
             };
@@ -77,25 +80,22 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
     const PAGE_SIZE = 8;
     const [page, setPage] = useState(1);
 
-    const TestMock = createMockRootStateAccount()
-    const tests = [TestMock ,TestMock, TestMock, TestMock, TestMock, TestMock,TestMock,TestMock,TestMock]
-
-    const totalPages = Math.ceil(tests.length / PAGE_SIZE);
-    const pagedItems = tests.slice(
+    const totalPages = Math.ceil(sailingRootDomains.length / PAGE_SIZE);
+    const pagedItems = sailingRootDomains.slice(
         (page - 1) * PAGE_SIZE,
         page * PAGE_SIZE
     );
 
     return(
         <section className="animate-fade-in-up">
-            <StakeHero />
+            <StakeHero allStakeSol={allStakeSol}/>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {loading ? 
                     Array.from({ length: 8 }).map((_, i) => (
                         <StakeItemSkeleton key={i} />
                     ))
-                : pagedItems.map((item) => {
+                : pagedItems.length > 0 ? pagedItems.map((item) => {
                     const progress =
                     (item.amount.toNumber() / CREATE_ROOT_TARGET) * 100;
 
@@ -107,7 +107,10 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                             progress={progress}
                         />
                     );
-                })}
+                }) : (
+                    // Empty state placeholder
+                    <StakeEmpty />
+                )}
             </div>
 
             {totalPages > 1 && (
@@ -139,7 +142,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                     onClose={() => {setShowStake(false); setStakeRoot(null)}}
                     onConfirm={tryStakeRoot}
                     basePrice={0}
-                    actionType={SettleType.addRoot}
+                    actionType={SettleType.STAKEROOT}
                     opearationName={stakeRoot!}
                 />
             }

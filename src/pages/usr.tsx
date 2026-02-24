@@ -10,6 +10,7 @@ import { useUsrDomains } from "@/components/usrPage/usrComponets/hook/useUsrDoma
 import { useKonamiLikeListener } from "@/components/usrPage/usrComponets/hook/openAdminBlock";
 import { useUsrRefferrerChain } from "@/components/usrPage/usrComponets/hook/useUsrRefferrerChain";
 import UsrIndex from "@/components/usrPage/usrIndex";
+import LoadSkeleton from "@/components/usrPage/loadSkeleton";
 
 export function User({
     // openDomainQueryPage,
@@ -68,9 +69,8 @@ export function User({
     // const { asPayerDomain } = useAsPayerName(connection, searchKey)
 
     const {
-        // isLoadingRecordData, recordLoaded,
+        recordLoaded,
         domainStateMap, recordMap, usrDomains,
-        //  usrDomainOnSale
     } = useUsrDomains(
         searchKey, setUsrDomainLoaded, fetched
     )
@@ -78,21 +78,31 @@ export function User({
     const fetchedUsrChain = useRef(false)
     const {usrProfit, usrVolume} = useUsrRefferrerChain(searchKey, fetchedUsrChain)
 
+    const isDataLoaded = searchKey && 
+                        usrDomains !== undefined && 
+                        recordMap !== null && 
+                        domainStateMap !== null &&
+                        recordLoaded
+
     return(
         !adminModel? (
-            <UsrIndex 
-                useUsr={searchKey}
-                usrDomains={usrDomains}
-                ifCheckingOtherUsr={ifOtherUsr.current}
-                recordMap={recordMap}
-                domainStateMap={domainStateMap}
-                usrProfit={usrProfit}
-                usrVolume={usrVolume}
-                allAuctionName={auctioningDomains}
-                ifAuctionFromRpc={ifFromRpc}
-                auctionState={auctionState}
-                searchKey={searchKey}
-            />
+            isDataLoaded ? (
+                <UsrIndex 
+                    useUsr={searchKey}
+                    usrDomains={usrDomains}
+                    ifCheckingOtherUsr={ifOtherUsr.current}
+                    recordMap={recordMap}
+                    domainStateMap={domainStateMap}
+                    usrProfit={usrProfit}
+                    usrVolume={usrVolume}
+                    allAuctionName={auctioningDomains}
+                    ifAuctionFromRpc={ifFromRpc}
+                    auctionState={auctionState}
+                    searchKey={searchKey}
+                />
+            ) : (
+                <LoadSkeleton />
+            )
         ) : (
             <AdminBlcok />
         )

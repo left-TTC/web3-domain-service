@@ -10,8 +10,6 @@ import { ifRootValid } from "@/utils/functional/domain/ifDomainLegal";
 import { TransactionState } from "@/utils/functional/instructions/transactionState";
 
 
-
-
 export default function RootDomainCreate(){
     
     const {connection} = useConnection()
@@ -60,7 +58,7 @@ export default function RootDomainCreate(){
             {showLaunchSettle && 
                 <DomainSettlementModal
                     opearationName={newRoot}
-                    actionType={SettleType.createRoot}
+                    actionType={SettleType.CREATEROOT}
                     basePrice={0}
                     onClose={() => setShowLaunchSettle(false)}
                     onConfirm={createRootState}

@@ -1,4 +1,4 @@
-import { Connection } from "@solana/web3.js"
+import { Connection, PublicKey } from "@solana/web3.js"
 import { rootStateAccount } from "../functional/common/class/rootStateAccount"
 import { getCreatingRootAccounts } from "../functional/solana/getCreatingRootAccounts"
 import { getNameAccountKey } from "../functional/solana/getNameAccountKey";
@@ -7,23 +7,46 @@ import { getHashedName } from "../functional/solana/getHashedName";
 
 export async function findCreatingRoot(
     connection: Connection
-): Promise<rootStateAccount[]> {
+): Promise<{
+    allStake: number;
+    unInitializedStates: rootStateAccount[];
+}> {
 
     const accounts = await getCreatingRootAccounts(connection);
 
-    let states: rootStateAccount[] = [];
-    for(const info of await connection.getMultipleAccountsInfo(accounts)){
-        if(info){
-            const newItem = new rootStateAccount(info);
+    const accountInfos = await connection.getMultipleAccountsInfo(accounts);
 
-            const rootDomainKey = getNameAccountKey(
-                getHashedName(newItem.creatingName)
-            )
-            if(!await connection.getAccountInfo(rootDomainKey)){
-                states.push(newItem)
-            }
+    let allStake = 0
+    const allStates: rootStateAccount[] = [];
+    const rootDomainKeys: PublicKey[] = [];
+
+    for (let i = 0; i < accountInfos.length; i++) {
+        const info = accountInfos[i];
+        if (!info) continue;
+
+        const state = new rootStateAccount(info);
+        allStates.push(state);
+        allStake += state.amount.toNumber()
+
+        const rootDomainKey = getNameAccountKey(
+            getHashedName(state.name)
+        );
+
+        rootDomainKeys.push(rootDomainKey);
+    }
+
+    const rootDomainInfos = await connection.getMultipleAccountsInfo(rootDomainKeys);
+
+    const unInitializedStates: rootStateAccount[] = [];
+
+    for (let i = 0; i < rootDomainInfos.length; i++) {
+        if (!rootDomainInfos[i]) {
+            unInitializedStates.push(allStates[i]);
         }
     }
 
-    return states;
+    return {
+        allStake,
+        unInitializedStates
+    };
 }

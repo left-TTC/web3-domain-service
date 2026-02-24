@@ -154,7 +154,7 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
             {showIncrease && 
                 <DomainSettlementModal
                     onClose={() => setShowIncrease(false)}
-                    actionType={statu==="winning"? SettleType.buy: SettleType.increase}
+                    actionType={statu==="winning"? SettleType.STARTNAME: SettleType.INCREASE}
                     basePrice={item.highestPrice.toNumber()}
                     onConfirm={clinck}
                     opearationName={name}

@@ -13,11 +13,11 @@ const DomainHero: React.FC<DomainHeroProps> = ({
 
     const getBigTitle = () => {
         switch(type){
-            case SettleType.buy:
+            case SettleType.STARTNAME:
                 return "Target Domain";
-            case SettleType.settle:
+            case SettleType.SETTLE:
                 return "Target Domain";
-            case SettleType.createRoot:
+            case SettleType.CREATEROOT:
                 return "Target Domain";
             default:
                 return "Target Domain";
