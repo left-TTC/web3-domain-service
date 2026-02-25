@@ -3,6 +3,7 @@ import { Web3RecordsInstruction } from "../../instruction";
 import { Numberu32 } from "../../../common/number/number32";
 import { WEB3_RECORDS_ID } from "@/utils/constants/constants";
 import type { RecordType } from "@/utils/functional/solana/getRecordKey";
+import { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 
 export interface SetPreviewInstructionAccounts {
     /// The system program account
@@ -28,15 +29,30 @@ export interface SetPreviewInstructionAccounts {
 export function createSetPreviewInstruction(
     instructionAccounts: SetPreviewInstructionAccounts,
     recordGate: RecordType,
+    protocol: UseProtocol,
     content: string,
     name: string,
     root: string,
 ): TransactionInstruction {
+
+    let x;
+    switch(protocol){
+        case UseProtocol.IPFS:
+            x = [0x00]
+            break
+        case UseProtocol.IPNS:
+            x = [0x01]
+            break
+        default:
+            x = [0x02]
+            break
+    }
+
     const buffers = [
         Buffer.from(Uint8Array.from([Web3RecordsInstruction.SetPreview])),
         new Numberu32(Buffer.from(recordGate).length).toBuffer(),
         Buffer.from(recordGate),
-        Buffer.from([0x00]),
+        Buffer.from(x),
         new Numberu32(Buffer.from(name).length).toBuffer(),
         Buffer.from(name),
         new Numberu32(Buffer.from(root).length).toBuffer(),

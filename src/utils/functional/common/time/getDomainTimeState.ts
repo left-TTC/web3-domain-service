@@ -7,7 +7,7 @@ export enum DomainState {
     Eroor
 }
 
-export const AUCTION_TIME = 120;
+export const AUCTION_TIME = 300;
 
 export function getDomainTimeState(
     domainState: NameAuctionState

@@ -31,10 +31,13 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
 
     const [showStake, setShowStake] = useState(false)
     const [stakeRoot, setStakeRoot] = useState<string | null>(null)
+    // the amount of the choosed item
+    const [chooseStake, setChooseStake] = useState(0)
 
     const stakeSol = (item: rootStateAccount) => {
         setShowStake(true)
         setStakeRoot(item.name)
+        setChooseStake(item.amount.toNumber())
     }
 
     const tryStakeRoot = async(
@@ -61,7 +64,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
     }
 
     useEffect(() => {
-        const getAllCreatingRootDomains = async() => {
+        (async() => {
             if(creatingLoaded.current)return
             creatingLoaded.current = true
             setLoading(true);
@@ -72,9 +75,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
             } finally {
                 setLoading(false);
             };
-        }
-
-        getAllCreatingRootDomains()
+        })()
     }, [])
 
     const PAGE_SIZE = 8;
@@ -108,7 +109,6 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                         />
                     );
                 }) : (
-                    // Empty state placeholder
                     <StakeEmpty />
                 )}
             </div>
@@ -141,7 +141,7 @@ const CreatingRootShow: React.FC<CreatingRootShowProps> = ({
                 <DomainSettlementModal
                     onClose={() => {setShowStake(false); setStakeRoot(null)}}
                     onConfirm={tryStakeRoot}
-                    basePrice={0}
+                    basePrice={chooseStake}
                     actionType={SettleType.STAKEROOT}
                     opearationName={stakeRoot!}
                 />

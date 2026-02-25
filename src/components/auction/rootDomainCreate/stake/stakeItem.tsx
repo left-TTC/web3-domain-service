@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { cutString } from "@/utils/functional/common/cutString";
 import type { rootStateAccount } from "@/utils/functional/common/class/rootStateAccount";
-import { ArrowRight, Globe, Users } from "lucide-react";
+import { ArrowRight, Globe } from "lucide-react";
 import { CREATE_ROOT_TARGET } from "@/utils/constants/constants";
 
 export interface StakeItemProps{
@@ -31,7 +31,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
 
             <h3 className="text-3xl font-bold mb-1 tracking-tight">.{item.name}</h3>
             <p className="text-sm text-gray-400 mb-4 md:mb-6 flex items-center gap-1">
-                由 <span className="text-white underline decoration-dotted font-normal">{cutString(item.initiator.toBase58(), 5, 5, "...")}</span> 发起
+                {t("from")} <span className="text-white underline decoration-dotted font-normal">{cutString(item.initiator.toBase58(), 5, 5, "...")}</span> 
             </p>
 
             <div className="mb-4">
@@ -48,10 +48,6 @@ const StakeItem: React.FC<StakeItemProps> = ({
             </div>
 
             <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                <div className="flex items-center gap-2 text-xs text-gray-400">
-                    <Users size={14} />
-                    100 支持者
-                </div>
                 <button 
                     onClick={() => clink(item)}
                     className="text-sm font-bold hover:underline decoration-2 underline-offset-4 decoration-[#B4FC75] flex items-center gap-1 transition-all"

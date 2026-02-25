@@ -23,23 +23,23 @@ const StakeHero: React.FC<StakeHeroProps> = ({
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B4FC75] opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B4FC75]"></span>
                     </span>
-                    LIVE AUCTIONS
+                    {t('liveAuctions')}
                 </div>
                 <h3 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-                    Root Domain <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Governance & Launch</span>
+                    {t('rootDomainGovernanceLaunch')}
                 </h3>
                 <p className="text-gray-400 max-w-2xl text-[12px] md:text-lg font-normal">
-                    支持您最喜爱的顶级域名(TLD).当筹款达到目标时,该根域名将在 Solana 链上被激活并生成 NFT 权益。
+                    {t('stakeDescription')}
                 </p>
             </div>
             
             <div className="flex gap-8 border-l border-white/10 pl-8">
                 <div>
-                    <p className="text-gray-500 text-sm font-mono uppercase">Total Value Locked</p>
-                    <p className="text-2xl font-bold font-mono" style={{ color: primaryColor }}>{allStakeSol!=null? `${allStakeSol.toFixed(0)} SOL`:"Loading"}</p>
+                    <p className="text-gray-500 text-sm font-mono uppercase">{t('totalValueLocked')}</p>
+                    <p className="text-2xl font-bold font-mono" style={{ color: primaryColor }}>{allStakeSol!=null? `${(allStakeSol/1e9).toFixed(0)} SOL`:t('loading')}</p>
                 </div>
                 <div>
-                    <p className="text-gray-500 text-sm font-mono uppercase">Active TLDs</p>
+                    <p className="text-gray-500 text-sm font-mono uppercase">{t('activeTLDs')}</p>
                     <p className="text-2xl font-bold text-white">{rootDomains.length}</p>
                 </div>
             </div>

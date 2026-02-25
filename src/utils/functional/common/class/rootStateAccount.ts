@@ -1,7 +1,7 @@
 import { PublicKey, type AccountInfo } from "@solana/web3.js";
 import { Numberu64 } from "../number/number64";
 
-const MIN_LENGTH = 56; // 32 + 8 + 16
+const MIN_LENGTH = 57; // 32 + 8 + 16
 
 export class rootStateAccount {
     initiator: PublicKey;   // 32 bytes
@@ -15,13 +15,12 @@ export class rootStateAccount {
             throw new Error("Invalid RootStateRecord account");
         }
 
-        console.log(accountData)
 
-        this.initiator = new PublicKey(accountData.subarray(0, 32));
+        this.initiator = new PublicKey(accountData.subarray(1, 33));
 
-        this.amount = Numberu64.fromBuffer(accountData.subarray(32, 40));
+        this.amount = Numberu64.fromBuffer(accountData.subarray(33, 41));
 
-        const nameArray = accountData.subarray(40, 56);
+        const nameArray = accountData.subarray(41, 57);
         const trimmed = Array.from(nameArray).filter(b => b !== 0);
         this.name = Buffer.from(trimmed).toString("utf8");
     }

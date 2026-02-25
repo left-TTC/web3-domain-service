@@ -5,14 +5,16 @@ import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
 import { getRecordKey, RecordType } from "@/utils/functional/solana/getRecordKey";
 import { PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
-import { WEB3_NAME_SERVICE_ID, CENTRAL_STATE_REGISTER, CENTRAL_STATE_RECORDS } from "@/utils/constants/constants";
+import { WEB3_NAME_SERVICE_ID, CENTRAL_STATE_RECORDS } from "@/utils/constants/constants";
+import type { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 
 export async function setDomainPreview(
     domain: string,
     content: string,
     feePayer: PublicKey,
     lastSetter: PublicKey,
-    recordGate: RecordType = RecordType.IPFS
+    protocol: UseProtocol,
+    recordGate: RecordType = RecordType.DNS
 ): Promise<Transaction> {
 
     const setPreviewTransaction = new Transaction();
@@ -54,6 +56,7 @@ export async function setDomainPreview(
     const instruction = createSetPreviewInstruction(
         setPreviewInstructionAccounts,
         recordGate,
+        protocol,
         content,
         nameAndRoot[0],
         nameAndRoot[1],

@@ -36,24 +36,29 @@ export async function tryToStakeRoot(
         tryToAddFuelTransaction.recentBlockhash = blockhash
         tryToAddFuelTransaction.feePayer = wallet
 
-        const signedTx = await signTransaction(tryToAddFuelTransaction)
-        const signature = await connection.sendRawTransaction(
-            signedTx.serialize()
-        );
+        const simulationResult = await connection.simulateTransaction(tryToAddFuelTransaction);
+        console.log("simulate result", simulationResult);
 
-        const result = await connection.confirmTransaction(
-            {
-                signature,
-                blockhash,
-                lastValidBlockHeight,
-            },
-            "confirmed"
-        );
+        if(simulationResult.value.err === null){
+            const signedTx = await signTransaction(tryToAddFuelTransaction)
+            const signature = await connection.sendRawTransaction(
+                signedTx.serialize()
+            );
 
-        console.log("Tx confirm result:", result);
+            const result = await connection.confirmTransaction(
+                {
+                    signature,
+                    blockhash,
+                    lastValidBlockHeight,
+                },
+                "confirmed"
+            );
 
-        if (result.value.err) {
-            return TransactionState.Error;
+            console.log("Tx confirm result:", result);
+
+            if (result.value.err) {
+                return TransactionState.Error;
+            }
         }
 
         return TransactionState.Success;

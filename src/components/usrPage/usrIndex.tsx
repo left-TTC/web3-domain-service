@@ -13,16 +13,14 @@ interface UsrIndexProps{
     recordMap: Map<string, IPFSRecordState> | null,
     domainStateMap: Map<string, NameRecordState> | null,
     usrProfit: number | null,
-    usrVolume: number | null,
     allAuctionName: Record<string, number>,
     ifAuctionFromRpc: boolean,
     auctionState: NameAuctionState[],
-    searchKey: PublicKey | null,
 }
 
 export default function UsrIndex(
-    { useUsr, usrDomains, ifCheckingOtherUsr, recordMap, domainStateMap, usrProfit, usrVolume, allAuctionName,
-        ifAuctionFromRpc, auctionState, searchKey
+    { useUsr, usrDomains, ifCheckingOtherUsr, recordMap, domainStateMap, usrProfit, allAuctionName,
+        ifAuctionFromRpc, auctionState
     }: UsrIndexProps 
 ) {
     
@@ -40,9 +38,7 @@ export default function UsrIndex(
                     checkUsr={useUsr}
                     usrDomains={usrDomains}
                     ifCheckingOtherUsr={ifCheckingOtherUsr}
-                    domainStateMap={domainStateMap}
                     usrProfit={usrProfit}
-                    usrVolume={usrVolume}
                 />
                 <UsrManage
                     activeTab={activeTab}
@@ -52,7 +48,7 @@ export default function UsrIndex(
                     allAuctionName={allAuctionName}
                     ifLoadedAuctionState={ifAuctionFromRpc}
                     auctionState={auctionState}
-                    searchKey={searchKey}
+                    searchKey={useUsr}
                     domainStateMap={domainStateMap}
                 />
             </main>

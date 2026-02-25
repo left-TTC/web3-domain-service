@@ -36,7 +36,6 @@ const SearchResult: React.FC<SearchResultProps> = ({
             return(
                 <Settling
                     auctionState={auctionState}
-                    domainInfo={domainInfo} 
                     openSettlePage={openSettlePage}
                 />
             )

@@ -11,10 +11,12 @@ import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnvirom
 import { TransactionState } from "@/utils/functional/instructions/transactionState";
 import AuctionBidMultiplier from "./components/auctionBidMultiplier";
 import CustomPriceInput from "./components/customPriceInput";
+import PreviewSelector from "./components/previewSelector";
 import { useGlobalModal } from "../common/show/info";
 import { getTransactionContent } from "../common/show/infoContent/getInfoContent";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useConfirm } from "./components/function/useConfirm";
+import { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 
 export enum SettleType {
     STARTNAME,
@@ -22,6 +24,7 @@ export enum SettleType {
     STAKEROOT,
     SETTLE,
     INCREASE,
+    PREVIEW,
 }
 
 export interface DomainSettlementConfirmPayload {
@@ -31,6 +34,8 @@ export interface DomainSettlementConfirmPayload {
     stakeSol?: number,
     usrBalance?: number,
     refferrerKey?: PublicKey
+    previewType?: UseProtocol,
+    previewData?: string
 }
 
 interface DomainSettlementProps {
@@ -74,6 +79,9 @@ export default function DomainSettlementModal({
     // STAKEROOT - stake SOL
     // STARTNAME - start price
     const [currentPrice, setCurrentPrice] = useState(basePrice);
+    // PREVIEW - cid
+    const [preview, setPreview] = useState("")
+    const [previewType, setPreviewType] = useState<UseProtocol>(UseProtocol.IPFS)
 
     // get usr's balance
     const [usrBalance, setUsrBalance] = useState<number | null>(null)
@@ -104,7 +112,7 @@ export default function DomainSettlementModal({
         setIsProcessing(true);
         const state = await onConfirm({
             totalFee: totalFee, refferrerKey: refferrerKey? refferrerKey:undefined,
-            customValue: currentPrice, newPrice: currentPrice, stakeSol
+            customValue: currentPrice, newPrice: currentPrice, stakeSol, previewData: preview, previewType: previewType
         });
         setIsProcessing(false)
 
@@ -154,6 +162,14 @@ export default function DomainSettlementModal({
                             value={currentPrice}
                             onChange={setCurrentPrice}
                             action={actionType}
+                        />
+                    }
+                    {actionType===SettleType.PREVIEW &&
+                        <PreviewSelector
+                            preview={preview}
+                            previewType={previewType}
+                            onPreviewChange={setPreview}
+                            onPreviewTypeChange={setPreviewType}
                         />
                     }
                     <div className="space-y-3 md:space-y-4 mb-2 md:mb-8 mt-3 md:mt-8">

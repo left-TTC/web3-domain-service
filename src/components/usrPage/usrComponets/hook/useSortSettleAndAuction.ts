@@ -1,6 +1,5 @@
 import { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 import { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
-import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { DomainState, getDomainTimeState } from "@/utils/functional/common/time/getDomainTimeState";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
@@ -111,7 +110,7 @@ export function useSortSettleAndAuction(
                 const nameAccountKey = getNameAccountKey(
                     getHashedName(domainAndRoot[0]), null, getNameAccountKey(getHashedName(domainAndRoot[1]))
                 )
-                const recordKey = getRecordKey(nameAccountKey, RecordType.IPFS)
+                const recordKey = getRecordKey(nameAccountKey, RecordType.DNS)
                 recordKeys.push(recordKey)
             }
 

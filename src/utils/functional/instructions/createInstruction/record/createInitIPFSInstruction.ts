@@ -19,6 +19,8 @@ export interface IPFSInstructionAccounts {
     domainAccount: PublicKey,
     /// record central state
     centralState: PublicKey,
+    /// edit need
+    lastSetter: PublicKey,
 }
 
 export function createInitIPFSInstruction(
@@ -27,11 +29,25 @@ export function createInitIPFSInstruction(
     recordType: RecordType,
     useProtocol: UseProtocol,
 ): TransactionInstruction {
+
+    let x;
+    switch(useProtocol){
+        case UseProtocol.IPFS:
+            x = [0x00]
+            break
+        case UseProtocol.IPNS:
+            x = [0x01]
+            break
+        default:
+            x = [0x02]
+            break
+    }
+
     const buffers = [
         Buffer.from(Uint8Array.from([Web3RecordsInstruction.AllocateAndPostRecord])),
         new Numberu32(Buffer.from(recordType).length).toBuffer(),
         Buffer.from(recordType),
-        Buffer.from([useProtocol === UseProtocol.IPFS? 0:1]),
+        Buffer.from(x),
         new Numberu32(Buffer.from(cid).length).toBuffer(),
         Buffer.from(cid)
     ]

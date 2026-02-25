@@ -5,6 +5,8 @@ import DomainEditor from "./domainEditor";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";
+import { getRecordKey, RecordType } from "@/utils/functional/solana/getRecordKey";
+import { cutDomain } from "@/utils/functional/common/cutDomain";
 
 
 interface DomainItemProps {
@@ -23,8 +25,9 @@ const DomainItem: React.FC<DomainItemProps> = ({
 
     const ifMd = window.innerWidth >= 768;
 
-    console.log("kilo root:", getNameAccountKey(getHashedName("kilo")).toBase58())
-    console.log("test3.kilo: ", getNameAccountKey(getHashedName("test3"), null, getNameAccountKey(getHashedName("kilo"))).toBase58())
+    const record = getRecordKey(getNameAccountKey(getHashedName(cutDomain(domainName)[0]), null, getNameAccountKey(getHashedName(cutDomain(domainName)[1]))), RecordType.DNS)
+
+    console.log(domainName, record.toBase58())
 
     return(
         <div className="flex items-center justify-between p-4 bg-black/40 rounded-lg border border-white/10 hover:border-[#B4FC75]/50 transition-colors">

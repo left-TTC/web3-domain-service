@@ -76,7 +76,7 @@ export function User({
     )
 
     const fetchedUsrChain = useRef(false)
-    const {usrProfit, usrVolume} = useUsrRefferrerChain(searchKey, fetchedUsrChain)
+    const {usrProfit} = useUsrRefferrerChain(searchKey, fetchedUsrChain)
 
     const isDataLoaded = searchKey && 
                         usrDomains !== undefined && 
@@ -94,11 +94,9 @@ export function User({
                     recordMap={recordMap}
                     domainStateMap={domainStateMap}
                     usrProfit={usrProfit}
-                    usrVolume={usrVolume}
                     allAuctionName={auctioningDomains}
                     ifAuctionFromRpc={ifFromRpc}
                     auctionState={auctionState}
-                    searchKey={searchKey}
                 />
             ) : (
                 <LoadSkeleton />

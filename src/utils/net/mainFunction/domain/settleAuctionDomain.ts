@@ -7,8 +7,7 @@ import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
 import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
-import { getReverseKey } from "@/utils/functional/solana/getReverseKey";
-import { Connection, PublicKey, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction } from "@solana/web3.js";
+import { Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 
 

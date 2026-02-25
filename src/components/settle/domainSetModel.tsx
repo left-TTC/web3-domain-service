@@ -7,6 +7,7 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import type { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 import { setIPFS } from "./components/function/setIPFS";
 import { IPFSOperation } from "@/utils/net/mainFunction/usrOperation/setDomainIPFSRecord";
+import type { PublicKey } from "@solana/web3.js";
 
 export enum DomainSetType {
     Price,
@@ -19,11 +20,12 @@ interface DomainSetModelProps {
     newValue: string | number;
     onClose: () => void;
     protocol: UseProtocol;
+    lastSetter: PublicKey,
     ifInitIpfs?: boolean
 }
 
 const DomainSetModel: React.FC<DomainSetModelProps> = ({
-    domainName, type, newValue, onClose, protocol, ifInitIpfs
+    domainName, type, newValue, onClose, protocol, ifInitIpfs, lastSetter
 }) => {
 
     const {publicKey: usr, signTransaction} = useWalletEnv()
@@ -56,6 +58,7 @@ const DomainSetModel: React.FC<DomainSetModelProps> = ({
             ifInitIpfs!? IPFSOperation.Init:IPFSOperation.Reset, 
             domainName,
             usr, 
+            lastSetter,
             rootDomains, 
             connection, 
             protocol,

@@ -2,7 +2,6 @@
 
 import { Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
-const primaryColor = '#B4FC75';
 
 const StakeEmpty = () => {
 
@@ -24,11 +23,11 @@ const StakeEmpty = () => {
             </div>
             
             <h3 className="text-2xl font-bold mb-3 text-white">
-                暂无正在创建的根域名
+                {t('noCreatingRootDomains')}
             </h3>
             
             <p className="text-gray-400 max-w-md mb-6 text-sm leading-relaxed">
-                当前没有正在筹款创建的顶级域名(TLD)。您可以成为第一个创建者，启动新的根域名项目。
+                {t('noCreatingRootDescription')}
             </p>
             
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#B4FC75]/30 bg-[#B4FC75]/5 text-[#B4FC75] text-sm font-mono">
@@ -36,7 +35,7 @@ const StakeEmpty = () => {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B4FC75] opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B4FC75]"></span>
                 </span>
-                等待新的机会
+                {t('waitingForNewOpportunities')}
             </div>
         </div>
     )

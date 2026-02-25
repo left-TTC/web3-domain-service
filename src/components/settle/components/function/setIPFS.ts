@@ -11,6 +11,7 @@ export async function setIPFS(
     operation: IPFSOperation,
     extireDomain: string,
     usr: PublicKey | null,
+    lastSetter: PublicKey, 
     RootDomain: string[] | null,
     connection: Connection,
     useProtocol: UseProtocol,
@@ -45,7 +46,7 @@ export async function setIPFS(
 
     try{
         const trySetIPFSTransaction = setDomainIPFS(
-            extireDomain, usr, cid, operation, useProtocol
+            extireDomain, usr, cid, lastSetter, operation, useProtocol
         )
 
         const { blockhash } = await connection.getLatestBlockhash()

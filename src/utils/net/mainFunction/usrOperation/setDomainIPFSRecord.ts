@@ -18,6 +18,7 @@ export function setDomainIPFS(
     extireDomain: string,
     usr: PublicKey,
     cid: string | null,
+    lastSetter: PublicKey,
     operation: IPFSOperation,
     useProtocol: UseProtocol,
 ): Transaction {
@@ -27,7 +28,7 @@ export function setDomainIPFS(
     const nameAccount = getNameAccountKey(
         getHashedName(nameAndRoot[0]), null, getNameAccountKey(getHashedName(nameAndRoot[1]))
     )
-    const recordKey = getRecordKey(nameAccount, RecordType.IPFS)
+    const recordKey = getRecordKey(nameAccount, RecordType.DNS)
 
     const accounts: IPFSInstructionAccounts = {
         systemAccount: SystemProgram.programId,
@@ -36,11 +37,13 @@ export function setDomainIPFS(
         recordAccount: recordKey,
         domainAccount: nameAccount,
         centralState: CENTRAL_STATE_RECORDS,
+        lastSetter: lastSetter
     }
 
     console.log("record: ", recordKey.toBase58())
     console.log("domainAccount: ", nameAccount.toBase58())
     console.log("centralState: ", CENTRAL_STATE_RECORDS.toBase58())
+    console.log("last setter: ", lastSetter.toBase58())
 
     let IPFSOperationTransaction = new Transaction();
 
@@ -49,13 +52,13 @@ export function setDomainIPFS(
             case IPFSOperation.Init:
                 console.log("init the record account")
                 IPFSOperationTransaction.add(createInitIPFSInstruction(
-                    accounts, cid, RecordType.IPFS, useProtocol
+                    accounts, cid, RecordType.DNS, useProtocol
                 ))
                 break;
             case IPFSOperation.Reset:
                 console.log("reset the record account")
                 IPFSOperationTransaction.add(createResetIPFSInstruction(
-                    accounts, cid, RecordType.IPFS, useProtocol
+                    accounts, cid, RecordType.DNS, useProtocol
                 ))
                 break
             default:  

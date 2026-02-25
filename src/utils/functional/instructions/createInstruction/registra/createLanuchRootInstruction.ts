@@ -15,8 +15,6 @@ export interface InitiateRootInstructionAccounts {
     rootNameAccount: PublicKey,
     /// The vault account     
     vault: PublicKey,
-    /// The rent sysvar account
-    rentSysvar: PublicKey,
 }
 
 
@@ -39,7 +37,6 @@ export function createLaunchRootDomainInstruction(
         { pubkey: transactionAccounts.rootNameAccount, isSigner: false, isWritable: false },
 
         { pubkey: transactionAccounts.vault, isSigner: false, isWritable: true },
-        { pubkey: transactionAccounts.rentSysvar, isSigner: false, isWritable: false },
     ];
 
     return new TransactionInstruction({

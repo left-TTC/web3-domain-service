@@ -1,6 +1,7 @@
 import DomainSetModel, { DomainSetType } from "@/components/settle/domainSetModel";
 import { UseProtocol, type IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
+import { PublicKey } from "@solana/web3.js";
 import { Activity, ChevronLeft, Database, ExternalLink, Globe, Info, Save, Settings, ShieldCheck} from "lucide-react";
 import { useState } from "react";
 
@@ -141,7 +142,7 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
                                 <div className="space-y-4 pt-6 border-t border-white/5">
                                     <div className="space-y-1">
                                         <p className="text-[10px] font-bold text-gray-600 uppercase">当前解析服务</p>
-                                        <p className="text-xs text-[#B4FC75] font-mono">{(IPFSState?.type ?? "无").toUpperCase()}</p>
+                                        <p className="text-xs text-[#B4FC75] font-mono">{(IPFSState?.recordType ?? "无").toUpperCase()}</p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-[10px] font-bold text-gray-600 uppercase">当前哈希</p>
@@ -165,6 +166,7 @@ const DomainEditor: React.FC<DomainEditorProps> = ({
                         type={typeof newValue === 'number'? DomainSetType.Price : DomainSetType.Cid}
                         onClose={() => setShowSetModel(false)}
                         protocol={selectedProtocol}
+                        lastSetter={IPFSState? IPFSState.setter:PublicKey.default}
                         ifInitIpfs={IPFSState===null? true:false}
                     />
                 }

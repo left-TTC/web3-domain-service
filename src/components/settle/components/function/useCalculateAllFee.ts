@@ -5,7 +5,7 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { REFFERRER_RECORD_LENGTH } from "@/utils/functional/common/class/refferrerRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { useGlobalModal } from "@/components/common/show/info";
-import { ADVANCED_STORAGE } from "@/utils/constants/constants";
+import { ADVANCED_STORAGE, CREATE_ROOT_TARGET } from "@/utils/constants/constants";
 import { NAME_RECORD_LENGTH } from "@/utils/functional/common/class/nameRecordState";
 import { useTranslation } from "react-i18next";
 
@@ -42,15 +42,17 @@ export function useCalculateAllFees(
 
     useEffect(() => {
         (async () => {
-            if(featched) return
+            let feeItems: FeeItem[] = []
+            let total = 0
+
+            if(operationType===SettleType.INCREASE || operationType===SettleType.STARTNAME){
+                if(featched) return
+            }
             if(!rootDomain) return
-            console.log("referrer valid: ", ifRefferrerValid)
             if(!ifRefferrerValid) return
 
             setFeached(true)
-            let feeItems: FeeItem[] = []
-            let total = 0
-   
+        
             switch(operationType){
                 case SettleType.STARTNAME:
                     // the domain start price
@@ -73,14 +75,14 @@ export function useCalculateAllFees(
                     const nameReverseAccountFee = (await connection.getMinimumBalanceForRentExemption(NAME_RECORD_LENGTH + domainAndRoot[0].length))
                     const domainFee = nameAccountFee + nameReverseAccountFee
                     feeItems.push({
-                        label: "domain rent", amount: (domainFee/1e9).toFixed(4), info: "用于创建账号,流拍会退回"
+                        label: "domain rent", amount: (domainFee/1e9).toFixed(4), info: t('domainRentInfo')
                     })
                     total += domainFee;
                     // Check if a referrer account needs to be created.
                     if(whetherCreateReferrer){
                         const refferrerStateAccountFee = (await connection.getMinimumBalanceForRentExemption(REFFERRER_RECORD_LENGTH))
                         feeItems.push({
-                            label: "refferrer rent", amount: (refferrerStateAccountFee/1e9).toFixed(4), info: "用于支付用户账号的租金,仅限第一次交易"
+                            label: "refferrer rent", amount: (refferrerStateAccountFee/1e9).toFixed(4), info: t('referrerRentInfo')
                         })
                         total += refferrerStateAccountFee;
                     } 
@@ -97,44 +99,42 @@ export function useCalculateAllFees(
                     if(whetherCreateReferrer){
                         const refferrerStateAccountFee = (await connection.getMinimumBalanceForRentExemption(REFFERRER_RECORD_LENGTH))
                         feeItems.push({
-                            label: "refferrer rent", amount: (refferrerStateAccountFee/1e9).toFixed(4), info: "用于支付用户账号的租金,仅限第一次交易"
+                            label: "refferrer rent", amount: (refferrerStateAccountFee/1e9).toFixed(4), info: t('referrerRentInfo')
                         })
                         total += refferrerStateAccountFee;
                     } 
                     
                     total += add
                     break
-                case SettleType.CREATEROOT:
-                    feeItems.push({
-                        label: "advanced storage", amount: (ADVANCED_STORAGE/1e9).toFixed(4), info: "As the initiator, you need to pay a fixed 5SOL."
-                    })
-                    total += ADVANCED_STORAGE
-                    if(baseValue > 0){
-                        feeItems.push({
-                            label: "advanced storage", amount: (baseValue/1e9).toFixed(4), info: "Extra Add"
-                        })
-                        total += baseValue
-                    }
-                    break
                 case SettleType.STAKEROOT:
                     feeItems.push({
-                        label: "stake sol", amount: (baseValue/1e9).toFixed(4)
+                        label: "stake sol", amount: (increaseed/1e9).toFixed(4)
                     })
-                    total += baseValue
+                    if(increaseed + baseValue > CREATE_ROOT_TARGET){
+                        const over = increaseed + baseValue - CREATE_ROOT_TARGET
+                        feeItems.push({
+                            label: "over return", amount: (over/1e9).toFixed(4), 
+                        })
+                        total -= over
+                    }
+                    total += increaseed
                     break
-
+                case SettleType.CREATEROOT:
+                    feeItems.push({
+                        label: "advanced storage", amount: (ADVANCED_STORAGE/1e9).toFixed(4), info: t('advancedStorageInfo')
+                    })
+                    total += ADVANCED_STORAGE
+                    break
+                
                 case SettleType.SETTLE:
                     break
             }
-
-            console.log("type", operationType)
-            console.log("Total: ", total)
             
             setTotalFee(total)
             setFees(feeItems)
             setCalculating(false)
         })()
-    }, [usr, rootDomain, ifRefferrerValid])
+    }, [usr, rootDomain, ifRefferrerValid, increaseed])
 
     
     return {totalFee, fees, calculating}

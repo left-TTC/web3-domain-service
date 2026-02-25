@@ -22,7 +22,7 @@ export async function getUsrDomainsRecord(
                 getHashedName(nameAndRoot[0]), null, usrDomianIofoMap.get(domain)!.parentName
             )
             usrDomainRecordAccounts.push(getRecordKey(
-                nameAccount, RecordType.IPFS
+                nameAccount, RecordType.DNS
             ))
         }
 

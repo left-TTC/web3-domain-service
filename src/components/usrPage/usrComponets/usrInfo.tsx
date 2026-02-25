@@ -1,7 +1,6 @@
 import { Globe, Share2, TrendingUp, User, Wallet } from "lucide-react"
 import { UsrStateCard } from "./index/statCard";
 import type { PublicKey } from "@solana/web3.js";
-import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { useEffect, useState } from "react";
 import { cutString } from "@/utils/functional/common/cutString";
 import WithdrawModal from "@/components/settle/withdrawModel";
@@ -13,16 +12,11 @@ interface UsrInfoProps {
     checkUsr: PublicKey | null,
     usrDomains: string[], 
     ifCheckingOtherUsr: boolean,
-    domainStateMap: Map<string, NameRecordState> | null,
     usrProfit: number | null,
-    usrVolume: number | null,
 }
 
 const UsrInfo: React.FC<UsrInfoProps> = ({
-    checkUsr, usrDomains, ifCheckingOtherUsr, 
-    // domainStateMap, 
-    usrProfit, 
-    // usrVolume
+    checkUsr, usrDomains, ifCheckingOtherUsr, usrProfit, 
 }) => {
 
     const [profitValue, setProfitValue] = useState("")
@@ -32,7 +26,7 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
         if(usrProfit){
             setProfitValue((usrProfit/1e9).toFixed(4) + " SOL")
             if(usrProfit> 0.01001 * 1e9){
-                setProfitExtraValue(((usrProfit - 0.1*1e9)/1e9).toFixed(4) + " SOL")
+                setProfitExtraValue(((usrProfit - 0.01*1e9)/1e9).toFixed(4) + " SOL")
             }else setProfitExtraValue("未到提现门槛 0.01 SOL")
         }else {
             setProfitValue("0 SOL")
@@ -67,7 +61,7 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
 
             {openWithDraw &&
                 <WithdrawModal 
-                    availableBalance={(usrProfit! - 0.1*1e9)/1e9}
+                    availableBalance={usrProfit! - 0.0101*1e9}
                     onClose={() => setOpenWithDraw(false)}
                 />
             }

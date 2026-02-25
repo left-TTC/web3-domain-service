@@ -11,7 +11,7 @@ export async function getCreatingRootAccounts(
         {
             dataSlice: { offset: 0, length: 0},
             filters: [
-                { dataSize: 72 } 
+                { dataSize: 57 } 
             ],
         }
     )

@@ -1,17 +1,15 @@
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
-import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { Gavel } from "lucide-react"
 import { useTranslation } from "react-i18next"
 
 
 interface SettlingProps {
-    domainInfo: NameRecordState | null,
     auctionState: NameAuctionState | null,
     openSettlePage: () => void,
 }
 
 const Settling: React.FC<SettlingProps> = ({
-    domainInfo, auctionState, openSettlePage
+    auctionState, openSettlePage
 }) => {
     const { t } = useTranslation();
     

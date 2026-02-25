@@ -13,7 +13,6 @@ export function useUsrRefferrerChain(
     const {connection} = useConnection()
 
     const [usrProfit, setUsrProfit] = useState<number | null>(null)
-    const [usrVolume, setUsrVolume] = useState<number | null>(null)
     
     useEffect(() => {
         const fetchTest = async() => {
@@ -29,7 +28,6 @@ export function useUsrRefferrerChain(
                     console.log(checkingUsr.toBase58(), "'s refferrer is", state.refferrer.toBase58())
 
                     setUsrProfit(state.profit.toNumber())
-                    setUsrVolume(state.volume.toNumber())
                 }
             }
         }
@@ -38,6 +36,6 @@ export function useUsrRefferrerChain(
     }, [checkingUsr])
 
     return {
-        usrProfit, usrVolume
+        usrProfit
     }
 }

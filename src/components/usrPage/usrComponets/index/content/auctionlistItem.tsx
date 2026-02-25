@@ -42,12 +42,11 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
     const myPrice = localAuctionName[name] ?? null
 
     const [showIncrease, setShowIncrease] = useState(false)
-    const [showPreview, setShowPreview] = useState(false)
 
     const clinck = async(
         payload: DomainSettlementConfirmPayload
     ): Promise<TransactionState> => {
-        const {totalFee, newPrice, refferrerKey} = payload
+        const {totalFee, newPrice, refferrerKey, previewType, previewData} = payload
 
         try {
             switch(statu){
@@ -57,8 +56,9 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
                         usr,
                         connection,
                         name,
-                        "asdasdsadsadaaafan",
-                        recordstate? recordstate.setter : PublicKey.default
+                        previewData,
+                        recordstate? recordstate.setter : PublicKey.default,
+                        previewType,
                     )
                     
                 case "outbid": 
@@ -154,7 +154,7 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
             {showIncrease && 
                 <DomainSettlementModal
                     onClose={() => setShowIncrease(false)}
-                    actionType={statu==="winning"? SettleType.STARTNAME: SettleType.INCREASE}
+                    actionType={statu==="winning"? SettleType.PREVIEW: SettleType.INCREASE}
                     basePrice={item.highestPrice.toNumber()}
                     onConfirm={clinck}
                     opearationName={name}

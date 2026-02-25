@@ -42,5 +42,15 @@
     "whytchoose": "为何选择",
     "witness": "见证 Solana 生态中最具价值的顶级域名成交纪录，数据通过链上实时验证",
     "alreadyInAuctionList": "已加入拍卖列表",
-    "addToAuctionList": "加入拍卖列表"
+    "addToAuctionList": "加入拍卖列表",
+    "liveAuctions": "实时拍卖",
+    "rootDomainGovernanceLaunch": "根域名治理与启动",
+    "stakeDescription": "支持您最喜爱的顶级域名(TLD).当筹款达到目标时,该根域名将在 Solana 链上被激活并生成 NFT 权益。",
+    "totalValueLocked": "总锁定价值",
+    "activeTLDs": "活跃顶级域名",
+    "loading": "加载中",
+    "domainRentInfo": "用于创建账号,流拍会退回",
+    "referrerRentInfo": "用于支付用户账号的租金,仅限第一次交易",
+    "advancedStorageInfo": "作为发起者，您需要支付固定的 5SOL。",
+    "from": "由"
 }

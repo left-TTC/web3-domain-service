@@ -5,7 +5,7 @@ import { getHashedName } from "@/utils/functional/solana/getHashedName";
 import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
 import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
 import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
-import { Connection, PublicKey, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction } from "@solana/web3.js";
+import { Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 
 
@@ -42,7 +42,6 @@ export async function increaseDomainBid(
     const bidderRefferrerRecord = getRefferrerRecordKey(bidder)
 
     let superiorReferrerRecord: PublicKey | null = null
-    let rentSysvar: PublicKey | null = null
 
     const recordInfo = await connection.getAccountInfo(bidderRefferrerRecord)
     if(!recordInfo){
@@ -51,7 +50,6 @@ export async function increaseDomainBid(
         if(!superInfo) throw new Error("this refferrer has not refferrer too");
 
         superiorReferrerRecord = refferrerSuperRecord
-        rentSysvar = SYSVAR_RENT_PUBKEY
     }
 
     const createIncreaseInstructionAccounts: CreateIncreaseInstructionAccounts = {

@@ -2,15 +2,16 @@ import { TransactionState } from "@/utils/functional/instructions/transactionSta
 import { Transaction, type PublicKey, type Connection } from "@solana/web3.js";
 import { setDomainPreview } from "@/utils/net/mainFunction/domain/setDomainPreview";
 import { RecordType } from "@/utils/functional/solana/getRecordKey";
+import { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
 
 export async function setPreview(
     signTransaction: (<T extends Transaction>(transaction: T) => Promise<T>) | undefined,
     wallet: PublicKey | null,
     connection: Connection,
     domain: string,
-    content: string,
+    content: string | undefined,
     lastSetter: PublicKey,
-    recordGate: RecordType = RecordType.IPFS,
+    recordGate: UseProtocol | undefined,
 ): Promise<TransactionState> {
 
     if(!wallet || !signTransaction){
@@ -18,13 +19,18 @@ export async function setPreview(
         return TransactionState.NoConnect
     }
 
+    if(!content)return TransactionState.Error
+    if(!recordGate)return TransactionState.Error
+
     try{
+
         const setPreviewTransaction = await setDomainPreview(
             domain,
             content,
             wallet,
             lastSetter,
-            recordGate
+            recordGate,
+            RecordType.DNS
         );
 
         const { blockhash } = await connection.getLatestBlockhash()

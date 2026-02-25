@@ -16,11 +16,25 @@ export function createResetIPFSInstruction(
     recordType: RecordType,
     useProtocol: UseProtocol,
 ): TransactionInstruction {
+
+    let x;
+    switch(useProtocol){
+        case UseProtocol.IPFS:
+            x = [0x00]
+            break
+        case UseProtocol.IPNS:
+            x = [0x01]
+            break
+        default:
+            x = [0x02]
+            break
+    }
+
     const buffers = [
         Buffer.from(Uint8Array.from([Web3RecordsInstruction.EditRecord])),
         new Numberu32(Buffer.from(recordType).length).toBuffer(),
         Buffer.from(recordType),
-        Buffer.from([useProtocol === UseProtocol.IPFS? 0x00:0x01]),
+        Buffer.from(x),
         new Numberu32(Buffer.from(newCid).length).toBuffer(),
         Buffer.from(newCid),
     ]
@@ -36,6 +50,7 @@ export function createResetIPFSInstruction(
         { pubkey: instructionAccounts.domainAccount, isSigner: false, isWritable: false },
 
         { pubkey: instructionAccounts.centralState, isSigner: false, isWritable: false },
+        { pubkey: instructionAccounts.lastSetter, isSigner: false, isWritable: true },
     ]
 
     return new TransactionInstruction({
