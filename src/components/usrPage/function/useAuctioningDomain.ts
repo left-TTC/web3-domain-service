@@ -8,50 +8,78 @@ import { useEffect, useState } from "react";
 // use local cache
 // when create a auction, We can observe for a long time 
 // even if it has been photographed by others.
-export const biddingDomain = atomWithStorage<Record<string, number>>(
+export const biddingDomain = atomWithStorage<Record<string, Record<string, number>>>(
     "web3AuctionDomains",
     {}
 )
 
 export function useAuctioningDomain(
     connection: Connection,
-    usr: PublicKey | null
+    searchKey: PublicKey | null,
+    usr: boolean,
 ){
     const [auctioningDomains, setAuctioningDomains] = useAtom(biddingDomain)
 
     const [ifFromRpc, setIfFromRpc] = useState(false)
     const [auctionState, setAuctionState] = useState<NameAuctionState[]>([])
 
-    console.log(auctioningDomains)
-    
+    // current 永远有值
+    const [current, setCurrent] = useState<Record<string, number>>({})
+
     useEffect(() => {
-        // change to new device or delete the cache 
-        // we can fetch one
-        if(auctioningDomains.length === 0 && usr){
-            (async () => {
-                try{
-                    console.log("start fetch auctioning domain")
-                    
-                    const {validStates} = await findUsrBiddingDomain(
-                        connection, usr
-                    )
+        if(!searchKey) return
 
-                    const record = validStates.reduce<Record<string, number>>((state, item) => {
-                        state[item.getName()] = item.highestPrice.toNumber();
-                        return state
-                    }, {})
+        const pubkeyStr = searchKey.toBase58()
 
-                    // should add new but change
-                    setAuctioningDomains(record) 
-                    setAuctionState(validStates)
-                    setIfFromRpc(true)
-                    console.log(auctioningDomains)
-                }catch(err){
-                    console.log(err)
-                }
-            })()
+        if(auctioningDomains[pubkeyStr]){
+            setCurrent(auctioningDomains[pubkeyStr])
+            setIfFromRpc(false)
+            return
         }
-    }, [usr])
 
-    return { auctioningDomains, auctionState, ifFromRpc }
+        ;(async () => {
+            try{
+                console.log("start fetch auctioning domain")
+
+                const { validStates } = await findUsrBiddingDomain(
+                    connection,
+                    searchKey
+                )
+
+                const record = validStates.reduce<Record<string, number>>(
+                    (state, item) => {
+                        state[item.getName()] = item.highestPrice.toNumber()
+                        return state
+                    },
+                    {}
+                )
+
+                setCurrent(record)
+
+                setAuctionState(validStates)
+                setIfFromRpc(true)
+
+                if(usr){
+                    setAuctioningDomains(prev => ({
+                        ...prev,
+                        [pubkeyStr]: {
+                            ...prev[pubkeyStr],
+                            ...record
+                        }
+                    }))
+                }
+
+            }catch(err){
+                console.log(err)
+                setCurrent({})
+            }
+        })()
+
+    }, [searchKey, usr, connection])
+
+    return {
+        currentAuction: current,
+        auctionState,
+        ifFromRpc
+    }
 }

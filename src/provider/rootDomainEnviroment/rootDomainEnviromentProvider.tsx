@@ -1,4 +1,5 @@
-import { CENTRAL_STATE_RECORDS, CENTRAL_STATE_REGISTER } from "@/utils/constants/constants";
+import { CENTRAL_STATE_RECORDS, CENTRAL_STATE_REGISTER, returnProjectVault } from "@/utils/constants/constants";
+import { VaultRecord } from "@/utils/functional/common/class/vault";
 import { getAllRootDomain } from "@/utils/net/getAllRootDomain";
 import { PDAReverseLookUp } from "@/utils/net/PDAReverseLookUp";
 import { useConnection } from "@solana/wallet-adapter-react";
@@ -9,6 +10,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useState, type Reac
 
 export interface RootDomainProviderContext {
     rootDomains: string[];
+    vaultState: VaultRecord | null;
     activeRootDomain: string | null;
     setActiveRootDomain: (domain: string) => void;
     refreshRootDomains: () => Promise<void>;
@@ -17,6 +19,7 @@ export interface RootDomainProviderContext {
 
 const RootDomainContext = React.createContext<RootDomainProviderContext>({
     rootDomains: [],
+    vaultState: null,
     activeRootDomain: null,
     setActiveRootDomain: () => {},
     refreshRootDomains: async () => {},
@@ -46,6 +49,8 @@ export function RootDomainEnviromentProvider({ children }: { children: ReactNode
     const [rootDomains, setRootDomains] = useAtom(rootDomainsAtom);
     const [loading, setLoading] = useState(false);
 
+    const [vaultState, setVaultState] = useState<VaultRecord | null> (null)
+
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
@@ -67,13 +72,22 @@ export function RootDomainEnviromentProvider({ children }: { children: ReactNode
 
             const resolvedDomains = (await Promise.all(rootDomainsData)).filter(Boolean) as string[];
             setRootDomains(resolvedDomains);
-            console.log("roots",resolvedDomains)
+            console.log("roots", resolvedDomains)
 
             const activeIndex = resolvedDomains.findIndex(d => d === activeRootDomain);
 
             // if stored domain is not in the new list, or null
             if (activeIndex === -1 && resolvedDomains.length > 0 && isReady) {
                 setActiveRootDomain(resolvedDomains[0]);
+            }
+
+            const vaultInfo = await connection.getAccountInfo(returnProjectVault())
+            if(vaultInfo){
+                try{
+                    setVaultState(new VaultRecord(vaultInfo))
+                }catch(err){
+                    console.log("vault err: ", err)
+                }
             }
 
         } catch (err) {
@@ -91,6 +105,7 @@ export function RootDomainEnviromentProvider({ children }: { children: ReactNode
 
     const contextValue = useMemo(() => ({
         rootDomains,
+        vaultState,
         activeRootDomain,
         setActiveRootDomain,
         refreshRootDomains,

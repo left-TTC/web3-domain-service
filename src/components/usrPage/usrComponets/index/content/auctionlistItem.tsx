@@ -87,29 +87,29 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
         <div className="flex items-center justify-between p-2 md:p-4 bg-black/40 rounded-lg border border-white/10 hover:border-[#B4FC75]/50 transition-colors">
             <div className="flex items-center gap-4">
                 <div 
-                    onClick={() => {
-                        if(recordstate){
-                            console.log("=== IPFSRecordState ===");
-                            console.log("parentName:", recordstate.parentName.toBase58());
-                            console.log("owner:", recordstate.owner.toBase58());
-                            console.log("class:", recordstate.class.toBase58());
-                            console.log("previewer:", recordstate.previewer.toBase58());
-                            console.log("isFrozen:", recordstate.isFrozen);
-                            console.log("updataTime:", recordstate.updataTime.toString());
-                            console.log("recordType:", recordstate.recordType);
-                            console.log("recordData:", recordstate.recordData);
-                            console.log("setter:", recordstate.setter.toBase58());
-                            console.log("length:", recordstate.length);
-                        }
-                        if(item){
-                            console.log("=== NameAuctionState ===");
-                            console.log("highestBidder:", item.highestBidder.toBase58());
-                            console.log("updateTime:", item.updateTime.toString());
-                            console.log("highestPrice:", item.highestPrice.toString());
-                            console.log("root:", item.root);
-                            console.log("name:", item.name);
-                        }
-                    }}
+                    // onClick={() => {
+                    //     if(recordstate){
+                    //         console.log("=== IPFSRecordState ===");
+                    //         console.log("parentName:", recordstate.parentName.toBase58());
+                    //         console.log("owner:", recordstate.owner.toBase58());
+                    //         console.log("class:", recordstate.class.toBase58());
+                    //         console.log("previewer:", recordstate.previewer.toBase58());
+                    //         console.log("isFrozen:", recordstate.isFrozen);
+                    //         console.log("updataTime:", recordstate.updataTime.toString());
+                    //         console.log("recordType:", recordstate.recordType);
+                    //         console.log("recordData:", recordstate.recordData);
+                    //         console.log("setter:", recordstate.setter.toBase58());
+                    //         console.log("length:", recordstate.length);
+                    //     }
+                    //     if(item){
+                    //         console.log("=== NameAuctionState ===");
+                    //         console.log("highestBidder:", item.highestBidder.toBase58());
+                    //         console.log("updateTime:", item.updateTime.toString());
+                    //         console.log("highestPrice:", item.highestPrice.toString());
+                    //         console.log("root:", item.root);
+                    //         console.log("name:", item.name);
+                    //     }
+                    // }}
                     className={`p-2 rounded-full ${statu === 'winning' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
                     <Gavel size={ifMd? 20:12} />
                 </div>

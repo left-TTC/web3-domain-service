@@ -1,10 +1,10 @@
 
 import { Code, Cpu, Download } from "lucide-react";
 import kilo from "@/assets/kilo-64.svg"
-
-const primaryColor = '#B4FC75'; 
+import { useTranslation } from "react-i18next";
 
 const DownLoadHero = () => {
+    const { t } = useTranslation();
 
     return(
         <section id="about" className="pt-5 pb-25">
@@ -17,27 +17,25 @@ const DownLoadHero = () => {
                         <span className="text-[13px] md:text-xl font-black tracking-tighter uppercase italic">KILO BROWSER</span>
                     </div>
                     <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-[#B4FC75]">
-                        <Cpu size={14} /> Powered by Solana 
+                        <Cpu size={14} /> {t("poweredBySolana")}
                     </div>
                 </div>
 
                 <h3 className="text-5xl md:text-7xl font-black mb-8 leading-[1.3] tracking-tighter uppercase italic mt-25 md:mt-30">
-                    未来互联网的 <br/>
-                    <span style={{ color: primaryColor }}>第一入口</span>
+                    {t("futureInternetFirstEntry")}
                 </h3>
 
                 <p className="text-gray-400 text-[12px] md:text-[20px] max-w-3xl font-medium leading-relaxed mb-10">
-                    <span className="text-white">KILO</span> 不仅仅是一款浏览器，它是通往 Web3 世界的视窗。
-                    基于 Brave 改造，我们将区块链解析能力原生植入浏览器底层，消除复杂插件，让去中心化域名体验与传统域名一样丝滑。
+                    {t("kiloBrowserDescriptionHero")}
                 </p>
 
                 <div className="flex flex-wrap justify-center gap-6 md:gap-8">
                     <a href="#download" className="px-10 py-4 bg-[#B4FC75] text-black font-black rounded-2xl hover:scale-105 transition-transform flex items-center gap-2 shadow-xl shadow-[#B4FC75]/20">
-                        <Download size={20} /> 立即安装
+                        <Download size={20} /> {t("installNow")}
                     </a>
-                    <a href="https://github.com/left-TTC/kilo" className="px-6 py-4 rounded-2xl border border-white/10 bg-white/5 hover:scale-105 transition-transform text-gray-400 text-sm flex items-center gap-4 uppercase">
+                    <a href="https://github.com/left-TTC/kilo-browser" className="px-6 py-4 rounded-2xl border border-white/10 bg-white/5 hover:scale-105 transition-transform text-gray-400 text-sm flex items-center gap-4 uppercase">
                         <Code size={18} /> 
-                        <span>Check source code</span>
+                        <span>{t("checkSourceCode")}</span>
                     </a>
                 </div>
             </div>

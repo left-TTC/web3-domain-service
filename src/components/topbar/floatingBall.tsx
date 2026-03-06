@@ -29,6 +29,10 @@ const FloatingBall: React.FC<FloatingBallProps> = ({
         switch(lang){
             case "en": 
                 return "US"
+            case "zh":
+                return "CN"
+            default:
+                return lang.toUpperCase()
         }
     }
 
@@ -36,6 +40,10 @@ const FloatingBall: React.FC<FloatingBallProps> = ({
         switch(lang){
             case "en": 
                 return "English"
+            case "zh":
+                return "中文"
+            default:
+                return lang
         }
     }
     

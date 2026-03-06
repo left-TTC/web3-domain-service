@@ -16,11 +16,12 @@ interface UsrIndexProps{
     allAuctionName: Record<string, number>,
     ifAuctionFromRpc: boolean,
     auctionState: NameAuctionState[],
+    openDomainQueryPage: () => void;
 }
 
 export default function UsrIndex(
     { useUsr, usrDomains, ifCheckingOtherUsr, recordMap, domainStateMap, usrProfit, allAuctionName,
-        ifAuctionFromRpc, auctionState
+        ifAuctionFromRpc, auctionState, openDomainQueryPage
     }: UsrIndexProps 
 ) {
     
@@ -50,6 +51,7 @@ export default function UsrIndex(
                     auctionState={auctionState}
                     searchKey={useUsr}
                     domainStateMap={domainStateMap}
+                    openDomainQueryPage={openDomainQueryPage}
                 />
             </main>
 

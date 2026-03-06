@@ -1,5 +1,6 @@
 import CountdownTimer2 from "@/components/common/show/countdownTimer2";
 import { biddingDomain } from "@/components/usrPage/function/useAuctioningDomain";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import type { NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import { useAtom } from "jotai";
 import { Check, Clock, Gavel } from "lucide-react"
@@ -14,19 +15,27 @@ interface AuctionProps {
 const Auction: React.FC<AuctionProps> = ({
     auctionState, domainName
 }) => {
+
+    const {publicKey: usr} = useWalletEnv()
     
     const { t } = useTranslation();
     const [auctioningDomain, setAuctioningDomain] = useAtom(biddingDomain)
     
-    const isInAuctionList = domainName in auctioningDomain;
-    
+    const pubkeyStr = usr?.toBase58()
+    const isInAuctionList =
+        pubkeyStr && auctioningDomain[pubkeyStr]?.[domainName] !== undefined
+
     const addToAuctionList = () => {
-        if (!isInAuctionList) {
-            setAuctioningDomain(prev => ({
-                ...prev,
-                [domainName]: auctionState?.highestPrice.toNumber() || 0,
-            }))
-        }
+        if (!usr) return
+
+        const pubkeyStr = usr.toBase58()
+        setAuctioningDomain(prev => ({
+            ...prev,
+            [pubkeyStr]: {
+            ...prev[pubkeyStr],
+            [domainName]: auctionState?.highestPrice.toNumber() || 0,
+            },
+        }))
     }
 
     return(

@@ -7,6 +7,8 @@ import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecord
 import {  NameAuctionState } from "@/utils/functional/common/class/nameAuctionState";
 import type { PublicKey } from "@solana/web3.js";
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 
 interface ManageContentProps {
@@ -19,7 +21,8 @@ interface ManageContentProps {
     localAuctionName: Record<string, number>,
     searchKey: PublicKey | null,
     domainStateMap: Map<string, NameRecordState> | null,
-    allRecordState: Map<string, IPFSRecordState> | undefined
+    allRecordState: Map<string, IPFSRecordState> | undefined,
+    openDomainQueryPage: () => void;
 }
 
 const primaryColor = '#B4FC75'; 
@@ -27,8 +30,11 @@ const PAGE_SIZE = 7;
 
 const ManageContent: React.FC<ManageContentProps> = ({
     activeTab, domainNum, myDomains, auctionItems, settleItems, 
-    recordMap, localAuctionName, searchKey, domainStateMap, allRecordState
+    recordMap, localAuctionName, searchKey, domainStateMap, allRecordState, openDomainQueryPage
 }) => {
+
+    const { t } = useTranslation();
+    const nav = useNavigate()
 
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(myDomains.length / PAGE_SIZE);
@@ -47,7 +53,7 @@ const ManageContent: React.FC<ManageContentProps> = ({
         return (
             <div className="space-y-4">
                 <div className="flex justify-between items-center pb-4 border-b border-white/5">
-                    <h3 className="text-[12px] md:text-2xl font-bold">我的域名 ({domainNum})</h3>
+                    <h3 className="text-[12px] md:text-[18px] font-bold">{t("myDomains")} ({domainNum})</h3>
                 </div>
                 {currentDomains.map(domain => (
                     <DomainItem 
@@ -64,7 +70,7 @@ const ManageContent: React.FC<ManageContentProps> = ({
                             onClick={goPrev}
                             disabled={currentPage === 1}
                         >
-                            上一页
+                            {t("previousPage")}
                         </button>
                         <span className="text-white/70">
                             {currentPage} / {totalPages}
@@ -74,13 +80,19 @@ const ManageContent: React.FC<ManageContentProps> = ({
                             onClick={goNext}
                             disabled={currentPage === totalPages}
                         >
-                            下一页
+                            {t("nextPage")}
                         </button>
                     </div>
                 )}
                 <div className="text-center pt-2 md:pt-8">
-                    <button className="fontg-normal text-[12px] md:text-[16px] px-6 py-3 rounded-xl border border-[#B4FC75]/50 text-[#B4FC75] hover:bg-[#B4FC75]/10 transition-colors flex items-center mx-auto gap-2">
-                        <Search size={18} /> 注册新域名
+                    <button 
+                        onClick={() => {
+                            nav("/index")
+                            openDomainQueryPage()
+                        }}
+                        className="font-normal text-[12px] md:text-[14px] px-6 py-3 rounded-xl border-[2px] border-[#B4FC75]/50 text-[#B4FC75] hover:bg-[#B4FC75]/10 transition-colors flex items-center mx-auto gap-2"
+                    >
+                        <Search size={18} /> {t("registerNewDomain")}
                     </button>
                 </div>
             </div>
@@ -91,9 +103,9 @@ const ManageContent: React.FC<ManageContentProps> = ({
             
                 <div className="space-y-4">
                     <div className="flex justify-between items-center pb-1 md:pb-2 border-b border-white/5">
-                        <h3 className="text-[12px] sm:text-xl font-bold flex items-center gap-2 text-white">
+                        <h3 className="text-[12px] md:text-[18px] font-bold flex items-center gap-2 text-white">
                             <Activity size={ifMd? 20:12} style={{ color: primaryColor }} /> 
-                            进行中的拍卖 ({auctionItems.length})
+                            {t("ongoingAuctions")} ({auctionItems.length})
                         </h3>
                     </div>
                     
@@ -110,18 +122,18 @@ const ManageContent: React.FC<ManageContentProps> = ({
                         ))
                     ) : (
                         <div className="text-[12px] md:text-[18px] text-center py-5 md:py-8 text-gray-500 bg-black/20 rounded-xl">
-                            暂无参与的拍卖
+                            {t("noAuctionsParticipated")}
                         </div>
                     )}
                 </div>
 
                 <div className="space-y-4">
                     <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                        <h3 className="text-[12px] sm:text-xl font-bold flex items-center gap-2 text-white">
+                        <h3 className="text-[12px] md:text-[18px] font-bold flex items-center gap-2 text-white">
                             <AlertCircle size={ifMd? 20:12} className="text-yellow-400" /> 
-                            等待结算 ({settleItems.length})
+                            {t("pendingSettlement")} ({settleItems.length})
                         </h3>
-                        <span className="text-[10px] md:text-xs text-gray-500 font-normal">结束后需手动领取资产</span>
+                        <span className="text-[10px] md:text-xs text-gray-500 font-normal">{t("assetsNeedManualClaim")}</span>
                     </div>
 
                     {settleItems.length > 0 ? (
@@ -134,7 +146,7 @@ const ManageContent: React.FC<ManageContentProps> = ({
                         ))
                     ) : (
                         <div className="text-[12px] md:text-[18px] text-center py-5 md:py-8 text-gray-500 bg-black/20 rounded-xl">
-                            没有待结算的项目
+                            {t("noPendingSettlementItems")}
                         </div>
                     )}
                 </div>

@@ -5,6 +5,7 @@ import type { NameAuctionState } from "@/utils/functional/common/class/nameAucti
 import { useSortSettleAndAuction } from "./hook/useSortSettleAndAuction";
 import type { PublicKey } from "@solana/web3.js";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -20,12 +21,14 @@ interface UsrManageProps {
     auctionState: NameAuctionState[],
     searchKey: PublicKey | null,
     domainStateMap: Map<string, NameRecordState> | null,
+    openDomainQueryPage: () => void;
 }
 
 const UsrManage: React.FC<UsrManageProps> = ({
     setActiveTab, activeTab, usrDomains, recordMap, ifLoadedAuctionState, 
-    allAuctionName, auctionState, searchKey, domainStateMap
+    allAuctionName, auctionState, searchKey, domainStateMap, openDomainQueryPage
 }) => {
+    const { t } = useTranslation();
 
     const { onAuctionItems, onSettleItems, allRecordState } = useSortSettleAndAuction(auctionState, ifLoadedAuctionState, allAuctionName)
 
@@ -33,12 +36,12 @@ const UsrManage: React.FC<UsrManageProps> = ({
 
     return(
         <section className="bg-[#111] border border-white/10 rounded-3xl p-4 md:p-8 shadow-2xl shadow-black/50 min-h-[420px]">
-            <div className="flex border-b border-white/10 mb-4 md:mb-8">
+            <div className="flex border-b border-white/10 mb-4 md:mb-6">
                 {['mydomain', 'economy'].map((tab) => (
                 <button
                     key={tab}
                     onClick={() => setActiveTab(tab as 'mydomain' | 'auction')}
-                    className={`py-2 md:py-3 px-3 md:px-6 text-[10px] md:text-lg font-semibold transition-colors duration-200 flex items-center gap-2 ${
+                    className={`py-2 md:py-3 px-3 md:px-6 text-[10px] md:text-[14px] font-bold transition-colors duration-200 flex items-center gap-2 ${
                     activeTab === tab
                         ? 'border-b-4 text-white'
                         : 'text-gray-500 hover:text-white/80'
@@ -46,7 +49,7 @@ const UsrManage: React.FC<UsrManageProps> = ({
                     style={{ borderColor: activeTab === tab ? primaryColor : 'transparent' }}
                 >
                     {tab === 'mydomain' ? <List size={ifMd? 20: 14} /> : <Gavel size={ifMd? 20: 14} />}
-                    {tab === 'mydomain' ? '域名管理' : '我的拍卖 & 结算'}
+                    {tab === 'mydomain' ? t("domainManagement") : t("myAuctionsSettlement")}
                 </button>
                 ))}
             </div>
@@ -62,6 +65,7 @@ const UsrManage: React.FC<UsrManageProps> = ({
                 searchKey={searchKey}
                 domainStateMap={domainStateMap}
                 allRecordState={allRecordState}
+                openDomainQueryPage={openDomainQueryPage}
             />
 
         </section>

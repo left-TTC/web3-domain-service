@@ -3,10 +3,9 @@ import { Globe, Settings } from "lucide-react"
 import { useState } from "react";
 import DomainEditor from "./domainEditor";
 import type { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
-import { getNameAccountKey } from "@/utils/functional/solana/getNameAccountKey";
-import { getHashedName } from "@/utils/functional/solana/getHashedName";
-import { getRecordKey, RecordType } from "@/utils/functional/solana/getRecordKey";
-import { cutDomain } from "@/utils/functional/common/cutDomain";
+import { useSmallInfo } from "@/components/common/show/smallInfo";
+import { cutString } from "@/utils/functional/common/cutString";
+import { useTranslation } from "react-i18next";
 
 
 interface DomainItemProps {
@@ -20,52 +19,56 @@ const primaryColor = '#B4FC75';
 const DomainItem: React.FC<DomainItemProps> = ({
     domainName, ipfsState, nameState
 }) => {
-
+    const { t } = useTranslation();
     const [showEditor, setShowEditor] = useState(false)
+    const smallInfo = useSmallInfo()
 
     const ifMd = window.innerWidth >= 768;
-
-    const record = getRecordKey(getNameAccountKey(getHashedName(cutDomain(domainName)[0]), null, getNameAccountKey(getHashedName(cutDomain(domainName)[1]))), RecordType.DNS)
-
-    console.log(domainName, record.toBase58())
-
     return(
         <div className="flex items-center justify-between p-4 bg-black/40 rounded-lg border border-white/10 hover:border-[#B4FC75]/50 transition-colors">
             <div className="flex items-center gap-4">
                 <Globe 
-                    onClick={() => {
-                        if(nameState){
-                            console.log("=== NameRecordState ===");
-                            console.log("parentName:", nameState.parentName.toBase58());
-                            console.log("owner:", nameState.owner.toBase58());
-                            console.log("class:", nameState.class.toBase58());
-                            console.log("previewer:", nameState.previewer.toBase58());
-                            console.log("isFrozen:", nameState.isFrozen);
-                            console.log("customPrice:", nameState.customPrice.toString());
-                        }
-                        if(ipfsState){
-                            console.log("=== IPFSRecordState ===");
-                            console.log("parentName:", ipfsState.parentName.toBase58());
-                            console.log("owner:", ipfsState.owner.toBase58());
-                            console.log("class:", ipfsState.class.toBase58());
-                            console.log("previewer:", ipfsState.previewer.toBase58());
-                            console.log("isFrozen:", ipfsState.isFrozen);
-                            console.log("customPrice:", ipfsState.updataTime.toString());
-                            console.log("recordType:", ipfsState.recordType);
-                            console.log("setter:", ipfsState.setter.toBase58());
-                            console.log("recordData:", ipfsState.recordData);
-                            console.log("length:", ipfsState.length);
-                        }
-                    }}
+                    // onClick={() => {
+                    //     if(nameState){
+                    //         console.log("=== NameRecordState ===");
+                    //         console.log("parentName:", nameState.parentName.toBase58());
+                    //         console.log("owner:", nameState.owner.toBase58());
+                    //         console.log("class:", nameState.class.toBase58());
+                    //         console.log("previewer:", nameState.previewer.toBase58());
+                    //         console.log("isFrozen:", nameState.isFrozen);
+                    //         console.log("customPrice:", nameState.customPrice.toString());
+                    //     }
+                    //     if(ipfsState){
+                    //         console.log("=== IPFSRecordState ===");
+                    //         console.log("parentName:", ipfsState.parentName.toBase58());
+                    //         console.log("owner:", ipfsState.owner.toBase58());
+                    //         console.log("class:", ipfsState.class.toBase58());
+                    //         console.log("previewer:", ipfsState.previewer.toBase58());
+                    //         console.log("isFrozen:", ipfsState.isFrozen);
+                    //         console.log("customPrice:", ipfsState.updataTime.toString());
+                    //         console.log("recordType:", ipfsState.recordType);
+                    //         console.log("setter:", ipfsState.setter.toBase58());
+                    //         console.log("recordData:", ipfsState.recordData);
+                    //         console.log("length:", ipfsState.length);
+                    //     }
+                    // }}
                     size={ifMd? 24:15} style={{ color: primaryColor }} />
                 <div>
-                    <p className="text-[13px] md:text-xl font-bold">{domainName}</p>
-                    <div className="flex items-center gap-3 mt-1">
+                    <p className="text-[13px] md:text-[17px] font-bold">{domainName}</p>
+                    <div className="flex items-end gap-3 mt-1">
                         <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] font-mono text-gray-400 uppercase">
-                            {ipfsState?.recordType ?? ""}
+                            {ipfsState?.recordType ?? "NULL"}
                         </span>
-                        <p className="text-[11px] text-gray-500 font-mono truncate max-w-[150px] hidden md:flex">
-                            {ipfsState?.recordData ?? "未设置"}
+                        <p 
+                            onClick={() => {
+                                if(ipfsState?.recordData){
+                                    navigator.clipboard.writeText(ipfsState.recordData);
+                                    smallInfo.showToast({message: t("copied"), type: 'success'})
+                                }
+                            }}
+                            className={`text-[10px] text-gray-500 font-mono truncate max-w-[150px] hidden md:flex ${ipfsState?.recordData && "cursor-pointer"}`}
+                        >
+                            {ipfsState?.recordData ? cutString(ipfsState.recordData, 5, 5, "...") : t("notSet")}
                         </p>
                     </div>
                 </div>
@@ -74,10 +77,10 @@ const DomainItem: React.FC<DomainItemProps> = ({
             <div className="flex items-center gap-6">
                 <button 
                     onClick={() => setShowEditor(true)}
-                    className="px-4 sm:px-3 py-2 sm:py-1.5 rounded-full text-black text-[11px] sm:text-sm font-bold flex items-center gap-1 hover:opacity-90 transition-opacity"
+                    className="px-4 sm:px-6 py-2 sm:py-1.5 rounded-full text-black text-[11px] sm:text-sm font-bold flex items-center gap-1 hover:opacity-90 transition-opacity"
                     style={{ backgroundColor: primaryColor }}
                 >
-                    管理 <Settings size={14} />
+                    {t("manage")} <Settings size={14} />
                 </button>
             </div>
 

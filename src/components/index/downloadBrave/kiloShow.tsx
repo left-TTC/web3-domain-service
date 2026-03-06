@@ -5,7 +5,7 @@ import { Infinity, Lock, Shield} from "lucide-react";
 const KiloShow = () => {
 
     return(
-        <div className="lg:col-span-6 relative h-full flex items-center justify-center">
+        <div className="lg:col-span-6 relative h-full hidden md:flex items-center justify-center">
             <div className="relative w-full max-w-2xl aspect-square flex items-center justify-center">
 
                 <div className="absolute w-full h-3/4 bg-[#0a0a0a] border border-[#B4FC75]/30 rounded-2xl shadow-[0_0_50px_rgba(180,252,117,0.1)] overflow-hidden z-10">

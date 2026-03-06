@@ -115,6 +115,8 @@ export function Search() {
     const createNameState = async ({ usrBalance, totalFee, refferrerKey }: DomainSettlementConfirmPayload) => {
         if (domainStartPrice === null) return TransactionState.Error;
         if (!queryingDomain) return TransactionState.Error;
+
+        const pubkeyStr = usr!.toBase58();
         return await startDomain(
             queryingDomain!,
             refferrerKey!,
@@ -128,7 +130,10 @@ export function Search() {
             () => {
                 setAuctioningDomain(prev => ({
                     ...prev,
-                    [queryingDomain]: domainStartPrice,
+                    [pubkeyStr]: {
+                        ...prev[pubkeyStr],
+                        [queryingDomain]: domainStartPrice,
+                    }
                 }))
             }
         )

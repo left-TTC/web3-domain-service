@@ -38,7 +38,7 @@ export const UsrStateCard: React.FC<UsrStateCardProps> = ({
             {value && (
                 <>
                     <div className="mb-2 flex flex-row items-baseline gap-5">
-                        <p className="text-[12px] md:text-3xl font-extrabold font-mono text-white">
+                        <p className="text-[12px] md:text-[18px] font-normal text-white">
                             {value}
                         </p>
                         {extraValue && (

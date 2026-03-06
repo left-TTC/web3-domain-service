@@ -13,7 +13,7 @@ import UsrIndex from "@/components/usrPage/usrIndex";
 import LoadSkeleton from "@/components/usrPage/loadSkeleton";
 
 export function User({
-    // openDomainQueryPage,
+    openDomainQueryPage,
 }: {
     openDomainQueryPage: () => void;
 }) {
@@ -65,7 +65,7 @@ export function User({
     }, [searchKey]);
 
     // contains all the domains that currently being liquidated and auctioned
-    const { auctioningDomains, auctionState, ifFromRpc } = useAuctioningDomain(connection, searchKey)
+    const { currentAuction, auctionState, ifFromRpc } = useAuctioningDomain(connection, searchKey, searchKey?.toBase58()===usr?.toBase58())
     // const { asPayerDomain } = useAsPayerName(connection, searchKey)
 
     const {
@@ -82,7 +82,7 @@ export function User({
                         usrDomains !== undefined && 
                         recordMap !== null && 
                         domainStateMap !== null &&
-                        recordLoaded
+                        recordLoaded && currentAuction != null
 
     return(
         !adminModel? (
@@ -94,9 +94,10 @@ export function User({
                     recordMap={recordMap}
                     domainStateMap={domainStateMap}
                     usrProfit={usrProfit}
-                    allAuctionName={auctioningDomains}
+                    allAuctionName={currentAuction}
                     ifAuctionFromRpc={ifFromRpc}
                     auctionState={auctionState}
+                    openDomainQueryPage={openDomainQueryPage}
                 />
             ) : (
                 <LoadSkeleton />
