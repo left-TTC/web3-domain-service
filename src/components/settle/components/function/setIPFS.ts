@@ -87,12 +87,11 @@ export async function setIPFS(
                 console.log(txInfo.meta?.logMessages);
             }
 
-            if(String(txResult).includes("success")){
-                return TransactionState.Success
-            }
+            return TransactionState.Success
 
         }else{
             console.log("simulate fail")
+            return TransactionState.Error
         }
 
     }catch(err){

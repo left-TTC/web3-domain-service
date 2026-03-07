@@ -12,6 +12,7 @@ import { useWalletEnv } from '@/provider/walletEnviroment/useWalletEnv';
 import { useConnection } from '@solana/wallet-adapter-react';
 import { useGlobalModal } from '../common/show/info';
 import { getTransactionContent } from '../common/show/infoContent/getInfoContent';
+import { useTranslation } from 'react-i18next';
 
 interface WithdrawModalProps {
     availableBalance: number;
@@ -24,12 +25,13 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
     onClose,
     minThreshold = 100_000_000,
 }) => {
+    const { t } = useTranslation();
 
     const {signTransaction, publicKey: usr} = useWalletEnv()
     const {connection} = useConnection()
     const info = useGlobalModal()
 
-    const leastGet = 20_000_000
+    const leastGet = 10_000_000
     
     const FEE_PERCENT = 0.01;
     const [withdrawAmount, setWithdrawAmount] = useState('');
@@ -84,7 +86,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
             const state = await extractUserProfit(
                 signTransaction, usr, connection, amountInLamports
             )
-            const infos = getTransactionContent(state, onClose)
+            const infos = getTransactionContent(state, t, onClose)
             if(infos){
                 info.showModal({
                     title: infos.title,
@@ -137,10 +139,10 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
                 
                 <div className="absolute top-0 right-0 w-24 h-24 sm:w-40 sm:h-40 bg-[#B4FC75]/10 blur-[40px] sm:blur-[80px] rounded-full -mr-12 -mt-12 sm:-mr-20 sm:-mt-20"></div>
 
-                <div className="flex items-center justify-between mb-6 sm:mb-8">
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
                     <div>
                         <h2 className="text-l sm:text-[16px] font-black italic tracking-tighter uppercase flex items-center gap-2">
-                            <ArrowUpRight className="text-[#B4FC75] size-5 sm:size-6" /> 提现账单
+                            <ArrowUpRight className="text-[#B4FC75] size-5 sm:size-6" /> {t("withdrawalBill")}
                         </h2>
                         <p className="text-[9px] sm:text-[10px] text-gray-500 font-bold tracking-widest uppercase mt-1 sm:mt-2">Withdrawal Settlement</p>
                     </div>
@@ -148,8 +150,8 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
 
                 <div className="mb-3 sm:mb-5">
                     <div className="flex justify-between items-end mb-3 sm:mb-3 px-1">
-                        <span className="text-[11px] sm:text-sm font-black text-gray-500 uppercase tracking-wider">提现金额</span>
-                        <span className="text-[9px] sm:text-xs text-gray-600 font-mono font-normal">可用余额: {formatLamportsToSol(availableBalance)} SOL</span>
+                        <span className="text-[10px] sm:text-[12px] font-black text-gray-500 uppercase tracking-wider">{t("withdrawalAmount")}</span>
+                        <span className="text-[9px] sm:text-[10px] font-normal text-gray-600 font-mono font-normal">{t("availableBalance")}: {formatLamportsToSol(availableBalance)} SOL</span>
                     </div>
                     <div className={`relative transition-all duration-300 ${isBelowThreshold ? 'scale-[1.01]' : ''}`}>
     
@@ -180,36 +182,35 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
                         </div>
                     </div>
                     
-                    {/* Threshold Warning */}
                     {isBelowThreshold && (
                         <div className="mt-3 sm:mt-4 flex items-center gap-1.5 sm:gap-3 text-red-500 animate-in fade-in slide-in-from-top-1">
                             <AlertCircle size={12} />
-                            <span className="text-[10px] sm:text-sm font-normal uppercase tracking-tight">提现金额必须大于 {formatLamportsToSol(leastGet)} SOL</span>
+                            <span className="text-[10px] sm:text-sm font-normal uppercase tracking-tight">{t("withdrawalAmountMustBeGreaterThan", { amount: formatLamportsToSol(leastGet) })}</span>
                         </div>
                     )}
                 </div>
 
-                <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 sm:p-5 space-y-3 sm:space-y-6 mb-6">
+                <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 sm:p-5 space-y-3 sm:space-y-5 mb-6">
                     <div className="flex justify-between text-xs sm:text-base">
-                        <span className="text-gray-500 flex items-center gap-1.5 sm:gap-2 font-normal">
-                            <Percent size={14}/>手续费 (1%)
+                        <span className="text-[12px] text-gray-500 flex items-center gap-1.5 sm:gap-2 font-normal">
+                            <Percent size={14}/>{t("serviceFee")}
                         </span>
-                        <span className="font-mono text-gray-300 text-xs sm:text-base">-{formatSolAmount(serviceFee)} SOL</span>
+                        <span className="font-mono text-gray-300 text-[13px] sm:text-[15px]">-{formatSolAmount(serviceFee)} SOL</span>
                     </div>
                     <div className="h-px bg-white/5 w-full my-1"></div>
                     <div className="flex justify-between items-center pt-1">
-                        <span className="text-xs sm:text-[13px] font-black uppercase text-white tracking-widest">实际到账金额</span>
+                        <span className="text-[8px] sm:text-[9px] font-black uppercase text-white tracking-widest">{t("actualReceivableAmount")}</span>
                         <span className="text-[13px] sm:text-[14px] font-black text-[#B4FC75] tabular-nums">
                             {formatSolAmount(receiveAmount)} <span className="text-[9px] sm:text-xs italic">SOL</span>
                         </span>
                     </div>
                 </div>
 
-                <div className="mb-8 px-1">
+                <div className="mb-6 px-1">
                     <div className="flex row items-center gap-2 sm:gap-4 p-3 bg-[#B4FC75]/5 border border-[#B4FC75]/10 rounded-xl">
                         <Info size={16} className="text-[#B4FC75] flex-shrink-0" />
-                        <div className="text-[10px] md:text-[12px] text-gray-400 leading-relaxed font-medium">
-                            说明：提现将通过 <span className="text-white">Solana Mainnet</span> 进行。1% 的手续费用于维护匿名节点池与金库安全。账号内最小留存金额为 <span className="text-[#B4FC75]">{formatLamportsToSol(minThreshold)} SOL</span>。
+                        <div className="text-[10px] md:text-[11px] text-gray-400 leading-relaxed font-medium">
+                            {t("withdrawalNote", { amount: formatLamportsToSol(minThreshold) })}
                         </div>
                     </div>
                 </div>
@@ -217,7 +218,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
                 <button 
                     disabled={isDisabled}
                     onClick={handleWithdraw}
-                    className={`w-full py-4 rounded-2xl font-black text-xs
+                    className={`w-full py-4 rounded-2xl font-black text-[12px]
                     tracking-[0.2em] uppercase flex items-center justify-center gap-2 sm:gap-4 
                     transition-all ${
                         isDisabled
@@ -226,9 +227,9 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
                     }`}
                 >
                     {isLoading ? (
-                        <div className="w-4 h-4 sm:w-6 sm:h-6 border-2 border-black/20 border-t-black rounded-full animate-spin"></div>
+                        <div className="w-4 h-4 sm:w-6 sm:h-6 border-2 border-black/20 border-t-black rounded-full animate-spin"/>
                     ) : (
-                        <>确认提现 <ChevronRight size={16} /></>
+                        <>{t("confirmWithdrawal")} <ChevronRight size={16} /></>
                     )}
                 </button>
 

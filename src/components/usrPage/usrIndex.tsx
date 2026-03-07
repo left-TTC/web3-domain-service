@@ -55,7 +55,7 @@ export default function UsrIndex(
                 />
             </main>
 
-            <footer className="max-w-7xl mx-auto px-6 mt-20 border-t border-white/10 pt-8 text-gray-400 text-center text-sm font-normal">
+            <footer className="max-w-7xl text-[10px] md:text-[15px] mx-auto px-6 mt-20 border-t border-white/10 pt-8 text-gray-400 text-center text-sm font-normal">
                 <p>Solana Web3 Domain Service © 2024. Dashboard Access.</p>
             </footer>
         </div>

@@ -11,6 +11,7 @@ import CountdownTimer2 from "@/components/common/show/countdownTimer2";
 import { AUCTION_TIME } from "@/utils/functional/common/time/getDomainTimeState";
 import { setPreview } from "../function/setPreview";
 import type { IPFSRecordState } from "@/utils/functional/common/class/ipfsRecordState";
+import { useTranslation } from "react-i18next";
 
 
 interface AuctionListItemProps {
@@ -26,6 +27,7 @@ const primaryColor = '#B4FC75';
 const AuctionListItem: React.FC<AuctionListItemProps> = ({
     item, name, localAuctionName, searchKey, recordstate
 }) => {
+    const { t } = useTranslation();
 
     const [statu, setStatu] = useState<'winning' | 'outbid' | null>(null)
 
@@ -117,8 +119,8 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
                     <p className="text-[13px] md:text-lg font-bold text-white flex items-center gap-2">
                         {name}
                         {statu=== 'winning' 
-                            ? <span className="hidden md:flex text-[10px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">领先</span>
-                            : <span className="hidden md:flex text-[10px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">被超越</span>
+                            ? <span className="hidden md:flex text-[10px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">{t("leading")}</span>
+                            : <span className="hidden md:flex text-[10px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">{t("outbid")}</span>
                         }
                     </p>
                     <CountdownTimer2 targetTimestamp={item.updateTime.toNumber() + AUCTION_TIME}/>
@@ -127,14 +129,14 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
 
             <div className="flex items-center gap-2 md:gap-6">
                 <div className="text-right">
-                    <p className="hidden sm:flex text-xs text-gray-500 uppercase font-bold">当前最高价 / 我的出价</p>
+                    <p className="hidden sm:flex text-xs text-gray-500 uppercase font-bold">{t("highestPriceMyBid")}</p>
                     <p className="font-mono text-[11px] md:text-sm mt-1 flex row">
                         <span className={`${statu === 'winning' ? 'text-[#B4FC75]' : 'text-red-400' }`}>{(item.highestPrice.toNumber() /1e9).toFixed(4)} SOL</span> 
                         <span className="hidden sm:block text-gray-600 mx-1">/</span> 
                         <span className="hidden sm:block text-gray-400">
                             {myPrice
                                 ? `${(myPrice / 1e9).toFixed(4)} SOL`
-                                : "未知"
+                                : t("unknown")
                             }
                         </span>
                     </p>
@@ -145,7 +147,7 @@ const AuctionListItem: React.FC<AuctionListItemProps> = ({
                     className={`px-2 md:px-4 py-2 rounded-lg text-black text-[9px] md:text-xs font-bold hover:opacity-90 transition-opacity ${statu === 'outbid' ? 'animate-pulse' : ''}`}
                     style={{ backgroundColor: statu === 'outbid' ? '#ef4444' : primaryColor, color: statu === 'outbid' ? 'white' : 'black' }}
                 >
-                    {statu === 'outbid' ? '加价' : '设置预览'}
+                    {statu === 'outbid' ? t("increaseBid") : t("setPreview")}
                 </button>
 
 

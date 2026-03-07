@@ -117,7 +117,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
                                 </button>
                             </div>
 
-                            <div className="text-gray-400 text-sm leading-relaxed mb-8 pl-1">
+                            <div className="text-gray-400 font-normal text-sm leading-relaxed mb-8 pl-1">
                                 {modalConfig.content}
                             </div>
 

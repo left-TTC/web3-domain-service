@@ -23,7 +23,6 @@ export function useAuctioningDomain(
     const [ifFromRpc, setIfFromRpc] = useState(false)
     const [auctionState, setAuctionState] = useState<NameAuctionState[]>([])
 
-    // current 永远有值
     const [current, setCurrent] = useState<Record<string, number>>({})
 
     useEffect(() => {

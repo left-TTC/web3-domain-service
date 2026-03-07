@@ -66,7 +66,6 @@ export function User({
 
     // contains all the domains that currently being liquidated and auctioned
     const { currentAuction, auctionState, ifFromRpc } = useAuctioningDomain(connection, searchKey, searchKey?.toBase58()===usr?.toBase58())
-    // const { asPayerDomain } = useAsPayerName(connection, searchKey)
 
     const {
         recordLoaded,
@@ -82,7 +81,7 @@ export function User({
                         usrDomains !== undefined && 
                         recordMap !== null && 
                         domainStateMap !== null &&
-                        recordLoaded && currentAuction != null
+                        recordLoaded
 
     return(
         !adminModel? (

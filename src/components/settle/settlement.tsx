@@ -17,6 +17,7 @@ import { getTransactionContent } from "../common/show/infoContent/getInfoContent
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useConfirm } from "./components/function/useConfirm";
 import { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
+import { useTranslation } from "react-i18next";
 
 export enum SettleType {
     STARTNAME,
@@ -55,6 +56,7 @@ export default function DomainSettlementModal({
     const {publicKey: usr, wallet} = useWalletEnv()
     const {rootDomains} = useRootDomain()
     const {connection} = useConnection()
+    const {t} = useTranslation()
     const info = useGlobalModal()
 
     // whether the transaction is processing
@@ -116,7 +118,7 @@ export default function DomainSettlementModal({
         });
         setIsProcessing(false)
 
-        const infos = getTransactionContent(state, onInfoOk)
+        const infos = getTransactionContent(state, t, onInfoOk)
         if(infos){
             info.showModal({
                 title: infos.title,
@@ -174,7 +176,7 @@ export default function DomainSettlementModal({
                     }
                     <div className="space-y-3 md:space-y-4 mb-2 md:mb-8 mt-3 md:mt-8">
                         <h3 className="text-[11px] md:text-sm font-bold text-gray-400 flex items-center gap-2 uppercase tracking-wide">
-                            <CreditCard size={14} /> 账单明细
+                            <CreditCard size={14} /> {t("billDetails")}
                         </h3>
                         <FeeItems
                             feeItems={fees}
@@ -184,7 +186,7 @@ export default function DomainSettlementModal({
                     <div className="flex items-center justify-between px-3 md:px-4 py-2 md:py-3 bg-[#B4FC75]/5 border border-[#B4FC75]/10 rounded-xl text-[9px] md:text-[11px] text-gray-500">
                         <div className="flex items-center gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-[#B4FC75] animate-pulse"/>
-                            <span className="font-mono font-[600]">钱包余额: {usrBalance? (usrBalance/1e9).toFixed(4)+" SOL":"Checking"}</span>
+                            <span className="font-mono font-[600]">{t("walletBalance")} {usrBalance? (usrBalance/1e9).toFixed(4)+" SOL":"Checking"}</span>
                         </div>
                         <span className="uppercase font-bold tracking-tighter text-[#B4FC75]/60">{wallet? "Connected via "+wallet.adapter.name:"Not connected"}</span>
                     </div>
@@ -197,7 +199,7 @@ export default function DomainSettlementModal({
                             className="text-[11px] md:text-[15px] col-span-1 py-3.5 rounded-xl font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-colors border border-white/10"
                             disabled={isProcessing}
                         >
-                            取消
+                            {t("cancel")}
                         </button>
                         <button 
                             onClick={handlePayment}
@@ -217,11 +219,11 @@ export default function DomainSettlementModal({
                             ):(
                                 isProcessing ? (
                                     <>
-                                        <Loader2 size={20} className="animate-spin" /> 正在处理...
+                                        <Loader2 size={20} className="animate-spin" /> {t("processing")}
                                     </>
                                 ) : (
                                     <>
-                                        确认支付 <ArrowRight size={20} />
+                                        {t("confirmPayment")} <ArrowRight size={20} />
                                     </>
                                 )
                             )}

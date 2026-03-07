@@ -8,7 +8,7 @@ import { getNameStateKey } from "@/utils/functional/solana/getNameStateKey";
 import { getRecordKey, RecordType } from "@/utils/functional/solana/getRecordKey";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -25,19 +25,24 @@ export function useSortSettleAndAuction(
 
     const [allRecordState, setAllRecordState] = useState<Map<string, IPFSRecordState>>()
 
-    const fetched = useRef(false)
-    const fetchRecord = useRef(false)
+    const [fetched, setFetched] = useState(false)
+    const [fetchRecord, setFetchedRecord] = useState(false)
+
+    const reFetch = () => {
+        setFetched(false)
+        setFetchedRecord(false)
+    }
 
     useEffect(() => { 
         const domains: string[] = Object.keys(allAuctionName);
         if (domains.length === 0) return
-        if(fetched.current) return
+        if(fetched) return
 
         (async () => {
             if(ifLoadedAuctionState){
                 //don't need to load info again
                 console.log("don't need load again")
-                fetched.current = true
+                setFetched(true)
 
                 let auctionItems: NameAuctionState[] = []
                 let settleItems: NameAuctionState[] = []
@@ -56,7 +61,7 @@ export function useSortSettleAndAuction(
                 setOnSettleItems(settleItems)
             }else{
                 //need to fetch auction info again
-                fetched.current = true
+                setFetched(true)
                 console.log("need load again")
 
                 let auctionItems: NameAuctionState[] = []
@@ -96,10 +101,10 @@ export function useSortSettleAndAuction(
     useEffect(() => {
         const domains: string[] = Object.keys(allAuctionName);
         if (domains.length === 0) return
-        if(fetchRecord.current) return
+        if(fetchRecord) return
 
         (async () => {
-            fetchRecord.current = true
+            setFetchedRecord(true)
             console.log("fetching record states")
 
             const recordMap = new Map<string, IPFSRecordState>();
@@ -129,5 +134,5 @@ export function useSortSettleAndAuction(
         })()
     }, [allAuctionName, connection])
 
-    return { onAuctionItems, onSettleItems, allRecordState }
+    return { onAuctionItems, onSettleItems, allRecordState, reFetch }
 }

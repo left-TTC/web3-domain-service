@@ -103,7 +103,7 @@ const ManageContent: React.FC<ManageContentProps> = ({
             
                 <div className="space-y-4">
                     <div className="flex justify-between items-center pb-1 md:pb-2 border-b border-white/5">
-                        <h3 className="text-[12px] md:text-[18px] font-bold flex items-center gap-2 text-white">
+                        <h3 className="text-[12px] md:text-[16px] font-bold flex items-center gap-2 text-white">
                             <Activity size={ifMd? 20:12} style={{ color: primaryColor }} /> 
                             {t("ongoingAuctions")} ({auctionItems.length})
                         </h3>
@@ -121,7 +121,7 @@ const ManageContent: React.FC<ManageContentProps> = ({
                             />
                         ))
                     ) : (
-                        <div className="text-[12px] md:text-[18px] text-center py-5 md:py-8 text-gray-500 bg-black/20 rounded-xl">
+                        <div className="text-[12px] md:text-[16px] text-center py-5 md:py-8 text-gray-500 bg-black/20 rounded-xl">
                             {t("noAuctionsParticipated")}
                         </div>
                     )}

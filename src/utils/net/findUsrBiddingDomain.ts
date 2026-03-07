@@ -12,7 +12,7 @@ export async function findUsrBiddingDomain(
     if (!usr) throw new Error("no wallet");
 
     const filters = [
-        { dataSize: 49 },
+        { dataSize: 96 },
         {
             memcmp: {
                 offset: 0,

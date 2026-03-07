@@ -35,9 +35,7 @@ export async function getAuctionItemInfo(
                         break
                     case DomainState.Settling:
                         console.log("one settleing")
-                        // if(nameState.highestBidder.toBase58() === usrKey.toBase58()){
-                            settleMap.set(itemNames[infos.indexOf(info)], nameState)
-                        // }
+                        settleMap.set(itemNames[infos.indexOf(info)], nameState)
                         break
                     default:
                         onAuctionMap.set(itemNames[infos.indexOf(info)], nameState)

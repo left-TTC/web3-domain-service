@@ -6,6 +6,7 @@ import { settleDomain } from "../function/settleDomain";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 import { useConnection } from "@solana/wallet-adapter-react";
 import type { TransactionState } from "@/utils/functional/instructions/transactionState";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -24,6 +25,7 @@ interface SettlementListItemProps {
 const SettlementListItem: React.FC<SettlementListItemProps> = ({
     item, name
 }) => {
+    const { t } = useTranslation();
 
     const [settle, setSettle] = useState(false)
     const {publicKey: usr, signTransaction} = useWalletEnv()
@@ -55,7 +57,7 @@ const SettlementListItem: React.FC<SettlementListItemProps> = ({
                 <div>
                     <p className="text-[13px] md:text-lg font-bold text-white">{name}</p>
                     <p className="text-[11px] md:text-xs text-gray-400 mt-1 font-normal">
-                        '竞拍成功，等待领取 NFT'
+                        {t("auctionSuccessfulAwaitingSettlement")}
                     </p>
                 </div>
             </div>
@@ -65,7 +67,7 @@ const SettlementListItem: React.FC<SettlementListItemProps> = ({
                     onClick={() => setSettle(true)}
                     className="px-3 md:px-4 py-2 rounded-lg border-[2px] border-[#B4FC75] text-[#B4FC75] text-[10px] md:text-xs font-bold hover:bg-[#B4FC75] hover:text-black transition-all flex items-center gap-1"
                 >
-                    领取域名
+                    {t("settleDomain")}
                 </button>
             </div>
 

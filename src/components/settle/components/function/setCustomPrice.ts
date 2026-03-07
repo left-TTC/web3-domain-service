@@ -32,7 +32,7 @@ export async function setCustomPrice(
 
     try{
         const trySetValueTransaction = setDomainCustomPrice(
-            customPrice * 1e6,
+            customPrice * 1e9,
             domainAndRoot,
             usr
         )
@@ -75,12 +75,11 @@ export async function setCustomPrice(
                 console.log(txInfo.meta?.logMessages);
             }
 
-            if(String(txResult).includes("success")){
-                return TransactionState.Success
-            }
+            return TransactionState.Success
 
         }else{
             console.log("simulate fail")
+            return TransactionState.Error
         }
 
     }catch(err){
