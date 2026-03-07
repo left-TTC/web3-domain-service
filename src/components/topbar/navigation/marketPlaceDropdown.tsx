@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react"
 import { animate } from "animejs"
 import { useNavigate } from "react-router-dom"
 import { Compass, PlusSquare } from "lucide-react"
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider"
 
 export enum MarketChoose {
     DomainRecommend = "DomainRecommend",
@@ -23,6 +24,7 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
 
     const {t} = useTranslation()
     const navigate = useNavigate()
+    const {referrer} = useReferrer()
 
     const returnTitle = (type: MarketChoose) => {
         switch(type){
@@ -72,11 +74,19 @@ const MarketplaceDropDown: React.FC<MarketplaceDropDownProps> = ({
     const marketNavi = (direction: MarketChoose) => {
         switch(direction){
             case MarketChoose.DomainRecommend:
-                navigate("/auction/recommend")
+                if(referrer){
+                    navigate("/auction/recommend?r=" + referrer)
+                }else{
+                    navigate("/auction/recommend")
+                }
                 setAnimate(true)
                 break
             case MarketChoose.CreateRootDomain:
-                navigate("/auction/createRoot")
+                if(referrer){
+                    navigate("/auction/createRoot?r=" + referrer)
+                }else{
+                    navigate("/auction/createRoot")
+                }
                 setAnimate(true)
                 break
         }

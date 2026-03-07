@@ -9,6 +9,7 @@ import type { PublicKey } from "@solana/web3.js";
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 
 
 interface ManageContentProps {
@@ -35,6 +36,7 @@ const ManageContent: React.FC<ManageContentProps> = ({
 
     const { t } = useTranslation();
     const nav = useNavigate()
+    const {referrer} = useReferrer()
 
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(myDomains.length / PAGE_SIZE);
@@ -87,7 +89,11 @@ const ManageContent: React.FC<ManageContentProps> = ({
                 <div className="text-center pt-2 md:pt-8">
                     <button 
                         onClick={() => {
-                            nav("/index")
+                            if(referrer){
+                                nav("/index?r=" + referrer)
+                            }else{
+                                nav("/index")
+                            }
                             openDomainQueryPage()
                         }}
                         className="font-normal text-[12px] md:text-[14px] px-6 py-3 rounded-xl border-[2px] border-[#B4FC75]/50 text-[#B4FC75] hover:bg-[#B4FC75]/10 transition-colors flex items-center mx-auto gap-2"

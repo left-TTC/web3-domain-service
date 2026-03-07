@@ -201,5 +201,17 @@
     "walletBalance": "Wallet Balance: ",
     "cancel": "Cancel",
     "processing": "Processing...",
-    "confirmPayment": "Confirm Payment"
+    "confirmPayment": "Confirm Payment",
+    "makeMoneyInDecentralizedWeb": "Make money in the decentralized web!",
+    "newAnonymousDomainEcosystemLaunching": "A new anonymous domain ecosystem is launching",
+    "earlyUsersCan": "Early users can",
+    "registerRareDomains": "Register rare domains",
+    "resellDomainsForProfit": "Resell domains for profit",
+    "earnRewardsByInvitingOthers": "Earn rewards by inviting others",
+    "accessFullyAnonymousWebsites": "Access fully anonymous websites with this decentralized browser",
+    "downloadTheBrowser": "Download the browser",
+    "joinUsingMyInviteLink": "Buy domains using my invite link",
+    "alreadyInstalledKilo": "Already installed Kilo?",
+    "openDirectly": "Open directly",
+    "earlyUsersGetBiggestAdvantage": "Early users get the biggest advantage!"
 }

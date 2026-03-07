@@ -2,9 +2,13 @@
 import { ArrowRight, Layers, Monitor, Smartphone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 
 
 const Kilo = () => {
+
+    const {referrer} = useReferrer()
+
     const { t } = useTranslation();
     const nav = useNavigate();
 
@@ -26,7 +30,7 @@ const Kilo = () => {
 
             <div className="flex flex-col sm:flex-row gap-6 items-center">
                 <button 
-                    onClick={() => {nav("/download"); window.scrollTo({ top: 0, behavior: "instant" })}}
+                    onClick={() => {if(referrer){nav("/download?r=" + referrer)}else{nav("/download")}; window.scrollTo({ top: 0, behavior: "instant" })}}
                     className="group relative px-10 py-5 bg-[#B4FC75] text-black font-black text-lg rounded-full overflow-hidden transition-all hover:pr-14"
                 >
                     <span className="text-[13px] md:text-[15px] relative z-10 flex items-center gap-2">

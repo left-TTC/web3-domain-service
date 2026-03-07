@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom"
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv"
 import { LayoutDashboard } from "lucide-react"
 import { useGlobalModal } from "@/components/common/show/info"
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider"
 
 const MyDomain = () => {
 
     const {t}= useTranslation()
     const navigate = useNavigate()
+    const {referrer} = useReferrer()
 
     const info = useGlobalModal()
 
@@ -27,7 +29,11 @@ const MyDomain = () => {
 
     const goToUsrPage = () => {
         if(publicKey){
-            navigate(`./usr?k=${publicKey}`)
+            if(referrer){
+                navigate(`./usr?k=${publicKey}&r=${referrer}`)
+            }else{
+                navigate(`./usr?k=${publicKey}`)
+            }
         }else{
             info.showModal({
                 title: "No Wallet",

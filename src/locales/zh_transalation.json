@@ -202,5 +202,17 @@
     "walletBalance": "钱包余额: ",
     "cancel": "取消",
     "processing": "正在处理...",
-    "confirmPayment": "确认支付"
+    "confirmPayment": "确认支付",
+    "makeMoneyInDecentralizedWeb": "在去中心化网络中赚钱！",
+    "newAnonymousDomainEcosystemLaunching": "一个新的匿名域名生态系统正在启动",
+    "earlyUsersCan": "早期用户可以",
+    "registerRareDomains": "注册稀有域名",
+    "resellDomainsForProfit": "转售域名获利",
+    "earnRewardsByInvitingOthers": "通过邀请他人获得奖励",
+    "accessFullyAnonymousWebsites": "使用这款去中心化浏览器访问完全匿名的网站",
+    "downloadTheBrowser": "下载浏览器",
+    "joinUsingMyInviteLink": "使用我的邀请链接购买域名",
+    "alreadyInstalledKilo": "已经安装了 Kilo？",
+    "openDirectly": "直接打开",
+    "earlyUsersGetBiggestAdvantage": "早期用户获得最大优势！"
 }

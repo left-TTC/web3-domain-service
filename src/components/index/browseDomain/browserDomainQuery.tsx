@@ -11,6 +11,7 @@ import { NiceSelect } from "./childComponents/selector";
 import { useNavigate } from "react-router-dom";
 import { getDeviceTypeByUA } from "@/utils/functional/wallet/isPhone";
 import { useTranslation } from "react-i18next";
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 
 export interface BrowserDomainQueryProps{
     ifShowTheQueryPage: boolean,
@@ -92,9 +93,14 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
         setQueryDomainValue(e.target.value)
     }
 
+    const {referrer} = useReferrer() 
     const navigate = useNavigate()
     const goToCreateRoot = () => {
-        navigate("/auction/createRoot")
+        if(referrer){
+            navigate("/auction/createRoot?r=" + referrer)
+        }else{
+            navigate("/auction/createRoot")
+        }
     }
 
     const ifPhone = getDeviceTypeByUA()

@@ -1,3 +1,4 @@
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
@@ -18,6 +19,7 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
 }) => {
 
     const {t} = useTranslation()
+    const {referrer} = useReferrer() 
     const inputRef = useRef<HTMLInputElement>(null);
 
     const navigate = useNavigate();
@@ -57,7 +59,11 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
             queryingDomain = searchTerm + "." + activeRootDomain;
         }
 
-        navigate(`/search?q=${encodeURIComponent(queryingDomain)}`);
+        if(referrer){
+            navigate(`/search?q=${encodeURIComponent(queryingDomain)}&r=${referrer}`);
+        }else{
+            navigate(`/search?q=${encodeURIComponent(queryingDomain)}`);
+        }
     }
 
     return(

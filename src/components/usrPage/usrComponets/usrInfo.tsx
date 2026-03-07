@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { cutString } from "@/utils/functional/common/cutString";
 import WithdrawModal from "@/components/settle/withdrawModel";
 import { useTranslation } from "react-i18next";
+import InviteChooser from "./index/inviteChooser";
 
 
 const primaryColor = '#B4FC75'; 
@@ -42,6 +43,8 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
         setOpenWithDraw(true)
     }
 
+    const [share, setShare] = useState(false)
+
     return(
         <section className="animate-fade-in-down">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-8 pb-4 border-b border-white/10">
@@ -58,7 +61,7 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-6">
                 <UsrStateCard canClink={false} icon={Globe} label={t("ownedDomains")} value={usrDomains.length} />
                 <UsrStateCard canClink={!ifCheckingOtherUsr} icon={TrendingUp} label={t("earnings")} value={profitValue} extraValue={profitExtraValue} clinck={() => openWithDrawPage()}/>
-                <UsrStateCard canClink={!ifCheckingOtherUsr} icon={Share2} label={t("promotion")} value={t("getMoreEarnings")} />
+                <UsrStateCard canClink={!ifCheckingOtherUsr} icon={Share2} label={t("promotion")} value={t("getMoreEarnings")} clinck={() => setShare(true)} />
             </div>
 
             {openWithDraw &&
@@ -66,6 +69,9 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
                     availableBalance={usrProfit! - 0.0101*1e9}
                     onClose={() => setOpenWithDraw(false)}
                 />
+            }
+            {share &&
+                <InviteChooser onClose={() => setShare(false)}/>
             }
         </section>
     )

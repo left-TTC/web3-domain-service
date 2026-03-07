@@ -4,7 +4,9 @@ import BrowserDomainQuery from "@/components/index/browseDomain/browserDomainQue
 import DomainUsrShow from "@/components/index/domainUsr/domainUsrShow"
 import DownloadKilo from "@/components/index/downloadBrave/downloadKilo"
 import Web3CoreUtilities from "@/components/index/web3CoreUtilities/web3CoreUtilities"
-import { useState } from "react"
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider"
+import { useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
 
 export interface IndexProps {
     ifShowDomain: boolean
@@ -16,10 +18,17 @@ const Index: React.FC<IndexProps> = ({
 }) => {
 
     const [getBackPositionFn, setGetBackPositionFn] = useState<()=>void>(()=>{})
+    const {referrer, setReferrer} = useReferrer()
 
+    const [searchParams] = useSearchParams();
+    const r = searchParams.get("r")
+
+    useEffect(() => {
+        if(r)setReferrer(r)
+    }, [r])
     
     return(
-        <div className="min-h-screen bg-[#050505] text-white selection:bg-[#B4FC75] selection:text-black pb-24 px-5 sm:px-10 relative overflow-x-hidden">
+        <div onClick={() => {console.log(referrer)}} className="min-h-screen bg-[#050505] text-white selection:bg-[#B4FC75] selection:text-black pb-24 px-5 sm:px-10 relative overflow-x-hidden">
             
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#B4FC75] rounded-full mix-blend-screen filter blur-[100px] opacity-[0.10]"/>

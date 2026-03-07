@@ -20,6 +20,7 @@ import { useAtom } from "jotai";
 import { biddingDomain } from "@/components/usrPage/function/useAuctioningDomain";
 import { useGlobalModal } from "@/components/common/show/info";
 import { TransactionState } from "@/utils/functional/instructions/transactionState";
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 
 export function Search() {
 
@@ -27,6 +28,7 @@ export function Search() {
     const {rootDomains} = useRootDomain()
     const info = useGlobalModal()
     const navigate = useNavigate()
+    const {referrer} = useReferrer()
     const {connection} = useConnection();
 
     const [searchParams] = useSearchParams();
@@ -55,6 +57,14 @@ export function Search() {
         }
     }, [isDomainInfoLoaded])
 
+    const backToIndex = () => {
+        if(referrer){
+            navigate(`/index?r=${referrer}`)
+        }else{
+            navigate(`/index`)
+        }
+    }
+
     useEffect(() => {
         if(queryingDomain){
             setIsDomainInfoLoaded(false)
@@ -64,8 +74,8 @@ export function Search() {
                 title: "Query error",
                 content: "The querying domain is null",
                 type: "error",
-                onCancel: () => {navigate(`/index`)},
-                onConfirm: () => {navigate(`/index`)}
+                onCancel: backToIndex,
+                onConfirm: backToIndex
             })
             
         }
@@ -103,8 +113,8 @@ export function Search() {
                     title: "Domain Format Error",
                     content: error instanceof Error ? error.message : "Invalid domain format. Only a.b format is supported (e.g., example.web3).",
                     type: "error",
-                    onCancel: () => {navigate(`/index`)},
-                    onConfirm: () => {navigate(`/index`)}
+                    onCancel: backToIndex,
+                    onConfirm: backToIndex
                 });
                 setIsDomainInfoLoaded(false);
             }

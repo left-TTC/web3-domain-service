@@ -1,3 +1,4 @@
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 import { ArrowLeft, Check, ChevronRight, Languages } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,6 +14,7 @@ const FloatingBall: React.FC<FloatingBallProps> = ({
 }) => {
 
     const { i18n } = useTranslation();
+    const {referrer} = useReferrer()
     const languages = Object.keys(i18n.options.resources ?? {});
     const navi = useNavigate()
 
@@ -20,7 +22,11 @@ const FloatingBall: React.FC<FloatingBallProps> = ({
     const [language, setLanguage] = useState(i18n.language);
 
     const navigate = () => {
-        navi("/index");
+        if(referrer){
+            navi("/index?r=" + referrer);
+        }else{
+            navi("/index");
+        }
         setIsMenuOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };

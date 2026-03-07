@@ -14,6 +14,7 @@ import i18n from './i18n.ts'
 import { RootDomainEnviromentProvider } from './provider/rootDomainEnviroment/rootDomainEnviromentProvider.tsx'
 import { ModalProvider } from "./components/common/show/info.tsx";
 import { SmallInfoProvider } from "./components/common/show/smallInfo.tsx";
+import { ReferrerProvider } from "./provider/referrerProvider.tsx/referrerProvider.tsx";
 
 (window as any).Buffer = Buffer;
 
@@ -24,7 +25,9 @@ createRoot(document.getElementById('root')!).render(
                 <WalletEnvironmentProvider>
                     <RootDomainEnviromentProvider>
                         <I18nextProvider i18n={i18n}>
-                            <App />
+                            <ReferrerProvider>
+                                <App />
+                            </ReferrerProvider>
                         </I18nextProvider> 
                     </RootDomainEnviromentProvider>
                 </WalletEnvironmentProvider>

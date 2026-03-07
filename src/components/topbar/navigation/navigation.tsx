@@ -11,6 +11,7 @@ import {
 
 import { useRef, useState } from "react";
 import MarketplaceDropDown from "./marketPlaceDropdown";
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 
 export enum NavigationLists{
     Home = "Home",
@@ -28,6 +29,7 @@ const Navigation: React.FC<NavigationProps> = ({
 
     const navigate = useNavigate()
     const {t} = useTranslation()
+    const {referrer} = useReferrer()
 
     const [hoveredId, setHoveredId] = useState<string | null>(null)
     const [ifSearchbarHover, setIfSearchbarHover] = useState(false)
@@ -49,7 +51,11 @@ const Navigation: React.FC<NavigationProps> = ({
     const navigateTo = (navigateObject: NavigationLists) => {
         switch(navigateObject){
             case NavigationLists.Home:
-                navigate('/');
+                if(referrer){
+                    navigate('/index?r=' + referrer);
+                }else{
+                    navigate('/index');
+                }
                 break;
             case NavigationLists.Auction:
                 if(!showMarketType){
@@ -59,7 +65,11 @@ const Navigation: React.FC<NavigationProps> = ({
                 }
                 break
             case NavigationLists.DownLoad:
-                navigate('/download');
+                if(referrer){
+                    navigate('/download?r=' + referrer);
+                }else{
+                    navigate('/download');
+                }
         } 
     }
 
@@ -71,7 +81,11 @@ const Navigation: React.FC<NavigationProps> = ({
     }
 
     const openSearchPage = () => {
-        navigate('/');
+        if(referrer){
+            navigate('/index?r=' + referrer);
+        }else{
+            navigate('/index');
+        }
         openDomainQueryPage();
     }
 
