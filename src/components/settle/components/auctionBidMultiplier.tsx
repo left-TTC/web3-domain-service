@@ -1,5 +1,6 @@
 import { TrendingUp } from "lucide-react";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 interface AuctionBidMultiplierProps {
   currentPrice: number;
@@ -10,6 +11,7 @@ const AuctionBidMultiplier: React.FC<AuctionBidMultiplierProps> = ({
   currentPrice,
   onUpdate,
 }) => {
+    const { t } = useTranslation();
     const multipliers = [0.05, 0.1, 0.25];
 
     console.log("start: ", currentPrice)
@@ -26,7 +28,7 @@ const AuctionBidMultiplier: React.FC<AuctionBidMultiplierProps> = ({
             <div className="flex items-center gap-2 mb-3">
                 <TrendingUp size={14} className="text-[#B4FC75]" />
                 <span className="text-[10px] md:text-[16px] font-bold text-gray-500 uppercase">
-                    快速加价(SOL)
+                    {t("quickBidIncrease")}
                 </span>
             </div>
 

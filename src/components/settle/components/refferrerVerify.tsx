@@ -9,6 +9,7 @@ import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerR
 import { ifStringPubkeyValid } from "@/utils/functional/common/ifStringPubkeyValid";
 import { checkRefferrerValid } from "@/utils/functional/common/net/checkRefferrerValid";
 import { Users, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 
 interface Props {
     setRefferrerKey: React.Dispatch<React.SetStateAction<PublicKey | null>>;
@@ -26,6 +27,7 @@ const RefferrerVerify = ({
     const { t } = useTranslation();
     const { connection } = useConnection();
     const { publicKey: buyer } = useWalletEnv();
+    const { referrer } = useReferrer()
 
     const [input, setInput] = useState("");
     const [canCheck, setCanCheck] = useState(false);
@@ -77,6 +79,15 @@ const RefferrerVerify = ({
         })();
     }, [buyer]);
 
+    useEffect(() => {
+        if (fixedRefferrer) return
+        console.log("get referrer")
+        if (referrer && !input){
+            setRefferrerKey(new PublicKey(referrer))
+            setInput(referrer)
+        }
+    }, [fixedRefferrer, referrer])
+
     const verify = async () => {
         setIsVerifying(true);
         const pk = new PublicKey(input);
@@ -96,10 +107,10 @@ const RefferrerVerify = ({
         <div className="space-y-3 mb-3 md:mb-6">
             <div className="flex items-center justify-between">
                 <h3 className="text-[11px] md:text-sm font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
-                    <Users size={ifMd? 14:12} /> 推荐人
+                    <Users size={ifMd? 14:12} /> {t("referrer")}
                 </h3>
                 <a className="text-[10px] md:text-xs text-[#B4FC75] hover:underline opacity-80">
-                    查看推荐政策
+                    {t("viewReferralPolicy")}
                 </a>
             </div>
 
@@ -131,9 +142,9 @@ const RefferrerVerify = ({
                         {isVerifying ? (
                             <Loader2 size={14} className="animate-spin" />
                         ) : referrerValid === true ? (
-                            "已验证"
+                            t("verified")
                         ) : (
-                            "验证"
+                            t("verify")
                         )}
                     </button>
                 </div>
@@ -141,12 +152,12 @@ const RefferrerVerify = ({
 
             {referrerValid === true && (
                 <p className="text-[9px] md:text-[13px] text-[#B4FC75] flex items-center gap-1 font-bold">
-                    <CheckCircle2 size={12} /> 推荐人有效
+                    <CheckCircle2 size={12} /> {t("referrerValid")}
                 </p>
             )}
             {referrerValid === false && (
                 <p className="text-[9px] md:text-[13px] text-red-500 flex items-center gap-1 font-bold">
-                    <AlertCircle size={12} /> 无效的推荐人地址
+                    <AlertCircle size={12} /> {t("invalidReferrerAddress")}
                 </p>
             )}
         </div>

@@ -1,3 +1,4 @@
+import type { SmallInfoContextType } from "@/components/common/show/smallInfo";
 import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 import { ifDomainLegal } from "@/utils/functional/domain/ifDomainLegal";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function useClinkQueryDomain(
     queryDomainValue: string,
     activeRootDomain: string | null,
+    smallInfo: SmallInfoContextType,
 ){
     const navigate = useNavigate()
     const {referrer} = useReferrer()
@@ -23,7 +25,7 @@ export function useClinkQueryDomain(
                 navigate(`/search?q=${encodeURIComponent(queryingDomain)}`);
             }
         }else{
-            //need add component
+            smallInfo.showToast({type:'error', message: "域名格式错误，不能大写，不能有空格，不能使用其他语言"})
             console.log("inllegal domain")
         }
     }

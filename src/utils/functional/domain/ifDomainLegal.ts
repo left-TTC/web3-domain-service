@@ -5,7 +5,10 @@ export function ifDomainLegal(
     domainName: string
 ): boolean {
     if(domainName.includes("."))return false
-    return true
+
+    const searchingPattern = /^[a-z]+$/;
+    
+    return searchingPattern.test(domainName);
 }
 
 
@@ -17,5 +20,4 @@ export function ifRootValid(
         !/\s/.test(rootName) &&
         rootName === rootName.toLowerCase()
     )
-  
 }

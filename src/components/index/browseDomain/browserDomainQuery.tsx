@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { getDeviceTypeByUA } from "@/utils/functional/wallet/isPhone";
 import { useTranslation } from "react-i18next";
 import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
+import { useSmallInfo } from "@/components/common/show/smallInfo";
 
 export interface BrowserDomainQueryProps{
     ifShowTheQueryPage: boolean,
@@ -26,6 +27,7 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
 }) => {
 
     const {t} = useTranslation();
+    const smallInfo = useSmallInfo()
 
     const browseDomainRef = useRef<HTMLDivElement | null> (null);
 
@@ -48,7 +50,7 @@ const BrowserDomainQuery: React.FC<BrowserDomainQueryProps> = ({
         }
     }, [ifShowTheQueryPage])
 
-    const { ClinkQuery } = useClinkQueryDomain(queryDomainValue, activeRootDomain)
+    const { ClinkQuery } = useClinkQueryDomain(queryDomainValue, activeRootDomain, smallInfo)
     useEffect(() => {
         const handleQuery = (e: KeyboardEvent) => {
             if(e.key === "Enter" && ifInputFocus){

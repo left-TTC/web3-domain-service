@@ -12,7 +12,7 @@ interface ToastItem extends ToastOptions {
     id: number;
 }
 
-interface SmallInfoContextType {
+export interface SmallInfoContextType {
     showToast: (options: ToastOptions) => void;
     hideToast: (id: number) => void;
 }
@@ -52,16 +52,16 @@ const Toast = ({ message, type = 'info', onClose }: { message: string; type: Toa
     };
 
     const icons = {
-        success: <CheckCircle size={18} />,
-        error: <AlertCircle size={18} />,
-        info: <Info size={18} />
+        success: <CheckCircle size={16} />,
+        error: <AlertCircle size={16} />,
+        info: <Info size={16} />
     };
 
     return (
         <div 
             className={`
                 fixed top-20 left-1/2 -translate-x-1/2 z-[9999]
-                flex items-center gap-3 px-5 py-3 rounded-2xl border backdrop-blur-xl
+                flex items-center gap-3 px-2 md:px-5 py-2 md:py-3 rounded-2xl border backdrop-blur-xl
                 shadow-[0_8px_32px_rgba(0,0,0,0.3)]
                 transition-all duration-300 ease-out
                 ${isExiting ? 'opacity-0 -translate-y-4 scale-95' : 'opacity-100 translate-y-0 scale-100'}
@@ -69,10 +69,10 @@ const Toast = ({ message, type = 'info', onClose }: { message: string; type: Toa
             `}
         >
             <span className="shrink-0">{icons[type]}</span>
-            <p className="text-sm font-medium tracking-wide whitespace-nowrap">{message}</p>
+            <p className="text-[10px] md:text-sm font-medium tracking-wide whitespace-nowrap">{message}</p>
             <button 
                 onClick={() => setIsExiting(true)}
-                className="ml-2 hover:opacity-70 transition-opacity"
+                className="ml-1 md:ml-2 hover:opacity-70 transition-opacity"
             >
                 <X size={14} />
             </button>

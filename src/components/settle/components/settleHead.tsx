@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import { SettleType } from "../settlement";
+import { useTranslation } from "react-i18next";
 
 
 interface SettleHeadProps {
@@ -10,12 +11,13 @@ interface SettleHeadProps {
 const SettleHead: React.FC<SettleHeadProps> = ({
     type, onClose
 }) => {
+    const { t } = useTranslation();
 
     const getHeaderInfo = () => {
         switch (type) {
-            case SettleType.STARTNAME: return { title: '启动竞拍', desc: 'Minting New Root Domain' };
-            case SettleType.SETTLE: return { title: '结算', desc: 'Secondary Market Purchase' };
-            default: return { title: '交易结算', desc: 'Transaction Settlement' };
+            case SettleType.STARTNAME: return { title: t("startAuctionHeader"), desc: 'Minting New Root Domain' };
+            case SettleType.SETTLE: return { title: t("settlementHeader"), desc: 'Secondary Market Purchase' };
+            default: return { title: t("transactionSettlementHeader"), desc: 'Transaction Settlement' };
         }
     };
 

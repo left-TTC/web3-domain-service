@@ -1,5 +1,6 @@
 import { Database } from "lucide-react";
 import { UseProtocol } from "@/utils/functional/common/class/ipfsRecordState";
+import { useTranslation } from "react-i18next";
 
 interface PreviewSelectorProps {
     preview: string;
@@ -14,10 +15,12 @@ const PreviewSelector: React.FC<PreviewSelectorProps> = ({
     onPreviewChange,
     onPreviewTypeChange,
 }) => {
+    const { t } = useTranslation();
+    
     return (
         <div className="space-y-4 mb-6">
             <div className="space-y-2">
-                <label className="text-[11px] md:text-sm font-bold text-gray-500 uppercase tracking-wider">选择协议类型</label>
+                <label className="text-[11px] md:text-sm font-bold text-gray-500 uppercase tracking-wider">{t("selectProtocolType")}</label>
                 <div className="flex p-1 bg-white/5 rounded-xl border border-white/5 w-fit">
                     {Object.values(UseProtocol).map(p => (
                         <button
@@ -32,7 +35,7 @@ const PreviewSelector: React.FC<PreviewSelectorProps> = ({
             </div>
             
             <div className="space-y-2">
-                <label className="text-[11px] md:text-sm font-bold text-gray-500 uppercase tracking-wider">输入CID</label>
+                <label className="text-[11px] md:text-sm font-bold text-gray-500 uppercase tracking-wider">{t("enterCID")}</label>
                 <div className="relative group">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#B4FC75]">
                         <Database size={18} />
@@ -42,15 +45,15 @@ const PreviewSelector: React.FC<PreviewSelectorProps> = ({
                         value={preview}
                         onChange={(e) => onPreviewChange(e.target.value)}
                         className="w-full bg-white/5 border border-white/10 rounded-xl py-3 md:py-4 pl-12 pr-4 text-sm md:text-base font-mono text-white focus:outline-none focus:border-[#B4FC75]/50"
-                        placeholder={previewType === UseProtocol.IPFS ? "输入 Qm... 或 ba..." : 
-                                   previewType === UseProtocol.IPNS ? "输入 IPNS ID" : 
-                                   "输入 Tor 地址"}
+                        placeholder={previewType === UseProtocol.IPFS ? t("enterIpfsCidPlaceholder") : 
+                                   previewType === UseProtocol.IPNS ? t("enterIpnsIdPlaceholder") : 
+                                   t("enterTorAddressPlaceholder")}
                     />
                 </div>
                 <p className="text-[10px] text-gray-500 mt-1">
-                    {previewType === UseProtocol.IPFS ? "IPFS CID (例如: QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco)" :
-                     previewType === UseProtocol.IPNS ? "IPNS 名称 (例如: k51qzi5uqu5dlvj2baxnqndepeb86cbk3ng7n3i46uzyxzyqj2xjonzllnv0v8)" :
-                     "Tor 地址 (例如: http://example.onion)"}
+                    {previewType === UseProtocol.IPFS ? t("ipfsCidExample") :
+                     previewType === UseProtocol.IPNS ? t("ipnsExample") :
+                     t("torAddressExample")}
                 </p>
             </div>
         </div>

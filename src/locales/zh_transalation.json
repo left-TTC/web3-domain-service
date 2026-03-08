@@ -1,5 +1,4 @@
 {
-    "Docus": "文档",
     "Home": "主页",
     "Marketplace": "推荐",
     "buyNow": "立即购买",
@@ -214,5 +213,26 @@
     "joinUsingMyInviteLink": "使用我的邀请链接购买域名",
     "alreadyInstalledKilo": "已经安装了 Kilo？",
     "openDirectly": "直接打开",
-    "earlyUsersGetBiggestAdvantage": "早期用户获得最大优势！"
+    "earlyUsersGetBiggestAdvantage": "早期用户获得最大优势！",
+    "referrer": "推荐人",
+    "viewReferralPolicy": "查看推荐政策",
+    "verified": "已验证",
+    "verify": "验证",
+    "referrerValid": "推荐人有效",
+    "invalidReferrerAddress": "无效的推荐人地址",
+    "chooseDownloadMethod": "选择下载方式",
+    "forUsersWithVPN": "有VPN",
+    "forUsersWithoutVPN": "无VPN",
+    "quickBidIncrease": "快速加价 (SOL)",
+    "selectProtocolType": "选择协议类型",
+    "enterCID": "输入 CID",
+    "enterIpfsCidPlaceholder": "输入 Qm... 或 ba...",
+    "enterIpnsIdPlaceholder": "输入 IPNS ID",
+    "enterTorAddressPlaceholder": "输入 Tor 地址",
+    "ipfsCidExample": "IPFS CID (例如: QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco)",
+    "ipnsExample": "IPNS 名称 (例如: k51qzi5uqu5dlvj2baxnqndepeb86cbk3ng7n3i46uzyxzyqj2xjonzllnv0v8)",
+    "torAddressExample": "Tor 地址 (例如: http://example.onion)",
+    "startAuctionHeader": "发起拍卖",
+    "settlementHeader": "结算",
+    "transactionSettlementHeader": "交易结算"
 }

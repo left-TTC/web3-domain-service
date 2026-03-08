@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface CountdownTimer2Props {
     targetTimestamp: number;
@@ -6,6 +7,9 @@ interface CountdownTimer2Props {
 }
 
 const CountdownTimer2: React.FC<CountdownTimer2Props> = ({ targetTimestamp, onFinish }) => {
+
+    const {t} = useTranslation()
+
     const [secondsLeft, setSecondsLeft] = useState(() => {
         const now = Date.now();
         const diff = targetTimestamp > 1e12 ? targetTimestamp - now : targetTimestamp * 1000 - now;
@@ -40,7 +44,7 @@ const CountdownTimer2: React.FC<CountdownTimer2Props> = ({ targetTimestamp, onFi
 
     return (
         <div className="text-xs text-gray-500 font-mono mt-1 flex items-center gap-2">
-            <h3 className='font-normal hidden sm:flex'>剩余时间:</h3> <span className="text-white">{formatTime(secondsLeft)}</span>
+            <h3 className='font-normal hidden sm:flex'>{t("remainTime")}</h3> <span className="text-white">{formatTime(secondsLeft)}</span>
         </div>
     );
 };

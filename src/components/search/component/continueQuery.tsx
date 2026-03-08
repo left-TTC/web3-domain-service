@@ -1,7 +1,9 @@
+import { useSmallInfo } from "@/components/common/show/smallInfo";
 import { useReferrer } from "@/provider/referrerProvider.tsx/referrerProvider";
 import { useRootDomain } from "@/provider/rootDomainEnviroment/rootDomainEnviromentProvider";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { SearchDomainResult } from "@/utils/functional/domain/getSearchDomainState";
+import { ifDomainLegal } from "@/utils/functional/domain/ifDomainLegal";
 import { Search } from "lucide-react"
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -20,6 +22,7 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
 
     const {t} = useTranslation()
     const {referrer} = useReferrer() 
+    const smallInfo = useSmallInfo()
     const inputRef = useRef<HTMLInputElement>(null);
 
     const navigate = useNavigate();
@@ -50,14 +53,16 @@ const ContinueQuery: React.FC<ContinueQueryProps> = ({
     const clickQueryDomain = () => {
         if(searchTerm === "") return;
 
-        setResultState(SearchDomainResult.loading)
         {() => {}}
         let queryingDomain
-        if(searchTerm.includes(".")){
-            queryingDomain = searchTerm;
-        }else{
+        if(ifDomainLegal(searchTerm)){
             queryingDomain = searchTerm + "." + activeRootDomain;
+        }else{
+            smallInfo.showToast({type:'error', message: "域名格式错误，不能大写，不能有空格，不能使用其他语言"})
+            return
         }
+
+        setResultState(SearchDomainResult.loading)
 
         if(referrer){
             navigate(`/search?q=${encodeURIComponent(queryingDomain)}&r=${referrer}`);
