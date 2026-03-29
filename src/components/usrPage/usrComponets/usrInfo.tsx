@@ -1,4 +1,4 @@
-import { Globe, Share2, TrendingUp, User, Wallet } from "lucide-react"
+import { Globe, Share2, TrendingUp, Unplug, User, Wallet } from "lucide-react"
 import { UsrStateCard } from "./index/statCard";
 import type { PublicKey } from "@solana/web3.js";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { cutString } from "@/utils/functional/common/cutString";
 import WithdrawModal from "@/components/settle/withdrawModel";
 import { useTranslation } from "react-i18next";
 import InviteChooser from "./index/inviteChooser";
+import InactiveAccountPlaceholder from "./index/InactiveAccountPlaceholder";
 
 
 const primaryColor = '#B4FC75'; 
@@ -52,17 +53,27 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
                     <User size={ifMd? 40:20} style={{ color: primaryColor }} />
                     {ifMd? checkUsr?.toBase58() : (checkUsr? cutString(checkUsr.toBase58(), 5, 5, "...") : t("loading"))}
                 </div>
-                <div className="flex items-center text-[11px] md:text-sm font-mono text-gray-300 bg-[#111] px-4 py-2 rounded-lg border border-white/10">
-                    <Wallet size={16} className="mr-2" />
-                    {t("walletAddress")}
-                </div>
+                {usrProfit? (
+                    <div className="flex items-center text-[11px] md:text-sm font-mono text-gray-300 bg-[#111] px-4 py-2 rounded-lg border border-white/10">
+                        <Wallet size={16} className="mr-2" />
+                        {t("walletAddress")}
+                    </div>
+                ):(
+                    <div className="cursor-pointer flex items-center text-[11px] md:text-sm font-mono text-gray-300 bg-[#111] px-4 py-2 rounded-lg border border-orange-400">
+                        <Unplug size={16} className="mr-2" />
+                        {t("clickToActivate")}
+                    </div>
+                )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-6">
-                <UsrStateCard canClink={false} icon={Globe} label={t("ownedDomains")} value={usrDomains.length} />
-                <UsrStateCard canClink={!ifCheckingOtherUsr} icon={TrendingUp} label={t("earnings")} value={profitValue} extraValue={profitExtraValue} clinck={() => openWithDrawPage()}/>
-                <UsrStateCard canClink={!ifCheckingOtherUsr} icon={Share2} label={t("promotion")} value={t("getMoreEarnings")} clinck={() => setShare(true)} />
-            </div>
+            {usrProfit ?
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-6">
+                    <UsrStateCard canClink={false} icon={Globe} label={t("ownedDomains")} value={usrDomains.length} />
+                    <UsrStateCard canClink={!ifCheckingOtherUsr} icon={TrendingUp} label={t("earnings")} value={profitValue} extraValue={profitExtraValue} clinck={() => openWithDrawPage()}/>
+                    <UsrStateCard canClink={!ifCheckingOtherUsr} icon={Share2} label={t("promotion")} value={t("getMoreEarnings")} clinck={() => setShare(true)} />
+                </div> :
+                <InactiveAccountPlaceholder />
+            }
 
             {openWithDraw &&
                 <WithdrawModal 

@@ -41,18 +41,20 @@ export default function UsrIndex(
                     ifCheckingOtherUsr={ifCheckingOtherUsr}
                     usrProfit={usrProfit}
                 />
-                <UsrManage
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                    usrDomains={usrDomains}
-                    recordMap={recordMap}
-                    allAuctionName={allAuctionName}
-                    ifLoadedAuctionState={ifAuctionFromRpc}
-                    auctionState={auctionState}
-                    searchKey={useUsr}
-                    domainStateMap={domainStateMap}
-                    openDomainQueryPage={openDomainQueryPage}
-                />
+                {usrProfit && 
+                    <UsrManage
+                        activeTab={activeTab}
+                        setActiveTab={setActiveTab}
+                        usrDomains={usrDomains}
+                        recordMap={recordMap}
+                        allAuctionName={allAuctionName}
+                        ifLoadedAuctionState={ifAuctionFromRpc}
+                        auctionState={auctionState}
+                        searchKey={useUsr}
+                        domainStateMap={domainStateMap}
+                        openDomainQueryPage={openDomainQueryPage}
+                    />
+                }
             </main>
 
             <footer className="max-w-7xl text-[10px] md:text-[15px] mx-auto px-6 mt-20 border-t border-white/10 pt-8 text-gray-400 text-center text-sm font-normal">

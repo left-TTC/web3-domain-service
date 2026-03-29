@@ -234,5 +234,15 @@
     "torAddressExample": "Tor 地址 (例如: http://example.onion)",
     "startAuctionHeader": "发起拍卖",
     "settlementHeader": "结算",
-    "transactionSettlementHeader": "交易结算"
+    "transactionSettlementHeader": "交易结算",
+    "clickToActivate": "点击激活",
+    "accountNotActivated": "账号未激活",
+    "accountNotActivatedDescription": "您的账号需要激活才能开始赚取奖励、管理域名和访问所有功能。",
+    "connectWallet": "连接钱包",
+    "connectWalletDescription": "连接您的 Solana 钱包开始使用",
+    "activateAccount": "激活账号",
+    "activateAccountDescription": "点击激活按钮初始化您的账号",
+    "startEarning": "开始赚取",
+    "startEarningDescription": "开始从域名注册中赚取奖励",
+    "activationNote": "账号激活需要少量 SOL 存款用于链上存储"
 }

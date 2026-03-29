@@ -26,7 +26,6 @@ const DownLoadContent = () => {
             isAvailable: true, 
             desc: t("windowsDesc"), 
             githubLink: "https://github.com/left-TTC/kilo-browser/releases/download/dev/Kilo.Installer.exe",
-            ipfsLink: "https://ipfs.io/ipfs/QmExampleWindowsInstaller" // Placeholder IPFS link
         },
         { 
             name: "Android", 
@@ -129,20 +128,24 @@ const DownLoadContent = () => {
                                                 {t("chooseDownloadMethod")}
                                             </div>
                                             <div className="text-[12px] md:text-[16px] w-full py-4 transition-all flex items-center justify-between gap-2">
-                                                <button 
-                                                    onClick={() => p.githubLink && handleLinkClick(p.githubLink)}
-                                                    className="text-[11px] px-2 md:text-[14px] w-full py-5 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
-                                                >
-                                                    <Github size={16} /> 
-                                                    <span className="text-[10px] text-blue-300 ml-auto">{t("forUsersWithVPN")}</span>
-                                                </button>
-                                                <button 
-                                                    onClick={() => p.ipfsLink && handleLinkClick(p.ipfsLink)}
-                                                    className="text-[11px] px-2 md:text-[14px] w-full py-5 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
-                                                >
-                                                    <HardDrive size={16} /> 
-                                                    <span className="text-[10px] text-purple-300 ml-auto">{t("forUsersWithoutVPN")}</span>
-                                                </button>
+                                                {p.githubLink &&
+                                                    <button 
+                                                        onClick={() => p.githubLink && handleLinkClick(p.githubLink)}
+                                                        className="text-[11px] px-2 md:text-[14px] w-full py-5 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
+                                                    >
+                                                        <Github size={16} /> 
+                                                        <span className="text-[10px] text-blue-300 ml-auto">{t("forUsersWithVPN")}</span>
+                                                    </button>
+                                                }
+                                                {p.ipfsLink && 
+                                                    <button 
+                                                        onClick={() => p.ipfsLink && handleLinkClick(p.ipfsLink)}
+                                                        className="text-[11px] px-2 md:text-[14px] w-full py-5 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
+                                                    >
+                                                        <HardDrive size={16} /> 
+                                                        <span className="text-[10px] text-purple-300 ml-auto">{t("forUsersWithoutVPN")}</span>
+                                                    </button>
+                                                }
                                             </div>
                                         </>
                                     )}

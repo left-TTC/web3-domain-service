@@ -234,5 +234,15 @@
     "transactionSettlementHeader": "Transaction Settlement",
     "chooseDownloadMethod": "Choose Download Method",
     "forUsersWithVPN": "with VPN",
-    "forUsersWithoutVPN": "without VPN"
+    "forUsersWithoutVPN": "without VPN",
+    "clickToActivate": "Click to activate",
+    "accountNotActivated": "Account Not Activated",
+    "accountNotActivatedDescription": "Your account needs to be activated to start earning rewards, managing domains, and accessing all features.",
+    "connectWallet": "Connect Wallet",
+    "connectWalletDescription": "Connect your Solana wallet to get started",
+    "activateAccount": "Activate Account",
+    "activateAccountDescription": "Click the activate button to initialize your account",
+    "startEarning": "Start Earning",
+    "startEarningDescription": "Begin earning rewards from domain registrations",
+    "activationNote": "Account activation requires a small SOL deposit for on-chain storage"
 }
