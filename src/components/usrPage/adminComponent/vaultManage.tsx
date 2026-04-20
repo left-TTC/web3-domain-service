@@ -39,16 +39,6 @@ const VaultManage = () => {
                     </h2>
                     <span className="text-[#B4FC75] font-bold text-xl mb-2">SOL</span>
                 </div>
-                <div className="mt-8 flex gap-4">
-                    <div className="bg-white/5 rounded-2xl p-4 flex-1 border border-white/5">
-                        <p className="text-[10px] text-gray-500 uppercase font-black mb-1">24H Change</p>
-                        <p className="text-[#B4FC75] font-bold">+12.5%</p>
-                    </div>
-                    <div className="bg-white/5 rounded-2xl p-4 flex-1 border border-white/5">
-                        <p className="text-[10px] text-gray-500 uppercase font-black mb-1">Status</p>
-                        <p className="text-blue-400 font-bold">Protected</p>
-                    </div>
-                </div>
             </div>
         </div>
     )

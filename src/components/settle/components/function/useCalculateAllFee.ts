@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { SettleType } from "../../settlement";
 import type { PublicKey } from "@solana/web3.js";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { REFFERRER_RECORD_LENGTH } from "@/utils/functional/common/class/refferrerRecordState";
+import { REFFERRER_RECORD_LENGTH } from "@/utils/functional/common/class/RefferrerRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { useGlobalModal } from "@/components/common/show/info";
-import { ADVANCED_STORAGE, CREATE_ROOT_TARGET } from "@/utils/constants/constants";
+import { ADVANCED_STORAGE, CREATE_ROOT_TARGET, returnProjectVault } from "@/utils/constants/constants";
 import { NAME_RECORD_LENGTH } from "@/utils/functional/common/class/nameRecordState";
 import { useTranslation } from "react-i18next";
 
@@ -39,6 +39,8 @@ export function useCalculateAllFees(
 
     const [featched, setFeached] = useState(false)
     const [calculating, setCalculating] = useState(true)
+
+    console.log("vault: ", returnProjectVault().toBase58())
 
     useEffect(() => {
         (async () => {
@@ -127,6 +129,14 @@ export function useCalculateAllFees(
                     break
                 
                 case SettleType.SETTLE:
+                    break
+
+                case SettleType.INIT:
+                    const refferrerStateAccountFee = (await connection.getMinimumBalanceForRentExemption(REFFERRER_RECORD_LENGTH))
+                    feeItems.push({
+                        label: "refferrer rent", amount: (refferrerStateAccountFee/1e9).toFixed(4), info: t('referrerRentInfo')
+                    })
+                    total += refferrerStateAccountFee;
                     break
             }
             

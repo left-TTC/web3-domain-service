@@ -17,11 +17,12 @@ interface UsrIndexProps{
     ifAuctionFromRpc: boolean,
     auctionState: NameAuctionState[],
     openDomainQueryPage: () => void;
+    inited: boolean
 }
 
 export default function UsrIndex(
     { useUsr, usrDomains, ifCheckingOtherUsr, recordMap, domainStateMap, usrProfit, allAuctionName,
-        ifAuctionFromRpc, auctionState, openDomainQueryPage
+        ifAuctionFromRpc, auctionState, openDomainQueryPage, inited
     }: UsrIndexProps 
 ) {
     
@@ -40,8 +41,9 @@ export default function UsrIndex(
                     usrDomains={usrDomains}
                     ifCheckingOtherUsr={ifCheckingOtherUsr}
                     usrProfit={usrProfit}
+                    inited={inited}
                 />
-                {usrProfit && 
+                {inited && 
                     <UsrManage
                         activeTab={activeTab}
                         setActiveTab={setActiveTab}

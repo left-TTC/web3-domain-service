@@ -26,6 +26,7 @@ export enum SettleType {
     SETTLE,
     INCREASE,
     PREVIEW,
+    INIT,
 }
 
 export interface DomainSettlementConfirmPayload {
@@ -145,7 +146,7 @@ export default function DomainSettlementModal({
                         title={opearationName}
                         type={actionType}
                     />
-                    {(actionType===SettleType.STARTNAME || actionType===SettleType.INCREASE) &&
+                    {(actionType===SettleType.STARTNAME || actionType===SettleType.INCREASE || actionType===SettleType.INIT) &&
                         <RefferrerVerify 
                             setRefferrerKey={setRefferrerKey}
                             setReffererValid={setIfRefferrerValid}
@@ -208,7 +209,7 @@ export default function DomainSettlementModal({
                                 text-[11px] md:text-[15px] 
                                 col-span-2 py-3.5 rounded-xl font-bold text-black bg-[#B4FC75] transition-all 
                                 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed
-                                ${!ableToConfirm ? "bg-gray-400  cursor-default" : "hover:opacity-90"}
+                                ${ableToConfirm ? "bg-gray-400  cursor-default" : "hover:opacity-90"}
                                 ${calculating? "pointer-events-none cursor-default bg-blue-500":""}
                             `}
                         >

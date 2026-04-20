@@ -20,7 +20,7 @@ const DomainHero: React.FC<DomainHeroProps> = ({
             case SettleType.CREATEROOT:
                 return "Target Domain";
             default:
-                return "Target Domain";
+                return "";
         }
     }
 

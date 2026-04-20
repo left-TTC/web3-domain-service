@@ -1,4 +1,4 @@
-import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
+import { RefferrerRecordState } from "@/utils/functional/common/class/RefferrerRecordState";
 import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
 import { useConnection } from "@solana/wallet-adapter-react";
 import type { PublicKey } from "@solana/web3.js";
@@ -13,6 +13,7 @@ export function useUsrRefferrerChain(
     const {connection} = useConnection()
 
     const [usrProfit, setUsrProfit] = useState<number | null>(null)
+    const [inited, setInited] = useState(false)
     
     useEffect(() => {
         const fetchTest = async() => {
@@ -27,6 +28,7 @@ export function useUsrRefferrerChain(
 
                     console.log(checkingUsr.toBase58(), "'s refferrer is", state.refferrer.toBase58())
 
+                    setInited(true)
                     setUsrProfit(state.profit.toNumber())
                 }
             }
@@ -36,6 +38,6 @@ export function useUsrRefferrerChain(
     }, [checkingUsr])
 
     return {
-        usrProfit
+        usrProfit, inited
     }
 }

@@ -10,6 +10,8 @@ const DomainUsrShow = () => {
     const { vaultState } = useRootDomain();
     const primaryColor = '#B4FC75'; 
 
+    console.log(vaultState)
+
     return (
         <section className="bg-[#111] mt-20 md:mt-50 border border-white/10 rounded-3xl p-6 sm:p-10 md:p-16">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-12">
@@ -40,6 +42,7 @@ const DomainUsrShow = () => {
                     <h2 className="text-[12px] md:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
                         <Code size={20} style={{ color: primaryColor }} /> {t("coreData")}
                     </h2>
+                    <StateCard label={t("totalRegisteredDomains")} value={`${vaultState? vaultState.usrCount:"Loading"}`} color={primaryColor} />
                     <StateCard label={t("totalRegisteredDomains")} value={`${vaultState? vaultState.domainCount:"Loading"}`} color={primaryColor} />
                     <StateCard label={t("highestTransactionPrice")} value={`${vaultState? `${(vaultState.topDomains[0].value.toNumber()/1e9).toFixed(2)} SOL`:"Loading"}`} color={primaryColor} />
                 </div>

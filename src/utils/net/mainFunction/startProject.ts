@@ -20,7 +20,7 @@ export async function startProject(
     }
 
     try{
-        const start = "kilo"
+        const start = "rust"
         const startProjectTransaction = new Transaction()
 
         const web3NameAccountKey = getNameAccountKey(

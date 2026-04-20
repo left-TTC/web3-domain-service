@@ -75,7 +75,7 @@ export function User({
     )
 
     const fetchedUsrChain = useRef(false)
-    const {usrProfit} = useUsrRefferrerChain(searchKey, fetchedUsrChain)
+    const {usrProfit, inited} = useUsrRefferrerChain(searchKey, fetchedUsrChain)
 
     const isDataLoaded = searchKey && 
                         usrDomains !== undefined && 
@@ -97,6 +97,7 @@ export function User({
                     ifAuctionFromRpc={ifFromRpc}
                     auctionState={auctionState}
                     openDomainQueryPage={openDomainQueryPage}
+                    inited={inited}
                 />
             ) : (
                 <LoadSkeleton />

@@ -9,6 +9,7 @@ export enum Web3DomainRegistrarInstruction {
     Extract,
     StartProject,
     ExtractAdmin,
+    InitAccount,
 }
 
 export enum Web3NameSeriviceInstruction {

@@ -1,7 +1,7 @@
 import { PublicKey, type AccountInfo } from "@solana/web3.js";
 import { Numberu64 } from "../number/number64";
 
-const VAULT_RECORD_LENGTH: number = 246; // 1 + 4 + 1 + (40 * 6) = 246 bytes
+const VAULT_RECORD_LENGTH: number = 249; // 4 + 4 + 1 + (40 * 6) = 249 bytes
 
 export class ValuableDomain {
     domain: PublicKey;  // 32 bytes
@@ -20,7 +20,7 @@ export class ValuableDomain {
 }
 
 export class VaultRecord {
-    aProportion: number;           // u8 - 1 byte
+    usrCount: number;              // u32 - 4 bytes
     domainCount: number;           // u32 - 4 bytes
     topLen: number;                // u8 - 1 byte
     topDomains: ValuableDomain[];  // [ValuableDomain; 6] - 240 bytes
@@ -32,18 +32,18 @@ export class VaultRecord {
             throw new Error("Invalid VaultRecord account");
         }
 
-        // Parse a_proportion (u8) - 1 byte
-        this.aProportion = accountData.readUInt8(0);
+        // Parse usr_count (u32) - 4 bytes
+        this.usrCount = accountData.readUInt32LE(0);
 
         // Parse domain_count (u32) - 4 bytes
-        this.domainCount = accountData.readUInt32LE(1);
+        this.domainCount = accountData.readUInt32LE(4);
 
         // Parse top_len (u8) - 1 byte
-        this.topLen = accountData.readUInt8(5);
+        this.topLen = accountData.readUInt8(8);
 
         // Parse top_domains array - 6 * 40 bytes = 240 bytes
         this.topDomains = [];
-        let offset = 6; // Start after a_proportion (1) + domain_count (4) + top_len (1)
+        let offset = 9; // Start after usr_count (4) + domain_count (4) + top_len (1)
         
         for (let i = 0; i < 6; i++) {
             const valuableDomain = ValuableDomain.fromBuffer(accountData, offset);
@@ -56,13 +56,13 @@ export class VaultRecord {
 // For testing
 export function createMockVaultRecord(
     overrides?: Partial<{
-        a_proportion: number;
+        usr_count: number;
         domain_count: number;
         top_len: number;
         top_domains: ValuableDomain[];
     }>
 ): VaultRecord {
-    const a_proportion = overrides?.a_proportion ?? 0;
+    const usr_count = overrides?.usr_count ?? 0;
     const domain_count = overrides?.domain_count ?? 0;
     const top_len = overrides?.top_len ?? 0;
     const top_domains = overrides?.top_domains ?? Array(6).fill(
@@ -75,17 +75,17 @@ export function createMockVaultRecord(
 
     const buffer = Buffer.alloc(VAULT_RECORD_LENGTH);
 
-    // Write a_proportion (u8) - 1 byte
-    buffer.writeUInt8(a_proportion, 0);
+    // Write usr_count (u32) - 4 bytes
+    buffer.writeUInt32LE(usr_count, 0);
 
     // Write domain_count (u32) - 4 bytes
-    buffer.writeUInt32LE(domain_count, 1);
+    buffer.writeUInt32LE(domain_count, 4);
 
     // Write top_len (u8) - 1 byte
-    buffer.writeUInt8(top_len, 5);
+    buffer.writeUInt8(top_len, 8);
 
     // Write top_domains array - 6 * 40 bytes = 240 bytes
-    let offset = 6;
+    let offset = 9;
     for (const domain of top_domains) {
         // Write domain (PublicKey) - 32 bytes
         domain.domain.toBuffer().copy(buffer, offset);

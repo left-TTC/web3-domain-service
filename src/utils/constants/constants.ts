@@ -14,7 +14,7 @@ export const WEB3_RECORDS_ID = new PublicKey(
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(
-    "FebjdrGRLHocUXADP5QYPFfEkbYtRHMyobAL6wwkQe2d"
+    "GMy1ikF3VFf4ffGq2tzNP3R2dc2mQij3fjVZVH7cFxZN"
 );
 
 export const ADMIN = new PublicKey(

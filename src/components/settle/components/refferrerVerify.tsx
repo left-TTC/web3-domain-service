@@ -5,7 +5,7 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
 
 import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
-import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
+import { RefferrerRecordState } from "@/utils/functional/common/class/RefferrerRecordState";
 import { ifStringPubkeyValid } from "@/utils/functional/common/ifStringPubkeyValid";
 import { checkRefferrerValid } from "@/utils/functional/common/net/checkRefferrerValid";
 import { Users, Loader2, CheckCircle2, AlertCircle } from "lucide-react";

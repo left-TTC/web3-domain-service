@@ -1,6 +1,6 @@
 import { CENTRAL_STATE_REGISTER, returnProjectVault, WEB3_NAME_SERVICE_ID } from "@/utils/constants/constants";
 import { NameRecordState } from "@/utils/functional/common/class/nameRecordState";
-import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
+import { RefferrerRecordState } from "@/utils/functional/common/class/RefferrerRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { createSettleDomainInstruction, type CreateSettleDomainInstructionAccounts } from "@/utils/functional/instructions/createInstruction/registra/createSettleDomainInstruction";
 import { getHashedName } from "@/utils/functional/solana/getHashedName";

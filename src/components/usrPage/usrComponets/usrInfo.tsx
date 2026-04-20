@@ -7,6 +7,11 @@ import WithdrawModal from "@/components/settle/withdrawModel";
 import { useTranslation } from "react-i18next";
 import InviteChooser from "./index/inviteChooser";
 import InactiveAccountPlaceholder from "./index/InactiveAccountPlaceholder";
+import DomainSettlementModal, { SettleType, type DomainSettlementConfirmPayload } from "@/components/settle/settlement";
+import { TransactionState } from "@/utils/functional/instructions/transactionState";
+import { initAccount } from "./index/function/initAccount";
+import { useWalletEnv } from "@/provider/walletEnviroment/useWalletEnv";
+import { useConnection } from "@solana/wallet-adapter-react";
 
 
 const primaryColor = '#B4FC75'; 
@@ -16,12 +21,15 @@ interface UsrInfoProps {
     usrDomains: string[], 
     ifCheckingOtherUsr: boolean,
     usrProfit: number | null,
+    inited: boolean
 }
 
 const UsrInfo: React.FC<UsrInfoProps> = ({
-    checkUsr, usrDomains, ifCheckingOtherUsr, usrProfit, 
+    checkUsr, usrDomains, ifCheckingOtherUsr, usrProfit, inited
 }) => {
     const { t } = useTranslation();
+    const {signTransaction, publicKey: usr} = useWalletEnv()
+    const {connection} = useConnection()
 
     const [profitValue, setProfitValue] = useState("")
     const [profitExtraValue, setProfitExtraValue] = useState("")
@@ -45,6 +53,21 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
     }
 
     const [share, setShare] = useState(false)
+    const [openInitModel, setOpenInitModel] = useState(false)
+    const clickInitAccount = async(
+        payload: DomainSettlementConfirmPayload
+    ): Promise<TransactionState> => {
+        const {refferrerKey} = payload
+
+        console.log("try create referrer account")
+        return await initAccount(
+            signTransaction, usr, connection, refferrerKey
+        )
+    }
+
+    const openInit = () => {
+        setOpenInitModel(true)
+    }
 
     return(
         <section className="animate-fade-in-down">
@@ -53,26 +76,31 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
                     <User size={ifMd? 40:20} style={{ color: primaryColor }} />
                     {ifMd? checkUsr?.toBase58() : (checkUsr? cutString(checkUsr.toBase58(), 5, 5, "...") : t("loading"))}
                 </div>
-                {usrProfit? (
+                {inited? (
                     <div className="flex items-center text-[11px] md:text-sm font-mono text-gray-300 bg-[#111] px-4 py-2 rounded-lg border border-white/10">
                         <Wallet size={16} className="mr-2" />
                         {t("walletAddress")}
                     </div>
                 ):(
-                    <div className="cursor-pointer flex items-center text-[11px] md:text-sm font-mono text-gray-300 bg-[#111] px-4 py-2 rounded-lg border border-orange-400">
+                    <div
+                        onClick={openInit} 
+                        className="cursor-pointer flex items-center text-[11px] md:text-sm font-mono text-gray-300 bg-[#111] px-4 py-2 rounded-lg border border-orange-400"
+                    >
                         <Unplug size={16} className="mr-2" />
                         {t("clickToActivate")}
                     </div>
                 )}
             </div>
 
-            {usrProfit ?
+            {inited ?
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-6">
                     <UsrStateCard canClink={false} icon={Globe} label={t("ownedDomains")} value={usrDomains.length} />
                     <UsrStateCard canClink={!ifCheckingOtherUsr} icon={TrendingUp} label={t("earnings")} value={profitValue} extraValue={profitExtraValue} clinck={() => openWithDrawPage()}/>
                     <UsrStateCard canClink={!ifCheckingOtherUsr} icon={Share2} label={t("promotion")} value={t("getMoreEarnings")} clinck={() => setShare(true)} />
                 </div> :
-                <InactiveAccountPlaceholder />
+                <InactiveAccountPlaceholder 
+                    onActivateClick={openInit}
+                />
             }
 
             {openWithDraw &&
@@ -83,6 +111,15 @@ const UsrInfo: React.FC<UsrInfoProps> = ({
             }
             {share &&
                 <InviteChooser onClose={() => setShare(false)}/>
+            }
+            {openInitModel && 
+                <DomainSettlementModal 
+                    opearationName="Init Account"
+                    actionType={SettleType.INIT}
+                    basePrice={0}
+                    onClose={() => setOpenInitModel(false)}
+                    onConfirm={clickInitAccount}
+                />
             }
         </section>
     )
