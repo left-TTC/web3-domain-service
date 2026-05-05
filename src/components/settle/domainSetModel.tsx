@@ -99,7 +99,7 @@ const DomainSetModel: React.FC<DomainSetModelProps> = ({
         }
     };
 
-    const { fees, totalFee, calculating } = useCalculateSetFees(type, usr, rootDomains, domainName, onClose, newValue as string, lastVaule)
+    const { fees, totalFee, calculating } = useCalculateSetFees(type, rootDomains, domainName, onClose, newValue as string, lastVaule)
 
     return (
         <div className="fixed inset-0 z-99 flex items-center justify-center p-8 md:p-4 bg-black/90 backdrop-blur-md animate-fade-in">

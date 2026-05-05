@@ -100,7 +100,7 @@ export default function DomainSettlementModal({
 
     // calculate all the fees
     const {fees, totalFee, calculating} = useCalculateAllFees(
-        actionType, basePrice, opearationName, usr, rootDomains, currentPrice, whetherCreateReferrer, ifRefferrerValid, onClose
+        actionType, basePrice, opearationName, usr, rootDomains, currentPrice, whetherCreateReferrer, ifRefferrerValid, onClose, preview
     )
 
     const {ableToConfirm} = useConfirm(0, calculating, actionType, ifRefferrerValid, basePrice===currentPrice)

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import type { PublicKey } from "@solana/web3.js";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { useGlobalModal } from "@/components/common/show/info";
 import { useTranslation } from "react-i18next";
@@ -12,7 +11,6 @@ import { getHashedName } from "@/utils/functional/solana/getHashedName";
 
 export function useCalculateSetFees(
     operationType: DomainSetType,
-    usr: PublicKey | null,
     rootDomain: string[] | null, 
     operationName: string,
     onClose: () => void,
@@ -41,15 +39,15 @@ export function useCalculateSetFees(
             switch(operationType){
                 case DomainSetType.Price:
                     feeItems.push({
-                        label: "租金变动", amount: "0", info: "账号结构变化，重新设置账号空间补交的租金"
+                        label: t("rentChange"), amount: "0", info: t("rentChangeInfo")
                     })
                     break
                 case DomainSetType.Cid:
                     const domainAndRoot = cutDomain(operationName)
                     if(!rootDomain.includes(domainAndRoot[1])){
                         info.showModal({
-                            title: "Error happend",
-                            content: `use fault root Domain, ${domainAndRoot[1]} is not in ${rootDomain}`,
+                            title: t("errorOccurred"),
+                            content: `${t("useFaultRootDomain")} ${domainAndRoot[1]} ${t("isNotIn")} ${rootDomain}`,
                             type: "error",
                             onCancel: onClose, onConfirm: onClose
                         })
@@ -62,7 +60,7 @@ export function useCalculateSetFees(
                     if(!nameRecordInfo){
                         const rent = await connection.getMinimumBalanceForRentExemption(170 + 4 + record!.length)
                         feeItems.push({
-                            label: "账号租金", amount: (rent/1e9).toFixed(4), info: t('domainRentInfo')
+                            label: t("accountRent"), amount: (rent/1e9).toFixed(4), info: t('domainRentInfo')
                         })
 
                         total += rent
@@ -75,7 +73,7 @@ export function useCalculateSetFees(
                             total += rent
                         }
                         feeItems.push({
-                            label: "租金变动", amount: add, info: "账号结构变化，重新设置账号空间补交的租金"
+                            label: t("rentChange"), amount: add, info: t("rentChangeInfo")
                         })
                     }
             }
@@ -86,7 +84,7 @@ export function useCalculateSetFees(
             setFees(feeItems)
             setCalculating(false)
         })()
-    }, [usr, rootDomain])
+    }, [rootDomain])
 
     
     return {totalFee, fees, calculating}

@@ -10,7 +10,7 @@ export const WEB3_NAME_SERVICE_ID = new PublicKey(
 );
 
 export const WEB3_RECORDS_ID = new PublicKey(
-    "HrCpvHz4VzcRuezVyiLnEShh6ECQ1ALuXq6Vkg9xeuz9"
+    "FZrXBymNTmiPFDBsrh6qQPpksmsXJuubq48Zqr3x4y4Z"
 );
 
 export const WEB3_REGISTER_ID = new PublicKey(

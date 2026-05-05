@@ -4,12 +4,14 @@ import AuctionHistory from './domainRecommend/auctionHistory';
 import { useEffect, useState } from 'react';
 import { createMockState, NameAuctionState } from '@/utils/functional/common/class/nameAuctionState';
 import { Terminal } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function DomainRecommend() {
+    const { t } = useTranslation();
   
     const [hotStates, setHotStates] = useState<NameAuctionState[]>([])
     const [hotItemsName, setHotItemsName] = useState<string[]>([])
-    const [isUnderDevelopment, _] = useState(true) // 标志位：true表示显示开发中
+    const [isUnderDevelopment, _] = useState(true)
 
     useEffect(() => {
         setHotItemsName(["solana.sol", "solana.sol", "solana.sol", "solana.sol", "solana.sol", "solana.sol", "solana.sol", "solana.sol"])
@@ -17,7 +19,6 @@ export default function DomainRecommend() {
         setHotStates(new Array(8).fill(mockState));
     }, [])
 
-    // 开发中页面
     const developmentPage = (
         <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#B4FC75] selection:text-black pb-24 flex flex-col items-center justify-center">
             
@@ -32,29 +33,29 @@ export default function DomainRecommend() {
                     </div>
                     
                     <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-[#B4FC75] to-white bg-clip-text text-transparent">
-                        开发中
+                        {t("underDevelopment")}
                     </h1>
                     
                     <p className="text-xl text-gray-400 max-w-2xl">
-                        域名推荐功能正在紧张开发中，敬请期待！
+                        {t("domainRecommendDeveloping")}
                     </p>
                     
                     <div className="mt-8 p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 max-w-lg">
                         <p className="text-gray-300 mb-4">
-                            我们正在构建一个强大的域名推荐系统，将为您提供：
+                            {t("buildingDomainRecommendSystem")}
                         </p>
                         <ul className="text-left text-gray-400 space-y-2">
                             <li className="flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-[#B4FC75]"></div>
-                                <span>热门域名推荐</span>
+                                <span>{t("hotDomainRecommend")}</span>
                             </li>
                             <li className="flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-[#B4FC75]"></div>
-                                <span>拍卖历史记录</span>
+                                <span>{t("auctionHistoryRecord")}</span>
                             </li>
                             <li className="flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-[#B4FC75]"></div>
-                                <span>智能推荐算法</span>
+                                <span>{t("smartRecommendAlgorithm")}</span>
                             </li>
                         </ul>
                     </div>
@@ -63,16 +64,15 @@ export default function DomainRecommend() {
 
             <footer className="max-w-7xl mx-auto px-6 mt-16 sm:mt-32 border-t border-white/5 pt-12 pb-12 text-center relative z-10">
                 <div className="flex justify-center gap-8 mb-8 text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em]">
-                    <a href="#" className="hover:text-[#B4FC75] transition-colors">隐私政策</a>
-                    <a href="#" className="hover:text-[#B4FC75] transition-colors">服务条款</a>
-                    <a href="#" className="hover:text-[#B4FC75] transition-colors">数据 API</a>
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">{t("privacyPolicy")}</a>
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">{t("termsOfService")}</a>
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">{t("dataApi")}</a>
                 </div>
-                <p className="text-gray-700 text-[10px] font-mono tracking-widest uppercase">去中心化资产发现系统 © 2024 DECENTRALIZED ASSET DISCOVERY</p>
+                <p className="text-gray-700 text-[10px] font-mono tracking-widest uppercase">{t("decentralizedAssetDiscovery")}</p>
             </footer>
         </div>
     );
 
-    // 正常页面
     const normalPage = (
         <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#B4FC75] selection:text-black pb-24">
 
@@ -83,11 +83,11 @@ export default function DomainRecommend() {
 
             <footer className="max-w-7xl mx-auto px-6 mt-16 sm:mt-32 border-t border-white/5 pt-12 pb-12 text-center">
                 <div className="flex justify-center gap-8 mb-8 text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em]">
-                    <a href="#" className="hover:text-[#B4FC75] transition-colors">隐私政策</a>
-                    <a href="#" className="hover:text-[#B4FC75] transition-colors">服务条款</a>
-                    <a href="#" className="hover:text-[#B4FC75] transition-colors">数据 API</a>
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">{t("privacyPolicy")}</a>
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">{t("termsOfService")}</a>
+                    <a href="#" className="hover:text-[#B4FC75] transition-colors">{t("dataApi")}</a>
                 </div>
-                <p className="text-gray-700 text-[10px] font-mono tracking-widest uppercase">去中心化资产发现系统 © 2024 DECENTRALIZED ASSET DISCOVERY</p>
+                <p className="text-gray-700 text-[10px] font-mono tracking-widest uppercase">{t("decentralizedAssetDiscovery")}</p>
             </footer>
         </div>
     );
