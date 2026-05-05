@@ -1,4 +1,4 @@
-import { RefferrerRecordState } from "@/utils/functional/common/class/RefferrerRecordState";
+import { RefferrerRecordState } from "@/utils/functional/common/class/refferrerRecordState";
 import { getRefferrerRecordKey } from "@/utils/functional/solana/getRefferrerRocordKey";
 import { useConnection } from "@solana/wallet-adapter-react";
 import type { PublicKey } from "@solana/web3.js";

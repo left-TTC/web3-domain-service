@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { SettleType } from "../../settlement";
 import type { PublicKey } from "@solana/web3.js";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { REFFERRER_RECORD_LENGTH } from "@/utils/functional/common/class/RefferrerRecordState";
+import { REFFERRER_RECORD_LENGTH } from "@/utils/functional/common/class/refferrerRecordState";
 import { cutDomain } from "@/utils/functional/common/cutDomain";
 import { useGlobalModal } from "@/components/common/show/info";
 import { ADVANCED_STORAGE, CREATE_ROOT_TARGET } from "@/utils/constants/constants";
